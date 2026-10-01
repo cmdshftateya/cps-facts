@@ -20,7 +20,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 cd site && python3 -m http.server 8000
 ```
 
-Deploying and updating: see "Deploying and updating" in [PIPELINE.md](PIPELINE.md). The hand-downloaded CPS budget export is not in the repo; the committed `budget_units.csv` and `budget_unit_funds.csv` are built from it.
+Deploying: pushing to `main` runs the tests and deploys to Cloudflare automatically. Updating the data and the details: see "Deploying and updating" in [PIPELINE.md](PIPELINE.md). The hand-downloaded CPS budget export is not in the repo; the committed `budget_units.csv` and `budget_unit_funds.csv` are built from it.
 
 ## License
 

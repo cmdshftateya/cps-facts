@@ -89,7 +89,7 @@ Rules:
 
 ## 5. Non-functional
 
-- Static site at schools.ateya.org, served by a **Cloudflare Worker with static assets only** — no Worker script, no server-side logic. `wrangler.jsonc` points `assets.directory` at the build output (`dist/`); custom domain `schools.ateya.org` attached in Cloudflare. Plain HTML + `chicago.css` + one inline JS bundle + `data/schools.json`. No framework, no runtime fetches beyond same-origin JSON.
+- Static site at schools.ateya.org, served by a **Cloudflare Worker with static assets only** — no Worker script, no server-side logic. `wrangler.jsonc` points `assets.directory` at `site/` (committed, so a push to `main` deploys it through Cloudflare Workers Builds); custom domain `schools.ateya.org` attached in Cloudflare. Plain HTML + `chicago.css` + one inline JS bundle + `data/schools.json`. No framework, no runtime fetches beyond same-origin JSON.
 - Page weight target < 1.5 MB incl. data; first render < 1s on mid laptop.
 - Works at 360px wide; keyboard-navigable markers; color never the only encoding (legend + values in panel/table).
 - Rebuild is one command: `python build.py` (fetch → normalize → validate → render). Raw downloads cached in `raw/` with retrieval date.
