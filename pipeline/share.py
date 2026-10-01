@@ -18,8 +18,6 @@ from concurrent.futures import ProcessPoolExecutor
 from functools import lru_cache
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
-
 ROOT = Path(__file__).resolve().parent.parent
 FONTS = ROOT / "tools" / "fonts"
 SITE_URL = "https://schools.ateya.org"
@@ -33,6 +31,7 @@ W, H, X = 1200, 630, 2  # card size; drawn at X times and downsampled for anti-a
 
 @lru_cache(maxsize=None)
 def _font(name, size):
+    from PIL import Image, ImageDraw, ImageFont  # drawing only; the text helpers need no Pillow
     return ImageFont.truetype(str(FONTS / f"{name}.ttf"), round(size * X))
 
 
@@ -157,6 +156,7 @@ _BASE = {}
 
 def _base(geo):
     """Background, flag stripes and the city outline by subdistrict: the same on every card, so drawn once."""
+    from PIL import Image, ImageDraw
     key = (tuple(geo["viewbox"]), tuple(sub["d"] for sub in geo["subdistricts"]))
     if key not in _BASE:
         img = Image.new("RGB", (W * X, H * X), PAGE)
@@ -173,6 +173,7 @@ def _base(geo):
 
 
 def card_png(s, geo):
+    from PIL import Image, ImageDraw
     img = _base(geo)
     d = ImageDraw.Draw(img)
     k, ox, oy = _map_box(geo)
@@ -243,6 +244,7 @@ def page_html(s, card_version):
 
 
 def _write_one(args):
+    from PIL import Image
     s, geo, dest = args
     dest.mkdir(parents=True, exist_ok=True)
     png = dest / "card.png"
