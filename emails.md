@@ -1,4 +1,4 @@
-# Draft emails (not sent)
+# Outreach emails (sent)
 
 Recipient addresses are left blank on purpose: confirm the right office before sending.
 

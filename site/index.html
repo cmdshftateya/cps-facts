@@ -75,6 +75,29 @@
   #res button{display:block;width:100%;text-align:left;background:var(--sunk);border:0;border-bottom:var(--bay) solid var(--rule);padding:6px 8px;font-size:13px}
   #res button:hover,#res button:focus-visible{background:var(--ink);color:var(--page)}
   mark{background:var(--mark);color:inherit}
+  /* table view */
+  .views{display:flex;margin-left:auto}
+  .views button{border-right-width:0;padding:4px 12px;font-size:13px}
+  .views button:last-child{border-right-width:var(--bay)}
+  .views button[aria-pressed=true]{background:var(--ink);color:var(--page)}
+  #tablev{min-width:0;min-height:0;overflow:auto;display:none;background:var(--page)}
+  main.tbl #stage{display:none}
+  main.tbl #tablev{display:block}
+  #tablev table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+  #tablev caption{text-align:left;padding:8px 12px;color:var(--muted);font-size:12px}
+  #tablev th{position:sticky;top:0;background:var(--surface);border-bottom:var(--bay) solid var(--rule-firm);text-align:left;padding:0;z-index:1}
+  #tablev th button{width:100%;border:0;text-align:inherit;padding:7px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+  #tablev th[aria-sort=ascending] button,#tablev th[aria-sort=descending] button{color:var(--ink)}
+  #tablev th.r,#tablev td.r{text-align:right}
+  #tablev td{padding:6px 10px;border-bottom:var(--bay) solid var(--rule);white-space:nowrap}
+  #tablev td.n{white-space:normal;min-width:180px}
+  #tablev td.none{color:var(--muted)}
+  #tablev tbody tr{cursor:pointer}
+  #tablev tbody tr:hover{background:var(--sunk)}
+  #tablev tbody tr.sel{background:var(--sunk);box-shadow:inset 3px 0 0 var(--blue)}
+  #tablev tbody tr.excl{color:var(--muted)}
+  #tablev td button{border:0;padding:0;text-align:left;font-size:13px;font-weight:600;background:none}
+  #tablev td button:hover{background:none;color:var(--ink);text-decoration:underline}
   /* settings */
   #setbtn{position:fixed;right:14px;bottom:14px;width:44px;height:44px;padding:0;background:var(--surface);z-index:20;display:grid;place-items:center}
   #setbtn svg{fill:currentColor}
@@ -87,6 +110,7 @@
     main,main.open{display:flex;flex-direction:column}
     aside{border-right:0;order:2}
     #stage{height:64vh;order:1}
+    #tablev{order:1;max-height:none;overflow-x:auto}
     #legend{max-width:calc(100% - 24px)}
     #panel{position:fixed;left:0;right:0;bottom:0;max-height:60vh;border-left:0;border-top:var(--bay) solid var(--rule-firm);z-index:10}
     #setmenu{left:0;right:0;bottom:0;width:auto;max-height:70vh;border-width:var(--bay) 0 0}
@@ -95,7 +119,7 @@
 </style>
 </head>
 <body>
-<header><h1>CPS Facts</h1><span class="n" style="color:var(--terra)">Work in progress: data not yet verified with CPS or ISBE. <a href="methodology.html" style="color:inherit">Methodology and caveats</a></span><span class="n" id="count"></span><span class="n" id="asof"></span></header>
+<header><h1>CPS Facts</h1><span class="n" style="color:var(--terra)">Work in progress: data not yet verified with CPS or ISBE. <a href="methodology.html" style="color:inherit">Methodology and caveats</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><span class="n" id="asof"></span></header>
 <main id="main">
   <aside>
     <div class="blk">
@@ -119,6 +143,7 @@
     <div id="legend"></div>
     <div id="tip"></div>
   </div>
+  <div id="tablev"></div>
   <section id="panel" aria-live="polite"></section>
 </main>
 <button id="setbtn" aria-label="Settings" aria-expanded="false" aria-controls="setmenu"><svg width="22" height="22" viewBox="-10 -10 20 20" aria-hidden="true"><polygon points="0,-9 2.6,-4.5 7.8,-4.5 5.2,0 7.8,4.5 2.6,4.5 0,9 -2.6,4.5 -7.8,4.5 -5.2,0 -7.8,-4.5 -2.6,-4.5"/></svg></button>
@@ -164,7 +189,7 @@ const FAMILIES=[
  ["Outcomes",["iar_ela_prof","iar_math_prof","ela_growth","math_growth","g11_ela","g11_math","act_ela_avg","act_math_avg","attendance_rate","chronic_absent","grad_4yr","ninth_on_track","postsec_12mo"]],
  ["5Essentials survey",["fe_leaders","fe_teachers","fe_families","fe_environment"]]];
 
-let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",...DEF_SET},bins=[],medCache={};
+let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",view:"map",sort:"name",dir:1,...DEF_SET},bins=[],medCache={};
 
 fetch("data/schools.json").then(r=>r.json()).then(init).catch(e=>{document.body.insertAdjacentHTML("beforeend","<p style='padding:20px'>Could not load data/schools.json</p>");console.error(e)});
 
@@ -218,12 +243,19 @@ function init(data){
   $("s-year").innerHTML='<option value="latest">Latest available per metric</option>'+[...yrs].sort().reverse().map(y=>`<option value="${y}">Aligned: SY${y}</option>`).join("");
   loadSettings();readHash();syncControls();buildMap();wire();render();
 }
+const defView=()=>matchMedia("(max-width:760px)").matches?"table":"map";
 function opts(id,pairs,all){const el=$(id);el.innerHTML="";el.append(new Option(all,""));for(const [v,l] of pairs)el.append(new Option(l,v))}
 function wire(){
   $("metric").onchange=e=>{st.metric=e.target.value;render()};
   for(const [id,k] of [["f-type","type"],["f-band","band"],["f-net","net"],["f-sub","sub"]])$(id).onchange=e=>{st[k]=e.target.value;render()};
   $("f-has").onchange=e=>{st.has=e.target.checked;render()};
   $("reset").onclick=()=>{Object.assign(st,{type:"",band:"",net:"",sub:"",has:false});$("q").value="";hideRes();syncControls();render()};
+  $("v-map").onclick=()=>{st.view="map";render()};$("v-tbl").onclick=()=>{st.view="table";render()};
+  $("tablev").onclick=e=>{
+    const th=e.target.closest("th[data-k]");
+    if(th){const k=th.dataset.k;if(st.sort===k)st.dir=-st.dir;else{st.sort=k;st.dir=k==="name"||k==="type"||k==="band"||k==="network"||k==="sub"?1:-1}render();return}
+    const tr=e.target.closest("tr[data-id]");if(tr)select(tr.dataset.id===st.sel?"":tr.dataset.id);
+  };
   $("q").oninput=search;
   $("q").onkeydown=e=>{if(e.key==="Enter"){const b=$("res").querySelector("button");if(b)b.click()}};
   for(const [id,k] of [["s-set","set"],["s-spend","spend"],["s-year","year"],["s-mode","mode"],["s-g11","g11"],["s-theme","theme"]])$(id).onchange=e=>{st[k]=e.target.value;settingsChanged()};
@@ -251,6 +283,7 @@ function writeHash(){
   const u=new URLSearchParams();
   if(st.metric!==DEF_METRIC)u.set("m",st.metric);
   for(const k of ["type","band","net","sub"])if(st[k])u.set(k,st[k]);
+  if(st.view!==defView())u.set("v",st.view);
   if(st.has)u.set("has","1");if(st.sel)u.set("school",st.sel);
   for(const k of SETKEYS)if(st[k]!==DEF_SET[k])u.set("s_"+k,st[k]===true?"1":st[k]);
   const h=u.toString();history.replaceState(null,"",h?"#"+h:location.pathname+location.search);
@@ -262,6 +295,7 @@ function readHash(){
   const t=u.get("type"),b=u.get("band");
   st.type=TYPES[t]?t:"";st.band=BANDS[b]?b:"";
   st.net=S.some(s=>s.network===u.get("net"))?u.get("net"):"";st.sub=S.some(s=>s.subdistrict===u.get("sub"))?u.get("sub"):"";
+  st.view=["map","table"].includes(u.get("v"))?u.get("v"):defView();
   st.has=u.get("has")==="1";const sc=u.get("school");st.sel=S.some(s=>s.id===sc)?sc:"";
   // settings in the URL win over remembered ones; otherwise keep what localStorage loaded
   const ok={set:["all","district"],spend:["ppe","cps"],mode:["points","sub"],theme:["auto","dark","light"],g11:["prof","gap"]};
@@ -395,7 +429,9 @@ function render(){
     e.setAttribute("stroke",st.sub===id?"var(--ink)":"var(--rule-firm)");e.setAttribute("stroke-width",st.sub===id?"2":"1");
   }
   $("count").textContent=`${n} of ${S.length} schools`;
-  legend();writeHash();panel();
+  const tv=st.view==="table";
+  $("main").classList.toggle("tbl",tv);$("v-map").setAttribute("aria-pressed",!tv);$("v-tbl").setAttribute("aria-pressed",tv);
+  legend();if(tv)table();writeHash();panel();
 }
 function nonDefault(){
   const a=[];
@@ -444,6 +480,32 @@ function showTip(text,ev){
 function tip(s,ev){showTip(`${s.name} · ${cat()?TYPES[s.type]:cell(s,st.metric)}`,ev)}
 function subTip(id,ev){const v=subVals[id];showTip(`Subdistrict ${id} · ${v?fmt(st.metric,v.v)+` (${v.c} schools)`:"no data"}`,ev)}
 function cell(s,k){const g=get(s,k);if(!g)return "no data";if(g.v==="*")return "suppressed";return fmt(k,g.v)}
+
+// ---------- table
+// same filters as the map; columns are fixed facts plus the current color-by metric
+const TCOLS=[["name","School",0],["type","Type",0],["band","Band",0],["network","Network",0],["sub","Subd.",0],["enrollment","Enrollment",1]];
+function table(){
+  const m=st.metric,extra=m!=="type"&&m!=="enrollment";
+  const cols=TCOLS.map(([k,l,r])=>({k,l,r}));
+  if(extra)cols.push({k:m,l:label(m),r:1,metric:true});
+  if(!cols.some(c=>c.k===st.sort))st.sort="name";
+  const sv=(s,k)=>k==="name"?s.name.toLowerCase():k==="type"?TYPES[s.type]:k==="band"?BANDS[s.band]||"":k==="network"?s.network||"":k==="sub"?s.subdistrict||"":num(s,k);
+  const rows=S.filter(visible);
+  const nn=rows.filter(s=>sv(s,st.sort)===null||sv(s,st.sort)==="");
+  const ok=rows.filter(s=>!nn.includes(s));
+  const nat=(a,b)=>typeof a==="number"?a-b:String(a).localeCompare(b,undefined,{numeric:true});
+  ok.sort((a,b)=>st.dir*nat(sv(a,st.sort),sv(b,st.sort))||a.name.localeCompare(b.name));
+  const sorted=ok.concat(nn);   // schools with no value for the sort column always last
+  const td=(s,c)=>{
+    if(c.k==="name")return `<td class="n"><button type="button">${esc(s.name)}</button></td>`;
+    if(c.k==="enrollment"||c.metric){const g=get(s,c.k);
+      if(!g)return `<td class="r none">no data</td>`;
+      return `<td class="r">${g.v==="*"?"suppressed":fmt(c.k,g.v)}${c.metric?` <span class="badge">${sy(g.sy)}</span>`:""}</td>`}
+    const v=sv(s,c.k);return `<td>${esc(v)}</td>`;
+  };
+  $("tablev").innerHTML=`<table><caption>${rows.length} of ${S.length} schools. Click a column to sort; click a row for the full profile. No data is never zero.${nonDefault()?" · "+esc(nonDefault()):""}</caption><thead><tr>${cols.map(c=>`<th scope="col" data-k="${c.k}" class="${c.r?"r":""}" aria-sort="${st.sort===c.k?(st.dir>0?"ascending":"descending"):"none"}"><button type="button">${esc(c.l)}${st.sort===c.k?(st.dir>0?" ▲":" ▼"):""}</button></th>`).join("")}</tr></thead>
+    <tbody>${sorted.map(s=>`<tr data-id="${s.id}" class="${s.id===st.sel?"sel":""}${inSet(s)?"":" excl"}">${cols.map(c=>td(s,c)).join("")}</tr>`).join("")}</tbody></table>`;
+}
 
 // ---------- search
 function search(){

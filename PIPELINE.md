@@ -37,7 +37,9 @@ Behavior worth knowing:
 - Sparklines use only years after a metric's last comparability break (`meta.metrics[].breaks`), so IAR, grade 11 and the 2026-27 low-income/IEP relabel never show a trend across the break. Grade 11 SAT and ACT are merged into one series with a break at 2024-25.
 - Quantile bins, medians and subdistrict averages use the comparison set (all schools, or district-run only).
 - Settings persist in the URL hash (`s_*`) and localStorage; the URL wins.
-- Not built yet: the grade 11 benchmark-estimate toggle (waiting on the ACT "ELA" column meaning), a diverging palette for enrollment change, and the table view (Phase 3).
+- Table view: Map/Table toggle in the header (`#v=table` in the URL; on screens under 760px the table is the default). It shares the map's filters, lists the fixed facts plus the current color-by metric, sorts on any column (schools with no value sort last, never as zero), and a row click opens the same profile panel.
+- Grade 11 benchmark-estimate toggle and the enrollment-change diverging palette are built (ACT "ELA" is the ACT ELA score, benchmark 20; ISBE has not confirmed in writing).
+- Tests: `.venv/bin/python -m unittest tests.test_gates` (corrupts the built data in memory and checks each validation gate fails).
 
 # Deploying and updating
 

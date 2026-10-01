@@ -1,8 +1,9 @@
 """Corrupt the built dataset in memory and confirm the validation gates fail.
 
-    .venv/bin/python -m tests.test_gates
+    .venv/bin/python -m unittest tests.test_gates
 """
 import copy
+import unittest
 
 from pipeline import normalize, validate
 
@@ -69,5 +70,10 @@ def main():
     print("all gates fire")
 
 
+class TestGates(unittest.TestCase):
+    def test_all_gates_fire(self):
+        main()
+
+
 if __name__ == "__main__":
-    main()
+    unittest.main()

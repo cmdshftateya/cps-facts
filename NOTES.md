@@ -47,13 +47,8 @@ Plain-language record of what this project did with the data and where the numbe
 16. Charter, contract, ALOP and SAFE schools are funded by tuition and grants, not the district-school formula. Their CPS budget numbers are not comparable to district-run schools.
 
 **The estimated high-school score comparison**
-<<<<<<< NOTES.md
-17. It converts SAT averages to the ACT scale with an official table designed for individual scores, so applied to school averages it is approximate. The table maps to ACT English+Reading, not ELA (which adds writing), so we halve the sum and compare it with 20, the mean of ACT's English and Reading benchmarks. The national benchmarks come from a self-selected group of test takers, while Illinois tests every junior. It is labeled "estimate".
-18. Open point: the state's ACT column is named "ELA". If it is ACT's ELA composite, the benchmark is 20; if the English subscore, 18. We have to confirm this before building it.
-=======
 17. It converts SAT averages to the ACT scale with an official table designed for individual scores, so applied to school averages it is approximate. The national benchmarks come from a self-selected group of test takers, while Illinois tests every junior. It is labeled "estimate".
 18. The state's ACT "ELA" column is the ACT ELA score (English, reading and writing; Illinois grade 11 takes the ACT with Writing), so the national benchmark is 20. ISBE has not confirmed this in writing.
->>>>>>> /tmp/theirs.59641
 
 **Added in Phase 1**
 19. A school's CPS budget of $0 is shown as no data, not 0 (six YCCS campuses and Chicago Arts HS).
@@ -65,5 +60,5 @@ Plain-language record of what this project did with the data and where the numbe
 
 ## 3. Open items
 - Confirm with CPS whether the low-income / disability change was a definition change (caveat 3).
-- Draft questions to CPS and ISBE are in `emails.md` (Catalyst Maria budget unit, low-income and IEP labels, per-pupil year, ACT ELA).
+- Questions to CPS and ISBE (Catalyst Maria budget unit, low-income and IEP labels, per-pupil year, ACT ELA) were sent; drafts are in `emails.md`. Awaiting replies; record any answers in the caveats above.
 - Re-run the audit when the 2026 Illinois Report Card is released.
