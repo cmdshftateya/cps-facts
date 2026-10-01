@@ -6,6 +6,7 @@
 <title>CPS Facts</title>
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="chicago.css">
+<link rel="stylesheet" href="diverging.css">
 <style>
   *{box-sizing:border-box;border-radius:0}
   html,body{margin:0;height:100%}
@@ -151,7 +152,7 @@ const DEF_SET={set:"all",spend:"ppe",year:"latest",mode:"points",size:false,them
 const DEF_METRIC="pct_low_income";
 
 // color-by menu: [group, key]. "spend", g11_ela, g11_math are virtual (see init)
-const CB=[["Categorical","type"],["Enrollment","enrollment"],
+const CB=[["Categorical","type"],["Enrollment","enrollment"],["Enrollment","enrollment_change"],
  ["Demographics","pct_low_income"],["Demographics","pct_el"],["Demographics","pct_iep"],["Demographics","pct_latinx"],["Demographics","pct_black"],["Demographics","pct_white"],["Demographics","pct_asian"],["Demographics","pct_homeless"],
  ["Spending","spend"],
  ["Outcomes","iar_ela_prof"],["Outcomes","iar_math_prof"],["Outcomes","ela_growth"],["Outcomes","math_growth"],["Outcomes","g11_ela"],["Outcomes","g11_math"],["Outcomes","attendance_rate"],["Outcomes","chronic_absent"],["Outcomes","grad_4yr"],["Outcomes","ninth_on_track"],["Outcomes","postsec_12mo"],
@@ -178,6 +179,10 @@ function virtual(){
     for(const s of S){const o={...(s.m["sat_"+sub+"_prof"]||{}),...(s.m["act_"+sub+"_prof"]||{})};if(Object.keys(o).length)s.m[k]=o}
   }
   M.enrollment.label="Enrollment (20th day)";
+  // enrollment change: zero-centered, so it uses fixed bins and the diverging ramp, not quantiles
+  M.enrollment_change={label:"Enrollment change, SY2024-25 to SY2026-27 (%)",unit:"pctchg",family:"enrollment",breaks:[],years:["2026-27"],diverging:true,
+    note:"Change in 20th-day enrollment over three school years. Fixed bins around zero: about flat is -3% to +3%. Converted charters use their predecessor's earlier counts."};
+  for(const s of S){const ec=s.enrollment_change;if(ec&&ec.pct!==null&&ec.pct!==undefined)s.m.enrollment_change={[ec.to]:ec.pct}}
 }
 function seriesKey(k){if(st.g11==="gap"&&(k==="g11_ela"||k==="g11_math"))return k+"_gap";return k==="spend"?(st.spend==="ppe"?"ppe_total":"cps_budget_per_pupil"):k}
 function get(s,k){
@@ -190,7 +195,7 @@ const inSet=s=>st.set==="all"||s.type==="district";
 function fmt(k,v){
   const u=R[seriesKey(k)]?.unit||R[k]?.unit;
   if(u==="pct")return v.toFixed(1)+"%";if(u==="usd")return "$"+Math.round(v).toLocaleString();
-  if(u==="points")return (v>0?"+":"")+v.toFixed(1);if(u==="level")return v.toFixed(1)+" / 5";if(u==="percentile")return Math.round(v)+"";
+  if(u==="pctchg")return (v>0?"+":"")+v.toFixed(1)+"%";if(u==="points")return (v>0?"+":"")+v.toFixed(1);if(u==="level")return v.toFixed(1)+" / 5";if(u==="percentile")return Math.round(v)+"";
   if(u==="score")return v.toFixed(1);return Math.round(v).toLocaleString();
 }
 function label(k){return k==="spend"?(st.spend==="ppe"?"Per-pupil spending (ISBE)":"Per-pupil budget (CPS FY27)"):k==="type"?"School type":R[seriesKey(k)].label}
@@ -333,6 +338,10 @@ function visible(s){
   return (!st.type||s.type===st.type)&&(!st.band||s.band===st.band)&&(!st.net||s.network===st.net)&&(!st.sub||s.subdistrict===st.sub)&&(!st.has||st.metric==="type"||num(s,st.metric)!==null);
 }
 const cat=()=>st.metric==="type";
+const DIV_EDGES=[-20,-10,-3,3,10,20];   // decline <-> about flat <-> growth; 7 classes, three per arm
+const div=()=>!!R[seriesKey(st.metric)]?.diverging;
+const divBin=v=>v<-20?1:v<-10?2:v<-3?3:v<=3?4:v<=10?5:v<=20?6:7;
+const binColor=v=>div()?`var(--div-${divBin(v)})`:`var(--seq-${binOf(v,bins)})`;
 const shading=()=>st.mode==="sub"&&!cat();
 function quant(vs){
   vs=vs.slice().sort((a,b)=>a-b);if(!vs.length)return [];
@@ -352,12 +361,13 @@ function computeSub(){
 function compute(){
   medCache={};
   if(cat()){bins=[];return}
+  if(div()){if(shading())computeSub();bins=DIV_EDGES;return}
   if(shading()){computeSub();bins=quant(Object.values(subVals).map(x=>x.v));return}
   bins=quant(S.filter(s=>visible(s)&&inSet(s)).map(s=>num(s,st.metric)).filter(v=>v!==null));
 }
 function colorOf(s){
   if(cat())return CATCOL[s.type];
-  const v=num(s,st.metric);return v===null||!bins.length?null:`var(--seq-${binOf(v,bins)})`;
+  const v=num(s,st.metric);return v===null||!bins.length?null:binColor(v);
 }
 function radius(s){
   if(shading())return 2.5;
@@ -379,7 +389,7 @@ function render(){
   const sel=mk[st.sel];if(sel)sel.parentNode.append(sel);
   for(const [id,e] of Object.entries(sdEl)){
     const sv=subVals[id];
-    e.setAttribute("fill",shading()&&sv&&bins.length?`var(--seq-${binOf(sv.v,bins)})`:"none");
+    e.setAttribute("fill",shading()&&sv&&bins.length?binColor(sv.v):"none");
     e.setAttribute("fill-opacity",shading()?"0.85":"1");
     e.setAttribute("pointer-events",shading()?"all":"none");
     e.setAttribute("stroke",st.sub===id?"var(--ink)":"var(--rule-firm)");e.setAttribute("stroke-width",st.sub===id?"2":"1");
@@ -400,6 +410,13 @@ function nonDefault(){
 function legend(){
   const k=st.metric;let h=`<div class="lbl">${esc(label(k))}</div>`;
   if(cat())h+=Object.entries(TYPES).map(([t,l])=>`<div><span style="display:inline-block;width:10px;height:10px;background:${CATCOL[t]};margin-right:6px"></span>${l}</div>`).join("");
+  else if(div()&&bins.length){
+    const m=R[seriesKey(k)];
+    h+=`<div class="bins">${[1,2,3,4,5,6,7].map(i=>`<i style="background:var(--div-${i})"></i>`).join("")}</div>
+      <div class="ed" style="display:grid;grid-template-columns:repeat(7,1fr)">${DIV_EDGES.map(e=>`<span style="text-align:right;margin-right:-12px">${e>0?"+":"−"}${Math.abs(e)}%</span>`).join("")}<span></span></div>
+      <div class="ed"><span>◄ Decline</span><span>About flat</span><span>Growth ►</span></div>`;
+    h+=`<details class="note"><summary>About this scale</summary>${esc(m.note)}<br>${esc("Fixed bins"+(shading()?"; subdistrict shading is the enrollment-weighted average change":"")+". Not quantiles, so the middle always means about flat.")}</details>`;
+  }
   else if(bins.length){
     const edges=bins.map(b=>fmt(k,b));
     h+=`<div class="bins">${[1,2,3,4,5,6].map(i=>`<i style="background:var(--seq-${i})"></i>`).join("")}</div>
