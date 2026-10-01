@@ -110,14 +110,14 @@ def downloads():
     for name, label, what in DOWNLOADS:
         src = ROOT / "data" / name
         shutil.copy(src, OUT / "downloads" / name)
-        rows.append(f"<tr><td><a href=downloads/{name} download>{html.escape(label)}</a><br><code>{name}</code></td>"
+        rows.append(f"<tr><td><a href=downloads/{name} download>{html.escape(label)}</a></td>"
                     f"<td>{what}</td><td>{_size(src)}</td></tr>")
     ours = []
     for label, path, what in sc.OURS:
         name = path.split("/")[-1]
         src = ROOT / name
         shutil.copy(src, OUT / "downloads" / name)
-        ours.append(f"<tr><td><a href={path} download>{html.escape(label)}</a><br><code>{name}</code></td><td>{what}</td><td>{_size(src)}</td></tr>")
+        ours.append(f"<tr><td><a href={path} download>{html.escape(label)}</a></td><td>{what}</td><td>{_size(src)}</td></tr>")
     srcs = []
     for sid, publisher, title, pages, years, uses, files, how in sc.SOURCES:
         srcs.append(f"<h3 id={sid}>{html.escape(title)}</h3><p class=li><strong>Publisher:</strong> {html.escape(publisher)}</p>"
