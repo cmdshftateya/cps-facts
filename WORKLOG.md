@@ -13,11 +13,17 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **FY27 budget label:** the board apparently approved the budget on 2026-07-30. Nobody has compared the approved book to the "proposed" export the site uses.
 - **Cross-link from the politics board guide:** the edit to `../politics/chicago-school-board-2026-guide.html` is uncommitted in that repo.
 - **For the owner to confirm on the Data page:** the budget-export steps ("Interactive Reports", then "Download Data") and the Data Portal titles for the boundary datasets, which were written from memory.
-- **Map markers grow as you zoom in.** That was chosen without asking; confirm or change it.
-- **Real-phone check of the new map UI** (clusters, Settings sheet, school panel at 390px). Only checked in an emulated 375px viewport. Branch `claude/school-search-review-be40f8` is pushed but not merged to `main`, so none of it is live yet.
-- **Cluster behavior to confirm:** markers merge when within about 15 screen px and fill with the group's average value; tapping zooms in rather than listing the schools.
+- **Real-phone check of the map UI** (Settings sheet, school panel, report card, long-press on a marker). Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
+
+## 2026-10-01 14:05–14:50 · GitHub issues #1–#3: jitter, contrast, report card · `8369c217`
+
+**Asked:** "correct all github issues and close them". Mid-session: holding down on a marker "makes a very big ugly circle".
+**Done:** #2: removed clustering (it regrouped every zoom frame); all 639 schools always drawn, markers near-constant screen size, non-scaling strokes. #3: new `site/sequential.css` ramp, every step ≥3:1 vs page (was 2.54 dark / 1.87 light at the low end); halo selection ring; stronger `--mark` with underline; tinted selected row. Long-press: no tap highlight or callout on the map, focus stroke no longer scales with zoom. #1: printable report card per school (`#school=ID&card=1`): hero numbers, every panel value with year, city range strip and median, caveats, sources. Checked dark and light at desktop, report card at 360px (no horizontal scroll). Tests pass.
+**Obstacles:** none. Print output itself not previewed.
+**Decisions:** D-025, D-026, D-027.
+**Commits:** `274ec22` map markers, contrast, report card.
 
 ## 2026-10-01 13:32–13:40 · Data page: drop filename labels · `255a5c46`
 
