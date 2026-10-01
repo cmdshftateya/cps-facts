@@ -79,6 +79,9 @@
   #tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--page);padding:4px 7px;font-size:12px;display:none;white-space:nowrap;z-index:3}
   #panel h2{font:700 24px/1.05 var(--font-display);text-transform:uppercase;margin:0 0 4px;padding-right:40px}
   #panel .sub{color:var(--ink-2);font-size:13px;margin-top:2px}
+  .focus{margin-top:10px;padding:8px 10px;background:var(--sunk);border-left:3px solid var(--blue)}
+  .focus .lbl{margin:0 0 2px}.focus .yr{font-family:var(--font-mono);letter-spacing:0;margin-left:6px}
+  .focus b{font:700 20px/1.1 var(--font-display);font-variant-numeric:tabular-nums}.focus .c{font-size:12px;color:var(--ink-2);margin-left:6px}
   #close{position:absolute;right:12px;top:10px;font-size:18px;padding:0 9px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--bay);background:var(--rule)}
   .tile{background:var(--surface);padding:10px 12px;min-width:0}
@@ -108,6 +111,9 @@
   .barlbl{display:flex;gap:2px;font-size:9px;color:var(--muted)}
   .barlbl span{flex:1;text-align:center}
   .fund{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-top:3px;font-variant-numeric:tabular-nums}
+  #filters>summary{cursor:pointer;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);list-style-position:inside}
+  #filters[open]>summary{margin-bottom:10px}
+  #fcount{color:var(--ink);font-weight:700;letter-spacing:0}
   #res{max-height:180px;overflow:auto;margin:-6px 0 10px;border:var(--bay) solid var(--rule)}
   #res button{display:block;width:100%;text-align:left;background:var(--sunk);border:0;border-bottom:var(--bay) solid var(--rule);padding:6px 8px;font-size:13px}
   #res button:hover,#res button:focus-visible{background:var(--ink);color:var(--page)}
@@ -232,14 +238,14 @@
         <div class="hint" id="g11hint"></div>
       </div>
     </div>
-    <div class="blk">
+    <details class="blk" id="filters"><summary>Filters <span id="fcount"></span></summary>
       <label for="f-type">School type</label><select id="f-type"></select>
       <label for="f-band">Grade band</label><select id="f-band"></select>
       <label for="f-net">Network</label><select id="f-net"></select>
       <label for="f-sub">Board subdistrict</label><select id="f-sub"></select>
       <label class="chk"><input type="checkbox" id="f-has"> Only schools with data for this metric</label>
       <button id="reset">Reset filters</button>
-    </div>
+    </details>
   </aside>
   <div id="stage">
     <svg id="map" role="group" aria-label="Map of Chicago public schools"></svg>
@@ -286,6 +292,13 @@ const CB=[["Categorical","type"],["Enrollment","enrollment"],["Enrollment","enro
  ["Spending","spend"],["Spending","spend_cps"],
  ["Outcomes","iar_ela_prof"],["Outcomes","iar_math_prof"],["Outcomes","ela_growth"],["Outcomes","math_growth"],["Outcomes","g11_ela"],["Outcomes","g11_math"],["Outcomes","g11_ela_gap"],["Outcomes","g11_math_gap"],["Outcomes","attendance_rate"],["Outcomes","chronic_absent"],["Outcomes","grad_4yr"],["Outcomes","ninth_on_track"],["Outcomes","postsec_12mo"],
  ["5Essentials","fe_leaders"],["5Essentials","fe_teachers"],["5Essentials","fe_families"],["5Essentials","fe_environment"]];
+// short names for the Color by menu; the legend and table keep the full label
+const SHORT={type:"School type",enrollment:"Enrollment",enrollment_change:"Enrollment change",pct_low_income:"Low income",pct_el:"English learners",pct_iep:"Students with IEPs",
+ pct_latinx:"Latinx",pct_black:"Black",pct_white:"White",pct_asian:"Asian",pct_homeless:"Temporary living situations",spend:"Per-pupil spending (state)",spend_cps:"Per-pupil budget (CPS)",
+ iar_ela_prof:"IAR ELA proficiency",iar_math_prof:"IAR math proficiency",ela_growth:"ELA growth",math_growth:"Math growth",g11_ela:"Grade 11 ELA proficiency",g11_math:"Grade 11 math proficiency",
+ g11_ela_gap:"Grade 11 ELA vs. benchmark",g11_math_gap:"Grade 11 math vs. benchmark",attendance_rate:"Attendance",chronic_absent:"Chronic absenteeism",grad_4yr:"4-year graduation",
+ ninth_on_track:"Freshman on-track",postsec_12mo:"Postsecondary enrollment",fe_leaders:"Effective leaders",fe_teachers:"Collaborative teachers",fe_families:"Involved families",fe_environment:"Supportive environment"};
+const menuLabel=k=>SHORT[k]||label(k);
 const FAMILIES=[
  ["Enrollment",["enrollment"]],
  ["Demographics",["pct_low_income","pct_el","pct_iep","pct_latinx","pct_black","pct_white","pct_asian","pct_multiracial","pct_homeless"]],
@@ -344,7 +357,7 @@ function init(data){
   $("asof").textContent=`Roster SY${D.meta.roster_year} · data built ${D.meta.generated.slice(0,10)}`;
   const g={};for(const [grp,k] of CB)(g[grp]??=[]).push(k);
   $("metric").innerHTML="";
-  for(const [grp,ks] of Object.entries(g)){const og=document.createElement("optgroup");og.label=grp;for(const k of ks){const o=new Option(label(k),k);o.dataset.k=k;og.append(o)}$("metric").append(og)}
+  for(const [grp,ks] of Object.entries(g)){const og=document.createElement("optgroup");og.label=grp;for(const k of ks){const o=new Option(menuLabel(k),k);o.dataset.k=k;o.title=label(k);og.append(o)}$("metric").append(og)}
   opts("f-type",Object.entries(TYPES),"All types");opts("f-band",Object.entries(BANDS),"All grade bands");
   const nets=[...new Set(S.map(s=>s.network))].sort((a,b)=>(parseInt(a.replace(/\D/g,""))||999)-(parseInt(b.replace(/\D/g,""))||999)||a.localeCompare(b));
   opts("f-net",nets.map(x=>[x,x]),"All networks");
@@ -353,6 +366,7 @@ function init(data){
   const yrs=new Set();for(const [,k] of CB)if(k!=="type")for(const s of S){const ser=s.m[seriesKey(k)];if(ser)Object.keys(ser).forEach(y=>yrs.add(y))}
   $("s-year").innerHTML='<option value="latest">Latest available per metric</option>'+[...yrs].sort().reverse().map(y=>`<option value="${y}">Aligned: SY${y}</option>`).join("");
   loadSettings();readHash();syncControls();buildMap();wire();render();
+  if(st.type||st.band||st.net||st.sub||st.has)$("filters").open=true;
 }
 const defView=()=>matchMedia("(max-width:760px)").matches?"table":"map";
 function opts(id,pairs,all){const el=$(id);el.innerHTML="";el.append(new Option(all,""));for(const [v,l] of pairs)el.append(new Option(l,v))}
@@ -383,7 +397,7 @@ function wire(){
 }
 function toggleMenu(open){const m=$("setmenu");const o=open===undefined?m.hidden:open;m.hidden=!o;$("setbtn").setAttribute("aria-expanded",o);
   m.style.top=matchMedia("(max-width:760px)").matches?"":document.querySelector("header").getBoundingClientRect().bottom+6+"px"}
-function settingsChanged(){saveSettings();applyTheme();for(const o of $("metric").options)o.textContent=label(o.dataset.k);render()}
+function settingsChanged(){saveSettings();applyTheme();for(const o of $("metric").options)o.textContent=menuLabel(o.dataset.k);render()}
 const isG11=k=>/^g11_(ela|math)(_gap)?$/.test(k);
 const g11Pair=(k,gap)=>k.replace(/_gap$/,"")+(gap?"_gap":"");
 function syncG11(){
@@ -396,7 +410,7 @@ function syncG11(){
 function syncControls(){
   $("metric").value=st.metric;$("f-type").value=st.type;$("f-band").value=st.band;$("f-net").value=st.net;$("f-sub").value=st.sub;$("f-has").checked=st.has;
   $("s-set").value=st.set;$("s-year").value=st.year;$("s-mode").value=st.mode;$("s-size").checked=st.size;$("s-theme").value=st.theme;
-  for(const o of $("metric").options)o.textContent=label(o.dataset.k);
+  for(const o of $("metric").options)o.textContent=menuLabel(o.dataset.k);
   applyTheme();syncG11();
 }
 function applyTheme(){if(st.theme==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.dataset.theme=st.theme}
@@ -452,7 +466,6 @@ function buildMap(){
   ring.innerHTML='<circle stroke="var(--page)" stroke-width="6"/><circle stroke="var(--ink)" stroke-width="2.5"/>';svg.append(ring);
   for(const s of S){
     const e=document.createElementNS(NS,"rect");
-    if(s.type==="contract"||s.type==="options")e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`);
     e.setAttribute("class","mk");e.setAttribute("tabindex","0");e.setAttribute("role","button");e.setAttribute("aria-label",s.name+", "+TYPES[s.type]);
     e.onclick=ev=>{ev.stopPropagation();select(s.id)};
     e.onkeydown=ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();select(s.id)}};
@@ -572,9 +585,11 @@ function render(){
     const e=mk[s.id],vis=visible(s),c=colorOf(s);if(vis)n++;
     e.classList.toggle("dim",!vis);e.classList.toggle("excl",vis&&!inSet(s));
     const noData=!shading()&&c===null;
+    // shapes encode school type only when coloring by type; otherwise every school is a plain square
+    if(cat()&&(s.type==="contract"||s.type==="options"))e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`);else e.removeAttribute("transform");
     if(shading()){e.setAttribute("fill",s.id===st.sel?"var(--ink)":"var(--ink-2)");e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
     else if(noData){e.setAttribute("fill","var(--sunk)");e.setAttribute("stroke","var(--muted)");e.setAttribute("stroke-width","1");e.setAttribute("stroke-dasharray","2 2")}
-    else if(s.type==="charter"){e.setAttribute("fill","var(--page)");e.setAttribute("stroke",c);e.setAttribute("stroke-width","2");e.removeAttribute("stroke-dasharray")}
+    else if(s.type==="charter"&&cat()){e.setAttribute("fill","var(--page)");e.setAttribute("stroke",c);e.setAttribute("stroke-width","2");e.removeAttribute("stroke-dasharray")}
     else{e.setAttribute("fill",c);e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
   }
   const sel=mk[st.sel];if(sel)sel.parentNode.append(sel);
@@ -586,7 +601,8 @@ function render(){
     e.setAttribute("stroke",st.sub===id?"var(--ink)":"var(--rule-firm)");e.setAttribute("stroke-width",st.sub===id?"2":"1");
   }
   $("count").textContent=n===S.length?`${n} schools`:`${n} of ${S.length} schools`;
-  $("reset").hidden=!(st.type||st.band||st.net||st.sub||st.has);
+  const nf=[st.type,st.band,st.net,st.sub,st.has].filter(Boolean).length;
+  $("reset").hidden=!nf;$("fcount").textContent=nf?"· "+nf+" on":"";
   const tv=st.view==="table";
   $("main").classList.toggle("tbl",tv);$("v-map").setAttribute("aria-pressed",!tv);$("v-tbl").setAttribute("aria-pressed",tv);
   place();legend();if(tv)table();writeHash();panel();card();
@@ -601,7 +617,9 @@ function nonDefault(){
 }
 function legend(){
   const k=st.metric,ys0=cat()?[]:metricYears(k);let h=`<div class="lbl">${esc(label(k))}${ys0.length===1?`<span class="yr">${sy(ys0[0])}</span>`:""}</div>`;
-  if(cat())h+=Object.entries(TYPES).map(([t,l])=>`<div><span style="display:inline-block;width:10px;height:10px;background:${CATCOL[t]};margin-right:6px"></span>${l}</div>`).join("");
+  const SHP={district:c=>`<rect x="1" y="1" width="12" height="12" fill="${c}"/>`,charter:c=>`<rect x="2" y="2" width="10" height="10" fill="none" stroke="${c}" stroke-width="2"/>`,
+    contract:c=>`<rect x="3" y="3" width="8" height="8" fill="${c}" transform="rotate(45 7 7)"/>`};SHP.options=SHP.contract;
+  if(cat())h+=Object.entries(TYPES).map(([t,l])=>`<div><svg width="14" height="14" style="vertical-align:-2px;margin-right:4px">${SHP[t](CATCOL[t])}</svg>${l}</div>`).join("");
   else if(div()&&bins.length){
     const m=R[seriesKey(k)],c=divCfg();
     h+=`<div class="bins">${[1,2,3,4,5,6,7].map(i=>`<i style="background:var(--div-${i})"></i>`).join("")}</div>
@@ -627,10 +645,7 @@ function legend(){
       :st.year==="latest"?"No school has data for this measure."
       :`No school has data for this measure in ${sy(st.year)}. Set the year policy in Settings to “Latest available”.`}</div>`;
   }
-  if(!shading())h+=`<div class="sh"><span><svg width="14" height="14" style="vertical-align:-2px"><rect x="1" y="1" width="12" height="12" fill="var(--ink)"/></svg> District</span>
-    <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="none" stroke="var(--ink)" stroke-width="2"/></svg> Charter</span>
-    <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="3" y="3" width="8" height="8" fill="var(--ink)" transform="rotate(45 7 7)"/></svg> Contract / options</span>
-    ${S.some(s=>visible(s)&&colorOf(s)===null)?`<span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="var(--sunk)" stroke="var(--muted)" stroke-dasharray="2 2"/></svg> No data</span>`:""}</div>`;
+  if(!shading()&&!cat()&&S.some(s=>visible(s)&&colorOf(s)===null))h+=`<div class="sh"><span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="var(--sunk)" stroke="var(--muted)" stroke-dasharray="2 2"/></svg> No data</span></div>`;
   if(st.size&&!shading())h+=`<div class="sh" id="sizekey"></div>`;
   const nd=nonDefault();if(nd)h+=`<div class="note">${esc(nd)}</div>`;
   $("legend").innerHTML=h;sizeKey();
@@ -709,6 +724,12 @@ function spark(t,W=96,H=24){
   const pts=vs.map((v,i)=>[2+i*(W-4)/(vs.length-1),hi===lo?H/2:H-3-(v-lo)/(hi-lo)*(H-6)]);
   return `<svg class="spark" width="${W}" height="${H}" role="img" aria-label="Trend ${sy(t[0][0])} to ${sy(t[t.length-1][0])}"><title>${t.map(x=>sy(x[0])+": "+x[1]).join(", ")}</title><polyline points="${pts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--blue)" stroke-width="1.5"/>${pts.map(q=>`<rect x="${q[0]-2}" y="${q[1]-2}" width="4" height="4" fill="var(--blue)"/>`).join("")}</svg>`;
 }
+// the measure the map is colored by, so a click answers "what was I looking at?"
+function focus(s){
+  const k=st.metric;if(cat())return "";
+  const g=get(s,k),med=g&&typeof g.v==="number"?median(k):null;
+  return `<div class="focus"><span class="lbl">${esc(menuLabel(k))}${g?`<span class="yr">${sy(g.sy)}</span>`:""}</span><b>${g?(g.v==="*"?"suppressed":fmt(k,g.v)):"no data"}</b>${med!==null?` <span class="c">city median ${fmt(k,med)}</span>`:""}</div>`;
+}
 function panel(){
   const s=S.find(x=>x.id===st.sel);$("main").classList.toggle("open",!!s);
   if(!s){$("panel").innerHTML="";return}
@@ -719,6 +740,7 @@ function panel(){
     <div class="sub">${esc(s.address)}${s.community_area?" · "+esc(s.community_area):""}</div>
     <div class="sub">Subdistrict ${s.subdistrict||"—"}${s.ward?" · Ward "+s.ward:""}</div>
     <div class="sub" style="color:var(--muted)">CPS ID ${s.id}${s.rcdts?" · RCDTS "+s.rcdts:" · no state record"}</div>
+    ${focus(s)}
     <button id="cardbtn" type="button" style="margin-top:10px">Report card (print or PDF)</button>
     ${s.flags&&s.flags.length?`<ul class="flags">${s.flags.map(f=>F[f]?`<li>${esc(F[f])}</li>`:"").join("")}</ul>`:""}</div>`;
   for(const [fam,keys] of FAMILIES){
