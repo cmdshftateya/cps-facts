@@ -20,6 +20,14 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
+## 2026-10-01 17:05–17:25 · Fun logo that resets the map · `970a2ff2`
+
+**Asked:** "Improve the top right logo": "a creative and fun logo", and clicking it "should reset the map to the default view".
+**Done:** The header wordmark (top left; the only logo) is now an inline SVG mark, the flag star in a graduation cap between two blue bars, plus "CPS Facts" with "Facts" in red. Hover swings the tassel; a click tosses the cap, spins the star, animates the map back to the full city and resets metric, filters, search, open school and view (Settings kept). Checked in the browser pane at 1280px and 360px, light and dark, mid-animation; console clean; `tests.test_gates tests.test_published` pass.
+**Obstacles:** `chicago.css` styles every `a` with an underline and a blue hover fill; overridden for `#home`.
+**Decisions:** D-033.
+**Commits:** `2d13bce` logo and reset · docs commit with this entry. Not pushed.
+
 ## 2026-10-01 15:40–16:20 · Share snapshot button · `ba5e68c6`
 
 **Asked:** A share in the school panel that makes a snapshot of "the most important metrics" and opens the share sheet "to imessage etc, with a text summary img and link". First try (a 4:3 table of six numbers) "kinda sucks"; wanted "a mini map card and measure card", "quick fire", the "cute little icon", not overwhelming, "good for Instagram"; rebase on main first.

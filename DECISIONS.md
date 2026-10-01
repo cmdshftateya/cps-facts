@@ -408,3 +408,15 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 
 **Why:** 3:4 portrait is Instagram's tall feed size and fits a phone screen. Four numbers stay quick to read; low income is left off because the link card already shows it. Drawing in the browser adds no files per school (the link cards already take 28 MB) and follows the reader's comparison set and year policy for the medians. Safari drops a share call that waits on slow work after the tap, hence the pre-render.
 
+
+## D-033 · Logo is the flag star in a graduation cap; clicking it resets the view
+
+- **Date:** 2026-10-01
+- **Status:** Active
+- **Who:** Delegated: owner asked for a "creative and fun" logo that resets the map to the default view when clicked; agent chose the design and what "default" covers
+- **Tags:** ui
+- **Where:** `970a2ff2`
+
+**Decision:** **The header logo is a link to `/`: the city-flag mark (two blue bars, the red six-pointed star) wearing a mortarboard with a brass tassel, beside "CPS Facts" with "Facts" in red.** Hover tilts the star and swings the tassel; a click tosses the cap while the star spins, and the map flies back to the whole city over 0.6 s. The reset restores the landing state: map view (on phones too, where the landing default is the table), default metric, no filters, no search, no school open, filters panel closed. Reader preferences in Settings (comparison set, year policy, map mode, theme) are kept. Reduced-motion turns off all of the animation. Cmd/Ctrl/Shift-click still opens `/` normally. The favicon is unchanged.
+
+**Why:** The flag star ties it to Chicago and the existing favicon; the cap says "schools" without words. Settings are preferences stored across visits, so resetting them on a logo click would be a surprise; everything else is navigation state. The owner asked to reset "the map", so phones land on the map rather than their table default.
