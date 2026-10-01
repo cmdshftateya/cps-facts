@@ -29,8 +29,17 @@
   header{display:flex;gap:16px;align-items:baseline;padding:10px 16px;border-bottom:var(--bay) solid var(--rule-firm)}
   h1{font:700 22px/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em;margin:0}
   header .n{color:var(--muted);font-size:13px}
-  main{display:grid;grid-template-columns:260px 1fr 0;min-height:0}
-  main.open{grid-template-columns:260px 1fr 400px}
+  header .nav a{color:inherit}
+  :root{--aw:260px;--pw:400px}
+  main{display:grid;grid-template-columns:var(--aw) minmax(0,1fr) 0;min-height:0;position:relative}
+  main.open{grid-template-columns:var(--aw) minmax(0,1fr) var(--pw)}
+  .rz{position:absolute;top:0;bottom:0;width:11px;margin-left:-5px;cursor:col-resize;z-index:6;touch-action:none;background:transparent}
+  .rz::after{content:"";position:absolute;left:5px;top:0;bottom:0;width:2px;background:var(--blue);opacity:0;transition:opacity .12s}
+  .rz:hover::after,.rz:focus-visible::after,.rz.drag::after{opacity:.8}
+  #rz-a{left:var(--aw)}
+  #rz-p{right:var(--pw);margin-left:0;margin-right:-5px;display:none}
+  main.open #rz-p{display:block}
+  body.rzing{cursor:col-resize;user-select:none}
   aside,#panel{overflow:auto;background:var(--surface)}
   aside{border-right:var(--bay) solid var(--rule-firm)}
   #panel{border-left:var(--bay) solid var(--rule-firm);display:none;position:relative}
@@ -132,9 +141,10 @@
   #setmenu .hint{font-size:11px;color:var(--muted);margin:-6px 0 10px}
   @media(max-width:760px){
     header{flex-wrap:wrap;gap:6px 12px}
-    header .wip{order:9;flex-basis:100%}
+    header .nav{order:9;flex-basis:100%}
     body{overflow:auto;display:block}
     main,main.open{display:flex;flex-direction:column}
+    .rz{display:none!important}
     aside{border-right:0;order:2}
     #stage{height:64vh;order:1}
     #tablev{order:1;max-height:none;overflow-x:auto}
@@ -146,7 +156,7 @@
 </style>
 </head>
 <body>
-<header><h1>CPS Facts</h1><span class="n wip" style="color:var(--terra)">Work in progress: data not yet verified with CPS or ISBE. <a href="methodology.html" style="color:inherit">Methodology and caveats</a> · <a href="data.html" style="color:inherit">Data downloads</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues" style="color:inherit">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><span class="n" id="asof"></span></header>
+<header><h1>CPS Facts</h1><span class="n nav"><a href="methodology.html">Methodology and caveats</a> · <a href="data.html">Data and sources</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><span class="n" id="asof"></span></header>
 <main id="main">
   <aside>
     <div class="blk">
@@ -177,6 +187,8 @@
   </div>
   <div id="tablev"></div>
   <section id="panel" aria-live="polite"></section>
+  <div class="rz" id="rz-a" role="separator" aria-orientation="vertical" aria-label="Resize filters column" tabindex="0"></div>
+  <div class="rz" id="rz-p" role="separator" aria-orientation="vertical" aria-label="Resize school profile column" tabindex="0"></div>
 </main>
 <button id="setbtn" aria-expanded="false" aria-controls="setmenu" title="Comparison set, year policy, map mode, theme"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 4h14M2 9h14M2 14h14" stroke="currentColor" stroke-width="2" fill="none"/><rect x="11" y="2" width="4" height="4"/><rect x="3" y="7" width="4" height="4"/><rect x="9" y="12" width="4" height="4"/></svg><span>Settings</span></button>
 <div id="setmenu" hidden role="dialog" aria-label="Settings">
@@ -694,6 +706,42 @@ function panel(){
   $("panel").innerHTML=h;$("close").onclick=()=>select("");
 }
 function esc(t){return String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+// ---------- resizable side columns (drag, or focus a handle and use arrow keys; double-click resets)
+(function(){
+  const root=document.documentElement,main=$("main");
+  const D={aw:260,pw:400};let L={...D};
+  try{const o=JSON.parse(localStorage.getItem("cpsfacts.layout")||"{}");for(const k in D)if(+o[k])L[k]=+o[k]}catch(e){}
+  const lim={aw:()=>[200,Math.min(520,innerWidth*.4)],pw:()=>[280,Math.min(760,innerWidth*.55)]};
+  function apply(){
+    const [a0,a1]=lim.aw(),[p0,p1]=lim.pw();
+    L.aw=Math.round(Math.max(a0,Math.min(a1,L.aw)));L.pw=Math.round(Math.max(p0,Math.min(p1,L.pw)));
+    const room=innerWidth-320;  // always leave the map/table at least 320px
+    if(main.classList.contains("open")&&L.aw+L.pw>room)L.pw=Math.max(p0,room-L.aw);
+    root.style.setProperty("--aw",L.aw+"px");root.style.setProperty("--pw",L.pw+"px");
+    $("rz-a").setAttribute("aria-valuenow",L.aw);$("rz-p").setAttribute("aria-valuenow",L.pw);
+  }
+  function save(){try{localStorage.setItem("cpsfacts.layout",JSON.stringify(L))}catch(e){}}
+  function wire(id,key,dir){
+    const h=$(id);
+    h.addEventListener("pointerdown",e=>{
+      e.preventDefault();h.setPointerCapture(e.pointerId);h.classList.add("drag");document.body.classList.add("rzing");
+      const x0=e.clientX,w0=L[key];
+      const mv=ev=>{L[key]=w0+dir*(ev.clientX-x0);apply()};
+      const up=()=>{h.classList.remove("drag");document.body.classList.remove("rzing");h.removeEventListener("pointermove",mv);h.removeEventListener("pointerup",up);h.removeEventListener("pointercancel",up);save()};
+      h.addEventListener("pointermove",mv);h.addEventListener("pointerup",up);h.addEventListener("pointercancel",up);
+    });
+    h.addEventListener("keydown",e=>{
+      const step=e.shiftKey?48:16;
+      if(e.key==="ArrowLeft")L[key]+=-dir*step;else if(e.key==="ArrowRight")L[key]+=dir*step;else if(e.key==="Home")L[key]=D[key];else return;
+      e.preventDefault();apply();save();
+    });
+    h.addEventListener("dblclick",()=>{L[key]=D[key];apply();save()});
+  }
+  wire("rz-a","aw",1);wire("rz-p","pw",-1);
+  addEventListener("resize",apply);new MutationObserver(apply).observe(main,{attributes:true,attributeFilter:["class"]});
+  apply();
+})();
 </script>
 </body>
 </html>

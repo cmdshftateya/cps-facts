@@ -1,6 +1,6 @@
 # Notes and Caveats
 
-How CPS Facts picks years, matches schools across sources, and where the numbers have limits. Last updated 2026-09-30. These are the detailed working notes; the reader-facing page is `METHODOLOGY.md`. Technical detail lives in `sources.md`.
+Plain-language record of what this site does with the data and where the numbers have limits. Last updated 2026-10-01. Where each number comes from, with links and the name of the field in the original file, is on the [Data and sources](data.html) page.
 
 ## 1. What we chose, and why
 
@@ -8,14 +8,13 @@ How CPS Facts picks years, matches schools across sources, and where the numbers
 |---|---|---|
 | **Which year is "current"** | The map shows the SY2026-27 roster (639 schools, CPS 20th-day count of 2026-09-21). | It is the newest roster CPS publishes. The city's school-location file is a year behind (SY2025-26). |
 | **Different metrics have different years** | Enrollment and demographics are SY2026-27. Test scores, attendance, graduation and per-pupil spending are SY2024-25, from the 2025 Illinois Report Card. Every number shows its own year. | The state publishes outcomes about a year late. The 2026 Report Card is not out yet; expect late October 2026. |
-| **Matching CPS schools to state records** | CPS and the state use different school IDs, so we built a lookup table (`crosswalk.csv`): 613 of 639 schools matched, 26 have no state record. 518 matched through old city datasets that carry both IDs; 95 were matched by hand from names and addresses. No state record is matched to two schools. | There is no official CPS-to-ISBE ID list. |
+| **Matching CPS schools to state records** | CPS and the state use different school IDs, so we built a lookup table (downloadable on the [Data and sources](data.html) page): 613 of 639 schools matched, 26 have no state record. 518 matched through two older City of Chicago datasets that carry both IDs; 95 were matched by hand from names and addresses. No state record is matched to two schools. | There is no official CPS-to-ISBE ID list. |
 | **Spending** | The default spending figure is the state's per-pupil expenditure, which includes costs the district pays centrally (such as central office and special services). CPS's own school budget is shown beside it. | School budgets omit central costs, so they understate what a school really costs. The state figure is the fairer comparison, especially for charters. |
-| **CPS budget numbers** | The public Excel files have no dollar totals for district-run schools, but CPS's interactive budget reports let anyone export a line-item file (unit × fund × account). We downloaded it by hand and add up each school's lines: FY27 proposed budget, FY26 projected spending, positions, and a breakdown by funding source (`budget_units.csv`, `budget_unit_funds.csv`). 637 of 639 schools are matched, using the district's own finance ID. | These are CPS's official numbers, not our estimates. The export can't be fetched automatically, so we refresh it by hand once a year. |
-| **High-school test scores** | Illinois switched its grade 11 test from the SAT (through 2024) to the ACT (from 2025) and also lowered proficiency cut scores in 2025. The site never connects, ranks, or computes change across that break. A settings toggle offers an estimate on one scale: each school's average score compared with the national college-readiness benchmark (`hs-score-benchmark-method.md`). | Comparing 2024 and 2025 proficiency would show a large "improvement" that is mostly policy. |
+| **CPS budget numbers** | CPS's public budget Excel files have no dollar totals for district-run schools, but the CPS FY27 budget interactive reports let anyone download a line-item file (one row per unit × fund × account). We add up each school's lines: FY27 proposed budget, FY26 projected spending, positions, and a breakdown by funding source. 637 of 639 schools are matched, using the district's own finance ID. | These are CPS's official numbers, not our estimates. The download is a manual step, so we refresh it by hand once a year; the school totals we derived from it are on the [Data and sources](data.html) page. |
+| **High-school test scores** | Illinois switched its grade 11 test from the SAT (through 2024) to the ACT (from 2025) and also lowered proficiency cut scores in 2025. The site never connects, ranks, or computes change across that break. A settings toggle offers an estimate on one scale: each school's average score compared with the national college-readiness benchmark ([full method](https://github.com/cmdshftateya/cps-facts/blob/main/hs-score-benchmark-method.md)). | Comparing 2024 and 2025 proficiency would show a large "improvement" that is mostly policy. |
 | **Elementary test scores** | Same cut-score change in 2025, so no trend lines or changes between 2024 and 2025. | Same reason. |
 | **School board subdistricts** | We use the Illinois Senate's shapefile of the 20 enacted subdistricts (1a–10b) and place each school by its coordinates. We checked it against the Board of Elections' official map. | The Board of Elections publishes only PDF pictures of the map, not data. |
-| **Charter schools that became district schools** | Five Acero schools and ChiArts became district-managed in the same buildings in July 2026. We link each to its former charter so history is kept (`charter-conversions.md`). | Otherwise those schools would show no history. |
-| **CPS's interactive budget dashboard** | You can retrieve this data yourself: open "Interactive Reports 2027" on the [CPS FY27 budget page](https://www.cps.edu/about/finance/budget/budget-2027/) and export the line-item report. We download that export by hand and don't automate it. | The dashboard opens through a shared guest login built into that link, which we chose not to script, so it can't feed an automated build. |
+| **Charter schools that became district schools** | Five Acero schools and ChiArts became district-managed in the same buildings in July 2026. We link each to its former charter so history is kept ([sources for each conversion](https://github.com/cmdshftateya/cps-facts/blob/main/charter-conversions.md)). | Otherwise those schools would show no history. |
 | **Catalyst Maria** | The state reports Catalyst Maria as one K-12 school. We attach the state's figures to the main school (400115) and show the high school (400182) as "no separate state data", with its CPS enrollment and demographics. | Attaching the same numbers to both would duplicate them, and for the high school they would mostly describe younger students. |
 
 ## 2. Caveats users should know
@@ -24,7 +23,7 @@ How CPS Facts picks years, matches schools across sources, and where the numbers
 1. Test scores and spending are about a year older than enrollment. A school's profile can mix SY2026-27 and SY2024-25 values; each carries a year label.
 2. 2025 state test results are not comparable to earlier years (new test for grade 11, lower cut scores for every grade).
 3. CPS changed how it labels low-income students and students with disabilities between SY2025-26 and SY2026-27. District-wide the share fell from 71.8% to 68.9%. We have not confirmed whether the definition or only the label changed, so we show no demographic changes across that point.
-4. The state's per-pupil spending is FY2025 (July 2024 to June 2025), the same year as SY2024-25. Its enrollment denominator matches CPS's SY2024-25 count exactly (0.0% median difference, 604 schools). ISBE has not confirmed this in writing (see `emails.md`).
+4. The state's per-pupil spending is FY2025 (July 2024 to June 2025), the same year as SY2024-25. Its enrollment denominator matches CPS's SY2024-25 count exactly (0.0% median difference, 604 schools). We have asked ISBE to confirm this and have no reply yet.
 
 **Missing or suppressed values**
 5. The state hides values for small groups and marks them `*`. We show "suppressed", never 0. A blank means the state has no data (for example, a graduation rate for an elementary school).
@@ -48,9 +47,9 @@ How CPS Facts picks years, matches schools across sources, and where the numbers
 
 **The estimated high-school score comparison**
 17. It converts SAT averages to the ACT scale with an official table designed for individual scores, so applied to school averages it is approximate. The national benchmarks come from a self-selected group of test takers, while Illinois tests every junior. It is labeled "estimate".
-18. The state's ACT "ELA" column is the ACT ELA score (English, reading and writing; Illinois grade 11 takes the ACT with Writing), so the national benchmark is 20. ISBE has not confirmed this in writing.
+18. The state's ACT "ELA" column is the ACT ELA score (English, reading and writing; Illinois grade 11 takes the ACT with Writing), so the national benchmark is 20. We have asked ISBE to confirm this and have no reply yet.
 
-**Other details**
+**How values are displayed**
 19. A school's CPS budget of $0 is shown as no data, not 0 (six YCCS campuses and Chicago Arts HS).
 20. Catalyst Maria's budget unit covers both campuses ($22.1M). Per pupil is computed on their combined 1,105 students (about $20k) and shown on both schools, labeled. This is our inference from the numbers; confirm with CPS.
 21. State "*" on SAT/ACT/graduation at schools with no high-school grades is shown as no data, not "suppressed".
@@ -58,7 +57,8 @@ How CPS Facts picks years, matches schools across sources, and where the numbers
 23. The six converted schools have no coordinates in any city dataset; they use the old charter's location, flagged.
 24. CPS demographic shares are published as CPS gives them, never hidden. Schools under 30 students get a small-school label.
 
-## 3. Still being confirmed
-- Confirm with CPS whether the low-income / disability change was a definition change (caveat 3).
-- Questions to CPS and ISBE (Catalyst Maria budget unit, low-income and IEP labels, per-pupil year, ACT ELA) were sent. We are waiting for replies and will record any answers in the caveats above.
-- Re-run the audit when the 2026 Illinois Report Card is released.
+## 3. Open questions
+- Whether CPS's change in how it labels low-income students and students with disabilities was a definition change or only a label change (caveat 3).
+- We have sent questions to CPS and ISBE (the Catalyst Maria budget unit, the low-income and IEP labels, the fiscal year of per-pupil spending, and the meaning of ISBE's ACT "ELA" column). No replies yet; answers will be recorded in the caveats above.
+- The 2026 Illinois Report Card is expected in late October 2026; the site will be re-checked and updated when it is released.
+- Found something wrong? [Open an issue on GitHub](https://github.com/cmdshftateya/cps-facts/issues).

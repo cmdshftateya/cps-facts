@@ -1,0 +1,103 @@
+# Work log
+
+One entry per working session (a Claude Code conversation, or a stretch of work done by hand). This file records what each session set out to do, what it got done, what got in the way, what was decided, and which commits it produced. `git log` says *what* changed; this says *why*, and what it cost to get there. Durable decisions also go in [DECISIONS.md](DECISIONS.md). How to write an entry: [AGENTS.md](AGENTS.md#work-log-protocol).
+
+Newest first. Times are America/Chicago. The 8-character id is the Claude Code session id (transcripts live in `~/.claude/projects/`; `python3 tools/session_digest.py <id>` replays one). Hashes are current ones: the history rewrite on 2026-10-01 changed every hash from before 10:16, so hashes quoted inside old transcripts no longer exist.
+
+## Open threads
+
+Carried forward until closed. Update this list in every entry that opens or closes one.
+
+- **Outreach replies pending** (sent 2026-10-01 09:59): CPS finance (`financedep@cps.edu`) on the Catalyst Maria budget unit; CPS accountability (`accountability@cps.edu`, a guessed address, so watch for a bounce) on the low-income/IEP relabel; ISBE (`reportcard@isbe.net`) on the per-pupil fiscal year and the ACT "ELA" column. Record answers in NOTES.md and DECISIONS.md.
+- **2026 Illinois Report Card**, expected late October 2026: re-run `build.py`, re-audit the crosswalk and break flags, and move "latest" years forward.
+- **FY27 budget label:** the board apparently approved the budget on 2026-07-30. Nobody has compared the approved book to the "proposed" export the site uses.
+- **Cross-link from the politics board guide:** the edit to `../politics/chicago-school-board-2026-guide.html` is uncommitted in that repo.
+- **For the owner to confirm on the Data page:** the budget-export steps ("Interactive Reports", then "Download Data") and the Data Portal titles for the boundary datasets, which were written from memory.
+- **Map markers grow as you zoom in.** That was chosen without asking; confirm or change it.
+- **Worktree session `60a708a1`** (site UX review, started 10:48) was still running when this log was created. Log it once it ends.
+
+---
+
+## 2026-10-01 10:51–11:02 · Work log, decision register, agent instructions · `630ea84d`
+
+**Asked:** Start a work log covering every past conversation (timestamps, accomplishments, obstacles, decisions), and set up agent instructions so the log, commits and decisions stay current automatically. Document the owner's working and decision style too.
+**Done:** Read all 11 earlier transcripts for this repo, plus one in another repo that linked here. Wrote this file, [DECISIONS.md](DECISIONS.md), [AGENTS.md](AGENTS.md) (agent instructions, working style, log protocol) and `CLAUDE.md` (imports AGENTS.md). Added `tools/session_digest.py`, which lists sessions, flags the ones missing from this log, and replays one session's prompts, commits and reports. Added a SessionStart hook in `.claude/settings.json` that runs the digest, so each new session is told which sessions still need entries.
+**Obstacles:** Hashes quoted in transcripts before the history rewrite are stale. The digest matches commits by subject to recover the current hashes. The requirements draft (v0.1–v0.3) existed before the first transcript, and its origin isn't in any Claude Code session.
+**Decisions:** D-022, D-023.
+**Commits:** `2d71f60` work log, decision register and agent instructions (this entry's hash line added in the follow-up commit).
+
+## 2026-10-01 10:34–10:52 · Launch polish, public repo, sources described for outsiders · `0b9d5d09`
+
+**Asked:** Check status and propose next steps, then "do all of them", and make the GitHub repo public so people can file issues. Later: drop the draft banner, make the side columns resizable, and describe the data so a reader can find it themselves instead of through internal references.
+**Done:** Added the downloads page (`data.html`, `site/downloads/`), OG/Twitter tags, a social image and favicons (`tools/make_og.py`), README, MIT license, issue templates, and "Report an issue" links. Fixed the header at 360px. CI now runs `test_published` on every push, and `test_gates` skips without `raw/`. Made the repo public and lifted `noindex`. Then removed the WIP banner, added drag- and keyboard-resizable side columns (widths saved per browser, map keeps at least 320px), and rewrote the Data and Methodology pages around public sources: publisher, dataset, exact sheet and column headers, and how to retrieve each one (`sources_catalog.py`).
+**Obstacles:** Workers Builds didn't deploy the push (the second time this happened), so the session deployed by hand. The owner then said auto-deploy on push to `main` is set up and not to worry about it. The politics cross-link lives in another repo, so it was left uncommitted there.
+**Decisions:** D-017, D-018.
+**Commits:** `a127ebe` downloads, social preview, icons, issue links, README, license, CI, lift noindex · `c975812` resizable columns, drop WIP banner, sources documented with links and field names.
+
+## 2026-10-01 10:25–10:34 · Status check, table view, docs cleanup · `e9f8a576`
+
+**Asked:** Status and next steps, then: resolve the NOTES conflict, update PIPELINE.md, fix the tests, build the table view, and push. Also: "the site still won't open."
+**Done:** Resolved the leftover conflict markers in NOTES.md (caveats 17–18; the later ACT "ELA" text won). Made `tests/test_gates.py` a real unittest. Built the Map/Table toggle: sortable, shares the map's filters, blanks sort last, row click opens the panel, table is the default under 760px, `#v=table`. Documented deploy and DNS troubleshooting.
+**Obstacles:** Conflict markers had been committed in `7dea61e` during the parallel-session collision. The test file collected zero tests because it was a script with no test class. The push didn't trigger Workers Builds, so the session deployed by hand with `npx wrangler deploy`. "Site won't open" turned out to be the home router (192.168.1.1) caching NXDOMAIN from before the custom domain existed; 1.1.1.1 and 8.8.8.8 resolved fine.
+**Commits:** `1199b3f` table view, NOTES conflict, discoverable tests, docs · `d25f295` deploy and DNS troubleshooting.
+
+## 2026-10-01 09:53–10:26 · Commits, private remote, history rewrite, first deploy · `cdd059c7`
+
+**Asked:** Commit all work logically, create a remote and push. Then: don't make it public, don't push the CSV, and work out what belongs in the repo for a serverless static site that is updated with data occasionally ("go ahead and change everything"; no cloud storage, since it could cost money). Run the filter-branch and force-push. Delete the backup branch, install nvm and Node 22, and deploy. Then document the deploy and set up Cloudflare Workers Builds.
+**Done:** Split commits into code, data and docs. Created the private repo `cmdshftateya/cps-facts`. Stopped tracking the 75 MB `Budget_Book_FY27.csv`, then removed it from all history with filter-branch and a force-push. Committed `build_site.py`, the methodology page and `wrangler.jsonc`, and retired the synthetic fixture. Installed nvm and Node 22 under `~/.nvm` without touching the system Node. First `wrangler deploy` went to schools.ateya.org. Connected Workers Builds; the owner authorized the GitHub app. Documented the update and deploy routine in PIPELINE.md.
+**Obstacles:** The permission classifier blocked the first history rewrite as destructive, so the session asked the owner and got explicit approval. `filter-branch` needs a clean tree, and the session stashed while another session was editing the same files. The stash pop half-failed and left NOTES.md with conflict markers. Everything was preserved on `backup/pre-filter-stash` (later deleted on request) and the session stopped instead of guessing. The owner cleaned up and the rewrite ran on a clean `main`. Wrangler needs Node 22 and the machine had 18.12.1. The new domain didn't resolve locally because of cached negative DNS, even though Cloudflare served 200.
+**Decisions:** D-012, D-013, D-014, D-015.
+**Commits:** `23985f2` demographics as published, shared Catalyst Maria budget · `7b22527` regenerate data · `597edd2` Phase 1 docs · `968d20b` stop tracking the budget export · `e10c8cb` site build, methodology page, deploy config · `def375a` remove fixture · `9efe521` ignore `.wrangler/` · `b5dc43c` deploy docs · `f8adc5e` auto-deploy docs (also the commit that proved Workers Builds fired).
+
+## 2026-10-01 10:03–10:05 · WIP readiness check · `270ad70a`
+
+**Asked:** "Are we ready to upload a WIP to schools.ateya.org?", then do everything except the deploy.
+**Done:** Answered yes, with guardrails: commit first, add a WIP banner and `noindex`, write the deploy config, and run the tests. Ran the gate tests (all fire). Added the banner and `noindex`, extended `build_site.py` to generate `methodology.html` from NOTES.md, and wrote `wrangler.jsonc`. These landed in `e10c8cb` and `7dea61e` through the other sessions.
+**Obstacles:** The working tree changed underneath it mid-task (the stash for the history rewrite in `cdd059c7`), so it stopped without restoring or committing anything.
+
+## 2026-10-01 10:03–10:04 · Map pan and zoom · `731daf38`
+
+**Asked:** The map can't pan or zoom.
+**Done:** Wheel and trackpad zoom toward the cursor (up to 40×), drag to pan without triggering clicks, pinch on touch, double-click to zoom, and +/−/reset buttons. The buttons moved to the top-right because they covered the legend. Markers scale with zoom.
+**Obstacles:** None in the session itself. The edit was caught in the stash during the history rewrite and reached `main` in `7dea61e` when the Phase 1 session rebuilt `site/index.html` from the stash.
+**Decisions:** Markers grow with zoom (unconfirmed; see Open threads).
+
+## 2026-10-01 09:51 · Prior-art check · `06705eb3`
+
+**Asked:** Does something like this already exist? Are we replicating it?
+**Done:** Answered from knowledge, without a web search. The overlapping tools are the Illinois Report Card, CPS School Profiles, the CPS budget portal, the Chicago Data Portal, GreatSchools/Niche, Urban Institute/NCES and one-off newsroom maps. None is a district-wide map that pairs sourced, dated numbers with budget, crosswalk and comparability caveats. The project's real value is the CPS↔ISBE crosswalk, the budget aggregation and the caveats. Offered a web search; it wasn't taken up.
+
+## 2026-09-30 21:46 · Git setup · `ac83c76c`
+
+**Asked:** Set up git.
+**Done:** `git init`, a `.gitignore` (venv, caches, `raw/*` except `raw/MANIFEST.json`), and the initial commit.
+**Obstacles:** The root-level 75 MB `Budget_Book_FY27.csv` went into this first commit. It was removed from history on 2026-10-01 (see `cdd059c7`).
+**Commits:** `c9a8390` initial commit (originally `558f8f7`).
+
+## 2026-09-30 21:38 – 2026-10-01 09:59 · Phase 2: map and school panel · `81bc3b29`
+
+**Asked:** Start Phase 2 (color-by, filters, search, school panel) before Phase 1 is finished. The next morning: Phase 1 is done, so finish Phase 2.
+**Done:** The first night built `site/index.html` against a synthetic fixture with a written `SCHEMA.md` contract. In the morning it moved to the real data. `build_site.py` projects lat/lon and simplifies subdistrict and community-area outlines into `site/data/schools.json`. The page has 25 color-by options, filters, search (name, ID, address, neighborhood, RCDTS), a panel with medians, sparklines, year badges, grade bars, funding sources and flags, and a settings menu (comparison set, spending figure, year policy, subdistrict shading, size by enrollment, theme) kept in the URL hash and localStorage. Display rules: no fallback year, no trend line across a break, "suppressed" is never 0. Checked mobile and dark mode. Retired the fixture.
+**Obstacles:** The fixture shape didn't match the real data (lat/lon versus x/y, per-year values, a metric registry). The simplifier collapsed closed rings to two points, which made every outline empty; fixed by splitting each ring at its farthest point. An `srs`/`srcs` typo broke the panel. JavaScript ordered grade "K" last.
+**Decisions:** D-019. Left four items open: the grade 11 toggle, the enrollment diverging palette, the minimum-n rule, and the table and methodology pages.
+**Commits:** none directly. The work landed in `e10c8cb`, `def375a` and `7dea61e`.
+
+## 2026-09-30 21:37 – 2026-10-01 10:18 · Phase 1: data pipeline · `3413053b`
+
+**Asked:** Build the normalized `schools.json`, CSVs and a validation report. After review: Catalyst Maria ("you propose, do the best thing"), stop suppressing demographics ("if they publish it, we should publish it"), and the crosswalk call is up to the session. Then: propose a solution for per-pupil spending, send a Sonnet subagent after the disability-label change, look into the ACT "ELA" column, Urban Prep Bronzeville and the roster facts, reconcile the budget, and draft emails. Then send them through Gmail ("I guess emails all the time"). Then finish the Grade 11 toggle, commit, and build the enrollment-change diverging palette.
+**Done:** Built `build.py` (fetch, normalize, validate, write) with a cached `raw/`, a manifest of URLs, dates and sha256 hashes, and 11 gate tests that corrupt the data in memory. 639 schools pass. Fixed the budget fund file (two schools missing, about $37M; school total corrected to $5.38B). Added `lineage.csv` for the six charter conversions. Research results: the ISBE per-pupil figure is FY2025, matched by its enrollment denominator; the low-income/IEP change looks label-only (Sonnet agent); the ACT "ELA" column is the ELA score, so the benchmark is 20; Urban Prep was renewed through 2026-27 as one school; Virtual Academy is open but counted at home schools; ChiArts' real budget unit is `U47141`; the YCCS budget sits in one network unit. The export's $10.11B matches the published FY27 budget. Sent three emails. Built the `g11_*_gap` metrics (SAT years through the official concordance; Spearman 0.909/0.913 against the 0.85 ship bar) and the Settings toggle. Built the diverging palette (`site/diverging.css`, `tools/diverging_palette.mjs`), checked with the dataviz validator.
+**Obstacles:** Hit the session limit at 21:47 and resumed at 09:42. The first build failed validation on 5Essentials level 0, which turned out to mean "not rated". Another session's stash silently reverted four pipeline files; they were re-applied. `site/index.html` changed while being read, and port 8765 belonged to another session's server, so the session used a different port. The real Phase 2 page was recovered from `backup/pre-filter-stash` (`cabeb8d`) before the toggle was added. WebFetch couldn't read the PDFs, so it parsed them with pypdf. Claude declined to guess email addresses until the owner insisted.
+**Decisions:** D-004, D-008, D-009, D-010, D-011, D-016.
+**Commits:** `ae907fd` grade 11 benchmark metrics · `650587f` regenerate data · `7dea61e` Grade 11 toggle, ACT ELA decision, outreach emails (also carried pan/zoom, banner and `noindex`) · `feab014` enrollment-change diverging palette.
+
+## 2026-09-30 19:23–21:37 · Phase 0: source audit · `589a4476`
+
+**Asked:** Confirm datasets, years, field names and join coverage, with `sources.md` as the output. On review: send a background agent to hand-match schools, an Opus agent for the SAT/ACT comparability problem, and a Sonnet agent to check the charter conversions online; try the BI portal; the session can do the hand review itself. Then the owner proposed a "computed proficiency" toggle, and exported the budget themselves.
+**Done:** Downloaded and measured every source and wrote `sources.md`. Four agents ran in the background: the crosswalk (639 IDs, 613 matched to ISBE, no duplicates; `crosswalk.csv` and `crosswalk_notes.md`), `hs-assessment-proposal.md`, `charter-conversions.md` and `bi-portal.md`. Found the enacted subdistrict shapefile and checked it visually against the official PDF. All 645 schools fall in exactly one subdistrict. REQUIREMENTS.md moved to v0.4. Started NOTES.md as the plain-language basis for the methodology page. Wrote `hs-score-benchmark-method.md`. Turned the owner's budget export into `budget_units.csv` and `budget_unit_funds.csv`, matched to 637 of 639 schools through `finance_id`.
+**Obstacles:** No official CPS↔ISBE ID crosswalk exists; two old portal datasets cover 81% and hand matching did the rest. The public CPS budget files have no dollar totals and no school IDs. The Board of Elections site blocks scripted downloads and only publishes PDFs. SAT was replaced by ACT, and the 2025 cut scores were lowered, so there are two breaks at once. The proficiency toggle as proposed was impossible because there are no student-level scores; it became a mean score versus the ACT benchmark instead. The BI portal's public link embeds a guest password, and Claude won't authenticate with it even when the owner says it's fine. The owner exported the data instead. The budget book PDF has no school breakdown. The export CSV is Latin-1, not UTF-8.
+**Decisions:** D-001 through D-007.
+**Commits:** none. Git didn't exist yet; the work entered `c9a8390`.
+
+## Before the first session (by 2026-09-30 19:23)
+
+REQUIREMENTS.md (draft v0.3: goal, scope, phases 0–4, the vendored "Chicago School" theme from `../politics`) existed before any Claude Code session in this repo. Its origin isn't in a transcript.
