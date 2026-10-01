@@ -48,8 +48,8 @@ The site is static: a Cloudflare Worker serving only the `site/` directory (see 
 .venv/bin/python build.py              # refresh data/ (add --skip-fetch to reuse raw/)
 .venv/bin/python build_site.py         # data/schools.json -> site/data/schools.json
 git add -A && git commit && git push   # data/ and site/data/ are committed, so each update is a reviewable diff
-npx wrangler deploy                    # uploads site/ to Cloudflare
 ```
+Pushing to `main` deploys automatically: the GitHub repo is connected to the Worker through Cloudflare Workers Builds (dashboard: Workers & Pages > cps-facts > Settings > Builds). The build command is empty because `site/` is committed already; the deploy command is `npx wrangler deploy`. Build logs are on the Worker's Builds tab. The pipeline itself never runs on Cloudflare (`raw/` is not in git). A manual deploy is still possible with `npx wrangler deploy`.
 
 **One-time setup**
 - Wrangler needs Node 22 or newer. Install it with nvm (`nvm install 22`) and run `. ~/.nvm/nvm.sh && nvm use 22` in a new shell if `node -v` shows an older version.
