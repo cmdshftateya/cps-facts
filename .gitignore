@@ -10,3 +10,6 @@ raw/*
 # hand-downloaded CPS budget export; the same file lives in raw/ (see PIPELINE.md)
 /Budget_Book_FY27.csv
 .wrangler/
+
+# Claude Code worktrees for parallel sessions
+.claude/worktrees/
