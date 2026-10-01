@@ -223,6 +223,10 @@ def main():
     with open(OUT / "data" / "schools.json", "w") as f:
         json.dump(data, f, separators=(",", ":"))
     shutil.copy(ROOT.parent / "politics" / "chicago.css", OUT / "chicago.css") if (ROOT.parent / "politics" / "chicago.css").exists() else None
+    # the share snapshot is drawn in the browser with the same fonts as the link-preview cards
+    (OUT / "fonts").mkdir(exist_ok=True)
+    for f in ("Barlow-Medium.ttf", "Barlow-SemiBold.ttf", "BarlowCondensed-Black.ttf", "BarlowCondensed-ExtraBold.ttf", "OFL.txt"):
+        shutil.copy(ROOT / "tools" / "fonts" / f, OUT / "fonts" / f)
     methodology()
     downloads()
     share.write_all(data, OUT)
