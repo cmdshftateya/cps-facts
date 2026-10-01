@@ -22,4 +22,19 @@ Raw downloads are cached in `raw/` (retrieval dates and hashes in `raw/MANIFEST.
 - A $0 CPS budget unit is no data (`budget_zero_unit`).
 - Converted schools (`lineage.csv`) take pre-conversion enrollment/demographics from the predecessor ID; ISBE series follow the crosswalk RCDTS. Both are flagged.
 - Catalyst Maria (400115/400182): one budget unit covers both campuses, so per-pupil uses their combined enrollment on both (flagged); the total stays on 400115.
+- Grade 11 "score vs ACT benchmark" (`g11_ela_gap`, `g11_math_gap`): SAT years converted with the official concordance and marked estimated; rank-correlation sanity check on every build. See `hs-score-benchmark-method.md`.
 - Outliers are flagged, never trimmed.
+
+# Phase 2: map and panel
+```
+.venv/bin/python build_site.py          # data/schools.json -> site/data/schools.json (projected x/y, subdistrict + community-area paths)
+cd site && python3 -m http.server 8000  # then open http://localhost:8000
+```
+`site/index.html` is the whole app (HTML + CSS + one inline script) plus `chicago.css` and `data/schools.json`; no runtime network beyond that JSON. `build_site.py` projects lat/lon (equirectangular, cos-latitude corrected), simplifies geometry and copies `chicago.css` from `../politics`. Re-run it whenever `build.py` regenerates `data/schools.json`.
+
+Behavior worth knowing:
+- Values come from `m[metric][year]`. "Latest per metric" takes each school's newest year; "Aligned" shows only that year, otherwise "no data for SYxx" (no fallback).
+- Sparklines use only years after a metric's last comparability break (`meta.metrics[].breaks`), so IAR, grade 11 and the 2026-27 low-income/IEP relabel never show a trend across the break. Grade 11 SAT and ACT are merged into one series with a break at 2024-25.
+- Quantile bins, medians and subdistrict averages use the comparison set (all schools, or district-run only).
+- Settings persist in the URL hash (`s_*`) and localStorage; the URL wins.
+- Not built yet: the grade 11 benchmark-estimate toggle (waiting on the ACT "ELA" column meaning), a diverging palette for enrollment change, and the table view (Phase 3).

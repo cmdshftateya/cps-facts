@@ -23,7 +23,15 @@ The SAT ranges fit the 200–800 section scales, so "Reading" is taken to be EBR
 ## Benchmarks (national, published, stable)
 - **ACT:** English 18, Math 22, Reading 22, Science 23, **ELA 20**. Source: ACT, College Readiness Benchmarks.
 - **SAT:** EBRW 480, Math 530. Source: College Board.
-- **Open question:** ISBE's ACT column is "ELA". If it is ACT's ELA composite, use 20. If it is the English subscore, use 18. Decide before implementation by reading ISBE's glossary or asking ISBE. Show the choice on the methodology page.
+- **Resolved (2026-10-01), pending ISBE's written confirmation:** ISBE's ACT column "ELA" is the ACT ELA score (the average of English, reading and writing); Illinois grade 11 takes the ACT with Writing (ISBE cut-score deck, 2025), and ISBE's proficient range for ELA is 18-26. Use the **ELA benchmark, 20**. ISBE's own proficiency cut (18) is a state placement standard, not ACT's benchmark; do not mix them. Question sent to ISBE (`emails.md`). Show the choice on the methodology page.
+
+## Implemented (2026-10-01)
+Built in the pipeline (`pipeline/concordance.py`, derived metrics `g11_ela_gap` and `g11_math_gap` in `schools.json`), not in the browser.
+- Tables parsed from the published ACT PDF (B1: SAT Math to ACT Math; C1: SAT ERW to ACT **English+Reading**, a 2-72 sum).
+- **Approximation to know about:** the official table does not map to ACT ELA directly (ELA also includes writing). We halve the English+Reading sum to a 1-36 average and compare it with 20, which is also the mean of ACT's English (18) and Reading (22) benchmarks, so both routes agree.
+- SAT mean scores are interpolated linearly between the table's 10-point steps. 2024-25 ACT values need no conversion. A `*` mean stays `*`.
+- Registry marks `estimated_years` (2022-23, 2023-24) so the page can badge them "est."; `benchmark` gives 20 (ELA) or 22 (math).
+- Sanity check passed: Spearman rank correlation, SAT 2023-24 estimate vs ACT 2024-25, is **0.909 (ELA) and 0.913 (math)** across 142 schools, above the 0.85 ship condition. It runs on every build (`g11_*_rank_corr`) and warns if it drops.
 
 ## Putting SAT years on the ACT scale
 Use the **official 2018 ACT–SAT concordance tables** (ACT / College Board): EBRW→ACT English/ELA and SAT Math→ACT Math. Convert each school's SAT mean, then subtract the ACT benchmark. 2025 values need no conversion.

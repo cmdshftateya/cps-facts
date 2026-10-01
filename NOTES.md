@@ -24,7 +24,7 @@ Plain-language record of what this project did with the data and where the numbe
 1. Test scores and spending are about a year older than enrollment. A school's profile can mix SY2026-27 and SY2024-25 values; each carries a year label.
 2. 2025 state test results are not comparable to earlier years (new test for grade 11, lower cut scores for every grade).
 3. CPS changed how it labels low-income students and students with disabilities between SY2025-26 and SY2026-27. District-wide the share fell from 71.8% to 68.9%. We have not confirmed whether the definition or only the label changed, so we show no demographic changes across that point.
-4. The state's per-pupil spending is for a fiscal year we have not yet pinned down (likely the year before the report). Confirm before labeling.
+4. The state's per-pupil spending is FY2025 (July 2024 to June 2025), the same year as SY2024-25. Its enrollment denominator matches CPS's SY2024-25 count exactly (0.0% median difference, 604 schools). ISBE has not confirmed this in writing (see `emails.md`).
 
 **Missing or suppressed values**
 5. The state hides values for small groups and marks them `*`. We show "suppressed", never 0. A blank means the state has no data (for example, a graduation rate for an elementary school).
@@ -35,20 +35,25 @@ Plain-language record of what this project did with the data and where the numbe
 8. 26 schools have no state record (program schools, early-childhood centers, some alternative high schools). They show CPS data only.
 9. Seven crosswalk matches are "medium confidence". Most are the former Acero and ChiArts schools: their state figures describe the charter that closed, not today's district-run school. They are labeled that way.
 10. The Urban Prep campus in Englewood is now one combined school. The 2025 state figures cover only part of it.
-11. Two schools' status is unconfirmed: Urban Prep Bronzeville (one source says it is being wound down; others say it stays open through 2026-27) and Virtual Academy HS/ES (no reporting found).
+11. Urban Prep: the board renewed both campuses for two years, through 2026-27 (WTTW, 2025-05-29); the "closing" story we found is from November 2022. CPS's 20th-day file now lists one combined Urban Prep HS (400086). Virtual Academy is open (grades K-12, medically fragile students) but CPS counts its students at their brick-and-mortar schools, so it has no 20th-day row of its own; its $16.4M budget unit (U26931) is not in any school total.
 12. EPIC and the two ASPIRA high schools closed with no successor and are not on the SY2026-27 map.
 13. Enrollment is the 20th-day (September) count. The state and CPS profile pages use other snapshots, so totals will differ slightly.
 14. The Illinois Report Card is revised after release (eight updates between October 2025 and May 2026). We record the data version we used.
 
 **Budget vs. spending**
 15. A school's budget and what is spent per pupil are different things; the site shows both and labels them. The CPS figure is a *proposed* FY27 budget (FY26 projected spending is as of July 2026). A school's budget excludes some centrally paid costs; the state per-pupil figure includes them.
-15a. The CPS export's district-wide total ($10.1B) does not equal the dashboard's unit page total ($8.7B): it includes capital, building-operations and other lines, and some negative offsets. School-level totals come out at $5.3B across 637 schools. We use only school units, but we have not reconciled the district-level gap line by line.
+15a. The export's total ($10.11B) matches CPS's published FY27 budget ($10.11B). It is $5.38B in school units and $4.77B in district-wide lines (pensions, debt, capital, facilities, transportation, central offices), less $571M of negative lines. The dashboard's $8.72B was a partial view we could not rebuild; it does not affect school totals, which join by unit ID.
 15b. Some budgets look extreme per pupil (18 schools under $5,000, 7 over $60,000, for example the SAFE schools at about $60,000). These are small or specialized programs; the map flags them and does not trim them.
 16. Charter, contract, ALOP and SAFE schools are funded by tuition and grants, not the district-school formula. Their CPS budget numbers are not comparable to district-run schools.
 
 **The estimated high-school score comparison**
-17. It converts SAT averages to the ACT scale with an official table designed for individual scores, so applied to school averages it is approximate. The national benchmarks come from a self-selected group of test takers, while Illinois tests every junior. It is labeled "estimate".
+<<<<<<< NOTES.md
+17. It converts SAT averages to the ACT scale with an official table designed for individual scores, so applied to school averages it is approximate. The table maps to ACT English+Reading, not ELA (which adds writing), so we halve the sum and compare it with 20, the mean of ACT's English and Reading benchmarks. The national benchmarks come from a self-selected group of test takers, while Illinois tests every junior. It is labeled "estimate".
 18. Open point: the state's ACT column is named "ELA". If it is ACT's ELA composite, the benchmark is 20; if the English subscore, 18. We have to confirm this before building it.
+=======
+17. It converts SAT averages to the ACT scale with an official table designed for individual scores, so applied to school averages it is approximate. The national benchmarks come from a self-selected group of test takers, while Illinois tests every junior. It is labeled "estimate".
+18. The state's ACT "ELA" column is the ACT ELA score (English, reading and writing; Illinois grade 11 takes the ACT with Writing), so the national benchmark is 20. ISBE has not confirmed this in writing.
+>>>>>>> /tmp/theirs.59641
 
 **Added in Phase 1**
 19. A school's CPS budget of $0 is shown as no data, not 0 (six YCCS campuses and Chicago Arts HS).
@@ -59,9 +64,6 @@ Plain-language record of what this project did with the data and where the numbe
 24. CPS demographic shares are published as CPS gives them, never hidden. Schools under 30 students get a small-school label.
 
 ## 3. Open items
-- Confirm the fiscal year of the state's per-pupil spending (caveat 4).
 - Confirm with CPS whether the low-income / disability change was a definition change (caveat 3).
-- Confirm the meaning of the state's ACT "ELA" column (caveat 18).
-- Check Urban Prep Bronzeville and Virtual Academy status (caveat 11).
-- Confirm the FY27 budget unit for Chicago Arts HS (we used its contract-era unit) and decide whether to keep Urban Prep Englewood + Bronzeville units summed.
+- Draft questions to CPS and ISBE are in `emails.md` (Catalyst Maria budget unit, low-income and IEP labels, per-pupil year, ACT ELA).
 - Re-run the audit when the 2026 Illinois Report Card is released.

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CPS Facts</title>
+<meta name="robots" content="noindex">
 <link rel="stylesheet" href="chicago.css">
 <style>
   *{box-sizing:border-box;border-radius:0}
@@ -13,55 +14,87 @@
   h1{font:700 22px/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em;margin:0}
   header .n{color:var(--muted);font-size:13px}
   main{display:grid;grid-template-columns:260px 1fr 0;min-height:0}
-  main.open{grid-template-columns:260px 1fr 380px}
+  main.open{grid-template-columns:260px 1fr 400px}
   aside,#panel{overflow:auto;background:var(--surface)}
   aside{border-right:var(--bay) solid var(--rule-firm)}
-  #panel{border-left:var(--bay) solid var(--rule-firm);display:none}
+  #panel{border-left:var(--bay) solid var(--rule-firm);display:none;position:relative}
   main.open #panel{display:block}
   .blk{padding:12px 14px;border-bottom:var(--bay) solid var(--rule)}
   label,.lbl{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 4px}
   select,input[type=search]{width:100%;background:var(--sunk);color:var(--ink);border:var(--bay) solid var(--rule-firm);padding:7px;font:inherit;font-size:14px;margin-bottom:10px}
   .chk{display:flex;gap:6px;align-items:center;font-size:14px;margin:0 0 10px;text-transform:none;letter-spacing:0;color:var(--ink)}
+  button{font:inherit;color:var(--ink);background:none;border:var(--bay) solid var(--rule-firm);padding:6px 10px;cursor:pointer}
+  button:hover{background:var(--ink);color:var(--page)}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:1px}
   #stage{position:relative;min-width:0;min-height:0}
   svg#map{width:100%;height:100%;display:block;background:var(--page)}
+  svg#map{touch-action:none;cursor:grab}
+  .zoom{position:absolute;right:12px;top:12px;display:flex;flex-direction:column;border:1px solid var(--rule-firm);background:var(--surface)}
+  .zoom button{width:34px;height:34px;border:0;border-bottom:1px solid var(--rule);background:none;color:var(--ink);font:700 18px/1 var(--font-display);cursor:pointer}
+  .zoom button:last-child{border-bottom:0}
   .mk{cursor:pointer}
-  .mk:focus{outline:2px solid var(--ink)}
-  .mk.sel{stroke:var(--ink);stroke-width:3}
-  .mk.dim{opacity:.12}
-  #legend{position:absolute;left:12px;bottom:12px;background:var(--surface);border:var(--bay) solid var(--rule-firm);padding:10px 12px;font-size:12px;max-width:300px}
+  .mk:focus-visible{outline:none;stroke:var(--blue);stroke-width:3}
+  .mk.dim{opacity:.1;pointer-events:none}
+  .mk.excl{opacity:.4}
+  .sd{cursor:pointer}
+  .sd:hover{stroke:var(--ink);stroke-width:2}
+  #legend{position:absolute;left:12px;bottom:12px;background:var(--surface);border:var(--bay) solid var(--rule-firm);padding:10px 12px;font-size:12px;max-width:320px}
   #legend .bins{display:flex;margin:6px 0 2px}
   #legend .bins i{display:block;height:12px;flex:1}
   #legend .ed{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
-  #legend .sh{display:flex;gap:10px;margin-top:8px;color:var(--ink-2);align-items:center}
-  #tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--page);padding:4px 7px;font-size:12px;display:none;white-space:nowrap}
-  #panel h2{font:700 24px/1.05 var(--font-display);text-transform:uppercase;margin:0 0 4px}
-  #panel .sub{color:var(--ink-2);font-size:13px}
-  #close{float:right;background:none;border:var(--bay) solid var(--rule-firm);color:var(--ink);padding:2px 9px;font-size:18px;cursor:pointer}
-  #close:hover{background:var(--ink);color:var(--page)}
+  #legend .sh{display:flex;gap:8px;margin-top:8px;color:var(--ink-2);align-items:center;flex-wrap:wrap}
+  #legend .warn{color:var(--terra);margin-top:6px}
+  #legend .note{color:var(--muted);margin-top:6px}
+  #legend summary{cursor:pointer}
+  #tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--page);padding:4px 7px;font-size:12px;display:none;white-space:nowrap;z-index:3}
+  #panel h2{font:700 24px/1.05 var(--font-display);text-transform:uppercase;margin:0 0 4px;padding-right:40px}
+  #panel .sub{color:var(--ink-2);font-size:13px;margin-top:2px}
+  #close{position:absolute;right:12px;top:10px;font-size:18px;padding:0 9px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--bay);background:var(--rule)}
-  .cell{background:var(--surface);padding:10px 12px}
+  .cell{background:var(--surface);padding:10px 12px;min-width:0}
+  .cell.wide{grid-column:1/-1}
   .cell .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
   .cell .v{font:700 24px/1.1 var(--font-display);font-variant-numeric:tabular-nums}
+  .cell .v.none{font:400 14px var(--font-ui);color:var(--muted);padding:6px 0}
   .cell .c{font-size:12px;color:var(--ink-2)}
-  .badge{font-size:10px;color:var(--muted);border:var(--bay) solid var(--rule-firm);padding:0 4px;margin-left:4px;vertical-align:middle;font-family:var(--font-mono)}
+  .badge{font-size:10px;color:var(--muted);border:var(--bay) solid var(--rule-firm);padding:0 4px;margin-left:4px;vertical-align:middle;font-family:var(--font-mono);white-space:nowrap}
+  .badge.w{color:var(--terra);border-color:var(--terra)}
   .spark{display:block;margin-top:4px}
   #panel h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0;padding:12px 14px 6px}
+  .flags{margin:8px 0 0;padding:0;list-style:none;font-size:12px;color:var(--terra)}
+  .flags li{margin-top:3px}
   #foot{font-size:12px;color:var(--muted);padding:12px 14px}
+  #foot p{margin:0 0 6px}
+  .bars{display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:6px}
+  .bars i{flex:1;background:var(--blue);min-height:1px}
+  .barlbl{display:flex;gap:2px;font-size:9px;color:var(--muted)}
+  .barlbl span{flex:1;text-align:center}
+  .fund{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-top:3px;font-variant-numeric:tabular-nums}
   #res{max-height:180px;overflow:auto;margin:-6px 0 10px;border:var(--bay) solid var(--rule)}
-  #res button{display:block;width:100%;text-align:left;background:var(--sunk);color:var(--ink);border:0;border-bottom:var(--bay) solid var(--rule);padding:6px 8px;font:inherit;font-size:13px;cursor:pointer}
-  #res button:hover{background:var(--ink);color:var(--page)}
+  #res button{display:block;width:100%;text-align:left;background:var(--sunk);border:0;border-bottom:var(--bay) solid var(--rule);padding:6px 8px;font-size:13px}
+  #res button:hover,#res button:focus-visible{background:var(--ink);color:var(--page)}
   mark{background:var(--mark);color:inherit}
+  /* settings */
+  #setbtn{position:fixed;right:14px;bottom:14px;width:44px;height:44px;padding:0;background:var(--surface);z-index:20;display:grid;place-items:center}
+  #setbtn svg{fill:currentColor}
+  #setmenu{position:fixed;right:14px;bottom:66px;width:340px;max-height:calc(100vh - 90px);overflow:auto;background:var(--surface);border:var(--bay) solid var(--rule-firm);z-index:20;padding:12px 14px}
+  #setmenu[hidden]{display:none}
+  #setmenu h3{margin:0 0 10px;font:700 15px var(--font-display);text-transform:uppercase;letter-spacing:.06em}
+  #setmenu .hint{font-size:11px;color:var(--muted);margin:-6px 0 10px}
   @media(max-width:760px){
     body{overflow:auto;display:block}
-    main,main.open{display:block}
-    aside{border-right:0}
-    #stage{height:70vh}
-    #panel{position:fixed;left:0;right:0;bottom:0;max-height:62vh;border-left:0;border-top:var(--bay) solid var(--rule-firm);z-index:5}
+    main,main.open{display:flex;flex-direction:column}
+    aside{border-right:0;order:2}
+    #stage{height:64vh;order:1}
+    #legend{max-width:calc(100% - 24px)}
+    #panel{position:fixed;left:0;right:0;bottom:0;max-height:60vh;border-left:0;border-top:var(--bay) solid var(--rule-firm);z-index:10}
+    #setmenu{left:0;right:0;bottom:0;width:auto;max-height:70vh;border-width:var(--bay) 0 0}
+    #setbtn{bottom:14px}
   }
 </style>
 </head>
 <body>
-<header><h1>CPS Facts</h1><span class="n" id="count"></span><span class="n" id="fixnote"></span></header>
+<header><h1>CPS Facts</h1><span class="n" style="color:var(--terra)">Work in progress: data not yet verified with CPS or ISBE. <a href="methodology.html" style="color:inherit">Methodology and caveats</a></span><span class="n" id="count"></span><span class="n" id="asof"></span></header>
 <main id="main">
   <aside>
     <div class="blk">
@@ -75,9 +108,9 @@
       <label for="f-type">School type</label><select id="f-type"></select>
       <label for="f-band">Grade band</label><select id="f-band"></select>
       <label for="f-net">Network</label><select id="f-net"></select>
-      <label for="f-sub">Subdistrict</label><select id="f-sub"></select>
+      <label for="f-sub">Board subdistrict</label><select id="f-sub"></select>
       <label class="chk"><input type="checkbox" id="f-has"> Only schools with data for this metric</label>
-      <button id="reset" style="background:none;border:var(--bay) solid var(--rule-firm);color:var(--ink);padding:6px 10px;cursor:pointer">Reset</button>
+      <button id="reset">Reset filters</button>
     </div>
   </aside>
   <div id="stage">
@@ -87,202 +120,397 @@
   </div>
   <section id="panel" aria-live="polite"></section>
 </main>
+<button id="setbtn" aria-label="Settings" aria-expanded="false" aria-controls="setmenu"><svg width="22" height="22" viewBox="-10 -10 20 20" aria-hidden="true"><polygon points="0,-9 2.6,-4.5 7.8,-4.5 5.2,0 7.8,4.5 2.6,4.5 0,9 -2.6,4.5 -7.8,4.5 -5.2,0 -7.8,-4.5 -2.6,-4.5"/></svg></button>
+<div id="setmenu" hidden role="dialog" aria-label="Settings">
+  <h3>Settings</h3>
+  <label for="s-set">Comparison set</label>
+  <select id="s-set"><option value="all">All schools</option><option value="district">District-run only</option></select>
+  <div class="hint">District-run only: charter, contract and options schools stay on the map (dimmed) but are left out of bins and medians.</div>
+  <label for="s-spend">Spending figure</label>
+  <select id="s-spend"><option value="ppe">ISBE per-pupil expenditure (comparable)</option><option value="cps">CPS FY27 budget per pupil</option></select>
+  <label for="s-year">Year policy</label>
+  <select id="s-year"></select>
+  <label for="s-mode">Map mode</label>
+  <select id="s-mode"><option value="points">School points</option><option value="sub">Subdistrict shading</option></select>
+  <label class="chk"><input type="checkbox" id="s-size"> Size markers by enrollment</label>
+  <label for="s-g11">Grade 11 test measure</label>
+  <select id="s-g11"><option value="prof">State proficiency % (SAT to 2024, ACT from 2025)</option><option value="gap">Score vs national benchmark (estimate)</option></select>
+  <div class="hint">Benchmark view: average score minus ACT's college-readiness benchmark (ELA 20, math 22), in points. SAT years (to SY2023-24) are converted to the ACT scale and marked "est." Unlike proficiency, it can be compared across the 2025 test change.</div>
+  <label for="s-theme">Theme</label>
+  <select id="s-theme"><option value="auto">Auto</option><option value="dark">Dark</option><option value="light">Light</option></select>
+  <button id="s-reset">Reset settings</button>
+</div>
 <script>
 "use strict";
-const METRICS = {
-  type:{label:"School type",cat:true},
-  enroll:{label:"Enrollment",fmt:v=>v.toLocaleString(),group:"Enrollment"},
-  enroll_chg:{label:"Enrollment change, 2 yr (%)",fmt:v=>(v>0?"+":"")+v+"%",group:"Enrollment"},
-  low_income:{label:"Low-income (%)",fmt:p,group:"Demographics"},
-  el:{label:"English learners (%)",fmt:p,group:"Demographics"},
-  iep:{label:"Diverse learners / IEP (%)",fmt:p,group:"Demographics"},
-  pct_hispanic:{label:"Hispanic (%)",fmt:p,group:"Demographics"},
-  pct_black:{label:"Black (%)",fmt:p,group:"Demographics"},
-  pct_white:{label:"White (%)",fmt:p,group:"Demographics"},
-  pct_asian:{label:"Asian (%)",fmt:p,group:"Demographics"},
-  isbe_pp:{label:"Per-pupil spending, ISBE",fmt:d,group:"Spending"},
-  cps_pp:{label:"Per-pupil budget, CPS",fmt:d,group:"Spending"},
-  ela:{label:"ELA proficiency (%)",fmt:p,group:"Outcomes"},
-  math:{label:"Math proficiency (%)",fmt:p,group:"Outcomes"},
-  grade11:{label:"Grade 11 proficiency (%)",fmt:p,group:"Outcomes"},
-  attendance:{label:"Attendance (%)",fmt:p,group:"Outcomes"},
-  chronic:{label:"Chronic absenteeism (%)",fmt:p,group:"Outcomes"},
-  grad:{label:"4-yr graduation rate (%)",fmt:p,group:"Outcomes"},
-};
-function p(v){return v.toFixed(1)+"%"} function d(v){return "$"+Math.round(v).toLocaleString()}
+const $=id=>document.getElementById(id);
+const NS="http://www.w3.org/2000/svg";
 const TYPES={district:"District-run",charter:"Charter",contract:"Contract",options:"Options"};
 const BANDS={ES:"Elementary",HS:"High school",combo:"Combined"};
 const CATCOL={district:"var(--s1)",charter:"var(--s2)",contract:"var(--s3)",options:"var(--s4)"};
-const $=id=>document.getElementById(id);
-const NS="http://www.w3.org/2000/svg";
-let DATA, S=[], state={metric:"low_income",type:"",band:"",net:"",sub:"",has:false,sel:""};
+const DEF_SET={set:"all",spend:"ppe",year:"latest",mode:"points",size:false,theme:"auto",g11:"prof"};
+const DEF_METRIC="pct_low_income";
 
-fetch("data/schools.json").then(r=>r.json()).then(init);
+// color-by menu: [group, key]. "spend", g11_ela, g11_math are virtual (see init)
+const CB=[["Categorical","type"],["Enrollment","enrollment"],
+ ["Demographics","pct_low_income"],["Demographics","pct_el"],["Demographics","pct_iep"],["Demographics","pct_latinx"],["Demographics","pct_black"],["Demographics","pct_white"],["Demographics","pct_asian"],["Demographics","pct_homeless"],
+ ["Spending","spend"],
+ ["Outcomes","iar_ela_prof"],["Outcomes","iar_math_prof"],["Outcomes","ela_growth"],["Outcomes","math_growth"],["Outcomes","g11_ela"],["Outcomes","g11_math"],["Outcomes","attendance_rate"],["Outcomes","chronic_absent"],["Outcomes","grad_4yr"],["Outcomes","ninth_on_track"],["Outcomes","postsec_12mo"],
+ ["5Essentials","fe_leaders"],["5Essentials","fe_teachers"],["5Essentials","fe_families"],["5Essentials","fe_environment"]];
+const FAMILIES=[
+ ["Enrollment",["enrollment"]],
+ ["Demographics",["pct_low_income","pct_el","pct_iep","pct_latinx","pct_black","pct_white","pct_asian","pct_multiracial","pct_homeless"]],
+ ["Spending",["spend","ppe_site","ppe_central","cps_budget_fy27","cps_budget_fy26_projected","cps_positions_fy27"]],
+ ["Outcomes",["iar_ela_prof","iar_math_prof","ela_growth","math_growth","g11_ela","g11_math","act_ela_avg","act_math_avg","attendance_rate","chronic_absent","grad_4yr","ninth_on_track","postsec_12mo"]],
+ ["5Essentials survey",["fe_leaders","fe_teachers","fe_families","fe_environment"]]];
 
-function val(s,k){const m=s.m[k];return m&&typeof m.v==="number"?m.v:null}
-function init(D){
-  DATA=D;S=D.schools;
-  if(D.generated==="fixture")$("fixnote").textContent="· synthetic fixture data, not real schools";
-  fill("metric",Object.entries(METRICS).map(([k,m])=>[k,m.label]),null,true);
-  fill("f-type",Object.entries(TYPES),"All types");
-  fill("f-band",Object.entries(BANDS),"All grade bands");
-  fill("f-net",uniq("network").map(x=>[x,x]),"All networks");
-  fill("f-sub",uniq("subdistrict",(a,b)=>parseInt(a)-parseInt(b)||a.localeCompare(b)).map(x=>[x,"District "+x]),"All subdistricts");
-  readHash();syncControls();buildMap();
-  $("metric").onchange=e=>{state.metric=e.target.value;render()};
-  for(const [id,k] of [["f-type","type"],["f-band","band"],["f-net","net"],["f-sub","sub"]])$(id).onchange=e=>{state[k]=e.target.value;render()};
-  $("f-has").onchange=e=>{state.has=e.target.checked;render()};
-  $("reset").onclick=()=>{Object.assign(state,{type:"",band:"",net:"",sub:"",has:false});$("q").value="";hideRes();syncControls();render()};
-  $("q").oninput=search;
-  document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(state.sel)select("");hideRes()}});
-  addEventListener("hashchange",()=>{readHash();syncControls();render()});
-  render();
-}
-function uniq(k,cmp){return [...new Set(S.map(s=>s[k]))].sort(cmp)}
-function fill(id,pairs,all,noAll){
-  const el=$(id);el.innerHTML="";
-  if(id==="metric"){
-    const groups={};for(const [k] of pairs){const g=METRICS[k].group||"Categorical";(groups[g]??=[]).push(k)}
-    for(const [g,ks] of Object.entries(groups)){const og=document.createElement("optgroup");og.label=g;for(const k of ks)og.append(new Option(METRICS[k].label,k));el.append(og)}
-    return;
+let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",...DEF_SET},bins=[],medCache={};
+
+fetch("data/schools.json").then(r=>r.json()).then(init).catch(e=>{document.body.insertAdjacentHTML("beforeend","<p style='padding:20px'>Could not load data/schools.json</p>");console.error(e)});
+
+// ---------- values
+function virtual(){
+  const M=D.meta.metrics;
+  M.spend={label:"Per-pupil spending",unit:"usd",family:"spending",breaks:[],note:""};
+  for(const [k,sub] of [["g11_ela","ela"],["g11_math","math"]]){
+    const a=M["sat_"+sub+"_prof"],b=M["act_"+sub+"_prof"];
+    M[k]={label:"Grade 11 "+(sub==="ela"?"ELA":"math")+" proficiency (%)",unit:"pct",family:"outcomes",breaks:["2024-25"],years:[...a.years,...b.years],
+      note:"SAT through SY2023-24, ACT from SY2024-25 with new cut scores. Never compared across that break."};
+    for(const s of S){const o={...(s.m["sat_"+sub+"_prof"]||{}),...(s.m["act_"+sub+"_prof"]||{})};if(Object.keys(o).length)s.m[k]=o}
   }
-  el.append(new Option(all,""));for(const [v,l] of pairs)el.append(new Option(l,v));
+  M.enrollment.label="Enrollment (20th day)";
 }
+function seriesKey(k){if(st.g11==="gap"&&(k==="g11_ela"||k==="g11_math"))return k+"_gap";return k==="spend"?(st.spend==="ppe"?"ppe_total":"cps_budget_per_pupil"):k}
+function get(s,k){
+  const ser=s.m[seriesKey(k)];if(!ser)return null;
+  if(st.year==="latest"){const ys=Object.keys(ser).sort();const y=ys[ys.length-1];return y?{v:ser[y],sy:y}:null}
+  return st.year in ser?{v:ser[st.year],sy:st.year}:null;
+}
+const num=(s,k)=>{const g=get(s,k);return g&&typeof g.v==="number"?g.v:null};
+const inSet=s=>st.set==="all"||s.type==="district";
+function fmt(k,v){
+  const u=R[seriesKey(k)]?.unit||R[k]?.unit;
+  if(u==="pct")return v.toFixed(1)+"%";if(u==="usd")return "$"+Math.round(v).toLocaleString();
+  if(u==="points")return (v>0?"+":"")+v.toFixed(1);if(u==="level")return v.toFixed(1)+" / 5";if(u==="percentile")return Math.round(v)+"";
+  if(u==="score")return v.toFixed(1);return Math.round(v).toLocaleString();
+}
+function label(k){return k==="spend"?(st.spend==="ppe"?"Per-pupil spending (ISBE)":"Per-pupil budget (CPS FY27)"):k==="type"?"School type":R[seriesKey(k)].label}
+function metricYears(k){const ys=new Set();for(const s of S){const g=get(s,k);if(g&&typeof g.v==="number")ys.add(g.sy)}return [...ys].sort()}
+const sy=y=>"SY"+y.slice(2);
+
+// ---------- init
+function init(data){
+  D=data;S=D.schools;R=D.meta.metrics;virtual();
+  $("asof").textContent=`Roster SY${D.meta.roster_year} · data built ${D.meta.generated.slice(0,10)}`;
+  const g={};for(const [grp,k] of CB)(g[grp]??=[]).push(k);
+  $("metric").innerHTML="";
+  for(const [grp,ks] of Object.entries(g)){const og=document.createElement("optgroup");og.label=grp;for(const k of ks){const o=new Option(label(k),k);o.dataset.k=k;og.append(o)}$("metric").append(og)}
+  opts("f-type",Object.entries(TYPES),"All types");opts("f-band",Object.entries(BANDS),"All grade bands");
+  const nets=[...new Set(S.map(s=>s.network))].sort((a,b)=>(parseInt(a.replace(/\D/g,""))||999)-(parseInt(b.replace(/\D/g,""))||999)||a.localeCompare(b));
+  opts("f-net",nets.map(x=>[x,x]),"All networks");
+  const subs=[...new Set(S.map(s=>s.subdistrict).filter(Boolean))].sort((a,b)=>parseInt(a)-parseInt(b)||a.localeCompare(b));
+  opts("f-sub",subs.map(x=>[x,"District "+x]),"All subdistricts");
+  const yrs=new Set();for(const [,k] of CB)if(k!=="type")for(const s of S){const ser=s.m[seriesKey(k)];if(ser)Object.keys(ser).forEach(y=>yrs.add(y))}
+  $("s-year").innerHTML='<option value="latest">Latest available per metric</option>'+[...yrs].sort().reverse().map(y=>`<option value="${y}">Aligned: SY${y}</option>`).join("");
+  loadSettings();readHash();syncControls();buildMap();wire();render();
+}
+function opts(id,pairs,all){const el=$(id);el.innerHTML="";el.append(new Option(all,""));for(const [v,l] of pairs)el.append(new Option(l,v))}
+function wire(){
+  $("metric").onchange=e=>{st.metric=e.target.value;render()};
+  for(const [id,k] of [["f-type","type"],["f-band","band"],["f-net","net"],["f-sub","sub"]])$(id).onchange=e=>{st[k]=e.target.value;render()};
+  $("f-has").onchange=e=>{st.has=e.target.checked;render()};
+  $("reset").onclick=()=>{Object.assign(st,{type:"",band:"",net:"",sub:"",has:false});$("q").value="";hideRes();syncControls();render()};
+  $("q").oninput=search;
+  $("q").onkeydown=e=>{if(e.key==="Enter"){const b=$("res").querySelector("button");if(b)b.click()}};
+  for(const [id,k] of [["s-set","set"],["s-spend","spend"],["s-year","year"],["s-mode","mode"],["s-g11","g11"],["s-theme","theme"]])$(id).onchange=e=>{st[k]=e.target.value;settingsChanged()};
+  $("s-size").onchange=e=>{st.size=e.target.checked;settingsChanged()};
+  $("s-reset").onclick=()=>{Object.assign(st,DEF_SET);syncControls();settingsChanged()};
+  $("setbtn").onclick=e=>{e.stopPropagation();toggleMenu()};
+  $("setmenu").onclick=e=>e.stopPropagation();
+  document.addEventListener("click",()=>toggleMenu(false));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!$("setmenu").hidden){toggleMenu(false);$("setbtn").focus()}else if(st.sel)select("");hideRes()}});
+  addEventListener("hashchange",()=>{readHash();syncControls();render()});
+}
+function toggleMenu(open){const m=$("setmenu");const o=open===undefined?m.hidden:open;m.hidden=!o;$("setbtn").setAttribute("aria-expanded",o)}
+function settingsChanged(){saveSettings();applyTheme();for(const o of $("metric").options)o.textContent=label(o.dataset.k);render()}
 function syncControls(){
-  $("metric").value=state.metric;$("f-type").value=state.type;$("f-band").value=state.band;
-  $("f-net").value=state.net;$("f-sub").value=state.sub;$("f-has").checked=state.has;
+  $("metric").value=st.metric;$("f-type").value=st.type;$("f-band").value=st.band;$("f-net").value=st.net;$("f-sub").value=st.sub;$("f-has").checked=st.has;
+  $("s-set").value=st.set;$("s-spend").value=st.spend;$("s-year").value=st.year;$("s-mode").value=st.mode;$("s-size").checked=st.size;$("s-theme").value=st.theme;$("s-g11").value=st.g11;
+  for(const o of $("metric").options)o.textContent=label(o.dataset.k);
+  applyTheme();
 }
-// ---- hash state
+function applyTheme(){if(st.theme==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.dataset.theme=st.theme}
+
+// ---------- URL hash + localStorage
+const SETKEYS=Object.keys(DEF_SET);
 function writeHash(){
   const u=new URLSearchParams();
-  if(state.metric!=="low_income")u.set("m",state.metric);
-  if(state.type)u.set("type",state.type);if(state.band)u.set("band",state.band);
-  if(state.net)u.set("net",state.net);if(state.sub)u.set("sub",state.sub);
-  if(state.has)u.set("has","1");if(state.sel)u.set("school",state.sel);
+  if(st.metric!==DEF_METRIC)u.set("m",st.metric);
+  for(const k of ["type","band","net","sub"])if(st[k])u.set(k,st[k]);
+  if(st.has)u.set("has","1");if(st.sel)u.set("school",st.sel);
+  for(const k of SETKEYS)if(st[k]!==DEF_SET[k])u.set("s_"+k,st[k]===true?"1":st[k]);
   const h=u.toString();history.replaceState(null,"",h?"#"+h:location.pathname+location.search);
 }
 function readHash(){
   const u=new URLSearchParams(location.hash.slice(1));
-  const m=u.get("m");state.metric=METRICS[m]?m:"low_income";
-  state.type=TYPES[u.get("type")]?u.get("type"):"";state.band=BANDS[u.get("band")]?u.get("band"):"";
-  state.net=u.get("net")||"";state.sub=u.get("sub")||"";state.has=u.get("has")==="1";
-  const sc=u.get("school");state.sel=S.some(s=>s.id===sc)?sc:"";
+  const keys=new Set(CB.map(c=>c[1]));
+  st.metric=keys.has(u.get("m"))?u.get("m"):DEF_METRIC;
+  const t=u.get("type"),b=u.get("band");
+  st.type=TYPES[t]?t:"";st.band=BANDS[b]?b:"";
+  st.net=S.some(s=>s.network===u.get("net"))?u.get("net"):"";st.sub=S.some(s=>s.subdistrict===u.get("sub"))?u.get("sub"):"";
+  st.has=u.get("has")==="1";const sc=u.get("school");st.sel=S.some(s=>s.id===sc)?sc:"";
+  // settings in the URL win over remembered ones; otherwise keep what localStorage loaded
+  const ok={set:["all","district"],spend:["ppe","cps"],mode:["points","sub"],theme:["auto","dark","light"],g11:["prof","gap"]};
+  for(const k of SETKEYS){
+    const v=u.get("s_"+k);if(v===null)continue;
+    if(k==="size")st.size=v==="1";
+    else if(k==="year"){if(v==="latest"||$("s-year").querySelector(`option[value="${v}"]`))st.year=v}
+    else if(ok[k].includes(v))st[k]=v;
+  }
 }
-// ---- map
-const mk={};
+function loadSettings(){try{const o=JSON.parse(localStorage.getItem("cpsfacts.settings")||"{}");for(const k of SETKEYS)if(k in o)st[k]=o[k]}catch(e){}}
+function saveSettings(){try{const o={};for(const k of SETKEYS)o[k]=st[k];localStorage.setItem("cpsfacts.settings",JSON.stringify(o))}catch(e){}}
+
+// ---------- map
 function buildMap(){
-  const svg=$("map");const [w,h]=DATA.viewbox;svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
-  svg.setAttribute("preserveAspectRatio","xMidYMid meet");
-  for(const dpath of DATA.context){const e=document.createElementNS(NS,"path");e.setAttribute("d",dpath);e.setAttribute("fill","none");e.setAttribute("stroke","var(--rule)");e.setAttribute("vector-effect","non-scaling-stroke");svg.append(e)}
-  const g=document.createElementNS(NS,"g");svg.append(g);const R=5.5;
+  const svg=$("map"),[w,h]=D.map.viewbox;svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
+  const mkp=(d,attrs)=>{const e=document.createElementNS(NS,"path");e.setAttribute("d",d);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);svg.append(e);return e};
+  D.map.areas.forEach(d=>mkp(d,{fill:"none",stroke:"var(--rule)","stroke-width":".6","vector-effect":"non-scaling-stroke"}));
+  for(const s of D.map.subdistricts){
+    const e=mkp(s.d,{fill:"none",stroke:"var(--rule-firm)","stroke-width":"1","vector-effect":"non-scaling-stroke","fill-rule":"evenodd","class":"sd","pointer-events":"none"});
+    e.dataset.id=s.id;e.onclick=()=>{st.sub=st.sub===s.id?"":s.id;syncControls();render()};
+    e.onmouseenter=ev=>subTip(s.id,ev);e.onmousemove=ev=>subTip(s.id,ev);e.onmouseleave=()=>$("tip").style.display="none";
+    sdEl[s.id]=e;
+  }
+  const g=document.createElementNS(NS,"g");svg.append(g);
   for(const s of S){
-    let e;
-    if(s.type==="charter"||s.type==="district"){e=document.createElementNS(NS,"rect");e.setAttribute("x",s.x-R);e.setAttribute("y",s.y-R);e.setAttribute("width",2*R);e.setAttribute("height",2*R)}
-    else{e=document.createElementNS(NS,"rect");e.setAttribute("x",s.x-R);e.setAttribute("y",s.y-R);e.setAttribute("width",2*R);e.setAttribute("height",2*R);e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`)}
-    e.setAttribute("class","mk");e.setAttribute("tabindex","0");e.setAttribute("role","button");e.setAttribute("aria-label",s.name);
-    e.onclick=()=>select(s.id);e.onkeydown=ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();select(s.id)}};
-    e.onmouseenter=ev=>tip(s,ev);e.onmousemove=ev=>tip(s,ev);e.onmouseleave=()=>$("tip").style.display="none";e.onfocus=ev=>tip(s,ev);e.onblur=()=>$("tip").style.display="none";
+    const e=document.createElementNS(NS,"rect");
+    if(s.type==="contract"||s.type==="options")e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`);
+    e.setAttribute("class","mk");e.setAttribute("tabindex","0");e.setAttribute("role","button");e.setAttribute("aria-label",s.name+", "+TYPES[s.type]);
+    e.onclick=ev=>{ev.stopPropagation();select(s.id)};
+    e.onkeydown=ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();select(s.id)}};
+    for(const ev of ["mouseenter","mousemove","focus"])e.addEventListener(ev,x=>tip(s,x));
+    for(const ev of ["mouseleave","blur"])e.addEventListener(ev,()=>$("tip").style.display="none");
     g.append(e);mk[s.id]=e;
   }
+  svg.onclick=()=>{if(moved)return;if(st.sel)select("")};
+  panZoom(svg,w,h);
+}
+// pan/zoom by rewriting the viewBox: wheel, drag, pinch, double-click, +/- buttons
+let moved=false;
+function panZoom(svg,W,H){
+  let v={x:0,y:0,w:W,h:H};const MAXZ=40;
+  const apply=()=>{svg.setAttribute("viewBox",`${v.x} ${v.y} ${v.w} ${v.h}`)};
+  const clamp=()=>{v.w=Math.min(W,Math.max(W/MAXZ,v.w));v.h=v.w*H/W;v.x=Math.min(W-v.w,Math.max(0,v.x));v.y=Math.min(H-v.h,Math.max(0,v.y))};
+  const rect=()=>svg.getBoundingClientRect();
+  // map client point -> viewBox coords, accounting for preserveAspectRatio letterboxing
+  const sc=()=>{const r=rect();return Math.min(r.width/v.w,r.height/v.h)};
+  const toVB=(cx,cy)=>{const r=rect(),k=sc();return [v.x+(cx-r.left-(r.width-v.w*k)/2)/k,v.y+(cy-r.top-(r.height-v.h*k)/2)/k]};
+  const zoomAt=(cx,cy,f)=>{const [px,py]=toVB(cx,cy);const nw=Math.min(W,Math.max(W/MAXZ,v.w/f)),nf=nw/v.w;
+    v.x=px-(px-v.x)*nf;v.y=py-(py-v.y)*nf;v.w=nw;v.h=nw*H/W;clamp();apply()};
+  svg.addEventListener("wheel",e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,Math.exp(-e.deltaY*(e.deltaMode?0.05:0.0015)*(e.ctrlKey?4:1)))},{passive:false});
+  svg.addEventListener("dblclick",e=>{zoomAt(e.clientX,e.clientY,e.shiftKey?0.5:2)});
+  const ptrs=new Map();let last=null,pd=0,down=null;
+  svg.addEventListener("pointerdown",e=>{ptrs.set(e.pointerId,[e.clientX,e.clientY]);moved=false;down=[e.clientX,e.clientY];
+    if(ptrs.size===2){const[a,b]=[...ptrs.values()];pd=Math.hypot(a[0]-b[0],a[1]-b[1])}});
+  svg.addEventListener("pointermove",e=>{
+    if(!ptrs.has(e.pointerId))return;
+    const prev=ptrs.get(e.pointerId);ptrs.set(e.pointerId,[e.clientX,e.clientY]);
+    if(ptrs.size===2){const[a,b]=[...ptrs.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);
+      if(pd){zoomAt((a[0]+b[0])/2,(a[1]+b[1])/2,d/pd)}pd=d;moved=true;return}
+    if(!moved&&Math.hypot(e.clientX-down[0],e.clientY-down[1])<5)return;
+    if(!moved){moved=true;svg.setPointerCapture(e.pointerId);svg.style.cursor="grabbing";$("tip").style.display="none"}
+    const k=sc();v.x-=(e.clientX-prev[0])/k;v.y-=(e.clientY-prev[1])/k;clamp();apply()});
+  const up=e=>{ptrs.delete(e.pointerId);pd=0;svg.style.cursor="";setTimeout(()=>{if(!ptrs.size)moved=false},0)};
+  svg.addEventListener("pointerup",up);svg.addEventListener("pointercancel",up);
+  const st0=$("stage");
+  const bar=document.createElement("div");bar.className="zoom";
+  bar.innerHTML='<button aria-label="Zoom in">+</button><button aria-label="Zoom out">−</button><button aria-label="Reset view">⌂</button>';
+  const [bi,bo,br]=bar.children,mid=()=>{const r=rect();return[r.left+r.width/2,r.top+r.height/2]};
+  bi.onclick=()=>zoomAt(...mid(),1.6);bo.onclick=()=>zoomAt(...mid(),1/1.6);br.onclick=()=>{v={x:0,y:0,w:W,h:H};apply()};
+  st0.append(bar);
 }
 function visible(s){
-  return (!state.type||s.type===state.type)&&(!state.band||s.band===state.band)&&(!state.net||s.network===state.net)&&(!state.sub||s.subdistrict===state.sub)&&(!state.has||METRICS[state.metric].cat||val(s,state.metric)!==null);
+  return (!st.type||s.type===st.type)&&(!st.band||s.band===st.band)&&(!st.net||s.network===st.net)&&(!st.sub||s.subdistrict===st.sub)&&(!st.has||st.metric==="type"||num(s,st.metric)!==null);
 }
-let bins=[];
-function quantiles(){
-  const k=state.metric;if(METRICS[k].cat){bins=[];return}
-  const vs=S.filter(visible).map(s=>val(s,k)).filter(v=>v!==null).sort((a,b)=>a-b);
-  bins=[];if(!vs.length)return;
-  for(let i=0;i<=6;i++)bins.push(vs[Math.min(vs.length-1,Math.round(i*(vs.length-1)/6))]);
+const cat=()=>st.metric==="type";
+const shading=()=>st.mode==="sub"&&!cat();
+function quant(vs){
+  vs=vs.slice().sort((a,b)=>a-b);if(!vs.length)return [];
+  const b=[];for(let i=0;i<=6;i++)b.push(vs[Math.round(i*(vs.length-1)/6)]);return b;
 }
-function binOf(v){for(let i=1;i<6;i++)if(v<=bins[i])return i;return 6}
+function binOf(v,b){for(let i=1;i<6;i++)if(v<=b[i])return i;return 6}
+// subdistrict values: enrollment-weighted average over comparison-set schools with a value
+let subVals={};
+function computeSub(){
+  subVals={};const acc={};
+  for(const s of S){
+    if(!inSet(s)||!s.subdistrict)continue;const v=num(s,st.metric);if(v===null)continue;
+    const w=num(s,"enrollment")||1;(acc[s.subdistrict]??={n:0,d:0,c:0});acc[s.subdistrict].n+=v*w;acc[s.subdistrict].d+=w;acc[s.subdistrict].c++;
+  }
+  for(const [k,a] of Object.entries(acc))subVals[k]={v:a.n/a.d,c:a.c};
+}
+function compute(){
+  medCache={};
+  if(cat()){bins=[];return}
+  if(shading()){computeSub();bins=quant(Object.values(subVals).map(x=>x.v));return}
+  bins=quant(S.filter(s=>visible(s)&&inSet(s)).map(s=>num(s,st.metric)).filter(v=>v!==null));
+}
 function colorOf(s){
-  const k=state.metric;if(METRICS[k].cat)return CATCOL[s.type];
-  const v=val(s,k);if(v===null||!bins.length)return null;return `var(--seq-${binOf(v)})`;
+  if(cat())return CATCOL[s.type];
+  const v=num(s,st.metric);return v===null||!bins.length?null:`var(--seq-${binOf(v,bins)})`;
+}
+function radius(s){
+  if(shading())return 2.5;
+  if(!st.size)return 5.5;const n=num(s,"enrollment")||0;return Math.max(3,Math.min(13,Math.sqrt(n)/3.2));
 }
 function render(){
-  quantiles();let n=0;
+  compute();let n=0;const pts=!shading();
   for(const s of S){
-    const e=mk[s.id],vis=visible(s),c=colorOf(s);if(vis)n++;
-    e.classList.toggle("dim",!vis);e.classList.toggle("sel",s.id===state.sel);
-    const hollow=s.type==="charter";
-    if(c===null){e.setAttribute("fill","var(--sunk)");e.setAttribute("stroke","var(--muted)");e.setAttribute("stroke-width","1");e.setAttribute("stroke-dasharray","2 2")}
-    else if(hollow){e.setAttribute("fill","var(--page)");e.setAttribute("stroke",c);e.setAttribute("stroke-width","2");e.removeAttribute("stroke-dasharray")}
+    const e=mk[s.id],vis=visible(s),c=colorOf(s),r=radius(s);if(vis)n++;
+    e.setAttribute("x",s.x-r);e.setAttribute("y",s.y-r);e.setAttribute("width",2*r);e.setAttribute("height",2*r);
+    e.classList.toggle("dim",!vis);e.classList.toggle("excl",vis&&!inSet(s));
+    const noData=!shading()&&c===null;
+    if(shading()){e.setAttribute("fill",s.id===st.sel?"var(--ink)":"var(--ink-2)");e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
+    else if(noData){e.setAttribute("fill","var(--sunk)");e.setAttribute("stroke","var(--muted)");e.setAttribute("stroke-width","1");e.setAttribute("stroke-dasharray","2 2")}
+    else if(s.type==="charter"){e.setAttribute("fill","var(--page)");e.setAttribute("stroke",c);e.setAttribute("stroke-width","2");e.removeAttribute("stroke-dasharray")}
     else{e.setAttribute("fill",c);e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
-    if(s.id===state.sel){e.setAttribute("stroke","var(--ink)");e.setAttribute("stroke-width","3")}
+    if(s.id===st.sel&&pts){e.setAttribute("stroke","var(--ink)");e.setAttribute("stroke-width","3");e.removeAttribute("stroke-dasharray")}
   }
-  const sel=mk[state.sel];if(sel)sel.parentNode.append(sel);
+  const sel=mk[st.sel];if(sel)sel.parentNode.append(sel);
+  for(const [id,e] of Object.entries(sdEl)){
+    const sv=subVals[id];
+    e.setAttribute("fill",shading()&&sv&&bins.length?`var(--seq-${binOf(sv.v,bins)})`:"none");
+    e.setAttribute("fill-opacity",shading()?"0.85":"1");
+    e.setAttribute("pointer-events",shading()?"all":"none");
+    e.setAttribute("stroke",st.sub===id?"var(--ink)":"var(--rule-firm)");e.setAttribute("stroke-width",st.sub===id?"2":"1");
+  }
   $("count").textContent=`${n} of ${S.length} schools`;
   legend();writeHash();panel();
 }
+function nonDefault(){
+  const a=[];
+  if(st.set!==DEF_SET.set)a.push("District-run only");
+  if(st.spend!==DEF_SET.spend)a.push("CPS budget");
+  if(st.g11!==DEF_SET.g11)a.push("Grade 11: score vs benchmark (est.)");
+  if(st.year==="latest"){const ys=cat()?[]:metricYears(st.metric);if(ys.length)a.push(ys.map(sy).join(", "))}else a.push("Aligned "+sy(st.year));
+  if(st.mode==="sub"&&!cat())a.push("Subdistrict shading");
+  const f=[];if(st.type)f.push(TYPES[st.type]);if(st.band)f.push(BANDS[st.band]);if(st.net)f.push(st.net);if(st.sub)f.push("Subdistrict "+st.sub);if(st.has)f.push("has data");
+  return a.concat(f).join(" · ");
+}
 function legend(){
-  const k=state.metric,m=METRICS[k];let h=`<div class="lbl">${m.label}</div>`;
-  if(m.cat)h+=Object.entries(TYPES).map(([t,l])=>`<div><span style="display:inline-block;width:10px;height:10px;background:${CATCOL[t]};margin-right:6px"></span>${l}</div>`).join("");
+  const k=st.metric;let h=`<div class="lbl">${esc(label(k))}</div>`;
+  if(cat())h+=Object.entries(TYPES).map(([t,l])=>`<div><span style="display:inline-block;width:10px;height:10px;background:${CATCOL[t]};margin-right:6px"></span>${l}</div>`).join("");
   else if(bins.length){
-    h+=`<div class="bins">${[1,2,3,4,5,6].map(i=>`<i style="background:var(--seq-${i})"></i>`).join("")}</div><div class="ed">${bins.map(b=>`<span>${m.fmt(b).replace(/\.0%/,"%")}</span>`).filter((_,i)=>i%2===0).join("")}</div><div class="lbl" style="margin-top:6px">Quantile bins · SY ${syOf(k)}</div>`;
-  }else h+="No data for current filters.";
-  h+=`<div class="sh"><svg width="14" height="14"><rect x="1" y="1" width="12" height="12" fill="var(--ink)"/></svg>District
-    <svg width="14" height="14"><rect x="2" y="2" width="10" height="10" fill="none" stroke="var(--ink)" stroke-width="2"/></svg>Charter
-    <svg width="14" height="14"><rect x="3" y="3" width="8" height="8" fill="var(--ink)" transform="rotate(45 7 7)"/></svg>Contract/options</div>`;
-  const ex=activeNote();if(ex)h+=`<div class="lbl" style="margin-top:6px;text-transform:none;letter-spacing:0">${ex}</div>`;
+    const edges=bins.map(b=>fmt(k,b));
+    h+=`<div class="bins">${[1,2,3,4,5,6].map(i=>`<i style="background:var(--seq-${i})"></i>`).join("")}</div>
+      <div class="ed">${edges.map(e=>`<span>${e}</span>`).join("")}</div>
+    `;
+    const ys=metricYears(k),m=R[seriesKey(k)],nt=[];
+    nt.push("Quantile bins"+(shading()?" of subdistrict averages (enrollment-weighted)":"")+(st.set==="district"?", district-run schools":"")+".");
+    if(m&&m.note)nt.push(m.note);
+    if(ys.length>1)h+=`<div class="warn">Years differ across schools: ${ys.map(sy).join(", ")}.</div>`;
+    h+=`<details class="note"><summary>About this scale</summary>${nt.map(esc).join("<br>")}</details>`;
+  }else h+="<div class=\"note\">No data for the current filters.</div>";
+  h+=`<div class="sh"><span><svg width="14" height="14" style="vertical-align:-2px"><rect x="1" y="1" width="12" height="12" fill="var(--ink)"/></svg> District</span>
+    <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="none" stroke="var(--ink)" stroke-width="2"/></svg> Charter</span>
+    <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="3" y="3" width="8" height="8" fill="var(--ink)" transform="rotate(45 7 7)"/></svg> Contract / options</span>
+    <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="var(--sunk)" stroke="var(--muted)" stroke-dasharray="2 2"/></svg> No data</span></div>`;
+  const nd=nonDefault();if(nd)h+=`<div class="note">${esc(nd)}</div>`;
   $("legend").innerHTML=h;
 }
-function activeNote(){const a=[];if(state.type)a.push(TYPES[state.type]);if(state.band)a.push(BANDS[state.band]);if(state.net)a.push(state.net);if(state.sub)a.push("District "+state.sub);if(state.has)a.push("has data");return a.join(" · ")}
-function syOf(k){const ys=new Set();for(const s of S){const m=s.m[k];if(m&&typeof m.v==="number")ys.add(m.sy)}return [...ys].join(", ")||"—"}
-function tip(s,ev){
-  const t=$("tip"),k=state.metric,m=METRICS[k];
-  const v=m.cat?TYPES[s.type]:fmtv(s,k);
-  t.textContent=`${s.name} · ${v}`;t.style.display="block";
-  const r=$("stage").getBoundingClientRect();
-  const x=ev.clientX||(ev.target.getBoundingClientRect().left),y=ev.clientY||(ev.target.getBoundingClientRect().top);
-  t.style.left=Math.min(x-r.left+12,r.width-t.offsetWidth-4)+"px";t.style.top=(y-r.top+12)+"px";
+function showTip(text,ev){
+  const t=$("tip");t.textContent=text;t.style.display="block";
+  const r=$("stage").getBoundingClientRect(),b=ev.target.getBoundingClientRect();
+  const x=ev.clientX||b.left,y=ev.clientY||b.top;
+  t.style.left=Math.max(4,Math.min(x-r.left+12,r.width-t.offsetWidth-4))+"px";t.style.top=Math.max(4,y-r.top+12)+"px";
 }
-function fmtv(s,k){const m=s.m[k],f=METRICS[k].fmt;if(!m)return "n/a";if(m.v==="*")return "suppressed";if(m.v===null)return "no data";return f(m.v)}
-// ---- search
+function tip(s,ev){showTip(`${s.name} · ${cat()?TYPES[s.type]:cell(s,st.metric)}`,ev)}
+function subTip(id,ev){const v=subVals[id];showTip(`Subdistrict ${id} · ${v?fmt(st.metric,v.v)+` (${v.c} schools)`:"no data"}`,ev)}
+function cell(s,k){const g=get(s,k);if(!g)return "no data";if(g.v==="*")return "suppressed";return fmt(k,g.v)}
+
+// ---------- search
 function search(){
   const q=$("q").value.trim().toLowerCase();if(!q){hideRes();return}
-  const hits=S.filter(s=>(s.name+" "+s.id+" "+s.address+" "+s.community).toLowerCase().includes(q)).slice(0,30);
+  const hits=S.filter(s=>(s.name+" "+s.long_name+" "+s.id+" "+s.address+" "+s.community_area+" "+s.rcdts).toLowerCase().includes(q)).slice(0,30);
   const r=$("res");r.hidden=false;r.innerHTML="";
-  if(!hits.length){r.textContent="No matches";r.style.padding="6px 8px";return}
-  r.style.padding="0";
-  for(const s of hits){const b=document.createElement("button");b.textContent=`${s.name} · ${s.id}`;b.onclick=()=>{select(s.id);hideRes()};r.append(b)}
+  if(!hits.length){r.innerHTML='<div style="padding:6px 8px;font-size:13px">No matches</div>';return}
+  for(const s of hits){
+    const b=document.createElement("button");
+    b.innerHTML=hl(s.name,q)+` <span style="color:var(--muted)">${s.id} · ${esc(s.community_area||"")}</span>`;
+    b.onclick=()=>{select(s.id);hideRes()};r.append(b);
+  }
 }
+function hl(t,q){const i=t.toLowerCase().indexOf(q);return i<0?esc(t):esc(t.slice(0,i))+"<mark>"+esc(t.slice(i,i+q.length))+"</mark>"+esc(t.slice(i+q.length))}
 function hideRes(){$("res").hidden=true}
-// ---- panel
-function select(id){state.sel=id;render()}
-function median(k){const vs=S.map(s=>val(s,k)).filter(v=>v!==null).sort((a,b)=>a-b);if(!vs.length)return null;const i=vs.length>>1;return vs.length%2?vs[i]:(vs[i-1]+vs[i])/2}
-const FAMILIES=[
-  ["Enrollment",["enroll","enroll_chg"]],
-  ["Demographics",["low_income","el","iep","pct_hispanic","pct_black","pct_white","pct_asian"]],
-  ["Spending",["isbe_pp","cps_pp"]],
-  ["Outcomes",["ela","math","grade11","attendance","chronic","grad"]],
-];
+
+// ---------- panel
+function select(id){st.sel=id;render();if(id)$("panel").scrollTop=0}
+function median(k){
+  const key=k+"|"+st.set+"|"+st.year+"|"+st.spend+"|"+st.g11;if(key in medCache)return medCache[key];
+  const vs=S.filter(inSet).map(s=>num(s,k)).filter(v=>v!==null).sort((a,b)=>a-b);
+  let m=null;if(vs.length){const i=vs.length>>1;m=vs.length%2?vs[i]:(vs[i-1]+vs[i])/2}
+  return medCache[key]=m;
+}
+// years of a series usable for a trend: from the last comparability break onward
+function trendOf(s,k){
+  const sk=seriesKey(k),ser=s.m[sk],m=R[sk];if(!ser)return null;
+  let ys=Object.keys(ser).sort();const br=(m&&m.breaks)||[];
+  if(br.length){const last=br.slice().sort().pop();ys=ys.filter(y=>y>=last)}
+  ys=ys.filter(y=>typeof ser[y]==="number");
+  return ys.length>=2?ys.map(y=>[y,ser[y]]):null;
+}
 function spark(t){
-  if(!t||t.length<2)return "";const lo=Math.min(...t),hi=Math.max(...t),W=90,H=22;
-  const pts=t.map((v,i)=>[i*W/(t.length-1),hi===lo?H/2:H-2-(v-lo)/(hi-lo)*(H-4)]);
-  return `<svg class="spark" width="${W}" height="${H}" aria-hidden="true"><polyline points="${pts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--blue)" stroke-width="1.5"/>${pts.map(q=>`<rect x="${q[0]-2}" y="${q[1]-2}" width="4" height="4" fill="var(--blue)"/>`).join("")}</svg>`;
+  const vs=t.map(x=>x[1]),lo=Math.min(...vs),hi=Math.max(...vs),W=96,H=24;
+  const pts=vs.map((v,i)=>[2+i*(W-4)/(vs.length-1),hi===lo?H/2:H-3-(v-lo)/(hi-lo)*(H-6)]);
+  return `<svg class="spark" width="${W}" height="${H}" role="img" aria-label="Trend ${t[0][0]} to ${t[t.length-1][0]}"><title>${t.map(x=>sy(x[0])+": "+x[1]).join(", ")}</title><polyline points="${pts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--blue)" stroke-width="1.5"/>${pts.map(q=>`<rect x="${q[0]-2}" y="${q[1]-2}" width="4" height="4" fill="var(--blue)"/>`).join("")}</svg><div class="c">${sy(t[0][0])}–${sy(t[t.length-1][0]).slice(2)}</div>`;
 }
 function panel(){
-  const s=S.find(x=>x.id===state.sel),main=$("main");
-  main.classList.toggle("open",!!s);if(!s){$("panel").innerHTML="";return}
+  const s=S.find(x=>x.id===st.sel);$("main").classList.toggle("open",!!s);
+  if(!s){$("panel").innerHTML="";return}
+  const F=D.meta.flags,notes=new Set();
   let h=`<div class="blk"><button id="close" aria-label="Close panel">×</button><h2>${esc(s.name)}</h2>
-    <div class="sub">${TYPES[s.type]} · ${BANDS[s.band]} · ${esc(s.network)}</div>
-    <div class="sub">${esc(s.address)} · ${esc(s.community)} · Subdistrict ${s.subdistrict}</div>
-    <div class="sub" style="color:var(--muted)">CPS ID ${s.id}${s.rcdts?` · RCDTS ${s.rcdts}`:" · no state record"}</div></div>`;
+    ${s.long_name&&s.long_name!==s.name?`<div class="sub">${esc(s.long_name)}</div>`:""}
+    <div class="sub">${TYPES[s.type]} · ${esc(s.grades_served||"")} · ${esc(s.network)}</div>
+    <div class="sub">${esc(s.address)}${s.community_area?" · "+esc(s.community_area):""}</div>
+    <div class="sub">Subdistrict ${s.subdistrict||"—"}${s.ward?" · Ward "+s.ward:""}</div>
+    <div class="sub" style="color:var(--muted)">CPS ID ${s.id}${s.rcdts?" · RCDTS "+s.rcdts:" · no state record"}</div>
+    ${s.flags&&s.flags.length?`<ul class="flags">${s.flags.map(f=>F[f]?`<li>${esc(F[f])}</li>`:"").join("")}</ul>`:""}</div>`;
   for(const [fam,keys] of FAMILIES){
-    const cells=keys.filter(k=>METRICS[k]&&(s.m[k]||fam!=="Outcomes")).map(k=>{
-      const m=s.m[k],med=median(k),f=METRICS[k].fmt;
-      const shown=m?(m.v==="*"?"suppressed":m.v===null?"no data":f(m.v)):"—";
-      return `<div class="cell"><div class="k">${METRICS[k].label.replace(/ \(%\)/,"")}${m?`<span class="badge">SY${m.sy.slice(2)}</span>`:""}</div><div class="v">${shown}</div>
-        <div class="c">${med===null?"":"City median "+f(med)}</div>${m?spark(m.t):""}</div>`;
-    });
+    const cells=[];
+    for(const k of keys){
+      const sk=seriesKey(k),m=R[sk];if(!m)continue;
+      if(!s.m[sk]&&fam==="Outcomes")continue;           // outcomes a school can't have are omitted, not "no data"
+      if(!s.m[sk]&&fam==="5Essentials survey")continue;
+      const g=get(s,k),med=g&&typeof g.v==="number"?median(k):null;
+      let tr=trendOf(s,k);if(tr&&st.year!=="latest")tr=tr.filter(x=>x[0]<=st.year),tr=tr.length>=2?tr:null;
+      const brk=(m.breaks||[]).length;if(brk&&m.note)notes.add(m.note);
+      const lowN=fam==="Demographics"&&s.flags&&s.flags.includes("low_n");
+      cells.push(`<div class="cell"><div class="k">${esc(k==="spend"?label(k):m.label.replace(/ \(%\)$/,""))}${g?`<span class="badge">${sy(g.sy)}</span>`:""}${g&&(m.estimated_years||[]).includes(g.sy)?'<span class="badge w" title="Estimate: school mean SAT score converted to the ACT scale with the official ACT-SAT concordance">est.</span>':""}${lowN?'<span class="badge w">n&lt;30</span>':""}${brk?'<span class="badge w" title="Not comparable across a scoring or definition change">†</span>':""}</div>
+        ${g?`<div class="v">${g.v==="*"?"suppressed":fmt(k,g.v)}</div>`:`<div class="v none">${st.year==="latest"?"no data":"no data for "+sy(st.year)}</div>`}
+        ${med!==null?`<div class="c">City median ${fmt(k,med)}${st.set==="district"?" (district-run)":""}</div>`:""}${tr?spark(tr):""}</div>`);
+    }
+    if(fam==="Enrollment"){
+      const ec=s.enrollment_change;
+      if(ec&&ec.pct!==null&&ec.pct!==undefined)cells.push(`<div class="cell"><div class="k">Change ${sy(ec.from)} → ${sy(ec.to)}</div><div class="v">${ec.count>0?"+":""}${ec.count}</div><div class="c">${ec.pct>0?"+":""}${ec.pct}%</div></div>`);
+      const GO=["PE","PK","K","1","2","3","4","5","6","7","8","9","10","11","12"];
+      const gr=s.grades?Object.entries(s.grades).sort((a,b)=>GO.indexOf(a[0])-GO.indexOf(b[0])):[];
+      if(gr.length>1){const mx=Math.max(...gr.map(x=>x[1]),1);
+        cells.push(`<div class="cell wide"><div class="k">By grade, ${sy(D.meta.roster_year)}</div><div class="bars">${gr.map(([g,n])=>`<i style="height:${Math.max(2,n/mx*100)}%" title="Grade ${g}: ${n}"></i>`).join("")}</div><div class="barlbl">${gr.map(([g])=>`<span>${g}</span>`).join("")}</div></div>`)}
+    }
+    if(fam==="Spending"&&s.budget_funds){
+      const tot=Object.values(s.budget_funds).reduce((a,b)=>a+b,0),top=Object.entries(s.budget_funds).sort((a,b)=>b[1]-a[1]).slice(0,5);
+      cells.push(`<div class="cell wide"><div class="k">CPS FY27 budget by funding source</div>${top.map(([f,v])=>`<div class="fund"><span>${esc(D.meta.funds[f]||f)}</span><span>${Math.round(v/tot*100)}%</span></div>`).join("")}</div>`);
+    }
+    if(fam==="Spending"&&s.flags&&s.flags.includes("budget_not_comparable"))cells.unshift(`<div class="cell wide c" style="color:var(--terra)">Charter, contract, ALOP and SAFE budgets are funded differently from district-run schools and are not comparable with them.</div>`);
     if(cells.length)h+=`<h3>${fam}</h3><div class="grid">${cells.join("")}</div>`;
   }
-  const ids=[...new Set(Object.values(s.m).map(m=>m.sy))];
-  h+=`<div id="foot">Sources: ${Object.values(DATA.sources).join("; ")}. Years shown on each value. Suppressed = hidden by ISBE for small groups; no data = not reported. City median is across all schools with a value.</div>`;
+  const srcs=Object.entries(D.meta.sources).map(([id,v])=>{const f=Object.values(v.files||{});const d=f.length?f.map(x=>x.retrieved).sort().pop():"";return `${esc(v.name)}${d?" (retrieved "+d+")":""}`});
+  h+=`<div id="foot">${[...notes].map(n=>`<p>† ${esc(n)}</p>`).join("")}
+    <p>Suppressed: hidden by the state for small groups. No data: not reported (never zero). City medians use ${st.set==="district"?"district-run schools":"all schools"} with a value, for the year policy in Settings.</p>
+    <p>Sources: ${srcs.join("; ")}.</p></div>`;
   $("panel").innerHTML=h;$("close").onclick=()=>select("");
 }
-function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function esc(t){return String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 </script>
 </body>
 </html>
