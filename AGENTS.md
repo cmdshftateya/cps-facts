@@ -22,6 +22,8 @@ The project is a static, map-first site at **https://schools.ateya.org** coverin
 .venv/bin/python -m unittest tests.test_gates tests.test_published
 cd site && python3 -m http.server 8000          # pick a free port; other sessions may hold 8765/8792
 python3 tools/session_digest.py --missing       # sessions not yet in WORKLOG.md
+python3 tools/logs.py                           # brief: open threads, latest sessions, active decisions
+python3 tools/logs.py decisions D-004           # one decision in full; also --tag, --grep, --next; worklog, threads, outreach
 ```
 
 ## Ground rules
@@ -52,7 +54,7 @@ These patterns come from the sessions so far. Update the list when you learn som
 
 The point is that any future session can pick up cold. Treat this as part of the task, not an afterthought.
 
-**At the start of a session:** read WORKLOG.md's **Open threads** and skim the latest two or three entries. If the SessionStart hook reports sessions missing from the log, add entries for the finished ones: `python3 tools/session_digest.py <id>` replays a session's prompts, commits and reports. Leave sessions marked "maybe active" alone unless they've clearly ended.
+**At the start of a session:** the SessionStart hook prints `tools/logs.py brief` (open threads, the latest three sessions, a one-line index of active decisions). Pull full entries only when they're relevant (`tools/logs.py decisions D-0xx`, `tools/logs.py worklog <id>`) instead of reading DECISIONS.md or WORKLOG.md whole. If the SessionStart hook reports sessions missing from the log, add entries for the finished ones: `python3 tools/session_digest.py <id>` replays a session's prompts, commits and reports. Leave sessions marked "maybe active" alone unless they've clearly ended.
 
 **Before you finish**, whenever the session changed files, made commits or settled anything, do the following:
 
@@ -70,7 +72,8 @@ The point is that any future session can pick up cold. Treat this as part of the
 
    Use local time (America/Chicago). Your session id is the name of the newest transcript in `~/.claude/projects/<repo path with / replaced by ->/`; running `session_digest.py` lists it as "maybe active".
 2. **Tie commits to the work:** commit first, then put the resulting hashes in the entry. If you commit after writing the entry, update its **Commits** line. Committing WORKLOG.md with the session's last docs commit is fine.
-3. **Record decisions:** anything a later session might otherwise re-argue goes in DECISIONS.md as the next D-0xx (decision, why, who, session). Reverse a decision with a new entry that supersedes the old one.
+3. **Record decisions:** anything a later session might otherwise re-argue goes in DECISIONS.md as the next D-0xx (`tools/logs.py decisions --next`), in the entry format at the top of that file: short title, date, status, who, tags, where, decision, why. Reverse a decision with a new entry that supersedes the old one.
+   Outreach emails go in emails.md with **Sent:**, **Status:** and **Related:** lines; update the status when a reply comes. `python3 -m unittest tests.test_logs` checks all three formats.
 4. **Update Open threads:** add what you left open and remove what you closed.
 5. **Update this file** if you learned a durable fact about the project or how the owner works.
 

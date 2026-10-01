@@ -30,7 +30,7 @@
 |---|---|---|
 | Sidebar | Search, Color by, then four filter dropdowns, a checkbox and Reset, always open | Search and Color by; filters fold under "Filters", which shows "· N on" when any are set and opens itself when a link carries filters |
 | Color by menu | Full labels, cut off at 260px ("Low income / economically disa…") | Short names ("Low income"). The full label stays in the legend, the table header and the option's tooltip |
-| Governance shapes | Hollow charter squares and diamonds in every view, with a shape key in every legend | Shapes only when coloring by school type (D-029). The legend draws each type with its shape, and clusters in that view fill by type |
+| Governance shapes | Hollow charter squares and diamonds in every view, with a shape key in every legend | Shapes only when coloring by school type (D-030). The legend draws each type with its shape, and clusters in that view fill by type |
 | School panel | The measure you were looking at was somewhere among about 30 tiles | It opens with a highlighted line: the measure, its year, the school's value and the city median |
 | Data and sources page (1280px) | 7,185 px | 1,851 px. Each source is a one-line summary (title and publisher) that opens for detail. The 54-row field table sits behind "Show all 54 values" |
 

@@ -4,27 +4,35 @@ One entry per working session (a Claude Code conversation, or a stretch of work 
 
 Newest first. Times are America/Chicago. The 8-character id is the Claude Code session id (transcripts live in `~/.claude/projects/`; `python3 tools/session_digest.py <id>` replays one). Hashes are current ones: the history rewrite on 2026-10-01 changed every hash from before 10:16, so hashes quoted inside old transcripts no longer exist.
 
+The format is parsed by `tools/logs.py` and checked by `tests/test_logs.py`: entry headings are exactly `## <when> · <title> · \`<8-char id>\``, each field starts a line with `**Asked:**`, `**Done:**`, `**Obstacles:**`, `**Decisions:**` or `**Commits:**`, and each open thread is one line, `- **Label:** text`. Skim instead of reading it all: `python3 tools/logs.py worklog` (index), `... worklog <id>` (one entry), `... worklog --grep stash`, `... threads`.
+
 ## Open threads
 
 Carried forward until closed. Update this list in every entry that opens or closes one.
 
-- **Outreach replies pending** (sent 2026-10-01 09:59): CPS finance (`financedep@cps.edu`) on the Catalyst Maria budget unit; CPS accountability (`accountability@cps.edu`, a guessed address, so watch for a bounce) on the low-income/IEP relabel; ISBE (`reportcard@isbe.net`) on the per-pupil fiscal year and the ACT "ELA" column. Record answers in NOTES.md and DECISIONS.md.
-- **2026 Illinois Report Card**, expected late October 2026: re-run `build.py`, re-audit the crosswalk and break flags, and move "latest" years forward.
+- **Outreach replies pending:** sent 2026-10-01 09:59 (`python3 tools/logs.py outreach`): CPS finance (`financedep@cps.edu`) on the Catalyst Maria budget unit; CPS accountability (`accountability@cps.edu`, a guessed address, so watch for a bounce) on the low-income/IEP relabel; ISBE (`reportcard@isbe.net`) on the per-pupil fiscal year and the ACT "ELA" column. Record answers in NOTES.md and DECISIONS.md.
+- **2026 Illinois Report Card:** expected late October 2026; re-run `build.py`, re-audit the crosswalk and break flags, and move "latest" years forward.
 - **FY27 budget label:** the board apparently approved the budget on 2026-07-30. Nobody has compared the approved book to the "proposed" export the site uses.
 - **Cross-link from the politics board guide:** the edit to `../politics/chicago-school-board-2026-guide.html` is uncommitted in that repo.
 - **For the owner to confirm on the Data page:** the budget-export steps ("Interactive Reports", then "Download Data") and the Data Portal titles for the boundary datasets, which were written from memory.
-- **Clutter review not deployed:** branch `claude/keen-volta-ohc7hd` is rebased on `main` (fast-forward), but the push to `main` was blocked by the session's permission check. Push it to deploy.
-- **Real-phone check of the map UI** (Settings sheet, school panel, report card, long-press on a marker). Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
+- **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
 
-## 2026-10-01 14:05–15:30 · Clutter and overload review of the map page · `8bd56763`
+## 2026-10-01 14:05–15:50 · Clutter and overload review of the map page · `8bd56763`
 
-**Asked:** "conduct a usability review with a focus on presentation of information and figure out how to reduce the amount of visual clutter and overload", then "go" on the five recommendations, then "gogogo but rebase with master first".
+**Asked:** "conduct a usability review with a focus on presentation of information and figure out how to reduce the amount of visual clutter and overload", then "go" on the five recommendations, then "gogogo but rebase with master first" and "push it to main".
 **Done:** Review in [ux-clutter-review.md](ux-clutter-review.md). School panel: section-level year with badges only where a year differs, compact row tables for race, spending detail, 5Essentials and ACT averages, no range caption under sparklines, sources in a disclosure, and a highlighted line for the colored-by measure at the top (Ariel: 3,486 to 2,130 px). Panel tiles renamed `.tile`, because the vendored `.cell` hover inverted them to black. Settings moved from a floating button into the header. Filters fold under a "Filters" disclosure with an active count. Color by menu uses short names. Governance shapes show only when coloring by type (REQUIREMENTS.md updated). Legend year sits beside the title. Table year moved to the column header. On the Data page, sources and the field table sit under disclosures (7,185 to 1,851 px). Checked at 1440px and 360px in both themes: no JS errors, no horizontal overflow. `tests.test_published` passes. Not checked on a real phone or with a screen reader.
-**Obstacles:** `main` moved mid-session: `8369c217` removed clustering and added the report card, and used D-025 to D-027. On rebase, my cluster tweaks were dropped in favor of D-025, and my decisions became D-028 and D-029. `build_site.py` imports `pyshp`, which isn't installed here, so `data.html` was regenerated by calling `downloads()` with a stub module, after confirming an unchanged run reproduced the file byte for byte.
-**Decisions:** D-028, D-029.
-**Commits:** `35d6f88` map page clutter cuts · `93f4146` filters disclosure, short labels, shapes by type, panel focus · `64535f4` Data page disclosures · `3d4bf8b` and `aa67660` review doc, decisions, requirements · this docs commit. Rebased onto `2da9909` and pushed to the branch `claude/keen-volta-ohc7hd`. The push to `main` was blocked by the session's permission check, so it isn't deployed yet.
+**Obstacles:** `main` moved mid-session: `8369c217` removed clustering and added the report card, and used D-025 to D-027. On rebase, my cluster tweaks were dropped in favor of D-025, and my decisions became D-028 and D-029; after `31c35177` claimed D-028 and restructured the logs, they became D-029 and D-030. `build_site.py` imports `pyshp`, which isn't installed here, so `data.html` was regenerated by calling `downloads()` with a stub module, after confirming an unchanged run reproduced the file byte for byte.
+**Decisions:** D-029, D-030.
+**Commits:** `35d6f88` map page clutter cuts · `93f4146` filters disclosure, short labels, shapes by type, panel focus · `64535f4` Data page disclosures · `3d4bf8b` and `aa67660` review doc, decisions, requirements · this docs commit. Rebased onto `2da9909`, then merged `origin/main` (the logs restructure; a second rebase was blocked by the session's permission check) and pushed to `main` (deploys).
+
+## 2026-10-01 15:04–15:10 · Machine-readable decisions, work log and outreach log · `31c35177`
+
+**Asked:** Make the decision file "machine readable so you can programmatically skim it instead of having to load in all the context"; then "same for the worklog" and "any other logs as well".
+**Done:** DECISIONS.md went from one wide table to one `## D-0xx · Title` section per decision, each with a new short title and tags plus Date, Status, Supersedes, Who and Where fields (content unchanged). Open-thread bullets in WORKLOG.md now all read `- **Label:** text`; emails.md gained Sent, Status and Related lines per email. New `tools/logs.py` (stdlib only): `brief` (default), `decisions` (index, ids, `--tag`, `--grep`, `--active`, `--tags`, `--next`), `worklog` (index, id prefix, `--grep`, `--decision`, `-n`), `threads`, `outreach`, all with `--json`. The brief is about 4 KB versus about 35 KB for reading DECISIONS.md and WORKLOG.md whole. New `tests/test_logs.py` (8 tests) checks all three formats; the SessionStart hook now also prints the brief. AGENTS.md points to the tool.
+**Decisions:** D-028.
+**Commits:** `a0b81a8` logs tool, format tests, SessionStart brief · `3763ee5` structured decisions, threads and outreach log · `7cce101` log entry. Merged with `origin/main` (renumbered this decision from D-025 to D-028 and converted main's new D-025 to D-027 to the section format), then pushed to `main`.
 
 ## 2026-10-01 14:05–14:50 · GitHub issues #1–#3: jitter, contrast, report card · `8369c217`
 
