@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="CPS Facts">
+  <title>CPS Facts</title>
+  <!-- The city flag as a plaque: transparent field, two light-blue bars, one
+       six-pointed star. Four stars turn to mush at 16px, so the mark keeps
+       one and lets it carry. Colours are the site's own tokens. -->
+  <rect y="5.5" width="32" height="5" fill="#2f9bd4"/>
+  <rect y="21.5" width="32" height="5" fill="#2f9bd4"/>
+  <path d="M16.00,-1.00L20.91,7.50L30.72,7.50L25.81,16.00L30.72,24.50L20.91,24.50L16.00,33.00L11.09,24.50L1.28,24.50L6.19,16.00L1.28,7.50L11.09,7.50Z" fill="#d92d3d"/>
+</svg>

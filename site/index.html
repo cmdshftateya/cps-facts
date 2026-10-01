@@ -3,8 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CPS Facts</title>
-<meta name="robots" content="noindex">
+<title>CPS Facts — Chicago public schools map</title>
+<meta name="description" content="Every Chicago public school on one map: enrollment, demographics, test scores, attendance and spending, each with its source and school year.">
+<link rel="canonical" href="https://schools.ateya.org/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CPS Facts">
+<meta property="og:title" content="CPS Facts — Chicago public schools map">
+<meta property="og:description" content="Every Chicago public school on one map: enrollment, demographics, test scores, attendance and spending, each with its source and school year.">
+<meta property="og:url" content="https://schools.ateya.org/">
+<meta property="og:image" content="https://schools.ateya.org/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CPS Facts — Chicago public schools map">
+<meta name="twitter:description" content="Every Chicago public school on one map: enrollment, demographics, test scores, attendance and spending, each with its source and school year.">
+<meta name="twitter:image" content="https://schools.ateya.org/og.png">
 <link rel="stylesheet" href="chicago.css">
 <link rel="stylesheet" href="diverging.css">
 <style>
@@ -106,6 +121,8 @@
   #setmenu h3{margin:0 0 10px;font:700 15px var(--font-display);text-transform:uppercase;letter-spacing:.06em}
   #setmenu .hint{font-size:11px;color:var(--muted);margin:-6px 0 10px}
   @media(max-width:760px){
+    header{flex-wrap:wrap;gap:6px 12px}
+    header .wip{order:9;flex-basis:100%}
     body{overflow:auto;display:block}
     main,main.open{display:flex;flex-direction:column}
     aside{border-right:0;order:2}
@@ -119,7 +136,7 @@
 </style>
 </head>
 <body>
-<header><h1>CPS Facts</h1><span class="n" style="color:var(--terra)">Work in progress: data not yet verified with CPS or ISBE. <a href="methodology.html" style="color:inherit">Methodology and caveats</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><span class="n" id="asof"></span></header>
+<header><h1>CPS Facts</h1><span class="n wip" style="color:var(--terra)">Work in progress: data not yet verified with CPS or ISBE. <a href="methodology.html" style="color:inherit">Methodology and caveats</a> · <a href="data.html" style="color:inherit">Data downloads</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues" style="color:inherit">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><span class="n" id="asof"></span></header>
 <main id="main">
   <aside>
     <div class="blk">

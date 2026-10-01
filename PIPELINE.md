@@ -39,7 +39,8 @@ Behavior worth knowing:
 - Settings persist in the URL hash (`s_*`) and localStorage; the URL wins.
 - Table view: Map/Table toggle in the header (`#v=table` in the URL; on screens under 760px the table is the default). It shares the map's filters, lists the fixed facts plus the current color-by metric, sorts on any column (schools with no value sort last, never as zero), and a row click opens the same profile panel.
 - Grade 11 benchmark-estimate toggle and the enrollment-change diverging palette are built (ACT "ELA" is the ACT ELA score, benchmark 20; ISBE has not confirmed in writing).
-- Tests: `.venv/bin/python -m unittest tests.test_gates` (corrupts the built data in memory and checks each validation gate fails).
+- Tests: `.venv/bin/python -m unittest discover tests`. `test_gates` corrupts the built data in memory and checks each validation gate fails (needs `raw/`, skipped without it). `test_published` checks the committed `data/` and `site/` outputs and runs in GitHub Actions on every push (`.github/workflows/test.yml`).
+- Downloads: `build_site.py` copies the `data/` files into `site/downloads/` and writes `site/data.html`; the social preview image and icons come from `tools/make_og.py` (needs `rsvg-convert`) and are committed.
 
 # Deploying and updating
 
@@ -65,4 +66,4 @@ Pushing to `main` deploys automatically: the GitHub repo is connected to the Wor
 **What lives where**
 - In git: code, docs, the small curated CSVs (`budget_units.csv`, `budget_unit_funds.csv`, `crosswalk.csv`, `lineage.csv`), `data/` outputs and `site/`.
 - Local only, never pushed: `raw/` (downloads, rebuilt by `fetch.py` from the URLs and hashes in `raw/MANIFEST.json`) and the hand-downloaded CPS budget export `raw/fy27_bi_budget_book.csv`. Nothing is stored in cloud storage, to avoid ongoing cost.
-- The repo `cmdshftateya/cps-facts` on GitHub is private.
+- The repo `cmdshftateya/cps-facts` on GitHub is public (MIT for code). Issues are enabled and linked from the site header, the Methodology and Data pages, and the README; templates are in `.github/ISSUE_TEMPLATE/`. Keep credentials and the hand-downloaded budget export out of the repo.

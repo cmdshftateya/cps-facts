@@ -4,11 +4,12 @@
 """
 import copy
 import unittest
+from pathlib import Path
 
-from pipeline import normalize, validate
 
 
 def run(mutate, expect, t, schools, meta, problems):
+    from pipeline import validate
     s = copy.deepcopy(schools)
     p = copy.deepcopy(problems)
     mutate(s, p)
@@ -18,6 +19,7 @@ def run(mutate, expect, t, schools, meta, problems):
 
 
 def main():
+    from pipeline import normalize, validate
     t = normalize.load_all()
     schools, meta, problems = normalize.build(t)
     assert validate.validate(schools, meta, t, problems)["failed"] == [], "baseline must pass"
@@ -70,6 +72,7 @@ def main():
     print("all gates fire")
 
 
+@unittest.skipUnless((Path(__file__).parent.parent / "raw" / "cps_mem_2425.xlsx").exists(), "needs the raw/ downloads (python build.py)")
 class TestGates(unittest.TestCase):
     def test_all_gates_fire(self):
         main()

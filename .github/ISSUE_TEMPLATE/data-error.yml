@@ -1,0 +1,15 @@
+name: Data error or wrong match
+description: A number looks wrong, a school is matched to the wrong record, or a school is missing.
+labels: [data]
+body:
+  - type: input
+    id: school
+    attributes: {label: School name or CPS ID}
+    validations: {required: true}
+  - type: input
+    id: metric
+    attributes: {label: Metric and year shown on the site, placeholder: "e.g. Per-pupil spending, SY2024-25"}
+  - type: textarea
+    id: problem
+    attributes: {label: What looks wrong, description: "What the site shows, and what you expect. A link to the CPS or ISBE source helps."}
+    validations: {required: true}

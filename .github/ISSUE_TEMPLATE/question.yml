@@ -1,0 +1,8 @@
+name: Question or suggestion
+description: A methodology question, a feature idea, or something confusing on the site.
+labels: [question]
+body:
+  - type: textarea
+    id: body
+    attributes: {label: What would you like to know or see?}
+    validations: {required: true}

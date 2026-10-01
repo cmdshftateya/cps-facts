@@ -100,8 +100,8 @@ Rules:
 0. **Source audit** — ✅ done. Outputs: `sources.md`, `crosswalk.csv`, `hs-assessment-proposal.md`, `charter-conversions.md`, `bi-portal.md`.
 1. **Data pipeline** — ✅ done. normalized `schools.json` + CSV + validation report. See `PIPELINE.md`.
 2. **Map + panel** — color-by, filters, search, school panel.
-3. **Table, methodology, downloads.**
-4. **Launch** — `wrangler deploy` to schools.ateya.org, OG images, cross-link from the politics site's board guide (subdistrict → schools).
+3. **Table, methodology, downloads.** — ✅ done (`site/data.html`, `site/downloads/`).
+4. **Launch** — deployed to schools.ateya.org with OG images, favicon, public repo and issue links. Remaining: cross-link from the politics site's board guide (subdistrict → schools), and the 2026 Report Card refresh.
 
 ## 7. Decisions
 
