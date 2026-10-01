@@ -12,7 +12,8 @@ import re
 import shutil
 from pathlib import Path
 
-from pipeline import geo
+from pipeline import geo, isbe
+import sources_catalog as sc
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "site"
@@ -20,7 +21,7 @@ REPO = "https://github.com/cmdshftateya/cps-facts"
 SITE_URL = "https://schools.ateya.org"
 DOWNLOADS = [  # (source under data/, label, what it is)
     ("schools.csv", "Schools, one row per school", "Roster, location, enrollment, demographics and the latest value of every metric, each with its school year."),
-    ("school_values.csv", "All values, long format", "One row per school, metric and school year, with status (value, suppressed, no data), unit, source and retrieval date."),
+    ("school_values.csv", "All values, long format", "One row per school, metric and school year, with status (value or suppressed; suppressed rows have a blank value), unit, source and retrieval date. A school-metric-year with no row has no data."),
     ("schools.json", "Schools, JSON", "The same data as the schools table plus metric metadata (labels, units, comparability breaks)."),
     ("validation_report.md", "Validation report", "What the build checked and what it found."),
 ]
@@ -47,6 +48,7 @@ def _dp(pts, tol):
 def _inline(t):
     t = html.escape(t, quote=False)
     t = re.sub(r"`([^`]+)`", r"<code>\1</code>", t)
+    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", r'<a href="\2">\1</a>', t)
     return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", t)
 
 
@@ -63,34 +65,92 @@ def head(title, desc, path):
             "h1,h2,h3{font-family:var(--font-display);text-transform:uppercase}table{border-collapse:collapse;font:14px var(--font-ui)}"
             "td,th{border:1px solid var(--rule-firm);padding:6px 8px;vertical-align:top;text-align:left}p.li{margin:.4em 0}"
             "code{font-family:var(--font-mono);font-size:.9em}a{color:var(--blue)}footer{margin-top:2em;padding-top:1em;border-top:1px solid var(--rule-firm);color:var(--muted);font-size:14px}"
-            "</style></head><body><p><a href=./>&larr; Back to the map</a> · <a href=methodology.html>Methodology</a> · <a href=data.html>Data downloads</a></p>")
+            "</style></head><body><p><a href=./>&larr; Back to the map</a> · <a href=methodology.html>Methodology</a> · <a href=data.html>Data and sources</a></p>")
 
 
 FOOT = (f"<footer>Found an error or have a question? <a href={REPO}/issues>Open an issue on GitHub</a>. "
         f"Code and data are in the <a href={REPO}>public repository</a>.</footer></body></html>")
 
 
+def _size(p):
+    n = p.stat().st_size
+    return f"{n / 1e6:.1f} MB" if n >= 1e6 else f"{max(1, round(n / 1e3))} KB"
+
+
+def _links(pairs):
+    return "<br>".join(f'<a href="{html.escape(u)}">{html.escape(t)}</a>' for t, u in pairs)
+
+
+def _metric_rows(meta):
+    ds = {"CPS-MEM": "CPS 20th-day membership"}
+    rows = []
+    for key, m in meta["metrics"].items():
+        if key in sc.OTHER_FIELDS:
+            dataset, field = sc.OTHER_FIELDS[key]
+        else:  # ISBE: find the sheet and header in the newest edition that carries the metric
+            dataset, field = "ISBE Report Card", ""
+            for yr in sorted(isbe.SPEC, reverse=True):
+                hit = next(((sh, cols[key]) for sh, cols in isbe.SPEC[yr].items() if key in cols), None)
+                if hit:
+                    sheet, col = hit
+                    col = " + ".join(col) if isinstance(col, tuple) else col
+                    field = f"sheet {sheet}, column \"{col}\"" + sc.OTHER_FIELDS_NOTE.get(key, "")
+                    break
+        unit = {"pct": "%", "usd": "$", "count": "count", "score": "score", "percentile": "percentile", "level": "level 1-5", "points": "points"}.get(m["unit"], m["unit"])
+        rows.append(f"<tr><td>{html.escape(m['label'])}</td><td>{html.escape(unit)}</td><td>{', '.join(y for y in m['years'])}</td>"
+                    f"<td>{html.escape(dataset)}</td><td>{html.escape(field)}</td></tr>")
+    return "".join(rows)
+
+
 def downloads():
-    """data/ -> site/downloads/ plus site/data.html listing each file."""
+    """data/ and the lookup tables -> site/downloads/, and site/data.html (files, sources, field dictionary)."""
     (OUT / "downloads").mkdir(exist_ok=True)
+    meta = json.load(open(ROOT / "data" / "schools.json"))["meta"]
     rows = []
     for name, label, what in DOWNLOADS:
         src = ROOT / "data" / name
         shutil.copy(src, OUT / "downloads" / name)
         rows.append(f"<tr><td><a href=downloads/{name} download>{html.escape(label)}</a><br><code>{name}</code></td>"
-                    f"<td>{what}</td><td>{src.stat().st_size / 1e6:.1f} MB</td></tr>")
-    body = ("<h1>Data downloads</h1>"
-            "<p>The same data the map uses, free to reuse. Every value carries its school year, status and source. A blank or "
-            "<code>no data</code> means the source has no value; <code>suppressed</code> means the state hid a small group. "
-            "Neither is zero. Read the <a href=methodology.html>methodology and caveats</a> before comparing across years: "
-            "2025 state test results are not comparable with earlier years, and test scores and spending are about a year older than enrollment.</p>"
-            "<table><thead><tr><th>File</th><th>Contents</th><th>Size</th></tr></thead><tbody>" + "".join(rows) + "</tbody></table>"
-            f"<p>Sources are public: CPS, the Illinois State Board of Education's Report Card, and the City of Chicago. "
-            f"Source URLs and file hashes are in <a href={REPO}/blob/main/raw/MANIFEST.json><code>raw/MANIFEST.json</code></a>; "
-            f"how each field is built is in <a href={REPO}/blob/main/sources.md><code>sources.md</code></a> and "
-            f"<a href={REPO}/blob/main/PIPELINE.md><code>PIPELINE.md</code></a>. Code is MIT licensed.</p>"
-            "<p>Suggested citation: CPS Facts, schools.ateya.org, data as of the date in each row's <code>retrieved</code> column.</p>")
-    (OUT / "data.html").write_text(head("Data downloads — CPS Facts", "Download Chicago Public Schools enrollment, outcomes and spending data as CSV or JSON.", "data.html") + body + FOOT)
+                    f"<td>{what}</td><td>{_size(src)}</td></tr>")
+    ours = []
+    for label, path, what in sc.OURS:
+        name = path.split("/")[-1]
+        src = ROOT / name
+        shutil.copy(src, OUT / "downloads" / name)
+        ours.append(f"<tr><td><a href={path} download>{html.escape(label)}</a><br><code>{name}</code></td><td>{what}</td><td>{_size(src)}</td></tr>")
+    srcs = []
+    for sid, publisher, title, pages, years, uses, files, how in sc.SOURCES:
+        srcs.append(f"<h3 id={sid}>{html.escape(title)}</h3><p class=li><strong>Publisher:</strong> {html.escape(publisher)}</p>"
+                    f"<p class=li><strong>Where:</strong> {_links(pages)}</p>"
+                    f"<p class=li><strong>Years we use:</strong> {html.escape(years)}</p>"
+                    f"<p class=li><strong>What we take from it:</strong> {html.escape(uses)}</p>"
+                    + (f"<p class=li><strong>Original files we used:</strong><br>{_links(files)}</p>" if files else "")
+                    + f"<p class=li><strong>To get it yourself:</strong> {html.escape(how)}</p>")
+    scroll = "<div style='overflow-x:auto'>"
+    body = ("<h1>Data and sources</h1>"
+            "<p>Everything on the map comes from public sources, listed below with the publisher, the dataset name, a link and the field we read, "
+            "so you can check any number against the original. The processed files we publish are listed first.</p>"
+            "<p><a href=#files>Our data files</a> · <a href=#sources>Original sources</a> · <a href=#fields>What each value is and where it comes from</a> · <a href=#reading>Reading the files</a></p>"
+            "<h2 id=files>Our data files</h2>"
+            "<p>Free to reuse. Please cite the original publishers as well. Suggested citation: CPS Facts (schools.ateya.org), data retrieved 2026-09-30.</p>"
+            + scroll + "<table><thead><tr><th>File</th><th>Contents</th><th>Size</th></tr></thead><tbody>" + "".join(rows) + "".join(ours) + "</tbody></table></div>"
+            "<h2 id=sources>Original sources</h2>"
+            "<p>Retrieved 2026-09-30 unless noted. Every value carries its own school year, because the sources publish at different times: "
+            "CPS enrollment and demographics are SY2026-27, while the state's test, attendance, graduation and spending figures are SY2024-25.</p>"
+            + "".join(srcs) +
+            "<h2 id=fields>What each value is and where it comes from</h2>"
+            "<p>Percentages are 0 to 100. For the state's data, sheet and column names are exactly as ISBE prints them in the 2025 Report Card workbook (or the edition named in the Years column when a measure was dropped later).</p>"
+            + scroll + "<table><thead><tr><th>Value</th><th>Unit</th><th>School years</th><th>Dataset</th><th>Field in the original</th></tr></thead><tbody>"
+            + _metric_rows(meta) + "<tr><td>Enrollment change (count and %)</td><td>count, %</td><td>2024-25 to 2026-27</td><td>Calculated</td><td>SY2026-27 20th-day enrollment minus SY2025-26 (and SY2024-25)</td></tr></tbody></table></div>"
+            "<h2 id=reading>Reading the files</h2>"
+            "<p><code>schools.csv</code> has one row per school with the latest value of each measure and its year. <code>school_values.csv</code> has one row per "
+            "school, measure and year (<code>school_id, metric, school_year, value, status, unit, source, retrieved</code>). "
+            "<code>status</code> is <code>value</code> or <code>suppressed</code> (the state hid a small group). A suppressed row has a blank <code>value</code>. If a school has no row for a measure and year, the source has no data for it. '"
+            "In <code>schools.csv</code> both cases are blank, so use <code>school_values.csv</code> to tell them apart. Neither is zero. <code>school_id</code> is the CPS School ID, and <code>rcdts</code> is the state's school ID.</p>"
+            "<p>Before comparing across years, read the <a href=methodology.html>methodology and caveats</a>: the 2025 state tests are not comparable with earlier years, "
+            "and test scores and spending are about a year older than enrollment.</p>"
+            f"<p>The code that builds these files is MIT licensed and public: <a href={REPO}>{REPO.split('//')[1]}</a>.</p>")
+    (OUT / "data.html").write_text(head("Data and sources — CPS Facts", "Where every number on CPS Facts comes from: publisher, dataset, link and field, plus downloadable CSV and JSON.", "data.html") + body + FOOT)
 
 
 def methodology():

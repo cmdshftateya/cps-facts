@@ -1,0 +1,110 @@
+"""Plain-language description of every outside source, for site/data.html.
+
+Written for a reader who wants to find the original data themselves: publisher, dataset title, where to get it,
+and the name of the field we read. Keep it in step with pipeline/fetch.py and raw/MANIFEST.json.
+"""
+
+CPS_DEMO = "https://www.cps.edu/about/district-data/demographics/"
+CPS_FILES = "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/"
+
+# (id, publisher, dataset, where, years, what we take, how to get the original)
+SOURCES = [
+    ("cps-enrollment", "Chicago Public Schools (CPS)", "20th-day membership report, \"Schools by Grade\" sheet",
+     [("Demographics page", CPS_DEMO)],
+     "SY2024-25, SY2025-26, SY2026-27 (counts on the 20th school day, in September; the SY2026-27 file is dated 2026-09-21)",
+     "The school roster (School ID, name, network, governance, school type, community area) and enrollment by grade, from the columns School ID, School Name, Network, Governance, School Type, Community Area, Total and the grade columns PE to 12.",
+     [("SY2026-27 file", CPS_FILES + "2026-27-demographics-20th-day-membership-report.xlsx"),
+      ("SY2025-26 file", CPS_FILES + "demographics_20thday_sy2026_forweb.xlsx"),
+      ("SY2024-25 file", CPS_FILES + "demographics_20thday_sy2025_final.xlsx")],
+     "Open the Demographics page and choose the 20th-day membership report for the year. The header row is the second row of the sheet, and a \"District Total\" row has to be dropped."),
+    ("cps-demographics", "Chicago Public Schools (CPS)", "20th-day English learner, IEP and low-income report, \"Schools\" sheet",
+     [("Demographics page", CPS_DEMO)],
+     "SY2024-25, SY2025-26, SY2026-27",
+     "Share of students who are English learners (\"State English Learners\"), have an IEP (\"Students with IEPs\", called \"Students with Disabilities\" before SY2026-27) and are low income (\"Low Income\", called \"Economically Disadvantaged\" before SY2026-27). CPS publishes shares as fractions between 0 and 1; we show them as percentages.",
+     [("SY2026-27 file", CPS_FILES + "2026-27-demographics-lep-iep-low-income-20th-day-report.xlsx"),
+      ("SY2025-26 file", CPS_FILES + "demographics_lepiepfrm_20thday_sy2026_forweb.xlsx"),
+      ("SY2024-25 file", CPS_FILES + "demographics_lepiepfrm_20thday_sy2025_final.xlsx")],
+     "Same page as above; choose the \"LEP, IEP, low income\" report for the year."),
+    ("cps-race", "Chicago Public Schools (CPS)", "20th-day racial/ethnic report, \"Schools\" sheet",
+     [("Demographics page", CPS_DEMO)],
+     "SY2024-25, SY2025-26, SY2026-27",
+     "Share of students in each CPS racial/ethnic group (White, Black/African American, Latinx, Asian, Multiracial, Native American/Alaskan, Hawaiian/Pacific Islander, Middle Eastern/North African, Not Available). Shown as CPS publishes them.",
+     [("SY2026-27 file", CPS_FILES + "2026-27-demographics-racial-ethnic-20th-day-report.xlsx"),
+      ("SY2025-26 file", CPS_FILES + "demographics_racialethnic_20thday_sy2026_forweb.xlsx"),
+      ("SY2024-25 file", CPS_FILES + "demographics_racialethnic_20thday_sy2025_final.xlsx")],
+     "Same page as above; choose the \"racial/ethnic\" report for the year."),
+    ("cps-budget", "Chicago Public Schools (CPS)", "FY2027 budget, Interactive Reports (line-item data export)",
+     [("FY2027 budget page", "https://www.cps.edu/about/finance/budget/budget-2027/")],
+     "FY2027 proposed budget; FY2026 adopted budget and projected spending (as of July 2026)",
+     "School budget dollars and positions. The export has one row per budget unit, fund, account and program, with the columns Unit, Unit Name, Fund Grant, Account, Program, FY26 Adopted Budget, FY26 Ending Budget, FY26 Projected Expenditures, FY27 Proposed Budget and the position counts. We add up the rows of each school's unit (\"U\" followed by the school's finance ID). The file's total ($10.11 billion) matches CPS's published FY27 budget; school units are $5.38 billion of it, and the rest is district-wide spending such as pensions, debt and central offices.",
+     [],
+     "On the FY2027 budget page, open \"Interactive Reports\" and use the report's Download Data option to export the line items as CSV. The page also has public Excel files (\"FY27 School Budget Overview\") with staffing counts for each school but no dollar totals for district-run schools. We refresh this export by hand once a year."),
+    ("isbe-report-card", "Illinois State Board of Education (ISBE)", "Illinois Report Card Public Data Set (2023, 2024 and 2025 editions)",
+     [("Report Card data page", "https://www.isbe.net/Pages/Illinois-State-Report-Card-Data.aspx")],
+     "2025 edition = SY2024-25; 2024 = SY2023-24; 2023 = SY2022-23",
+     "Test results, attendance, chronic absenteeism, graduation, freshman on-track, college enrollment, 5Essentials survey levels, per-pupil spending and the share of students in temporary living situations or in care. We read the sheets General, IAR, ACT, SAT and Finance, and keep the rows where Level is School and the school ID begins 15-016-2990 (Chicago Public School District 299). A \"*\" in the data means ISBE hid a small group; we show it as suppressed, never as zero.",
+     [("2025 edition (xlsx, 40 MB)", "https://www.isbe.net/_layouts/Download.aspx?SourceUrl=/Documents/2025-Report-Card-Public-Data-Set.xlsx"),
+      ("2024 edition (xlsx, 55 MB)", "https://www.isbe.net/_layouts/Download.aspx?SourceUrl=/Documents/24-RC-Pub-Data-Set.xlsx"),
+      ("2023 edition (xlsx, 24 MB)", "https://www.isbe.net/_layouts/Download.aspx?SourceUrl=/Documents/23-RC-Pub-Data-Set.xlsx")],
+     "Download the workbook from the Report Card data page. Read columns by their header names, not their position. ISBE revises the files after release (the workbook has a Revision History sheet); we used the revision current on 2026-09-30."),
+    ("chi-locations", "City of Chicago Data Portal", "Chicago Public Schools - School Locations SY2025-26 (dataset pb6d-zzuh)",
+     [("Dataset page", "https://data.cityofchicago.org/d/pb6d-zzuh")],
+     "SY2025-26",
+     "Latitude and longitude of each school (fields lat and long). Six schools new in SY2026-27 are not in it; the five converted Acero schools and ChiArts use the location of the charter they replaced, and are flagged.",
+     [("JSON", "https://data.cityofchicago.org/resource/pb6d-zzuh.json?$limit=5000")],
+     "Search the Data Portal for the dataset ID."),
+    ("chi-profile", "City of Chicago Data Portal", "Chicago Public Schools - School Profile Information SY2024-25 (dataset 3dhs-m3w4)",
+     [("Dataset page", "https://data.cityofchicago.org/d/3dhs-m3w4")],
+     "SY2024-25",
+     "The finance ID that links a school to its budget unit, and the school address. We do not use its student counts, which come from a different snapshot than the 20th-day counts.",
+     [("JSON", "https://data.cityofchicago.org/resource/3dhs-m3w4.json?$limit=5000")],
+     "Search the Data Portal for the dataset ID."),
+    ("chi-boundaries", "City of Chicago Data Portal", "Boundaries - Community Areas (dataset igwz-8jzy) and Boundaries - Wards, 2023- (dataset p293-wvbd)",
+     [("Community areas", "https://data.cityofchicago.org/d/igwz-8jzy"), ("Wards", "https://data.cityofchicago.org/d/p293-wvbd")],
+     "Current boundaries",
+     "The community-area outlines drawn on the map, and each school's ward, which we find by placing the school's coordinates inside the ward polygons.",
+     [("Community areas (GeoJSON)", "https://data.cityofchicago.org/resource/igwz-8jzy.geojson?$limit=200"), ("Wards (GeoJSON)", "https://data.cityofchicago.org/resource/p293-wvbd.geojson?$limit=100")],
+     "Search the Data Portal for the dataset IDs."),
+    ("subdistricts", "Illinois Senate Democratic Caucus redistricting site", "Chicago Board of Education subdistrict map (shapefile ERSB_20_Sub_District_Map_FA1_SB_15)",
+     [("Shapefile (zip)", "https://www.ilsenateredistricting.com/images/shape-files/ERSB_20_Sub_District_Map_FA1_SB_15.zip"),
+      ("Board of Elections map (PDF)", "https://cboeprod.blob.core.usgovcloudapi.net/prod/2025-05/Citywide%20CPS%20Board%20Districts.pdf")],
+     "The 20 subdistricts (1a to 10b) enacted by Public Act 103-0584",
+     "The subdistrict outlines on the map, and each school's subdistrict, found by placing its coordinates inside the polygons. The Chicago Board of Elections publishes the official map only as PDF pictures, so we compared the shapefile with it side by side.",
+     [], "Use your own address at chicagoelections.gov to confirm your subdistrict."),
+    ("act-concordance", "ACT and College Board", "ACT/SAT Concordance Tables (2018) and ACT College Readiness Benchmarks",
+     [("Concordance tables (PDF)", "https://act.org/content/dam/act/unsecured/documents/ACT-SAT-Concordance-Tables.pdf")],
+     "Fixed tables",
+     "Used only for the optional \"score vs ACT benchmark\" estimate for high schools: SAT school averages (SY2022-23 and SY2023-24) are converted to the ACT scale with the concordance table, then compared with the ACT national benchmark (ELA 20, math 22).",
+     [], "Both are published on act.org."),
+]
+
+OURS = [
+    ("School ID lookup (CSV)", "downloads/crosswalk.csv",
+     "Links each CPS School ID to the state's 15-digit school ID (RCDTS), with how it was matched (two older City of Chicago datasets, or by hand from names and addresses) and our confidence. There is no official list. Dataset 'CPS Schools 2013-2014' (c7jj-qjvh) has an isbe_id field, and 'School Progress Reports SY1617' (cp7s-7gxg) has the state report card link; both are on the City of Chicago Data Portal."),
+    ("Charter-to-district conversions (CSV)", "downloads/lineage.csv",
+     "Schools that changed from charter to district-run in July 2026, with the CPS announcement or board action for each (Acero schools, voted 2025-02-27; ChiArts, voted 2025-11-05)."),
+    ("CPS school budget totals (CSV)", "downloads/budget_units.csv",
+     "Each school's FY26 adopted budget, FY26 projected spending, FY27 proposed budget and positions, summed from the CPS budget export above."),
+    ("CPS budget by funding source (CSV)", "downloads/budget_unit_funds.csv",
+     "Each school's FY27 proposed budget split by fund."),
+]
+
+# metric key -> (dataset, field), for everything not read from the ISBE workbook
+OTHER_FIELDS = {
+    "enrollment": ("CPS 20th-day membership", "Total"),
+    "pct_el": ("CPS 20th-day LEP/IEP/low income", "State English Learners, %"),
+    "pct_iep": ("CPS 20th-day LEP/IEP/low income", "Students with IEPs, % (earlier: Students with Disabilities)"),
+    "pct_low_income": ("CPS 20th-day LEP/IEP/low income", "Low Income, % (earlier: Economically Disadvantaged)"),
+    "cps_budget_fy27": ("CPS FY27 budget export", "FY27 Proposed Budget, summed over the school's unit"),
+    "cps_budget_fy26_projected": ("CPS FY27 budget export", "FY26 Projected Expenditures, summed"),
+    "cps_budget_fy26_adopted": ("CPS FY27 budget export", "FY26 Adopted Budget, summed"),
+    "cps_positions_fy27": ("CPS FY27 budget export", "FY27 Proposed Positions, summed"),
+    "cps_budget_per_pupil": ("Calculated", "FY27 proposed budget divided by SY2026-27 20th-day enrollment"),
+    "g11_ela_gap": ("Calculated", "ISBE average ELA score (SAT converted to the ACT scale for SY2022-23 and SY2023-24) minus 20"),
+    "g11_math_gap": ("Calculated", "ISBE average math score (SAT converted to the ACT scale for SY2022-23 and SY2023-24) minus 22"),
+}
+OTHER_FIELDS_NOTE = {"sat_ela_prof": " (SY2022-23: Level 3 % + Level 4 %)", "sat_math_prof": " (SY2022-23: Level 3 % + Level 4 %)"}
+for _k, _g in (("pct_white", "White"), ("pct_black", "Black/African American"), ("pct_latinx", "Latinx"), ("pct_asian", "Asian"),
+               ("pct_multiracial", "Multiracial"), ("pct_native", "Native American/Alaskan"), ("pct_pacific", "Hawaiian/Pacific Islander"),
+               ("pct_mena", "Middle Eastern/Northern African"), ("pct_race_na", "Not Available")):
+    OTHER_FIELDS[_k] = ("CPS 20th-day racial/ethnic", f"{_g}, %")

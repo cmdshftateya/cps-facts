@@ -36,6 +36,8 @@ class TestPublished(unittest.TestCase):
     def test_downloads_are_current(self):
         for name in ("schools.csv", "school_values.csv", "schools.json", "validation_report.md"):
             self.assertEqual((ROOT / "data" / name).read_bytes(), (ROOT / "site" / "downloads" / name).read_bytes(), name)
+        for name in ("crosswalk.csv", "lineage.csv", "budget_units.csv", "budget_unit_funds.csv"):
+            self.assertEqual((ROOT / name).read_bytes(), (ROOT / "site" / "downloads" / name).read_bytes(), name)
         with open(ROOT / "site" / "downloads" / "schools.csv", newline="") as f:
             self.assertGreater(sum(1 for _ in csv.DictReader(f)), 600)
 
