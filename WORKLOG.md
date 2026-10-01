@@ -18,6 +18,13 @@ Carried forward until closed. Update this list in every entry that opens or clos
 
 ---
 
+## 2026-10-01 13:32–13:40 · Data page: drop filename labels · `255a5c46`
+
+**Asked:** "remove the .csv for the data.html page". Clarified: remove the filename line (e.g. `schools.csv`) under each download link, keep every file.
+**Done:** `build_site.py` no longer prints `<code>name</code>` under the 8 download links; `site/data.html` rebuilt. `tests.test_published` passes; checked at 360px (no horizontal scroll), light theme only.
+**Obstacles:** `raw/` isn't in worktrees; linked the main checkout's raw files temporarily to run `build_site.py`, then removed the links.
+**Commits:** `2b8e637` Data page: drop filename labels under download links. Merged to `main` and pushed (deploys).
+
 ## 2026-10-01 10:51–11:02 · Work log, decision register, agent instructions · `630ea84d`
 
 **Asked:** Start a work log covering every past conversation (timestamps, accomplishments, obstacles, decisions), and set up agent instructions so the log, commits and decisions stay current automatically. Document the owner's working and decision style too.
