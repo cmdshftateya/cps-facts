@@ -395,3 +395,16 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 **Decision:** **Every school gets a static page at `/s/<id>/` with its own Open Graph and Twitter tags and a 1200×630 card, generated at build time.** The page redirects browsers to `/#school=<id>`, and the map shows the selected school as `/s/<id>/` in the address bar (report card: `/s/<id>/#card=1`; old `#school=` links still work). The card shows the school name, a badge made from its name (six-point star, initials, colour and pattern hashed from id and name; this encodes no data), a star at its location on the city outline, and three numbers with school years: students, low income, and 4-year graduation (high and combined schools) or attendance (elementary). Suppressed and missing values are spelled out, never shown as 0.
 
 **Why:** Preview bots never see a URL's `#` fragment, so every school link showed the same site image. Static pages keep the site free and serverless (a Worker drawing images on request was the alternative). The location star tells a Chicago reader the most at a glance; the name badge makes each card recognizable; three numbers stay legible at thumbnail size. About 28 MB of PNGs, rewritten only when pixels change.
+
+## D-032 · Share button sends a 3:4 snapshot image, drawn in the browser
+
+- **Date:** 2026-10-01
+- **Status:** Active
+- **Who:** Owner asked for a shareable "mini map card and measure card" with the most important numbers, not a link preview, good for Instagram; agent chose the numbers and the format
+- **Tags:** ui, sharing
+- **Where:** `ba5e68c6`
+
+**Decision:** **The school panel's Share button opens the system share sheet with a 1080×1440 PNG, a one-line text summary and the `/s/<id>/` link.** The image uses the link card's look (D-031): name badge, name, the school's star on the city outline, and four numbers, each with its school year and the city median: students, per-student spending (state figure), ELA proficiency (IAR for elementary, grade 11 for high schools), and chronic absenteeism. Suppressed and missing values are spelled out. It is drawn on a canvas when the panel opens (fonts in `site/fonts/`, copied from `tools/fonts/` by `build_site.py`), so the tap shares at once. Without a share sheet, the image downloads and the text and link are copied.
+
+**Why:** 3:4 portrait is Instagram's tall feed size and fits a phone screen. Four numbers stay quick to read; low income is left off because the link card already shows it. Drawing in the browser adds no files per school (the link cards already take 28 MB) and follows the reader's comparison set and year policy for the medians. Safari drops a share call that waits on slow work after the tap, hence the pre-render.
+

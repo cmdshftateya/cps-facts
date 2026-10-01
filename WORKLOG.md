@@ -15,10 +15,19 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **FY27 budget label:** the board apparently approved the budget on 2026-07-30. Nobody has compared the approved book to the "proposed" export the site uses.
 - **Cross-link from the politics board guide:** the edit to `../politics/chicago-school-board-2026-guide.html` is uncommitted in that repo.
 - **For the owner to confirm on the Data page:** the budget-export steps ("Interactive Reports", then "Download Data") and the Data Portal titles for the boundary datasets, which were written from memory.
+- **Share button on a real phone:** check the snapshot in iOS Safari's share sheet (iMessage, Instagram) and Android Chrome; only the no-share-sheet fallback was tried, in the desktop browser pane.
 - **Check a shared school link after deploy:** paste one `/s/<id>/` link into iMessage, WhatsApp and Slack, and run it through the Facebook Sharing Debugger so cached previews refresh.
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
+## 2026-10-01 15:40–16:20 · Share snapshot button · `ba5e68c6`
+
+**Asked:** A share in the school panel that makes a snapshot of "the most important metrics" and opens the share sheet "to imessage etc, with a text summary img and link". First try (a 4:3 table of six numbers) "kinda sucks"; wanted "a mini map card and measure card", "quick fire", the "cute little icon", not overwhelming, "good for Instagram"; rebase on main first.
+**Done:** Rebased on main (per-school link cards). Share button next to Report card: a 1080×1440 PNG drawn on a canvas when the panel opens (badge, name, location star on the city outline, students, spending per student, ELA proficiency, chronic absenteeism, each with year and city median), passed to `navigator.share` with a one-line summary and `/s/<id>/`; download plus clipboard where there is no share sheet. Barlow fonts served from `site/fonts/` (about 340 KB, loaded only for sharing). Checked in the browser pane: elementary, high school with a long name, a suppressed value, 375px in dark mode, and the fallback (image saved; clipboard blocked in the pane). `tests.test_published` passes.
+**Obstacles:** No `.venv` in this worktree, so `build_site.py` and `tests.test_gates` weren't run; fonts copied by hand (same files the build copies). The pane has no Web Share, so the real share sheet is untested.
+**Decisions:** D-032.
+**Commits:** `1519566` share button and fonts · docs commit with this entry. Not pushed.
+
 ## 2026-10-01 14:55–15:35 · Per-school link previews · `5b9f1914`
 
 **Asked:** When sharing a school's page, a rich link preview "customized for each school", "easily readable", maybe an icon "semi-randomly related to the school's name"; "propose something smart". Approved the proposal: "AMAZING yes please".
