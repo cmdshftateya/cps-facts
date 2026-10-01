@@ -360,7 +360,31 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 
 **Why:** Agents should skim the index and pull only the entries they need instead of loading every log into context. Markdown with fixed fields keeps the files readable on GitHub and diffable, with no second source of truth to keep in sync (a YAML or JSON source would need a generated markdown copy).
 
-## D-029 · Each school has a share page with its own preview card
+## D-029 · School panel states each section's year once; compact rows
+
+- **Date:** 2026-10-01
+- **Status:** Active
+- **Who:** Agent (asked to reduce clutter)
+- **Tags:** ui, panel
+- **Where:** `8bd56763`, [ux-clutter-review.md](ux-clutter-review.md)
+
+**Decision:** **The school panel states the year once per section**, and badges only the measures whose year differs. Secondary measures (race shares, spending detail, 5Essentials, ACT averages) are compact rows, not tiles. The panel opens with the measure the map is colored by.
+
+**Why:** The repeated badges, medians and captions made the panel about 3,500 px of near-identical labels. Every value still shows its year, through the section heading or its own badge.
+
+## D-030 · Governance shapes only when coloring by school type
+
+- **Date:** 2026-10-01
+- **Status:** Active
+- **Who:** Owner ("go" on the clutter review's recommendations)
+- **Tags:** ui, map
+- **Where:** `8bd56763`, [ux-clutter-review.md](ux-clutter-review.md)
+
+**Decision:** **Governance shapes (hollow charter square, contract/options diamond) appear only when coloring by school type.** In metric views every school is a plain filled square, and the legend has no shape key. Changes the marker rule in REQUIREMENTS.md.
+
+**Why:** Hollow charter squares competed with the color scale and read like the dashed no-data squares. School type is still in the tooltip, the panel, the table and the type filter.
+
+## D-031 · Each school has a share page with its own preview card
 
 - **Date:** 2026-10-01
 - **Status:** Active
@@ -371,4 +395,3 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 **Decision:** **Every school gets a static page at `/s/<id>/` with its own Open Graph and Twitter tags and a 1200×630 card, generated at build time.** The page redirects browsers to `/#school=<id>`, and the map shows the selected school as `/s/<id>/` in the address bar (report card: `/s/<id>/#card=1`; old `#school=` links still work). The card shows the school name, a badge made from its name (six-point star, initials, colour and pattern hashed from id and name; this encodes no data), a star at its location on the city outline, and three numbers with school years: students, low income, and 4-year graduation (high and combined schools) or attendance (elementary). Suppressed and missing values are spelled out, never shown as 0.
 
 **Why:** Preview bots never see a URL's `#` fragment, so every school link showed the same site image. Static pages keep the site free and serverless (a Worker drawing images on request was the alternative). The location star tells a Chicago reader the most at a glance; the name badge makes each card recognizable; three numbers stay legible at thumbnail size. About 28 MB of PNGs, rewritten only when pixels change.
-

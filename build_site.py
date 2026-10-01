@@ -64,6 +64,7 @@ def head(title, desc, path):
             "<style>body{max-width:900px;margin:0 auto;padding:16px;font-family:var(--font-text);line-height:1.5;background:var(--page);color:var(--ink)}"
             "h1,h2,h3{font-family:var(--font-display);text-transform:uppercase}table{border-collapse:collapse;font:14px var(--font-ui)}"
             "td,th{border:1px solid var(--rule-firm);padding:6px 8px;vertical-align:top;text-align:left}p.li{margin:.4em 0}"
+            "details{border-top:1px solid var(--rule)}details>summary{cursor:pointer;padding:.35em 0}details>summary h3{display:inline;font-size:1em;margin:0}details[open]>summary{margin-bottom:.3em}"
             "code{font-family:var(--font-mono);font-size:.9em}a{color:var(--blue)}footer{margin-top:2em;padding-top:1em;border-top:1px solid var(--rule-firm);color:var(--muted);font-size:14px}"
             "</style></head><body><p><a href=./>&larr; Back to the map</a> · <a href=methodology.html>Methodology</a> · <a href=data.html>Data and sources</a></p>")
 
@@ -120,12 +121,12 @@ def downloads():
         ours.append(f"<tr><td><a href={path} download>{html.escape(label)}</a></td><td>{what}</td><td>{_size(src)}</td></tr>")
     srcs = []
     for sid, publisher, title, pages, years, uses, files, how in sc.SOURCES:
-        srcs.append(f"<h3 id={sid}>{html.escape(title)}</h3><p class=li><strong>Publisher:</strong> {html.escape(publisher)}</p>"
+        srcs.append(f"<details id={sid}><summary><h3>{html.escape(title)}</h3> · {html.escape(publisher)}</summary>"
                     f"<p class=li><strong>Where:</strong> {_links(pages)}</p>"
                     f"<p class=li><strong>Years we use:</strong> {html.escape(years)}</p>"
                     f"<p class=li><strong>What we take from it:</strong> {html.escape(uses)}</p>"
                     + (f"<p class=li><strong>Original files we used:</strong><br>{_links(files)}</p>" if files else "")
-                    + f"<p class=li><strong>To get it yourself:</strong> {html.escape(how)}</p>")
+                    + f"<p class=li><strong>To get it yourself:</strong> {html.escape(how)}</p></details>")
     scroll = "<div style='overflow-x:auto'>"
     body = ("<h1>Data and sources</h1>"
             "<p>Everything on the map comes from public sources, listed below with the publisher, the dataset name, a link and the field we read, "
@@ -136,16 +137,17 @@ def downloads():
             + scroll + "<table><thead><tr><th>File</th><th>Contents</th><th>Size</th></tr></thead><tbody>" + "".join(rows) + "".join(ours) + "</tbody></table></div>"
             "<h2 id=sources>Original sources</h2>"
             "<p>Retrieved 2026-09-30 unless noted. Every value carries its own school year, because the sources publish at different times: "
-            "CPS enrollment and demographics are SY2026-27, while the state's test, attendance, graduation and spending figures are SY2024-25.</p>"
+            "CPS enrollment and demographics are SY2026-27, while the state's test, attendance, graduation and spending figures are SY2024-25. "
+            "Open a source for its link, the years and fields we use, and how to download it yourself.</p>"
             + "".join(srcs) +
             "<h2 id=fields>What each value is and where it comes from</h2>"
             "<p>Percentages are 0 to 100. For the state's data, sheet and column names are exactly as ISBE prints them in the 2025 Report Card workbook (or the edition named in the Years column when a measure was dropped later).</p>"
-            + scroll + "<table><thead><tr><th>Value</th><th>Unit</th><th>School years</th><th>Dataset</th><th>Field in the original</th></tr></thead><tbody>"
-            + _metric_rows(meta) + "<tr><td>Enrollment change (count and %)</td><td>count, %</td><td>2024-25 to 2026-27</td><td>Calculated</td><td>SY2026-27 20th-day enrollment minus SY2025-26 (and SY2024-25)</td></tr></tbody></table></div>"
+            + f"<details><summary>Show all {len(meta['metrics']) + 1} values</summary>" + scroll + "<table><thead><tr><th>Value</th><th>Unit</th><th>School years</th><th>Dataset</th><th>Field in the original</th></tr></thead><tbody>"
+            + _metric_rows(meta) + "<tr><td>Enrollment change (count and %)</td><td>count, %</td><td>2024-25 to 2026-27</td><td>Calculated</td><td>SY2026-27 20th-day enrollment minus SY2025-26 (and SY2024-25)</td></tr></tbody></table></div></details>"
             "<h2 id=reading>Reading the files</h2>"
             "<p><code>schools.csv</code> has one row per school with the latest value of each measure and its year. <code>school_values.csv</code> has one row per "
             "school, measure and year (<code>school_id, metric, school_year, value, status, unit, source, retrieved</code>). "
-            "<code>status</code> is <code>value</code> or <code>suppressed</code> (the state hid a small group). A suppressed row has a blank <code>value</code>. If a school has no row for a measure and year, the source has no data for it. '"
+            "<code>status</code> is <code>value</code> or <code>suppressed</code> (the state hid a small group). A suppressed row has a blank <code>value</code>. If a school has no row for a measure and year, the source has no data for it. "
             "In <code>schools.csv</code> both cases are blank, so use <code>school_values.csv</code> to tell them apart. Neither is zero. <code>school_id</code> is the CPS School ID, and <code>rcdts</code> is the state's school ID.</p>"
             "<p>Before comparing across years, read the <a href=methodology.html>methodology and caveats</a>: the 2025 state tests are not comparable with earlier years, "
             "and test scores and spending are about a year older than enrollment.</p>"

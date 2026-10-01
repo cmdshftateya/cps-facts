@@ -74,22 +74,34 @@
   #legend .sh{display:flex;gap:8px;margin-top:8px;color:var(--ink-2);align-items:center;flex-wrap:wrap}
   #legend .warn{color:var(--terra);margin-top:6px}
   #legend .note{color:var(--muted);margin-top:6px}
+  #legend .lbl .yr{font-family:var(--font-mono);letter-spacing:0;margin-left:4px}
   #legend summary{cursor:pointer}
   #tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--page);padding:4px 7px;font-size:12px;display:none;white-space:nowrap;z-index:3}
   #panel h2{font:700 24px/1.05 var(--font-display);text-transform:uppercase;margin:0 0 4px;padding-right:40px}
   #panel .sub{color:var(--ink-2);font-size:13px;margin-top:2px}
+  .focus{margin-top:10px;padding:8px 10px;background:var(--sunk);border-left:3px solid var(--blue)}
+  .focus .lbl{margin:0 0 2px}.focus .yr{font-family:var(--font-mono);letter-spacing:0;margin-left:6px}
+  .focus b{font:700 20px/1.1 var(--font-display);font-variant-numeric:tabular-nums}.focus .c{font-size:12px;color:var(--ink-2);margin-left:6px}
   #close{position:absolute;right:12px;top:10px;font-size:18px;padding:0 9px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--bay);background:var(--rule)}
-  .cell{background:var(--surface);padding:10px 12px;min-width:0}
-  .cell.wide{grid-column:1/-1}
-  .cell .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-  .cell .v{font:700 24px/1.1 var(--font-display);font-variant-numeric:tabular-nums}
-  .cell .v.none{font:400 14px var(--font-ui);color:var(--muted);padding:6px 0}
-  .cell .c{font-size:12px;color:var(--ink-2)}
+  .tile{background:var(--surface);padding:10px 12px;min-width:0}
+  .tile.wide{grid-column:1/-1}
+  .grid::after{content:"";background:var(--surface)}
+  .tile .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .tile .v{font:700 22px/1.15 var(--font-display);font-variant-numeric:tabular-nums}
+  .tile .v.none{font:400 14px var(--font-ui);color:var(--muted);padding:4px 0}
+  .tile .c{font-size:12px;color:var(--ink-2)}
+  .rows{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;column-gap:10px;row-gap:3px;font-size:13px;margin-top:4px;font-variant-numeric:tabular-nums;align-items:center}
+  .rows .h{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .rows .r{text-align:right}
+  .rows .m{color:var(--muted);text-align:right}
+  .rows b{font-weight:700}
+  #panel h3 .yr{text-transform:none;letter-spacing:0;font-family:var(--font-mono);margin-left:6px}
+  #foot summary{cursor:pointer}
   .badge{font-size:10px;color:var(--muted);border:var(--bay) solid var(--rule-firm);padding:0 4px;margin-left:4px;vertical-align:middle;font-family:var(--font-mono);white-space:nowrap}
   .badge.w{color:var(--terra);border-color:var(--terra)}
   .spark{display:block;margin-top:4px}
-  #panel h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0;padding:12px 14px 6px}
+  #panel h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0;padding:14px 14px 6px}
   .flags{margin:8px 0 0;padding:0;list-style:none;font-size:12px;color:var(--terra)}
   .flags li{margin-top:3px}
   #foot{font-size:12px;color:var(--muted);padding:12px 14px}
@@ -99,12 +111,15 @@
   .barlbl{display:flex;gap:2px;font-size:9px;color:var(--muted)}
   .barlbl span{flex:1;text-align:center}
   .fund{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-top:3px;font-variant-numeric:tabular-nums}
+  #filters>summary{cursor:pointer;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);list-style-position:inside}
+  #filters[open]>summary{margin-bottom:10px}
+  #fcount{color:var(--ink);font-weight:700;letter-spacing:0}
   #res{max-height:180px;overflow:auto;margin:-6px 0 10px;border:var(--bay) solid var(--rule)}
   #res button{display:block;width:100%;text-align:left;background:var(--sunk);border:0;border-bottom:var(--bay) solid var(--rule);padding:6px 8px;font-size:13px}
   #res button:hover,#res button:focus-visible{background:var(--ink);color:var(--page)}
   mark{background:var(--mark);color:inherit;font-weight:700;box-shadow:inset 0 -2px var(--brass)}
   /* table view */
-  .views{display:flex;margin-left:auto}
+  .views{display:flex;margin-left:auto;align-self:center}
   .views button{border-right-width:0;padding:4px 12px;font-size:13px}
   .views button:last-child{border-right-width:var(--bay)}
   .views button[aria-pressed=true]{background:var(--ink);color:var(--page)}
@@ -117,6 +132,7 @@
   #tablev th button{width:100%;border:0;text-align:inherit;padding:7px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
   #tablev th[aria-sort=ascending] button,#tablev th[aria-sort=descending] button{color:var(--ink)}
   #tablev th.r,#tablev td.r{text-align:right}
+  #tablev th.mt button{white-space:normal;min-width:140px}
   #tablev td{padding:6px 10px;border-bottom:var(--bay) solid var(--rule);white-space:nowrap}
   #tablev td.n{white-space:normal;min-width:180px}
   #tablev td.none{color:var(--muted)}
@@ -127,7 +143,7 @@
   #tablev td button{border:0;padding:0;text-align:left;font-size:13px;font-weight:600;background:none}
   #tablev td button:hover{background:none;color:var(--ink);text-decoration:underline}
   /* settings */
-  #setbtn{position:fixed;right:14px;bottom:14px;height:44px;padding:0 14px;background:var(--surface);z-index:20;display:flex;gap:8px;align-items:center;font-size:14px}
+  #setbtn{display:flex;gap:6px;align-items:center;padding:4px 10px;font-size:13px;align-self:center}
   #setbtn svg{fill:currentColor}
   .seg{display:flex;margin-bottom:6px}
   .seg button{flex:1;border-right-width:0;padding:6px 4px;font-size:13px}
@@ -135,7 +151,7 @@
   .seg button[aria-pressed=true]{background:var(--ink);color:var(--page)}
   #g11tog .hint,.hint{font-size:11px;color:var(--muted);margin:0 0 10px}
   #legend .sh svg{flex:none}
-  #setmenu{position:fixed;right:14px;bottom:66px;width:340px;max-height:calc(100vh - 90px);overflow:auto;background:var(--surface);border:var(--bay) solid var(--rule-firm);z-index:20;padding:12px 14px}
+  #setmenu{position:fixed;right:14px;top:52px;width:340px;max-height:calc(100vh - 90px);overflow:auto;background:var(--surface);border:var(--bay) solid var(--rule-firm);z-index:20;padding:12px 14px}
   #setmenu[hidden]{display:none}
   #setmenu h3{margin:0 0 10px;font:700 15px var(--font-display);text-transform:uppercase;letter-spacing:.06em}
   #setmenu .hint{font-size:11px;color:var(--muted);margin:-6px 0 10px}
@@ -193,6 +209,7 @@
   @media(max-width:760px){
     header{flex-wrap:wrap;gap:6px 12px}
     header .nav{order:9;flex-basis:100%}
+    #asof{display:none}
     body{overflow:auto;display:block}
     main,main.open{display:flex;flex-direction:column}
     .rz{display:none!important}
@@ -201,13 +218,12 @@
     #tablev{order:1;max-height:none;overflow-x:auto}
     #legend{max-width:calc(100% - 24px)}
     #panel{position:fixed;left:0;right:0;bottom:0;max-height:60vh;border-left:0;border-top:var(--bay) solid var(--rule-firm);z-index:10}
-    #setmenu{left:0;right:0;bottom:0;width:auto;max-height:70vh;border-width:var(--bay) 0 0}
-    main.open~#setbtn{display:none}
+    #setmenu{left:0;right:0;top:auto;bottom:0;width:auto;max-height:70vh;border-width:var(--bay) 0 0}
   }
 </style>
 </head>
 <body>
-<header><h1>CPS Facts</h1><span class="n nav"><a href="/methodology.html">Methodology and caveats</a> · <a href="/data.html">Data and sources</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><span class="n" id="asof"></span></header>
+<header><h1>CPS Facts</h1><span class="n nav"><a href="/methodology.html">Methodology and caveats</a> · <a href="/data.html">Data and sources</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><button id="setbtn" aria-expanded="false" aria-controls="setmenu" title="Comparison set, year policy, map mode, theme"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 4h14M2 9h14M2 14h14" stroke="currentColor" stroke-width="2" fill="none"/><rect x="11" y="2" width="4" height="4"/><rect x="3" y="7" width="4" height="4"/><rect x="9" y="12" width="4" height="4"/></svg><span>Settings</span></button><span class="n" id="asof"></span></header>
 <main id="main">
   <aside>
     <div class="blk">
@@ -222,14 +238,14 @@
         <div class="hint" id="g11hint"></div>
       </div>
     </div>
-    <div class="blk">
+    <details class="blk" id="filters"><summary>Filters <span id="fcount"></span></summary>
       <label for="f-type">School type</label><select id="f-type"></select>
       <label for="f-band">Grade band</label><select id="f-band"></select>
       <label for="f-net">Network</label><select id="f-net"></select>
       <label for="f-sub">Board subdistrict</label><select id="f-sub"></select>
       <label class="chk"><input type="checkbox" id="f-has"> Only schools with data for this metric</label>
       <button id="reset">Reset filters</button>
-    </div>
+    </details>
   </aside>
   <div id="stage">
     <svg id="map" role="group" aria-label="Map of Chicago public schools"></svg>
@@ -241,7 +257,6 @@
   <div class="rz" id="rz-a" role="separator" aria-orientation="vertical" aria-label="Resize filters column" tabindex="0"></div>
   <div class="rz" id="rz-p" role="separator" aria-orientation="vertical" aria-label="Resize school profile column" tabindex="0"></div>
 </main>
-<button id="setbtn" aria-expanded="false" aria-controls="setmenu" title="Comparison set, year policy, map mode, theme"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 4h14M2 9h14M2 14h14" stroke="currentColor" stroke-width="2" fill="none"/><rect x="11" y="2" width="4" height="4"/><rect x="3" y="7" width="4" height="4"/><rect x="9" y="12" width="4" height="4"/></svg><span>Settings</span></button>
 <div id="setmenu" hidden role="dialog" aria-label="Settings">
   <h3>Settings</h3>
   <label for="s-set">Comparison set</label>
@@ -277,6 +292,13 @@ const CB=[["Categorical","type"],["Enrollment","enrollment"],["Enrollment","enro
  ["Spending","spend"],["Spending","spend_cps"],
  ["Outcomes","iar_ela_prof"],["Outcomes","iar_math_prof"],["Outcomes","ela_growth"],["Outcomes","math_growth"],["Outcomes","g11_ela"],["Outcomes","g11_math"],["Outcomes","g11_ela_gap"],["Outcomes","g11_math_gap"],["Outcomes","attendance_rate"],["Outcomes","chronic_absent"],["Outcomes","grad_4yr"],["Outcomes","ninth_on_track"],["Outcomes","postsec_12mo"],
  ["5Essentials","fe_leaders"],["5Essentials","fe_teachers"],["5Essentials","fe_families"],["5Essentials","fe_environment"]];
+// short names for the Color by menu; the legend and table keep the full label
+const SHORT={type:"School type",enrollment:"Enrollment",enrollment_change:"Enrollment change",pct_low_income:"Low income",pct_el:"English learners",pct_iep:"Students with IEPs",
+ pct_latinx:"Latinx",pct_black:"Black",pct_white:"White",pct_asian:"Asian",pct_homeless:"Temporary living situations",spend:"Per-pupil spending (state)",spend_cps:"Per-pupil budget (CPS)",
+ iar_ela_prof:"IAR ELA proficiency",iar_math_prof:"IAR math proficiency",ela_growth:"ELA growth",math_growth:"Math growth",g11_ela:"Grade 11 ELA proficiency",g11_math:"Grade 11 math proficiency",
+ g11_ela_gap:"Grade 11 ELA vs. benchmark",g11_math_gap:"Grade 11 math vs. benchmark",attendance_rate:"Attendance",chronic_absent:"Chronic absenteeism",grad_4yr:"4-year graduation",
+ ninth_on_track:"Freshman on-track",postsec_12mo:"Postsecondary enrollment",fe_leaders:"Effective leaders",fe_teachers:"Collaborative teachers",fe_families:"Involved families",fe_environment:"Supportive environment"};
+const menuLabel=k=>SHORT[k]||label(k);
 const FAMILIES=[
  ["Enrollment",["enrollment"]],
  ["Demographics",["pct_low_income","pct_el","pct_iep","pct_latinx","pct_black","pct_white","pct_asian","pct_multiracial","pct_homeless"]],
@@ -284,6 +306,11 @@ const FAMILIES=[
  ["Outcomes",["iar_ela_prof","iar_math_prof","ela_growth","math_growth","g11_ela","g11_math","g11_ela_gap","g11_math_gap","act_ela_avg","act_math_avg","attendance_rate","chronic_absent","grad_4yr","ninth_on_track","postsec_12mo"]],
  ["5Essentials",["fe_leaders","fe_teachers","fe_families","fe_environment"]]];
 
+// secondary measures in one compact table per group instead of a tile each
+const ROWGROUP={pct_latinx:"Race and ethnicity",pct_black:"Race and ethnicity",pct_white:"Race and ethnicity",pct_asian:"Race and ethnicity",pct_multiracial:"Race and ethnicity",
+ ppe_site:"Spending detail",ppe_central:"Spending detail",cps_budget_fy27:"Spending detail",cps_budget_fy26_projected:"Spending detail",cps_positions_fy27:"Spending detail",
+ fe_leaders:"Level, 1 (lowest) to 5 (highest)",fe_teachers:"Level, 1 (lowest) to 5 (highest)",fe_families:"Level, 1 (lowest) to 5 (highest)",fe_environment:"Level, 1 (lowest) to 5 (highest)",
+ act_ela_avg:"Grade 11 average scores",act_math_avg:"Grade 11 average scores"};
 let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",card:false,view:"map",sort:"name",dir:1,...DEF_SET},bins=[],medCache={};
 
 fetch("data/schools.json").then(r=>r.json()).then(init).catch(e=>{document.body.insertAdjacentHTML("beforeend","<p style='padding:20px'>Could not load data/schools.json</p>");console.error(e)});
@@ -330,7 +357,7 @@ function init(data){
   $("asof").textContent=`Roster SY${D.meta.roster_year} · data built ${D.meta.generated.slice(0,10)}`;
   const g={};for(const [grp,k] of CB)(g[grp]??=[]).push(k);
   $("metric").innerHTML="";
-  for(const [grp,ks] of Object.entries(g)){const og=document.createElement("optgroup");og.label=grp;for(const k of ks){const o=new Option(label(k),k);o.dataset.k=k;og.append(o)}$("metric").append(og)}
+  for(const [grp,ks] of Object.entries(g)){const og=document.createElement("optgroup");og.label=grp;for(const k of ks){const o=new Option(menuLabel(k),k);o.dataset.k=k;o.title=label(k);og.append(o)}$("metric").append(og)}
   opts("f-type",Object.entries(TYPES),"All types");opts("f-band",Object.entries(BANDS),"All grade bands");
   const nets=[...new Set(S.map(s=>s.network))].sort((a,b)=>(parseInt(a.replace(/\D/g,""))||999)-(parseInt(b.replace(/\D/g,""))||999)||a.localeCompare(b));
   opts("f-net",nets.map(x=>[x,x]),"All networks");
@@ -339,6 +366,7 @@ function init(data){
   const yrs=new Set();for(const [,k] of CB)if(k!=="type")for(const s of S){const ser=s.m[seriesKey(k)];if(ser)Object.keys(ser).forEach(y=>yrs.add(y))}
   $("s-year").innerHTML='<option value="latest">Latest available per metric</option>'+[...yrs].sort().reverse().map(y=>`<option value="${y}">Aligned: SY${y}</option>`).join("");
   loadSettings();readHash();syncControls();buildMap();wire();render();
+  if(st.type||st.band||st.net||st.sub||st.has)$("filters").open=true;
 }
 const defView=()=>matchMedia("(max-width:760px)").matches?"table":"map";
 function opts(id,pairs,all){const el=$(id);el.innerHTML="";el.append(new Option(all,""));for(const [v,l] of pairs)el.append(new Option(l,v))}
@@ -367,8 +395,9 @@ function wire(){
   document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(st.card){showCard(false);return}if(!$("setmenu").hidden){toggleMenu(false);$("setbtn").focus()}else if(st.sel)select("");hideRes()}});
   addEventListener("hashchange",()=>{readHash();syncControls();render()});
 }
-function toggleMenu(open){const m=$("setmenu");const o=open===undefined?m.hidden:open;m.hidden=!o;$("setbtn").setAttribute("aria-expanded",o)}
-function settingsChanged(){saveSettings();applyTheme();for(const o of $("metric").options)o.textContent=label(o.dataset.k);render()}
+function toggleMenu(open){const m=$("setmenu");const o=open===undefined?m.hidden:open;m.hidden=!o;$("setbtn").setAttribute("aria-expanded",o);
+  m.style.top=matchMedia("(max-width:760px)").matches?"":document.querySelector("header").getBoundingClientRect().bottom+6+"px"}
+function settingsChanged(){saveSettings();applyTheme();for(const o of $("metric").options)o.textContent=menuLabel(o.dataset.k);render()}
 const isG11=k=>/^g11_(ela|math)(_gap)?$/.test(k);
 const g11Pair=(k,gap)=>k.replace(/_gap$/,"")+(gap?"_gap":"");
 function syncG11(){
@@ -381,7 +410,7 @@ function syncG11(){
 function syncControls(){
   $("metric").value=st.metric;$("f-type").value=st.type;$("f-band").value=st.band;$("f-net").value=st.net;$("f-sub").value=st.sub;$("f-has").checked=st.has;
   $("s-set").value=st.set;$("s-year").value=st.year;$("s-mode").value=st.mode;$("s-size").checked=st.size;$("s-theme").value=st.theme;
-  for(const o of $("metric").options)o.textContent=label(o.dataset.k);
+  for(const o of $("metric").options)o.textContent=menuLabel(o.dataset.k);
   applyTheme();syncG11();
 }
 function applyTheme(){if(st.theme==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.dataset.theme=st.theme}
@@ -441,7 +470,6 @@ function buildMap(){
   ring.innerHTML='<circle stroke="var(--page)" stroke-width="6"/><circle stroke="var(--ink)" stroke-width="2.5"/>';svg.append(ring);
   for(const s of S){
     const e=document.createElementNS(NS,"rect");
-    if(s.type==="contract"||s.type==="options")e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`);
     e.setAttribute("class","mk");e.setAttribute("tabindex","0");e.setAttribute("role","button");e.setAttribute("aria-label",s.name+", "+TYPES[s.type]);
     e.onclick=ev=>{ev.stopPropagation();select(s.id)};
     e.onkeydown=ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();select(s.id)}};
@@ -561,9 +589,11 @@ function render(){
     const e=mk[s.id],vis=visible(s),c=colorOf(s);if(vis)n++;
     e.classList.toggle("dim",!vis);e.classList.toggle("excl",vis&&!inSet(s));
     const noData=!shading()&&c===null;
+    // shapes encode school type only when coloring by type; otherwise every school is a plain square
+    if(cat()&&(s.type==="contract"||s.type==="options"))e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`);else e.removeAttribute("transform");
     if(shading()){e.setAttribute("fill",s.id===st.sel?"var(--ink)":"var(--ink-2)");e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
     else if(noData){e.setAttribute("fill","var(--sunk)");e.setAttribute("stroke","var(--muted)");e.setAttribute("stroke-width","1");e.setAttribute("stroke-dasharray","2 2")}
-    else if(s.type==="charter"){e.setAttribute("fill","var(--page)");e.setAttribute("stroke",c);e.setAttribute("stroke-width","2");e.removeAttribute("stroke-dasharray")}
+    else if(s.type==="charter"&&cat()){e.setAttribute("fill","var(--page)");e.setAttribute("stroke",c);e.setAttribute("stroke-width","2");e.removeAttribute("stroke-dasharray")}
     else{e.setAttribute("fill",c);e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
   }
   const sel=mk[st.sel];if(sel)sel.parentNode.append(sel);
@@ -574,7 +604,9 @@ function render(){
     e.setAttribute("pointer-events",shading()?"all":"none");
     e.setAttribute("stroke",st.sub===id?"var(--ink)":"var(--rule-firm)");e.setAttribute("stroke-width",st.sub===id?"2":"1");
   }
-  $("count").textContent=`${n} of ${S.length} schools`;
+  $("count").textContent=n===S.length?`${n} schools`:`${n} of ${S.length} schools`;
+  const nf=[st.type,st.band,st.net,st.sub,st.has].filter(Boolean).length;
+  $("reset").hidden=!nf;$("fcount").textContent=nf?"· "+nf+" on":"";
   const tv=st.view==="table";
   $("main").classList.toggle("tbl",tv);$("v-map").setAttribute("aria-pressed",!tv);$("v-tbl").setAttribute("aria-pressed",tv);
   place();legend();if(tv)table();writeHash();panel();card();
@@ -582,14 +614,16 @@ function render(){
 function nonDefault(){
   const a=[];
   if(st.set!==DEF_SET.set)a.push("District-run only");
-  if(st.year==="latest"){const ys=cat()?[]:metricYears(st.metric);if(ys.length)a.push(ys.map(sy).join(", "))}else a.push("Aligned "+sy(st.year));
+  if(st.year!=="latest")a.push("Aligned "+sy(st.year));
   if(st.mode==="sub"&&!cat())a.push("Subdistrict shading");
   const f=[];if(st.type)f.push(TYPES[st.type]);if(st.band)f.push(BANDS[st.band]);if(st.net)f.push(st.net);if(st.sub)f.push("Subdistrict "+st.sub);if(st.has)f.push("has data");
   return a.concat(f).join(" · ");
 }
 function legend(){
-  const k=st.metric;let h=`<div class="lbl">${esc(label(k))}</div>`;
-  if(cat())h+=Object.entries(TYPES).map(([t,l])=>`<div><span style="display:inline-block;width:10px;height:10px;background:${CATCOL[t]};margin-right:6px"></span>${l}</div>`).join("");
+  const k=st.metric,ys0=cat()?[]:metricYears(k);let h=`<div class="lbl">${esc(label(k))}${ys0.length===1?`<span class="yr">${sy(ys0[0])}</span>`:""}</div>`;
+  const SHP={district:c=>`<rect x="1" y="1" width="12" height="12" fill="${c}"/>`,charter:c=>`<rect x="2" y="2" width="10" height="10" fill="none" stroke="${c}" stroke-width="2"/>`,
+    contract:c=>`<rect x="3" y="3" width="8" height="8" fill="${c}" transform="rotate(45 7 7)"/>`};SHP.options=SHP.contract;
+  if(cat())h+=Object.entries(TYPES).map(([t,l])=>`<div><svg width="14" height="14" style="vertical-align:-2px;margin-right:4px">${SHP[t](CATCOL[t])}</svg>${l}</div>`).join("");
   else if(div()&&bins.length){
     const m=R[seriesKey(k)],c=divCfg();
     h+=`<div class="bins">${[1,2,3,4,5,6,7].map(i=>`<i style="background:var(--div-${i})"></i>`).join("")}</div>
@@ -615,10 +649,7 @@ function legend(){
       :st.year==="latest"?"No school has data for this measure."
       :`No school has data for this measure in ${sy(st.year)}. Set the year policy in Settings to “Latest available”.`}</div>`;
   }
-  if(!shading())h+=`<div class="sh"><span><svg width="14" height="14" style="vertical-align:-2px"><rect x="1" y="1" width="12" height="12" fill="var(--ink)"/></svg> District</span>
-    <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="none" stroke="var(--ink)" stroke-width="2"/></svg> Charter</span>
-    <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="3" y="3" width="8" height="8" fill="var(--ink)" transform="rotate(45 7 7)"/></svg> Contract / options</span>
-    <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="var(--sunk)" stroke="var(--muted)" stroke-dasharray="2 2"/></svg> No data</span></div>`;
+  if(!shading()&&!cat()&&S.some(s=>visible(s)&&colorOf(s)===null))h+=`<div class="sh"><span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="var(--sunk)" stroke="var(--muted)" stroke-dasharray="2 2"/></svg> No data</span></div>`;
   if(st.size&&!shading())h+=`<div class="sh" id="sizekey"></div>`;
   const nd=nonDefault();if(nd)h+=`<div class="note">${esc(nd)}</div>`;
   $("legend").innerHTML=h;sizeKey();
@@ -639,7 +670,9 @@ const TCOLS=[["name","School",0],["type","Type",0],["band","Band",0],["network",
 function table(){
   const m=st.metric,extra=m!=="type"&&m!=="enrollment";
   const cols=TCOLS.map(([k,l,r])=>({k,l,r}));
-  if(extra)cols.push({k:m,l:label(m),r:1,metric:true});
+  const ys=extra?metricYears(m):[],yc={};for(const s of S)if(visible(s)){const g=get(s,m);if(g)yc[g.sy]=(yc[g.sy]||0)+1}
+  const ymain=Object.keys(yc).sort((a,b)=>yc[b]-yc[a])[0];
+  if(extra)cols.push({k:m,l:label(m)+(ymain?" · "+sy(ymain):""),r:1,metric:true});
   if(!cols.some(c=>c.k===st.sort))st.sort="name";
   const sv=(s,k)=>k==="name"?s.name.toLowerCase():k==="type"?TYPES[s.type]:k==="band"?BANDS[s.band]||"":k==="network"?s.network||"":k==="sub"?s.subdistrict||"":num(s,k);
   const rows=S.filter(visible);
@@ -652,10 +685,10 @@ function table(){
     if(c.k==="name")return `<td class="n"><button type="button">${esc(s.name)}</button></td>`;
     if(c.k==="enrollment"||c.metric){const g=get(s,c.k);
       if(!g)return `<td class="r none">no data</td>`;
-      return `<td class="r">${g.v==="*"?"suppressed":fmt(c.k,g.v)}${c.metric?` <span class="badge">${sy(g.sy)}</span>`:""}</td>`}
+      return `<td class="r">${g.v==="*"?"suppressed":fmt(c.k,g.v)}${c.metric&&g.sy!==ymain?` <span class="badge">${sy(g.sy)}</span>`:""}</td>`}
     const v=sv(s,c.k);return `<td>${esc(v)}</td>`;
   };
-  $("tablev").innerHTML=`<table><caption>${rows.length} of ${S.length} schools. Click a column to sort; click a row for the full profile. No data is never zero.${nonDefault()?" · "+esc(nonDefault()):""}</caption><thead><tr>${cols.map(c=>`<th scope="col" data-k="${c.k}" class="${c.r?"r":""}" aria-sort="${st.sort===c.k?(st.dir>0?"ascending":"descending"):"none"}"><button type="button">${esc(c.l)}${st.sort===c.k?(st.dir>0?" ▲":" ▼"):""}</button></th>`).join("")}</tr></thead>
+  $("tablev").innerHTML=`<table><caption>${rows.length} of ${S.length} schools. Click a column to sort; click a row for the full profile. No data is never zero.${ys.length>1?" Years differ across schools: "+ys.map(sy).join(", ")+".":""}${nonDefault()?" · "+esc(nonDefault()):""}</caption><thead><tr>${cols.map(c=>`<th scope="col" data-k="${c.k}" class="${c.r?"r":""}${c.metric?" mt":""}" aria-sort="${st.sort===c.k?(st.dir>0?"ascending":"descending"):"none"}"><button type="button">${esc(c.l)}${st.sort===c.k?(st.dir>0?" ▲":" ▼"):""}</button></th>`).join("")}</tr></thead>
     <tbody>${sorted.map(s=>`<tr data-id="${s.id}" class="${s.id===st.sel?"sel":""}${inSet(s)?"":" excl"}">${cols.map(c=>td(s,c)).join("")}</tr>`).join("")}</tbody></table>`;
 }
 
@@ -690,10 +723,16 @@ function trendOf(s,k){
   ys=ys.filter(y=>typeof ser[y]==="number");
   return ys.length>=2?ys.map(y=>[y,ser[y]]):null;
 }
-function spark(t){
-  const vs=t.map(x=>x[1]),lo=Math.min(...vs),hi=Math.max(...vs),W=96,H=24;
+function spark(t,W=96,H=24){
+  const vs=t.map(x=>x[1]),lo=Math.min(...vs),hi=Math.max(...vs);
   const pts=vs.map((v,i)=>[2+i*(W-4)/(vs.length-1),hi===lo?H/2:H-3-(v-lo)/(hi-lo)*(H-6)]);
-  return `<svg class="spark" width="${W}" height="${H}" role="img" aria-label="Trend ${t[0][0]} to ${t[t.length-1][0]}"><title>${t.map(x=>sy(x[0])+": "+x[1]).join(", ")}</title><polyline points="${pts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--blue)" stroke-width="1.5"/>${pts.map(q=>`<rect x="${q[0]-2}" y="${q[1]-2}" width="4" height="4" fill="var(--blue)"/>`).join("")}</svg><div class="c">${sy(t[0][0])}–${sy(t[t.length-1][0]).slice(2)}</div>`;
+  return `<svg class="spark" width="${W}" height="${H}" role="img" aria-label="Trend ${sy(t[0][0])} to ${sy(t[t.length-1][0])}"><title>${t.map(x=>sy(x[0])+": "+x[1]).join(", ")}</title><polyline points="${pts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--blue)" stroke-width="1.5"/>${pts.map(q=>`<rect x="${q[0]-2}" y="${q[1]-2}" width="4" height="4" fill="var(--blue)"/>`).join("")}</svg>`;
+}
+// the measure the map is colored by, so a click answers "what was I looking at?"
+function focus(s){
+  const k=st.metric;if(cat())return "";
+  const g=get(s,k),med=g&&typeof g.v==="number"?median(k):null;
+  return `<div class="focus"><span class="lbl">${esc(menuLabel(k))}${g?`<span class="yr">${sy(g.sy)}</span>`:""}</span><b>${g?(g.v==="*"?"suppressed":fmt(k,g.v)):"no data"}</b>${med!==null?` <span class="c">city median ${fmt(k,med)}</span>`:""}</div>`;
 }
 function panel(){
   const s=S.find(x=>x.id===st.sel);$("main").classList.toggle("open",!!s);
@@ -705,41 +744,57 @@ function panel(){
     <div class="sub">${esc(s.address)}${s.community_area?" · "+esc(s.community_area):""}</div>
     <div class="sub">Subdistrict ${s.subdistrict||"—"}${s.ward?" · Ward "+s.ward:""}</div>
     <div class="sub" style="color:var(--muted)">CPS ID ${s.id}${s.rcdts?" · RCDTS "+s.rcdts:" · no state record"}</div>
+    ${focus(s)}
     <button id="cardbtn" type="button" style="margin-top:10px">Report card (print or PDF)</button>
     ${s.flags&&s.flags.length?`<ul class="flags">${s.flags.map(f=>F[f]?`<li>${esc(F[f])}</li>`:"").join("")}</ul>`:""}</div>`;
   for(const [fam,keys] of FAMILIES){
-    const cells=[];
+    // first pass: what this school has, so the section can state its year once
+    const items=[];
     for(const k of keys){
       const sk=seriesKey(k),m=R[sk];if(!m)continue;
-      if(!s.m[sk]&&fam==="Outcomes")continue;           // outcomes a school can't have are omitted, not "no data"
-      if(!s.m[sk]&&fam==="5Essentials")continue;
-      const g=get(s,k),med=g&&typeof g.v==="number"?median(k):null;
-      let tr=trendOf(s,k);if(tr&&st.year!=="latest")tr=tr.filter(x=>x[0]<=st.year),tr=tr.length>=2?tr:null;
-      const brk=(m.breaks||[]).length;if(brk&&m.note)notes.add(m.note);
-      const lowN=fam==="Demographics"&&s.flags&&s.flags.includes("low_n");
-      cells.push(`<div class="cell"><div class="k">${esc(k.startsWith("spend")?label(k):m.label.replace(/ \(%\)$/,""))}${g?`<span class="badge">${sy(g.sy)}</span>`:""}${g&&(m.estimated_years||[]).includes(g.sy)?'<span class="badge w" title="Estimate: school mean SAT score converted to the ACT scale with the official ACT-SAT concordance">est.</span>':""}${lowN?'<span class="badge w">n&lt;30</span>':""}${brk?'<span class="badge w" title="Not comparable across a scoring or definition change">†</span>':""}</div>
-        ${g?`<div class="v">${g.v==="*"?"suppressed":fmt(k,g.v)}</div>`:`<div class="v none">${st.year==="latest"?"no data":"no data for "+sy(st.year)}</div>`}
+      if(!s.m[sk]&&(fam==="Outcomes"||fam==="5Essentials"))continue;   // measures a school can't have are omitted, not "no data"
+      items.push({k,m,g:get(s,k)});
+    }
+    const yc={};for(const it of items)if(it.g)yc[it.g.sy]=(yc[it.g.sy]||0)+1;
+    const fy=Object.keys(yc).sort((a,b)=>yc[b]-yc[a]||b.localeCompare(a))[0];
+    const marks=it=>{const {k,m,g}=it,lowN=fam==="Demographics"&&s.flags&&s.flags.includes("low_n"),brk=(m.breaks||[]).length;
+      if(brk&&m.note)notes.add(m.note);
+      return `${g&&g.sy!==fy?`<span class="badge">${sy(g.sy)}</span>`:""}${g&&(m.estimated_years||[]).includes(g.sy)?'<span class="badge w" title="Estimate: school mean SAT score converted to the ACT scale with the official ACT-SAT concordance">est.</span>':""}${lowN?'<span class="badge w">n&lt;30</span>':""}${brk?'<span class="badge w" title="Not comparable across a scoring or definition change">†</span>':""}`};
+    const trend=k=>{let tr=trendOf(s,k);if(tr&&st.year!=="latest")tr=tr.filter(x=>x[0]<=st.year),tr=tr.length>=2?tr:null;return tr};
+    const val=g=>g?(g.v==="*"?"suppressed":fmt(g.k,g.v)):(st.year==="latest"?"no data":"no data for "+sy(st.year));
+    const name=it=>it.k.startsWith("spend")?label(it.k):it.m.label.replace(/ \((%|\$|% of enrollment)\)$/,"").replace(/^5Essentials: /,"").replace(/ \(level 1-5\)$/i,"").replace(/, grade 11$/,"");
+    const cells=[],rows={};
+    for(const it of items){
+      const {k,g}=it;if(g)g.k=k;
+      const med=g&&typeof g.v==="number"?median(k):null;
+      const grp=ROWGROUP[k];
+      if(grp){(rows[grp]??=[]).push(`<span>${esc(name(it))}${marks(it)}</span><b class="r">${val(g)}</b><span class="m">${med!==null?fmt(k,med):""}</span><span>${(t=>t?spark(t,40,14):"")(trend(k))}</span>`);continue}
+      const tr=trend(k);
+      cells.push(`<div class="tile"><div class="k">${esc(name(it))}${marks(it)}</div>
+        <div class="v${g?"":" none"}">${val(g)}</div>
         ${med!==null?`<div class="c">City median ${fmt(k,med)}${st.set==="district"?" (district-run)":""}</div>`:""}${tr?spark(tr):""}</div>`);
     }
+    for(const [grp,rs] of Object.entries(rows))
+      cells.push(`<div class="tile wide"><div class="k">${esc(grp)}</div><div class="rows"><span></span><span class="h r">School</span><span class="h r">Median</span><span></span>${rs.join("")}</div></div>`);
     if(fam==="Enrollment"){
       const ec=s.enrollment_change;
-      if(ec&&ec.pct!==null&&ec.pct!==undefined)cells.push(`<div class="cell"><div class="k">Change ${sy(ec.from)} → ${sy(ec.to)}</div><div class="v">${ec.count>0?"+":""}${ec.count}</div><div class="c">${ec.pct>0?"+":""}${ec.pct}%</div></div>`);
+      if(ec&&ec.pct!==null&&ec.pct!==undefined)cells.push(`<div class="tile"><div class="k">Change since ${sy(ec.from)}</div><div class="v">${ec.count>0?"+":""}${ec.count}</div><div class="c">${ec.pct>0?"+":""}${ec.pct}%</div></div>`);
       const GO=["PE","PK","K","1","2","3","4","5","6","7","8","9","10","11","12"];
       const gr=s.grades?Object.entries(s.grades).sort((a,b)=>GO.indexOf(a[0])-GO.indexOf(b[0])):[];
       if(gr.length>1){const mx=Math.max(...gr.map(x=>x[1]),1);
-        cells.push(`<div class="cell wide"><div class="k">By grade, ${sy(D.meta.roster_year)}</div><div class="bars">${gr.map(([g,n])=>`<i style="height:${Math.max(2,n/mx*100)}%" title="Grade ${g}: ${n}"></i>`).join("")}</div><div class="barlbl">${gr.map(([g])=>`<span>${g}</span>`).join("")}</div></div>`)}
+        cells.push(`<div class="tile wide"><div class="k">By grade${sy(D.meta.roster_year)!==fy?", "+sy(D.meta.roster_year):""}</div><div class="bars">${gr.map(([g,n])=>`<i style="height:${Math.max(2,n/mx*100)}%" title="Grade ${g}: ${n}"></i>`).join("")}</div><div class="barlbl">${gr.map(([g])=>`<span>${g}</span>`).join("")}</div></div>`)}
     }
     if(fam==="Spending"&&s.budget_funds){
       const tot=Object.values(s.budget_funds).reduce((a,b)=>a+b,0),top=Object.entries(s.budget_funds).sort((a,b)=>b[1]-a[1]).slice(0,5);
-      cells.push(`<div class="cell wide"><div class="k">CPS FY27 budget by funding source</div>${top.map(([f,v])=>`<div class="fund"><span>${esc(D.meta.funds[f]||f)}</span><span>${Math.round(v/tot*100)}%</span></div>`).join("")}</div>`);
+      cells.push(`<div class="tile wide"><div class="k">CPS FY27 budget by funding source</div>${top.map(([f,v])=>`<div class="fund"><span>${esc(D.meta.funds[f]||f)}</span><span>${Math.round(v/tot*100)}%</span></div>`).join("")}</div>`);
     }
-    if(fam==="Spending"&&s.flags&&s.flags.includes("budget_not_comparable"))cells.unshift(`<div class="cell wide c" style="color:var(--terra)">Charter, contract, ALOP and SAFE budgets are funded differently from district-run schools and are not comparable with them.</div>`);
-    if(cells.length)h+=`<h3>${fam}</h3><div class="grid">${cells.join("")}</div>`;
+    if(fam==="Spending"&&s.flags&&s.flags.includes("budget_not_comparable"))cells.unshift(`<div class="tile wide c" style="color:var(--terra)">Charter, contract, ALOP and SAFE budgets are funded differently from district-run schools and are not comparable with them.</div>`);
+    if(cells.length)h+=`<h3>${fam}${fy?`<span class="yr">${sy(fy)}</span>`:""}</h3><div class="grid">${cells.join("")}</div>`;
   }
   const srcs=Object.entries(D.meta.sources).map(([id,v])=>{const f=Object.values(v.files||{});const d=f.length?f.map(x=>x.retrieved).sort().pop():"";return `${esc(v.name)}${d?" (retrieved "+d+")":""}`});
   h+=`<div id="foot">${[...notes].map(n=>`<p>† ${esc(n)}</p>`).join("")}
     <p>Suppressed: hidden by the state for small groups. No data: not reported (never zero). City medians use ${st.set==="district"?"district-run schools":"all schools"} with a value, for the year policy in Settings.</p>
-    <p>Sources: ${srcs.join("; ")}.</p></div>`;
+    <details><summary>Sources (${srcs.length})</summary><p>${srcs.join("; ")}.</p></details></div>`;
   $("panel").innerHTML=h;$("close").onclick=()=>select("");$("cardbtn").onclick=()=>showCard(true);
 }
 const cellLabel=(k,m)=>k.startsWith("spend")?label(k):m.label.replace(/ \(%\)$/,"");

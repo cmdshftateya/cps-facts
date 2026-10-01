@@ -33,7 +33,7 @@ python3 tools/logs.py decisions D-004           # one decision in full; also --t
 - **Parallel sessions are normal here.** The owner often runs several at once in the same folder. Run `git status` before editing and before committing. Never stash, reset, checkout, clean or rewrite history while the tree has changes you didn't make. If files change under you, stop and say so. For larger parallel work, use a worktree.
 - **Data integrity:** publish what the source publishes (no suppression). "Suppressed" and "no data" are never 0. No fallback to another year, and no trend line across a comparability break. Outliers are flagged, never trimmed. Every number carries its year and source.
 - **Public text is for outsiders.** Never mention internal files, phases or sessions on the site. Describe data so a reader can fetch it themselves.
-- `raw/` and the hand-downloaded budget export stay local, with no cloud storage. `site/chicago.css` is vendored from `../politics` and overwritten on build.
+- `raw/` and the hand-downloaded budget export stay local, with no cloud storage. `site/chicago.css` is vendored from `../politics` and overwritten on build. Its classes carry behavior (`.cell` inverts to black on hover), so don't reuse its class names in the app.
 - Check UI work in a browser, at 360px and in both themes, and say plainly what you didn't check.
 
 ## How the owner works
