@@ -38,3 +38,25 @@ Behavior worth knowing:
 - Quantile bins, medians and subdistrict averages use the comparison set (all schools, or district-run only).
 - Settings persist in the URL hash (`s_*`) and localStorage; the URL wins.
 - Not built yet: the grade 11 benchmark-estimate toggle (waiting on the ACT "ELA" column meaning), a diverging palette for enrollment change, and the table view (Phase 3).
+
+# Deploying and updating
+
+The site is static: a Cloudflare Worker serving only the `site/` directory (see `wrangler.jsonc`; custom domain `schools.ateya.org`). There is no server code and no database.
+
+**Update the data, then redeploy**
+```
+.venv/bin/python build.py              # refresh data/ (add --skip-fetch to reuse raw/)
+.venv/bin/python build_site.py         # data/schools.json -> site/data/schools.json
+git add -A && git commit && git push   # data/ and site/data/ are committed, so each update is a reviewable diff
+npx wrangler deploy                    # uploads site/ to Cloudflare
+```
+
+**One-time setup**
+- Wrangler needs Node 22 or newer. Install it with nvm (`nvm install 22`) and run `. ~/.nvm/nvm.sh && nvm use 22` in a new shell if `node -v` shows an older version.
+- `npx wrangler login` opens a browser to authorize Cloudflare; it must be approved by a person.
+- The first deploy attaches `schools.ateya.org` as a custom domain (DNS and the certificate can take a few minutes). Check status in the Cloudflare dashboard if the site does not load.
+
+**What lives where**
+- In git: code, docs, the small curated CSVs (`budget_units.csv`, `budget_unit_funds.csv`, `crosswalk.csv`, `lineage.csv`), `data/` outputs and `site/`.
+- Local only, never pushed: `raw/` (downloads, rebuilt by `fetch.py` from the URLs and hashes in `raw/MANIFEST.json`) and the hand-downloaded CPS budget export `raw/fy27_bi_budget_book.csv`. Nothing is stored in cloud storage, to avoid ongoing cost.
+- The repo `cmdshftateya/cps-facts` on GitHub is private.
