@@ -36,6 +36,7 @@ SOURCES = [
     ("CHI-PROF", "chi_prof.json", SOC + "3dhs-m3w4.json?$limit=5000"),
     ("CHI-CA", "chi_community_areas.geojson", "https://data.cityofchicago.org/resource/igwz-8jzy.geojson?$limit=200"),
     ("CHI-WARD", "chi_wards.geojson", "https://data.cityofchicago.org/resource/p293-wvbd.geojson?$limit=100"),
+    ("CONCORD", "act_sat_concordance.pdf", "https://act.org/content/dam/act/unsecured/documents/ACT-SAT-Concordance-Tables.pdf"),
     ("SUBDIST", "subdistricts.zip", SENATE + "ERSB_20_Sub_District_Map_FA1_SB_15.zip"),
     ("ISBE-RC", "isbe_rc_2025.xlsx", ISBE + "2025-Report-Card-Public-Data-Set.xlsx"),
     ("ISBE-RC", "isbe_rc_2024.xlsx", ISBE + "24-RC-Pub-Data-Set.xlsx"),

@@ -92,7 +92,19 @@ for dom, label in [("leaders", "Effective leaders"), ("teachers", "Collaborative
                    ("families", "Involved families"), ("environment", "Supportive environment")]:
     REGISTRY[f"fe_{dom}"] = M(f"5Essentials: {label} (level 1-5)", "level", "outcomes", "ISBE-RC", ["2024-25"])
 
+_GAP = ("Average score minus ACT's national College Readiness Benchmark, in points (ELA 20, math 22). SAT years are ESTIMATES: "
+        "school mean SAT scores converted with the official 2018 ACT-SAT concordance (ERW -> English+Reading / 2; SAT Math -> ACT Math). "
+        "Comparable across years as an estimate; it is not a share of students.")
+REGISTRY["g11_ela_gap"] = M("Grade 11 ELA score vs ACT benchmark (points, estimate)", "points", "outcomes", "ISBE-RC",
+                            ["2022-23", "2023-24", "2024-25"], note=_GAP)
+REGISTRY["g11_math_gap"] = M("Grade 11 math score vs ACT benchmark (points, estimate)", "points", "outcomes", "ISBE-RC",
+                             ["2022-23", "2023-24", "2024-25"], note=_GAP)
+for _k in ("g11_ela_gap", "g11_math_gap"):
+    REGISTRY[_k]["estimated_years"] = ["2022-23", "2023-24"]
+    REGISTRY[_k]["benchmark"] = 20 if "ela" in _k else 22
+
 SOURCES = {
+    "CONCORD": {"name": "ACT / College Board ACT-SAT concordance tables (2018)", "page": "https://www.act.org/content/dam/act/unsecured/documents/ACT-SAT-Concordance-Tables.pdf"},
     "CPS-MEM": {"name": "CPS 20th-day membership (Schools by Grade)", "page": "https://www.cps.edu/about/district-data/demographics/"},
     "CPS-DEM1": {"name": "CPS 20th-day English learners / IEP / low income", "page": "https://www.cps.edu/about/district-data/demographics/"},
     "CPS-DEM2": {"name": "CPS 20th-day racial/ethnic", "page": "https://www.cps.edu/about/district-data/demographics/"},

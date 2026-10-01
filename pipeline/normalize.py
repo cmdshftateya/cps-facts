@@ -11,7 +11,7 @@ import json
 import statistics
 from collections import Counter, defaultdict
 
-from . import cps, geo, isbe
+from . import concordance, cps, geo, isbe
 from .common import CPS_YEARS, RAW, ROOT, ROSTER_YEAR, SUPPRESSED
 from .metrics import ISBE_YEARS, REGISTRY, SOURCES
 
@@ -117,6 +117,7 @@ def load_all():
     for r in read_csv("budget_unit_funds.csv"):
         funds[r["school_id"]][r["fund"]] = float(r["fy27_proposed_budget"])
     t["funds"] = funds
+    t["concordance"] = concordance.load()
     t["layers"] = {"sub": geo.load_subdistricts(), "ca": geo.load_community_areas(), "ward": geo.load_wards()}
     t["manifest"] = json.load(open(RAW / "MANIFEST.json"))
     return t
@@ -255,6 +256,19 @@ def build(t):
             if isinstance(ppe, float) or isinstance(ppe, int):
                 if ppe < ppe_lo or ppe > ppe_hi:
                     flags.append("ppe_outlier")
+        # grade 11 score vs ACT benchmark: SAT years converted with the concordance (estimates), ACT year direct
+        for sub_, bench in (("ela", concordance.BENCH["ela"]), ("math", concordance.BENCH["math"])):
+            for y in ("2022-23", "2023-24"):
+                v = m.get(f"sat_{sub_}_avg", {}).get(y)
+                if v == SUPPRESSED:
+                    m[f"g11_{sub_}_gap"][y] = SUPPRESSED
+                elif isinstance(v, (int, float)):
+                    m[f"g11_{sub_}_gap"][y] = round(concordance.to_act(t["concordance"][sub_], v) - bench, 1)
+            v = m.get(f"act_{sub_}_avg", {}).get("2024-25")
+            if v == SUPPRESSED:
+                m[f"g11_{sub_}_gap"]["2024-25"] = SUPPRESSED
+            elif isinstance(v, (int, float)):
+                m[f"g11_{sub_}_gap"]["2024-25"] = round(v - bench, 1)
         if sid in ISBE_CAVEATS:
             flags.append(ISBE_CAVEATS[sid])
 
@@ -319,7 +333,7 @@ def build_meta(t, fund_code, problems, ppe_fence):
     src = {k: dict(v) for k, v in SOURCES.items()}
     prefix = {"CPS-MEM": "cps_mem", "CPS-DEM1": "cps_lepiep", "CPS-DEM2": "cps_race", "CHI-LOC": "chi_loc",
               "CHI-PROF": "chi_prof", "CHI-CA": "chi_community_areas", "CHI-WARD": "chi_wards",
-              "SUBDIST": "subdistricts", "ISBE-RC": "isbe_rc", "CPS-BUD-BI": "fy27_bi"}
+              "SUBDIST": "subdistricts", "CONCORD": "act_sat_concordance", "ISBE-RC": "isbe_rc", "CPS-BUD-BI": "fy27_bi"}
     for k, p in prefix.items():
         src[k]["files"] = files(p)
     src["ISBE-RC"]["revisions"] = t["isbe_revision"]

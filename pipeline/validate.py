@@ -172,6 +172,15 @@ def validate(schools, meta, t, problems):
               f'{problems["hs_star_dropped"]} high-school-only values at schools with no grade 9-12',
               f'{problems["iar_star_dropped"]} IAR values at schools with no grade 3-8'])
 
+    # ----- grade 11 estimate sanity (method doc: converted 2024 vs ACT 2025 rank correlation, ship only if >= 0.85) -----
+    for sub_ in ("ela", "math"):
+        pairs = [(s["m"][f"g11_{sub_}_gap"]["2023-24"], s["m"][f"g11_{sub_}_gap"]["2024-25"]) for s in schools
+                 if _num(s["m"].get(f"g11_{sub_}_gap", {}).get("2023-24")) and _num(s["m"].get(f"g11_{sub_}_gap", {}).get("2024-25"))]
+        rho = _spearman([a for a, _ in pairs], [b for _, b in pairs]) if len(pairs) > 10 else 0
+        R.add(f"g11_{sub_}_rank_corr", "warn", f"Grade 11 {sub_} estimate: SAT-2024 vs ACT-2025 rank correlation below 0.85",
+              [] if rho >= 0.85 else [f"rho {rho:.3f} across {len(pairs)} schools"],
+              detail=f"Spearman rho {rho:.3f} across {len(pairs)} schools.")
+
     # ----- coverage by metric (informational) -----
     coverage = {}
     for metric, reg in REGISTRY.items():
@@ -194,6 +203,28 @@ def validate(schools, meta, t, problems):
                 "with_coords": sum(1 for s in schools if s.get("lat")),
                 "with_subdistrict": sum(1 for s in schools if s.get("subdistrict")),
             }}
+
+
+def _rank(v):
+    order = sorted(range(len(v)), key=lambda i: v[i])
+    r = [0.0] * len(v)
+    i = 0
+    while i < len(order):
+        j = i
+        while j + 1 < len(order) and v[order[j + 1]] == v[order[i]]:
+            j += 1
+        for k in range(i, j + 1):
+            r[order[k]] = (i + j) / 2 + 1
+        i = j + 1
+    return r
+
+
+def _spearman(a, b):
+    ra, rb = _rank(a), _rank(b)
+    ma, mb = statistics.mean(ra), statistics.mean(rb)
+    num = sum((x - ma) * (y - mb) for x, y in zip(ra, rb))
+    den = (sum((x - ma) ** 2 for x in ra) * sum((y - mb) ** 2 for y in rb)) ** 0.5
+    return num / den if den else 0
 
 
 def _district_total(t):

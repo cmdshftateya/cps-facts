@@ -1,4 +1,11 @@
 {
+  "act_sat_concordance.pdf": {
+    "bytes": 426288,
+    "retrieved": "2026-10-01",
+    "sha256": "e8246ee6cfb8f130ee88858ca1adedc5850561adbc43937374ed511845fccf9f",
+    "source": "CONCORD",
+    "url": "https://act.org/content/dam/act/unsecured/documents/ACT-SAT-Concordance-Tables.pdf"
+  },
   "chi_community_areas.geojson": {
     "bytes": 2072102,
     "retrieved": "2026-09-30",
