@@ -1,0 +1,1048 @@
+{
+ "generated": "2026-10-01T02:46:30Z",
+ "schools": 639,
+ "failed": [],
+ "warnings": [
+  "coords_predecessor",
+  "community_area_mismatch",
+  "isbe_unmatched",
+  "medium_confidence",
+  "budget_missing",
+  "retired_race_category",
+  "enrollment_vs_isbe",
+  "budget_pp_outlier",
+  "ppe_outlier",
+  "low_n",
+  "star_dropped"
+ ],
+ "checks": [
+  {
+   "id": "dup_ids",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Duplicate school IDs",
+   "count": 0,
+   "total": 639,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "dup_rcdts",
+   "severity": "fail",
+   "status": "pass",
+   "title": "One RCDTS assigned to more than one school",
+   "count": 0,
+   "total": 613,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "missing_fields",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Schools missing name, type or governance",
+   "count": 0,
+   "total": 639,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "roster_total",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Roster enrollment sum differs from the CPS file's district total",
+   "count": 0,
+   "total": null,
+   "detail": "Roster sum 304,687.",
+   "examples": []
+  },
+  {
+   "id": "missing_coords",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Schools without coordinates",
+   "count": 0,
+   "total": 639,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "missing_subdistrict",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Schools not in exactly one Board subdistrict",
+   "count": 0,
+   "total": 639,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "missing_ward",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Schools not in exactly one ward",
+   "count": 0,
+   "total": 639,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "coords_predecessor",
+   "severity": "warn",
+   "status": "warn",
+   "title": "Coordinates carried over from a predecessor charter (same-site inference)",
+   "count": 6,
+   "total": null,
+   "detail": "CPS pages describe the conversions as same-building; not verified per site.",
+   "examples": [
+    "610602",
+    "610603",
+    "610604",
+    "610605",
+    "610606",
+    "610607"
+   ]
+  },
+  {
+   "id": "community_area_mismatch",
+   "severity": "warn",
+   "status": "warn",
+   "title": "CPS community area differs from the area containing the coordinates",
+   "count": 6,
+   "total": 639,
+   "detail": "",
+   "examples": [
+    "('400145', 'ARCHER HEIGHTS', 'LOWER WEST SIDE')",
+    "('400150', 'OAKLAND', 'CHATHAM')",
+    "('400161', 'ROSELAND', 'WEST PULLMAN')",
+    "('610572', 'SOUTH CHICAGO', 'SOUTH SHORE')",
+    "('610573', 'SOUTH CHICAGO', 'SOUTH SHORE')",
+    "('610599', 'JEFFERSON PARK', 'PORTAGE PARK')"
+   ]
+  },
+  {
+   "id": "coords_outside_chicago",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Coordinates outside Chicago's bounding box",
+   "count": 0,
+   "total": 639,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "isbe_join",
+   "severity": "fail",
+   "status": "pass",
+   "title": "ISBE join below 95%",
+   "count": 0,
+   "total": 639,
+   "detail": "613 of 639 schools (95.9%) have an RCDTS.",
+   "examples": []
+  },
+  {
+   "id": "isbe_unmatched",
+   "severity": "warn",
+   "status": "warn",
+   "title": "Schools with no ISBE record (CPS data only)",
+   "count": 26,
+   "total": 639,
+   "detail": "",
+   "examples": [
+    "400147 CHICAGO EXCEL HS",
+    "400173 PATHWAYS - BRIGHTON PARK HS",
+    "400175 EXCEL SOUTH SHORE HS",
+    "400176 EXCEL SOUTHWEST HS",
+    "400182 CATALYST MARIA HS",
+    "609744 NORTHSIDE LEARNING HS",
+    "609745 SOUTHSIDE HS",
+    "609748 YORK HS",
+    "609750 SIMPSON HS",
+    "609766 VAUGHN HS",
+    "609769 GRAHAM HS",
+    "609783 JEFFERSON HS"
+   ]
+  },
+  {
+   "id": "rcdts_not_in_isbe",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Crosswalk RCDTS not found in the 2025 Report Card",
+   "count": 0,
+   "total": 613,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "crosswalk_coverage",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Roster schools absent from crosswalk.csv",
+   "count": 0,
+   "total": 639,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "low_confidence_ships_isbe",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Low-confidence crosswalk match ships ISBE values",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "medium_confidence",
+   "severity": "warn",
+   "status": "warn",
+   "title": "Medium-confidence crosswalk matches (shipped with a caveat flag)",
+   "count": 7,
+   "total": null,
+   "detail": "",
+   "examples": [
+    "400066 PERSPECTIVES - MATH & SCI HS",
+    "610602 FUENTES",
+    "610603 SANTIAGO",
+    "610604 DE LAS CASAS",
+    "610605 CISNEROS",
+    "610606 TAMAYO",
+    "610607 CHICAGO ARTS HS"
+   ]
+  },
+  {
+   "id": "budget_join",
+   "severity": "fail",
+   "status": "pass",
+   "title": "CPS budget join below 99%",
+   "count": 0,
+   "total": 639,
+   "detail": "637 of 639 schools have a budget unit; 630 have a nonzero FY27 budget.",
+   "examples": []
+  },
+  {
+   "id": "budget_missing",
+   "severity": "warn",
+   "status": "warn",
+   "title": "Schools with no usable FY27 budget",
+   "count": 9,
+   "total": null,
+   "detail": "",
+   "examples": [
+    "400126 YCCS - ASSOCIATION HOUSE",
+    "400129 YCCS - PROGRESSIVE LEADERSHIP",
+    "400131 YCCS - CAMPOS",
+    "400136 YCCS - OLIVE HARVEY",
+    "400141 YCCS - TRUMAN",
+    "400144 YCCS - WEST",
+    "400182 CATALYST MARIA HS",
+    "610572 SAFE ACHIEVE ES",
+    "610607 CHICAGO ARTS HS"
+   ]
+  },
+  {
+   "id": "budget_fund_sum",
+   "severity": "fail",
+   "status": "pass",
+   "title": "By-fund budget does not add up to the school total",
+   "count": 0,
+   "total": 630,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "predecessor_missing",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Predecessor ID not found in any earlier CPS file",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "cps_totals_agree",
+   "severity": "fail",
+   "status": "pass",
+   "title": "CPS membership / demographics totals disagree",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "cps_grade_sum",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Grade-level enrollment does not add up to the total",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "race_sum",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Race shares do not add to 100% (schools with 30+ students)",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "retired_race_category",
+   "severity": "warn",
+   "status": "warn",
+   "title": "Students in the retired 'Asian/Pacific Islander' category (SY2024-25, not carried)",
+   "count": 1,
+   "total": null,
+   "detail": "",
+   "examples": [
+    "609720"
+   ]
+  },
+  {
+   "id": "unknown_metric",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Metrics missing from the registry",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "year_not_in_registry",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Values in a school year the registry does not list",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "non_numeric_value",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Non-numeric, non-'*' values",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "percent_range",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Percentages / percentiles / levels outside their valid range",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "zero_dollars",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Zero or negative dollar/score values (should be no data)",
+   "count": 0,
+   "total": null,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "enrollment_vs_isbe",
+   "severity": "warn",
+   "status": "warn",
+   "title": "CPS 20th-day vs ISBE enrollment (SY2024-25) differ by >25% and 30+ students",
+   "count": 1,
+   "total": null,
+   "detail": "Median difference 0.6% across 613 schools; the files use different snapshots.",
+   "examples": [
+    "400115 CATALYST - MARIA: CPS 539 vs ISBE 1092"
+   ]
+  },
+  {
+   "id": "budget_pp_outlier",
+   "severity": "warn",
+   "status": "warn",
+   "title": "CPS budget per pupil outside the outlier band (flagged, not trimmed)",
+   "count": 18,
+   "total": null,
+   "detail": "",
+   "examples": [
+    "400123 YCCS - SCHOLASTIC ACHIEVEMENT: $213",
+    "400124 YCCS - MCKINLEY: $475",
+    "400125 YCCS - ASPIRA PANTOJA: $909",
+    "400128 YCCS - CCA ACADEMY: $453",
+    "400130 YCCS - YOUTH DEVELOPMENT: $423",
+    "400133 YCCS - INNOVATIONS: $301",
+    "400135 YCCS - LATINO YOUTH: $244",
+    "400139 YCCS - SULLIVAN: $313",
+    "400143 YCCS - WEST TOWN: $524",
+    "400145 YCCS - YOUTH CONNECTION: $701",
+    "400150 YCCS - CHATHAM: $2,893",
+    "609748 YORK HS: $111,485"
+   ]
+  },
+  {
+   "id": "ppe_outlier",
+   "severity": "warn",
+   "status": "warn",
+   "title": "ISBE per-pupil expenditure outside 3xIQR fences (flagged, not trimmed)",
+   "count": 1,
+   "total": null,
+   "detail": "",
+   "examples": [
+    "610245 DOUGLASS HS: $54,695"
+   ]
+  },
+  {
+   "id": "low_n",
+   "severity": "warn",
+   "status": "warn",
+   "title": "Schools under the low-n threshold in 2026-27",
+   "count": 4,
+   "total": null,
+   "detail": "",
+   "examples": [
+    "610245 DOUGLASS HS (29)",
+    "610572 SAFE ACHIEVE ES (6)",
+    "610573 SAFE ACHIEVE HS (27)",
+    "610601 SAFE ACHIEVE WEST HS (26)"
+   ]
+  },
+  {
+   "id": "star_dropped",
+   "severity": "warn",
+   "status": "warn",
+   "title": "ISBE '*' values dropped to no-data on metrics a school cannot have",
+   "count": 2,
+   "total": null,
+   "detail": "",
+   "examples": [
+    "2083 high-school-only values at schools with no grade 9-12",
+    "488 IAR values at schools with no grade 3-8"
+   ]
+  }
+ ],
+ "coverage": {
+  "enrollment": {
+   "2024-25": {
+    "value": 639,
+    "suppressed": 0,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 639,
+    "suppressed": 0,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 639,
+    "suppressed": 0,
+    "none": 0
+   }
+  },
+  "pct_white": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_black": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_latinx": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_asian": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_multiracial": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_native": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_pacific": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_mena": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_race_na": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_el": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_iep": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_low_income": {
+   "2024-25": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2025-26": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   },
+   "2026-27": {
+    "value": 638,
+    "suppressed": 1,
+    "none": 0
+   }
+  },
+  "pct_homeless": {
+   "2024-25": {
+    "value": 383,
+    "suppressed": 230,
+    "none": 26
+   }
+  },
+  "pct_youth_in_care": {
+   "2024-25": {
+    "value": 19,
+    "suppressed": 594,
+    "none": 26
+   }
+  },
+  "ppe_total": {
+   "2024-25": {
+    "value": 611,
+    "suppressed": 0,
+    "none": 28
+   }
+  },
+  "ppe_site": {
+   "2024-25": {
+    "value": 611,
+    "suppressed": 0,
+    "none": 28
+   }
+  },
+  "ppe_central": {
+   "2024-25": {
+    "value": 611,
+    "suppressed": 0,
+    "none": 28
+   }
+  },
+  "cps_budget_fy27": {
+   "2026-27": {
+    "value": 630,
+    "suppressed": 0,
+    "none": 9
+   }
+  },
+  "cps_budget_fy26_projected": {
+   "2025-26": {
+    "value": 630,
+    "suppressed": 0,
+    "none": 9
+   }
+  },
+  "cps_budget_fy26_adopted": {
+   "2025-26": {
+    "value": 625,
+    "suppressed": 0,
+    "none": 14
+   }
+  },
+  "cps_budget_per_pupil": {
+   "2026-27": {
+    "value": 630,
+    "suppressed": 0,
+    "none": 9
+   }
+  },
+  "cps_positions_fy27": {
+   "2026-27": {
+    "value": 630,
+    "suppressed": 0,
+    "none": 9
+   }
+  },
+  "attendance_rate": {
+   "2022-23": {
+    "value": 607,
+    "suppressed": 0,
+    "none": 32
+   },
+   "2023-24": {
+    "value": 607,
+    "suppressed": 0,
+    "none": 32
+   },
+   "2024-25": {
+    "value": 607,
+    "suppressed": 6,
+    "none": 26
+   }
+  },
+  "chronic_absent": {
+   "2022-23": {
+    "value": 606,
+    "suppressed": 0,
+    "none": 33
+   },
+   "2023-24": {
+    "value": 604,
+    "suppressed": 3,
+    "none": 32
+   },
+   "2024-25": {
+    "value": 606,
+    "suppressed": 1,
+    "none": 32
+   }
+  },
+  "grad_4yr": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   },
+   "2024-25": {
+    "value": 142,
+    "suppressed": 2,
+    "none": 495
+   }
+  },
+  "ninth_on_track": {
+   "2022-23": {
+    "value": 124,
+    "suppressed": 0,
+    "none": 515
+   },
+   "2023-24": {
+    "value": 121,
+    "suppressed": 5,
+    "none": 513
+   },
+   "2024-25": {
+    "value": 123,
+    "suppressed": 3,
+    "none": 513
+   }
+  },
+  "postsec_12mo": {
+   "2022-23": {
+    "value": 137,
+    "suppressed": 0,
+    "none": 502
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 0,
+    "none": 496
+   },
+   "2024-25": {
+    "value": 114,
+    "suppressed": 27,
+    "none": 498
+   }
+  },
+  "isbe_enrollment": {
+   "2022-23": {
+    "value": 607,
+    "suppressed": 0,
+    "none": 32
+   },
+   "2023-24": {
+    "value": 613,
+    "suppressed": 0,
+    "none": 26
+   },
+   "2024-25": {
+    "value": 613,
+    "suppressed": 0,
+    "none": 26
+   }
+  },
+  "iar_ela_prof": {
+   "2023-24": {
+    "value": 483,
+    "suppressed": 0,
+    "none": 156
+   },
+   "2024-25": {
+    "value": 483,
+    "suppressed": 1,
+    "none": 155
+   }
+  },
+  "iar_math_prof": {
+   "2023-24": {
+    "value": 483,
+    "suppressed": 0,
+    "none": 156
+   },
+   "2024-25": {
+    "value": 483,
+    "suppressed": 1,
+    "none": 155
+   }
+  },
+  "ela_growth": {
+   "2023-24": {
+    "value": 482,
+    "suppressed": 1,
+    "none": 156
+   },
+   "2024-25": {
+    "value": 482,
+    "suppressed": 1,
+    "none": 156
+   }
+  },
+  "math_growth": {
+   "2023-24": {
+    "value": 482,
+    "suppressed": 1,
+    "none": 156
+   },
+   "2024-25": {
+    "value": 482,
+    "suppressed": 1,
+    "none": 156
+   }
+  },
+  "sat_ela_prof": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "sat_math_prof": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "sat_ela_avg": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "sat_math_avg": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "sat_ela_part": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "sat_math_part": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "act_ela_prof": {
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "act_math_prof": {
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "act_ela_avg": {
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "act_math_avg": {
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "act_ela_part": {
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "act_math_part": {
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "act_ela_growth": {
+   "2024-25": {
+    "value": 139,
+    "suppressed": 5,
+    "none": 495
+   }
+  },
+  "act_math_growth": {
+   "2024-25": {
+    "value": 139,
+    "suppressed": 5,
+    "none": 495
+   }
+  },
+  "fe_leaders": {
+   "2024-25": {
+    "value": 582,
+    "suppressed": 0,
+    "none": 57
+   }
+  },
+  "fe_teachers": {
+   "2024-25": {
+    "value": 581,
+    "suppressed": 0,
+    "none": 58
+   }
+  },
+  "fe_families": {
+   "2024-25": {
+    "value": 572,
+    "suppressed": 0,
+    "none": 67
+   }
+  },
+  "fe_environment": {
+   "2024-25": {
+    "value": 138,
+    "suppressed": 0,
+    "none": 501
+   }
+  }
+ },
+ "counts": {
+  "by_type": {
+   "charter": 100,
+   "contract": 16,
+   "district": 519,
+   "options": 4
+  },
+  "by_band": {
+   "ES": 472,
+   "HS": 144,
+   "combo": 23
+  },
+  "with_isbe": 613,
+  "with_budget": 630,
+  "with_coords": 639,
+  "with_subdistrict": 639
+ }
+}

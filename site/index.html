@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPS Facts</title>
+<link rel="stylesheet" href="chicago.css">
+<style>
+  *{box-sizing:border-box;border-radius:0}
+  html,body{margin:0;height:100%}
+  body{background:var(--page);color:var(--ink);font-family:var(--font-ui);display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+  header{display:flex;gap:16px;align-items:baseline;padding:10px 16px;border-bottom:var(--bay) solid var(--rule-firm)}
+  h1{font:700 22px/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em;margin:0}
+  header .n{color:var(--muted);font-size:13px}
+  main{display:grid;grid-template-columns:260px 1fr 0;min-height:0}
+  main.open{grid-template-columns:260px 1fr 380px}
+  aside,#panel{overflow:auto;background:var(--surface)}
+  aside{border-right:var(--bay) solid var(--rule-firm)}
+  #panel{border-left:var(--bay) solid var(--rule-firm);display:none}
+  main.open #panel{display:block}
+  .blk{padding:12px 14px;border-bottom:var(--bay) solid var(--rule)}
+  label,.lbl{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 4px}
+  select,input[type=search]{width:100%;background:var(--sunk);color:var(--ink);border:var(--bay) solid var(--rule-firm);padding:7px;font:inherit;font-size:14px;margin-bottom:10px}
+  .chk{display:flex;gap:6px;align-items:center;font-size:14px;margin:0 0 10px;text-transform:none;letter-spacing:0;color:var(--ink)}
+  #stage{position:relative;min-width:0;min-height:0}
+  svg#map{width:100%;height:100%;display:block;background:var(--page)}
+  .mk{cursor:pointer}
+  .mk:focus{outline:2px solid var(--ink)}
+  .mk.sel{stroke:var(--ink);stroke-width:3}
+  .mk.dim{opacity:.12}
+  #legend{position:absolute;left:12px;bottom:12px;background:var(--surface);border:var(--bay) solid var(--rule-firm);padding:10px 12px;font-size:12px;max-width:300px}
+  #legend .bins{display:flex;margin:6px 0 2px}
+  #legend .bins i{display:block;height:12px;flex:1}
+  #legend .ed{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+  #legend .sh{display:flex;gap:10px;margin-top:8px;color:var(--ink-2);align-items:center}
+  #tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--page);padding:4px 7px;font-size:12px;display:none;white-space:nowrap}
+  #panel h2{font:700 24px/1.05 var(--font-display);text-transform:uppercase;margin:0 0 4px}
+  #panel .sub{color:var(--ink-2);font-size:13px}
+  #close{float:right;background:none;border:var(--bay) solid var(--rule-firm);color:var(--ink);padding:2px 9px;font-size:18px;cursor:pointer}
+  #close:hover{background:var(--ink);color:var(--page)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--bay);background:var(--rule)}
+  .cell{background:var(--surface);padding:10px 12px}
+  .cell .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .cell .v{font:700 24px/1.1 var(--font-display);font-variant-numeric:tabular-nums}
+  .cell .c{font-size:12px;color:var(--ink-2)}
+  .badge{font-size:10px;color:var(--muted);border:var(--bay) solid var(--rule-firm);padding:0 4px;margin-left:4px;vertical-align:middle;font-family:var(--font-mono)}
+  .spark{display:block;margin-top:4px}
+  #panel h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0;padding:12px 14px 6px}
+  #foot{font-size:12px;color:var(--muted);padding:12px 14px}
+  #res{max-height:180px;overflow:auto;margin:-6px 0 10px;border:var(--bay) solid var(--rule)}
+  #res button{display:block;width:100%;text-align:left;background:var(--sunk);color:var(--ink);border:0;border-bottom:var(--bay) solid var(--rule);padding:6px 8px;font:inherit;font-size:13px;cursor:pointer}
+  #res button:hover{background:var(--ink);color:var(--page)}
+  mark{background:var(--mark);color:inherit}
+  @media(max-width:760px){
+    body{overflow:auto;display:block}
+    main,main.open{display:block}
+    aside{border-right:0}
+    #stage{height:70vh}
+    #panel{position:fixed;left:0;right:0;bottom:0;max-height:62vh;border-left:0;border-top:var(--bay) solid var(--rule-firm);z-index:5}
+  }
+</style>
+</head>
+<body>
+<header><h1>CPS Facts</h1><span class="n" id="count"></span><span class="n" id="fixnote"></span></header>
+<main id="main">
+  <aside>
+    <div class="blk">
+      <label for="q">Search</label>
+      <input id="q" type="search" placeholder="Name, school ID, address, neighborhood" autocomplete="off">
+      <div id="res" hidden></div>
+      <label for="metric">Color by</label>
+      <select id="metric"></select>
+    </div>
+    <div class="blk">
+      <label for="f-type">School type</label><select id="f-type"></select>
+      <label for="f-band">Grade band</label><select id="f-band"></select>
+      <label for="f-net">Network</label><select id="f-net"></select>
+      <label for="f-sub">Subdistrict</label><select id="f-sub"></select>
+      <label class="chk"><input type="checkbox" id="f-has"> Only schools with data for this metric</label>
+      <button id="reset" style="background:none;border:var(--bay) solid var(--rule-firm);color:var(--ink);padding:6px 10px;cursor:pointer">Reset</button>
+    </div>
+  </aside>
+  <div id="stage">
+    <svg id="map" role="group" aria-label="Map of Chicago public schools"></svg>
+    <div id="legend"></div>
+    <div id="tip"></div>
+  </div>
+  <section id="panel" aria-live="polite"></section>
+</main>
+<script>
+"use strict";
+const METRICS = {
+  type:{label:"School type",cat:true},
+  enroll:{label:"Enrollment",fmt:v=>v.toLocaleString(),group:"Enrollment"},
+  enroll_chg:{label:"Enrollment change, 2 yr (%)",fmt:v=>(v>0?"+":"")+v+"%",group:"Enrollment"},
+  low_income:{label:"Low-income (%)",fmt:p,group:"Demographics"},
+  el:{label:"English learners (%)",fmt:p,group:"Demographics"},
+  iep:{label:"Diverse learners / IEP (%)",fmt:p,group:"Demographics"},
+  pct_hispanic:{label:"Hispanic (%)",fmt:p,group:"Demographics"},
+  pct_black:{label:"Black (%)",fmt:p,group:"Demographics"},
+  pct_white:{label:"White (%)",fmt:p,group:"Demographics"},
+  pct_asian:{label:"Asian (%)",fmt:p,group:"Demographics"},
+  isbe_pp:{label:"Per-pupil spending, ISBE",fmt:d,group:"Spending"},
+  cps_pp:{label:"Per-pupil budget, CPS",fmt:d,group:"Spending"},
+  ela:{label:"ELA proficiency (%)",fmt:p,group:"Outcomes"},
+  math:{label:"Math proficiency (%)",fmt:p,group:"Outcomes"},
+  grade11:{label:"Grade 11 proficiency (%)",fmt:p,group:"Outcomes"},
+  attendance:{label:"Attendance (%)",fmt:p,group:"Outcomes"},
+  chronic:{label:"Chronic absenteeism (%)",fmt:p,group:"Outcomes"},
+  grad:{label:"4-yr graduation rate (%)",fmt:p,group:"Outcomes"},
+};
+function p(v){return v.toFixed(1)+"%"} function d(v){return "$"+Math.round(v).toLocaleString()}
+const TYPES={district:"District-run",charter:"Charter",contract:"Contract",options:"Options"};
+const BANDS={ES:"Elementary",HS:"High school",combo:"Combined"};
+const CATCOL={district:"var(--s1)",charter:"var(--s2)",contract:"var(--s3)",options:"var(--s4)"};
+const $=id=>document.getElementById(id);
+const NS="http://www.w3.org/2000/svg";
+let DATA, S=[], state={metric:"low_income",type:"",band:"",net:"",sub:"",has:false,sel:""};
+
+fetch("data/schools.json").then(r=>r.json()).then(init);
+
+function val(s,k){const m=s.m[k];return m&&typeof m.v==="number"?m.v:null}
+function init(D){
+  DATA=D;S=D.schools;
+  if(D.generated==="fixture")$("fixnote").textContent="· synthetic fixture data, not real schools";
+  fill("metric",Object.entries(METRICS).map(([k,m])=>[k,m.label]),null,true);
+  fill("f-type",Object.entries(TYPES),"All types");
+  fill("f-band",Object.entries(BANDS),"All grade bands");
+  fill("f-net",uniq("network").map(x=>[x,x]),"All networks");
+  fill("f-sub",uniq("subdistrict",(a,b)=>parseInt(a)-parseInt(b)||a.localeCompare(b)).map(x=>[x,"District "+x]),"All subdistricts");
+  readHash();syncControls();buildMap();
+  $("metric").onchange=e=>{state.metric=e.target.value;render()};
+  for(const [id,k] of [["f-type","type"],["f-band","band"],["f-net","net"],["f-sub","sub"]])$(id).onchange=e=>{state[k]=e.target.value;render()};
+  $("f-has").onchange=e=>{state.has=e.target.checked;render()};
+  $("reset").onclick=()=>{Object.assign(state,{type:"",band:"",net:"",sub:"",has:false});$("q").value="";hideRes();syncControls();render()};
+  $("q").oninput=search;
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(state.sel)select("");hideRes()}});
+  addEventListener("hashchange",()=>{readHash();syncControls();render()});
+  render();
+}
+function uniq(k,cmp){return [...new Set(S.map(s=>s[k]))].sort(cmp)}
+function fill(id,pairs,all,noAll){
+  const el=$(id);el.innerHTML="";
+  if(id==="metric"){
+    const groups={};for(const [k] of pairs){const g=METRICS[k].group||"Categorical";(groups[g]??=[]).push(k)}
+    for(const [g,ks] of Object.entries(groups)){const og=document.createElement("optgroup");og.label=g;for(const k of ks)og.append(new Option(METRICS[k].label,k));el.append(og)}
+    return;
+  }
+  el.append(new Option(all,""));for(const [v,l] of pairs)el.append(new Option(l,v));
+}
+function syncControls(){
+  $("metric").value=state.metric;$("f-type").value=state.type;$("f-band").value=state.band;
+  $("f-net").value=state.net;$("f-sub").value=state.sub;$("f-has").checked=state.has;
+}
+// ---- hash state
+function writeHash(){
+  const u=new URLSearchParams();
+  if(state.metric!=="low_income")u.set("m",state.metric);
+  if(state.type)u.set("type",state.type);if(state.band)u.set("band",state.band);
+  if(state.net)u.set("net",state.net);if(state.sub)u.set("sub",state.sub);
+  if(state.has)u.set("has","1");if(state.sel)u.set("school",state.sel);
+  const h=u.toString();history.replaceState(null,"",h?"#"+h:location.pathname+location.search);
+}
+function readHash(){
+  const u=new URLSearchParams(location.hash.slice(1));
+  const m=u.get("m");state.metric=METRICS[m]?m:"low_income";
+  state.type=TYPES[u.get("type")]?u.get("type"):"";state.band=BANDS[u.get("band")]?u.get("band"):"";
+  state.net=u.get("net")||"";state.sub=u.get("sub")||"";state.has=u.get("has")==="1";
+  const sc=u.get("school");state.sel=S.some(s=>s.id===sc)?sc:"";
+}
+// ---- map
+const mk={};
+function buildMap(){
+  const svg=$("map");const [w,h]=DATA.viewbox;svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
+  svg.setAttribute("preserveAspectRatio","xMidYMid meet");
+  for(const dpath of DATA.context){const e=document.createElementNS(NS,"path");e.setAttribute("d",dpath);e.setAttribute("fill","none");e.setAttribute("stroke","var(--rule)");e.setAttribute("vector-effect","non-scaling-stroke");svg.append(e)}
+  const g=document.createElementNS(NS,"g");svg.append(g);const R=5.5;
+  for(const s of S){
+    let e;
+    if(s.type==="charter"||s.type==="district"){e=document.createElementNS(NS,"rect");e.setAttribute("x",s.x-R);e.setAttribute("y",s.y-R);e.setAttribute("width",2*R);e.setAttribute("height",2*R)}
+    else{e=document.createElementNS(NS,"rect");e.setAttribute("x",s.x-R);e.setAttribute("y",s.y-R);e.setAttribute("width",2*R);e.setAttribute("height",2*R);e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`)}
+    e.setAttribute("class","mk");e.setAttribute("tabindex","0");e.setAttribute("role","button");e.setAttribute("aria-label",s.name);
+    e.onclick=()=>select(s.id);e.onkeydown=ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();select(s.id)}};
+    e.onmouseenter=ev=>tip(s,ev);e.onmousemove=ev=>tip(s,ev);e.onmouseleave=()=>$("tip").style.display="none";e.onfocus=ev=>tip(s,ev);e.onblur=()=>$("tip").style.display="none";
+    g.append(e);mk[s.id]=e;
+  }
+}
+function visible(s){
+  return (!state.type||s.type===state.type)&&(!state.band||s.band===state.band)&&(!state.net||s.network===state.net)&&(!state.sub||s.subdistrict===state.sub)&&(!state.has||METRICS[state.metric].cat||val(s,state.metric)!==null);
+}
+let bins=[];
+function quantiles(){
+  const k=state.metric;if(METRICS[k].cat){bins=[];return}
+  const vs=S.filter(visible).map(s=>val(s,k)).filter(v=>v!==null).sort((a,b)=>a-b);
+  bins=[];if(!vs.length)return;
+  for(let i=0;i<=6;i++)bins.push(vs[Math.min(vs.length-1,Math.round(i*(vs.length-1)/6))]);
+}
+function binOf(v){for(let i=1;i<6;i++)if(v<=bins[i])return i;return 6}
+function colorOf(s){
+  const k=state.metric;if(METRICS[k].cat)return CATCOL[s.type];
+  const v=val(s,k);if(v===null||!bins.length)return null;return `var(--seq-${binOf(v)})`;
+}
+function render(){
+  quantiles();let n=0;
+  for(const s of S){
+    const e=mk[s.id],vis=visible(s),c=colorOf(s);if(vis)n++;
+    e.classList.toggle("dim",!vis);e.classList.toggle("sel",s.id===state.sel);
+    const hollow=s.type==="charter";
+    if(c===null){e.setAttribute("fill","var(--sunk)");e.setAttribute("stroke","var(--muted)");e.setAttribute("stroke-width","1");e.setAttribute("stroke-dasharray","2 2")}
+    else if(hollow){e.setAttribute("fill","var(--page)");e.setAttribute("stroke",c);e.setAttribute("stroke-width","2");e.removeAttribute("stroke-dasharray")}
+    else{e.setAttribute("fill",c);e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
+    if(s.id===state.sel){e.setAttribute("stroke","var(--ink)");e.setAttribute("stroke-width","3")}
+  }
+  const sel=mk[state.sel];if(sel)sel.parentNode.append(sel);
+  $("count").textContent=`${n} of ${S.length} schools`;
+  legend();writeHash();panel();
+}
+function legend(){
+  const k=state.metric,m=METRICS[k];let h=`<div class="lbl">${m.label}</div>`;
+  if(m.cat)h+=Object.entries(TYPES).map(([t,l])=>`<div><span style="display:inline-block;width:10px;height:10px;background:${CATCOL[t]};margin-right:6px"></span>${l}</div>`).join("");
+  else if(bins.length){
+    h+=`<div class="bins">${[1,2,3,4,5,6].map(i=>`<i style="background:var(--seq-${i})"></i>`).join("")}</div><div class="ed">${bins.map(b=>`<span>${m.fmt(b).replace(/\.0%/,"%")}</span>`).filter((_,i)=>i%2===0).join("")}</div><div class="lbl" style="margin-top:6px">Quantile bins · SY ${syOf(k)}</div>`;
+  }else h+="No data for current filters.";
+  h+=`<div class="sh"><svg width="14" height="14"><rect x="1" y="1" width="12" height="12" fill="var(--ink)"/></svg>District
+    <svg width="14" height="14"><rect x="2" y="2" width="10" height="10" fill="none" stroke="var(--ink)" stroke-width="2"/></svg>Charter
+    <svg width="14" height="14"><rect x="3" y="3" width="8" height="8" fill="var(--ink)" transform="rotate(45 7 7)"/></svg>Contract/options</div>`;
+  const ex=activeNote();if(ex)h+=`<div class="lbl" style="margin-top:6px;text-transform:none;letter-spacing:0">${ex}</div>`;
+  $("legend").innerHTML=h;
+}
+function activeNote(){const a=[];if(state.type)a.push(TYPES[state.type]);if(state.band)a.push(BANDS[state.band]);if(state.net)a.push(state.net);if(state.sub)a.push("District "+state.sub);if(state.has)a.push("has data");return a.join(" · ")}
+function syOf(k){const ys=new Set();for(const s of S){const m=s.m[k];if(m&&typeof m.v==="number")ys.add(m.sy)}return [...ys].join(", ")||"—"}
+function tip(s,ev){
+  const t=$("tip"),k=state.metric,m=METRICS[k];
+  const v=m.cat?TYPES[s.type]:fmtv(s,k);
+  t.textContent=`${s.name} · ${v}`;t.style.display="block";
+  const r=$("stage").getBoundingClientRect();
+  const x=ev.clientX||(ev.target.getBoundingClientRect().left),y=ev.clientY||(ev.target.getBoundingClientRect().top);
+  t.style.left=Math.min(x-r.left+12,r.width-t.offsetWidth-4)+"px";t.style.top=(y-r.top+12)+"px";
+}
+function fmtv(s,k){const m=s.m[k],f=METRICS[k].fmt;if(!m)return "n/a";if(m.v==="*")return "suppressed";if(m.v===null)return "no data";return f(m.v)}
+// ---- search
+function search(){
+  const q=$("q").value.trim().toLowerCase();if(!q){hideRes();return}
+  const hits=S.filter(s=>(s.name+" "+s.id+" "+s.address+" "+s.community).toLowerCase().includes(q)).slice(0,30);
+  const r=$("res");r.hidden=false;r.innerHTML="";
+  if(!hits.length){r.textContent="No matches";r.style.padding="6px 8px";return}
+  r.style.padding="0";
+  for(const s of hits){const b=document.createElement("button");b.textContent=`${s.name} · ${s.id}`;b.onclick=()=>{select(s.id);hideRes()};r.append(b)}
+}
+function hideRes(){$("res").hidden=true}
+// ---- panel
+function select(id){state.sel=id;render()}
+function median(k){const vs=S.map(s=>val(s,k)).filter(v=>v!==null).sort((a,b)=>a-b);if(!vs.length)return null;const i=vs.length>>1;return vs.length%2?vs[i]:(vs[i-1]+vs[i])/2}
+const FAMILIES=[
+  ["Enrollment",["enroll","enroll_chg"]],
+  ["Demographics",["low_income","el","iep","pct_hispanic","pct_black","pct_white","pct_asian"]],
+  ["Spending",["isbe_pp","cps_pp"]],
+  ["Outcomes",["ela","math","grade11","attendance","chronic","grad"]],
+];
+function spark(t){
+  if(!t||t.length<2)return "";const lo=Math.min(...t),hi=Math.max(...t),W=90,H=22;
+  const pts=t.map((v,i)=>[i*W/(t.length-1),hi===lo?H/2:H-2-(v-lo)/(hi-lo)*(H-4)]);
+  return `<svg class="spark" width="${W}" height="${H}" aria-hidden="true"><polyline points="${pts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--blue)" stroke-width="1.5"/>${pts.map(q=>`<rect x="${q[0]-2}" y="${q[1]-2}" width="4" height="4" fill="var(--blue)"/>`).join("")}</svg>`;
+}
+function panel(){
+  const s=S.find(x=>x.id===state.sel),main=$("main");
+  main.classList.toggle("open",!!s);if(!s){$("panel").innerHTML="";return}
+  let h=`<div class="blk"><button id="close" aria-label="Close panel">×</button><h2>${esc(s.name)}</h2>
+    <div class="sub">${TYPES[s.type]} · ${BANDS[s.band]} · ${esc(s.network)}</div>
+    <div class="sub">${esc(s.address)} · ${esc(s.community)} · Subdistrict ${s.subdistrict}</div>
+    <div class="sub" style="color:var(--muted)">CPS ID ${s.id}${s.rcdts?` · RCDTS ${s.rcdts}`:" · no state record"}</div></div>`;
+  for(const [fam,keys] of FAMILIES){
+    const cells=keys.filter(k=>METRICS[k]&&(s.m[k]||fam!=="Outcomes")).map(k=>{
+      const m=s.m[k],med=median(k),f=METRICS[k].fmt;
+      const shown=m?(m.v==="*"?"suppressed":m.v===null?"no data":f(m.v)):"—";
+      return `<div class="cell"><div class="k">${METRICS[k].label.replace(/ \(%\)/,"")}${m?`<span class="badge">SY${m.sy.slice(2)}</span>`:""}</div><div class="v">${shown}</div>
+        <div class="c">${med===null?"":"City median "+f(med)}</div>${m?spark(m.t):""}</div>`;
+    });
+    if(cells.length)h+=`<h3>${fam}</h3><div class="grid">${cells.join("")}</div>`;
+  }
+  const ids=[...new Set(Object.values(s.m).map(m=>m.sy))];
+  h+=`<div id="foot">Sources: ${Object.values(DATA.sources).join("; ")}. Years shown on each value. Suppressed = hidden by ISBE for small groups; no data = not reported. City median is across all schools with a value.</div>`;
+  $("panel").innerHTML=h;$("close").onclick=()=>select("");
+}
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+</script>
+</body>
+</html>

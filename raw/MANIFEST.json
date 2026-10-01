@@ -1,0 +1,128 @@
+{
+  "chi_community_areas.geojson": {
+    "bytes": 2072102,
+    "retrieved": "2026-09-30",
+    "sha256": "3468ac30bd813fa17d755b12a911a43c44f251465604bbe8e1ca1b1b540dca66",
+    "source": "CHI-CA",
+    "url": "https://data.cityofchicago.org/resource/igwz-8jzy.geojson?$limit=200"
+  },
+  "chi_loc.json": {
+    "bytes": 141823,
+    "retrieved": "2026-09-30",
+    "sha256": "c3eacd845e2cc65b85bff5068fd60ed4395a3b7c17af3c5e63c9d601c0b7748b",
+    "source": "CHI-LOC",
+    "url": "https://data.cityofchicago.org/resource/pb6d-zzuh.json?$limit=5000"
+  },
+  "chi_prof.json": {
+    "bytes": 2428112,
+    "retrieved": "2026-09-30",
+    "sha256": "b0882fd133b072ba255385e53c6b73c7369016aa1406abb7c0da76559b4634ca",
+    "source": "CHI-PROF",
+    "url": "https://data.cityofchicago.org/resource/3dhs-m3w4.json?$limit=5000"
+  },
+  "chi_wards.geojson": {
+    "bytes": 3509583,
+    "retrieved": "2026-09-30",
+    "sha256": "239c453a7c3e22d30a1b0badced4240bf23ab321f6e37c80598b919ec2004860",
+    "source": "CHI-WARD",
+    "url": "https://data.cityofchicago.org/resource/p293-wvbd.geojson?$limit=100"
+  },
+  "cps_lepiep_2425.xlsx": {
+    "bytes": 86530,
+    "retrieved": "2026-09-30",
+    "sha256": "8bd115ea4926d8c1e54d5954e945ba9fd533ab9d359740d1279b6975f9a98fb8",
+    "source": "CPS-DEM1",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/demographics_lepiepfrm_20thday_sy2025_final.xlsx"
+  },
+  "cps_lepiep_2526.xlsx": {
+    "bytes": 99471,
+    "retrieved": "2026-09-30",
+    "sha256": "474c9fff8f622640cb6ce624b5a1c24341d72af7eae66ee491664a42c399a7b0",
+    "source": "CPS-DEM1",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/demographics_lepiepfrm_20thday_sy2026_forweb.xlsx"
+  },
+  "cps_lepiep_2627.xlsx": {
+    "bytes": 96012,
+    "retrieved": "2026-09-30",
+    "sha256": "4a52412823f13d3e1f01e006eddcdc11d66e7bb22f84321dd6fed67aa54955c2",
+    "source": "CPS-DEM1",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/2026-27-demographics-lep-iep-low-income-20th-day-report.xlsx"
+  },
+  "cps_mem_2425.xlsx": {
+    "bytes": 82500,
+    "retrieved": "2026-09-30",
+    "sha256": "32da3946bc2d850f4b53dd1fbcb0fab10c19dc5c44de2d82f5a69c729905ee44",
+    "source": "CPS-MEM",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/demographics_20thday_sy2025_final.xlsx"
+  },
+  "cps_mem_2526.xlsx": {
+    "bytes": 82804,
+    "retrieved": "2026-09-30",
+    "sha256": "e68b9912e47106eb0508e270e21a66ba21186ed9f98c3525dc3d3468ec5eb522",
+    "source": "CPS-MEM",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/demographics_20thday_sy2026_forweb.xlsx"
+  },
+  "cps_mem_2627.xlsx": {
+    "bytes": 82820,
+    "retrieved": "2026-09-30",
+    "sha256": "1773a6517b013146b2e89087e6619508ea2b5170b1e997bbe95ec021e00531d4",
+    "source": "CPS-MEM",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/2026-27-demographics-20th-day-membership-report.xlsx"
+  },
+  "cps_race_2425.xlsx": {
+    "bytes": 180906,
+    "retrieved": "2026-09-30",
+    "sha256": "b691185b0db9d2f1cf139d99e47cd422642131573940a527a370cf021058803c",
+    "source": "CPS-DEM2",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/demographics_racialethnic_20thday_sy2025_final.xlsx"
+  },
+  "cps_race_2526.xlsx": {
+    "bytes": 160806,
+    "retrieved": "2026-09-30",
+    "sha256": "133a1e6495d5c7db082dd34653191281723e0159a7777e4f72d9e1cbb3b95873",
+    "source": "CPS-DEM2",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/demographics_racialethnic_20thday_sy2026_forweb.xlsx"
+  },
+  "cps_race_2627.xlsx": {
+    "bytes": 158091,
+    "retrieved": "2026-09-30",
+    "sha256": "cbc68d3c143fd93b6919d7fdf757d5d3b4842d856165616b12a40bb3cbfca395",
+    "source": "CPS-DEM2",
+    "url": "https://www.cps.edu/globalassets/cps-pages/about-cps/district-data/demographics/2026-27-demographics-racial-ethnic-20th-day-report.xlsx"
+  },
+  "fy27_bi_budget_book.csv": {
+    "bytes": 76917022,
+    "retrieved": "2026-09-30",
+    "sha256": "69936f5b9c774a7baab9c007dc8cd484a71c35fd488cf4382c082f2dacf917b3",
+    "source": "CPS-BUD-BI",
+    "url": "manual export from biportal.cps.edu (not fetched)"
+  },
+  "isbe_rc_2023.xlsx": {
+    "bytes": 23586246,
+    "retrieved": "2026-09-30",
+    "sha256": "951536d6f81cdfdebb75e41775d0d80cde37bdd81fe256a6f31e2e571b7088ba",
+    "source": "ISBE-RC",
+    "url": "https://www.isbe.net/_layouts/Download.aspx?SourceUrl=/Documents/23-RC-Pub-Data-Set.xlsx"
+  },
+  "isbe_rc_2024.xlsx": {
+    "bytes": 55577890,
+    "retrieved": "2026-09-30",
+    "sha256": "bab4981cd42a5355cfa8a62515b8364b981ff5e2397f4521deb0061034befa29",
+    "source": "ISBE-RC",
+    "url": "https://www.isbe.net/_layouts/Download.aspx?SourceUrl=/Documents/24-RC-Pub-Data-Set.xlsx"
+  },
+  "isbe_rc_2025.xlsx": {
+    "bytes": 40314938,
+    "retrieved": "2026-09-30",
+    "sha256": "459ac146b52bafe7ce79fd76a95a65daa68d0472cce5205fa777cde19fb58cdf",
+    "source": "ISBE-RC",
+    "url": "https://www.isbe.net/_layouts/Download.aspx?SourceUrl=/Documents/2025-Report-Card-Public-Data-Set.xlsx"
+  },
+  "subdistricts.zip": {
+    "bytes": 259265,
+    "retrieved": "2026-09-30",
+    "sha256": "fdb7fa8b442732684b1b9705debb3c11dd49f82ff92b97e2a9c82fdabe93194d",
+    "source": "SUBDIST",
+    "url": "https://www.ilsenateredistricting.com/images/shape-files/ERSB_20_Sub_District_Map_FA1_SB_15.zip"
+  }
+}

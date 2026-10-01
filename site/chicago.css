@@ -1,0 +1,463 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHICAGO SCHOOL — shared design system
+   ───────────────────────────────────────────────────────────────────────────
+   Jenney's skeleton frame made structure the ornament: a facade of piers and
+   spandrels, flat, gridded, unapologetically rectangular. This stylesheet
+   takes that literally.
+
+     · Nothing is rounded. Nothing casts a shadow.
+     · Cells touch along shared hairlines — the 1px grid gap IS the rule.
+     · Hover inverts, instantly. No fade.
+     · Display type is condensed: the tall narrow structural bay, in letters.
+     · The flag — two light-blue bars, four red six-pointed stars — is the
+       divider and the identity mark.
+
+   Dark is the default. Light is a real second mode, not an automatic flip.
+   No webfonts, no network, no CDN: every face below already ships with the OS.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Tokens ─────────────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: dark;
+
+  /* Type. Three voices: condensed display, grotesque UI, serif prose.
+     Akzidenz-Grotesk shipped in 1896, the year after Burnham's Reliance
+     Building. Helvetica and Arial are its descendants, and they are already
+     on the machine. */
+  --font-display: "Helvetica Neue Condensed Bold", HelveticaNeue-CondensedBold,
+                  "Avenir Next Condensed", "Arial Narrow", "Liberation Sans Narrow",
+                  "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-ui:      "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+  --font-text:    Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text",
+                  Georgia, "Times New Roman", serif;
+  --font-mono:    "Andale Mono", Consolas, "DejaVu Sans Mono", Menlo, monospace;
+
+  /* Surfaces — soot, structural iron, recessed spandrel */
+  --page:      #0c0e10;
+  --surface:   #14171a;
+  --sunk:      #1c2024;
+
+  /* Ink — Bedford limestone, the stone Burnham clad half of Chicago in */
+  --ink:       #f0ece5;
+  --ink-2:     #b9b3a9;
+  --muted:     #8d8880;
+
+  /* Structure */
+  --rule:      #262a2f;
+  --rule-firm: #414751;
+
+  /* The flag, and the materials of the buildings */
+  --blue:      #4bb3e8;   /* flag light blue — links, accents */
+  --red:       #e6635b;   /* flag star red */
+  --terra:     #cd7343;   /* terra cotta — warnings */
+  --patina:    #4fa88d;   /* oxidized copper — affirmative states */
+  --violet:    #a48ad8;
+  --brass:     #c69a33;
+  --mark:      #4a3d12;   /* search highlight */
+
+  /* Chart palette — lake blue / terra cotta / verdigris / brass.
+     Validated: worst adjacent CVD ΔE 10.1, normal-vision ΔE 16.2, all ≥3:1
+     on the dark surface. Do not nudge these by eye; re-run the validator. */
+  --s1: #2f9bd4;  --s2: #cf6236;  --s3: #2fa083;  --s4: #b08420;
+
+  /* Sequential ramp, one hue, six steps, ordered least → most prominent
+     (so seq-6 is always the largest value, whichever mode you are in).
+     Nine steps will not fit between a dark ground and white while holding
+     ΔL ≥ .06 per step, which is why the count dropped from nine. */
+  --seq-1: #175a75; --seq-2: #22748f; --seq-3: #2d8ca9;
+  --seq-4: #45a1bf; --seq-5: #78bcd7; --seq-6: #b0d8ea;
+
+  /* Knockout ink for labels sitting on a chart fill. On the dark fills the
+     soot ground clears 5.0–6.2:1 at any size. */
+  --on-fill: var(--page);
+
+  --bay: 1px;   /* the hairline every frame is mortared with */
+}
+
+@media (prefers-color-scheme: light) {
+  :root:where(:not([data-theme="dark"])) {
+    color-scheme: light;
+    --page:      #f2efe9;
+    --surface:   #fbf9f5;
+    --sunk:      #e8e4dc;
+    --ink:       #16181b;
+    --ink-2:     #454a52;
+    --muted:     #5f656f;
+    --rule:      #d8d3ca;
+    --rule-firm: #b3ada2;
+    --blue:      #15628c;
+    --red:       #b4162c;
+    --terra:     #9c4a1f;
+    --patina:    #15705c;
+    --violet:    #5b3f96;
+    --brass:     #7d5e0e;
+    --mark:      #ffe9a8;
+    --s1: #2483bb;  --s2: #c1541f;  --s3: #16856a;  --s4: #9d7513;
+    --seq-1: #84b8d4; --seq-2: #5f9dc0; --seq-3: #3f83aa;
+    --seq-4: #296c91; --seq-5: #195476; --seq-6: #0f3c58;
+    /* White knockout on the light fills clears 3:1 (4.2–4.6:1); labels that
+       sit on a fill are set at large-text size so 3:1 is the bar. */
+    --on-fill: #ffffff;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page:      #f2efe9;
+  --surface:   #fbf9f5;
+  --sunk:      #e8e4dc;
+  --ink:       #16181b;
+  --ink-2:     #454a52;
+  --muted:     #5f656f;
+  --rule:      #d8d3ca;
+  --rule-firm: #b3ada2;
+  --blue:      #15628c;
+  --red:       #b4162c;
+  --terra:     #9c4a1f;
+  --patina:    #15705c;
+  --violet:    #5b3f96;
+  --brass:     #7d5e0e;
+  --mark:      #ffe9a8;
+  --s1: #2483bb;  --s2: #c1541f;  --s3: #16856a;  --s4: #9d7513;
+  --seq-1: #84b8d4; --seq-2: #5f9dc0; --seq-3: #3f83aa;
+  --seq-4: #296c91; --seq-5: #195476; --seq-6: #0f3c58;
+  --on-fill: #ffffff;
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+
+/* The blanket radius reset is the design statement, and it stops UA-rounded
+   inputs and buttons from quietly reintroducing what we just removed. */
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Type ───────────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+
+/* The masthead voice: condensed, capitalised, set tight enough that the
+   letters stack like structural bays. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -.012em;
+  line-height: .92;
+}
+
+/* The signage voice: small, tracked wide, always caps. Building directories,
+   elevator plates, cornerstone dates. */
+.eyebrow, .kicker {
+  font-family: var(--font-ui);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* The reading voice. */
+.lede, .prose {
+  font-family: var(--font-text);
+  color: var(--ink-2);
+}
+.lede {
+  font-size: clamp(1.05rem, 2.1vw, 1.24rem);
+  line-height: 1.5;
+}
+
+.num { font-variant-numeric: tabular-nums; }
+.note { font-size: .87rem; line-height: 1.55; color: var(--muted); }
+
+p { margin: 0; }
+
+/* ─── Links ──────────────────────────────────────────────────────────────── */
+
+/* A hairline underline rather than the browser's, so it sits on the same
+   grid as everything else. Hover inverts, like every other surface here. */
+a {
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--blue) 42%, transparent);
+}
+a:hover {
+  background: var(--blue);
+  border-bottom-color: var(--blue);
+  color: var(--page);
+}
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ─── The star ───────────────────────────────────────────────────────────── */
+
+/* Chicago's stars are six-pointed — the true hexagram outline, inner radius
+   R/√3. Drawn in CSS rather than SVG so it takes currentColor and therefore
+   inverts for free inside any cell. */
+.star {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: currentColor;
+  flex: none;
+  clip-path: polygon(
+    50% 0%, 64.4% 25%, 93.3% 25%, 78.9% 50%, 93.3% 75%, 64.4% 75%,
+    50% 100%, 35.6% 75%, 6.7% 75%, 21.1% 50%, 6.7% 25%, 35.6% 25%
+  );
+}
+
+/* ─── The flagbar ────────────────────────────────────────────────────────── */
+
+/* The city flag, abstracted into a rule: two light-blue bars with the four
+   red stars in the white field between them. */
+.flagbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 2px solid var(--blue);
+  border-bottom: 2px solid var(--blue);
+}
+.flagbar .star {
+  width: 13px;
+  height: 13px;
+  color: var(--red);
+}
+.flagbar .fill { flex: 1 1 auto; }
+.flagbar .legend-text {
+  font-family: var(--font-ui);
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+/* The trailing label is decoration; on a narrow screen it would wrap and
+   swell the rule into a block. Drop it and keep the flag. */
+@media (max-width: 560px) {
+  .flagbar .legend-text { display: none; }
+}
+
+/* ─── The frame ──────────────────────────────────────────────────────────── */
+
+/* Touching cells. The 1px gap is the hairline, so rules never double up and
+   never need per-child border juggling. */
+.frame {
+  display: grid;
+  gap: var(--bay);
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.frame > * { background: var(--surface); }
+
+/* ─── The invert ─────────────────────────────────────────────────────────── */
+
+/* Snap, not fade — a transition would soften the one gesture the whole
+   system is built on. */
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 0;
+}
+.cell:hover,
+.cell:focus-visible {
+  background: var(--ink);
+  color: var(--page);
+}
+/* Inside a cell, de-emphasis is opacity on currentColor rather than a fixed
+   grey — that is what lets the inversion carry all the way down. */
+.cell .dim { color: currentColor; opacity: .62; }
+.cell .accent { color: var(--blue); }
+.cell:hover .accent,
+.cell:focus-visible .accent { color: currentColor; }
+.cell:hover a,
+.cell:hover .star { color: currentColor; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ─── Masthead & cornice ─────────────────────────────────────────────────── */
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px 96px; }
+
+header.masthead {
+  padding: 60px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+header.masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -.012em;
+  line-height: .92;
+  font-size: clamp(2.6rem, 8.5vw, 5rem);
+}
+
+/* 60px of sky above the masthead is a lobby ceiling; on a phone it is just
+   a screen-third of nothing before the page starts. */
+@media (max-width: 560px) {
+  header.masthead { padding-top: 28px; }
+  .wrap { padding-left: 16px; padding-right: 16px; }
+}
+
+/* The cornice: the heavy rule that terminates the shaft, per Sullivan's
+   base / shaft / capital. */
+footer {
+  margin-top: 72px;
+  border-top: 3px solid var(--ink);
+  padding-top: 20px;
+}
+footer p { font-size: .87rem; line-height: 1.55; color: var(--muted); }
+
+/* ─── Controls ───────────────────────────────────────────────────────────── */
+
+/* A joined strip of square buttons — piers in a colonnade, not a row of
+   floating pills. Negative margin collapses the shared edge to one hairline. */
+.filters { display: flex; flex-wrap: wrap; }
+.filters button {
+  font-family: var(--font-ui);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--rule-firm);
+  padding: 8px 14px;
+  margin: -1px 0 0 -1px;
+  cursor: pointer;
+}
+.filters button:hover { background: var(--sunk); color: var(--ink); }
+/* A pier you cannot hit is not a pier. A button's line-height is `normal`,
+   not the body's 1.6, so padding alone left these at 38px — set the floor
+   directly. The colonnade just gets taller on a phone. */
+@media (max-width: 760px) {
+  .filters button { min-height: 44px; padding: 8px 14px; }
+  /* The one standalone navigation link on every page, and at .66rem caps it
+     was a 12px-tall target. Padding gives the thumb something to land on
+     without moving the text. */
+  .back a { display: inline-block; padding: 10px 0; }
+}
+.filters button.on {
+  background: var(--ink);
+  color: var(--page);
+  border-color: var(--ink);
+  position: relative;
+  z-index: 1;
+}
+
+input[type="search"], input[type="text"] {
+  font: inherit;
+  font-size: .9rem;
+  color: var(--ink);
+  background: var(--sunk);
+  border: 1px solid var(--rule-firm);
+  padding: 10px 13px;
+  width: 100%;
+}
+input::placeholder { color: var(--muted); }
+
+/* ─── Tags ───────────────────────────────────────────────────────────────── */
+
+/* Square, hairline-outlined, uppercase — a stamped plate, not a lozenge. */
+.tag {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: .63rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+  color: var(--muted);
+  background: transparent;
+  white-space: nowrap;
+}
+.tag.dec, .tag.inc-good { color: var(--patina); }
+.tag.ctu, .tag.inc      { color: var(--red); }
+.tag.seiu, .tag.dual    { color: var(--violet); }
+.tag.und, .tag.wi       { color: var(--brass); }
+.tag.off { color: var(--muted); text-decoration: line-through; }
+
+/* ─── Tables ─────────────────────────────────────────────────────────────── */
+
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+thead th {
+  font-size: .66rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  border-bottom: 1px solid var(--rule-firm);
+}
+tfoot td { font-weight: 700; border-top: 2px solid var(--ink); border-bottom: 0; }
+
+mark { background: var(--mark); color: inherit; padding: 0 2px; }
+
+/* ─── Scrollers ──────────────────────────────────────────────────────────── */
+
+.scroll-x { overflow-x: auto; }
+
+/* ─── Back to top ────────────────────────────────────────────────────────── */
+
+/* The guides run 16,000–21,000px on a phone — twenty-odd screens with no way
+   back but a long thumb. A square plate in the corner, same hairline and
+   same invert as everything else, revealed only once you are deep enough
+   for it to be worth having. */
+.totop {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  background: var(--surface);
+  border: 1px solid var(--rule-firm);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+}
+.totop.show { opacity: 1; visibility: visible; }
+.totop:hover, .totop:focus-visible { background: var(--ink); color: var(--page); }
+@media (min-width: 761px) { .totop { display: none; } }
+
+@media print {
+  .controls, .filters, .totop { display: none; }
+}
