@@ -1,4 +1,5 @@
-// Generates the diverging ramp used to color enrollment change (decline <-> growth).
+// Generates the map's color ramps: the diverging ramp for zero-centered measures (decline <-> growth) and the
+// six-step sequential ramp that overrides chicago.css's --seq-* on the map page (see site/sequential.css).
 //   node tools/diverging_palette.mjs          -> prints the CSS custom properties
 // Hues come from the Chicago School chart tokens (--s1 lake blue, --s2 terra cotta) so the ramp belongs to the
 // same system. Seven steps, equal count per arm, neutral gray midpoint, lightness moves monotonically outward
@@ -42,9 +43,23 @@ export function ramp(mode) {
   // div-1 = largest decline ... div-4 = about flat ... div-7 = largest growth
   return { steps: [...decline.slice().reverse(), lch(m.neutral[0], m.neutral[1], hb), ...growth], decline, growth };
 }
+// sequential: one hue (--s1 lake blue), six steps, lightness monotone and every step at least 3:1 against
+// --page so the palest/darkest bin still reads as a mark (WCAG 1.4.11). Light on dark: low values dim, high bright.
+const SEQ = {
+  dark: { page: "#0c0e10", L: [0.52, 0.60, 0.68, 0.76, 0.84, 0.92], C: [0.09, 0.105, 0.115, 0.115, 0.095, 0.06] },
+  light: { page: "#f2efe9", L: [0.61, 0.54, 0.47, 0.40, 0.33, 0.26], C: [0.10, 0.115, 0.12, 0.11, 0.095, 0.075] },
+};
+const lum = (h) => { const [r, g, b] = hex2rgb(h).map(toLin); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+export const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => p - q); return (y + 0.05) / (x + 0.05); };
+export function seqRamp(mode) { const m = SEQ[mode], h = hueOf("#2f9bd4"); return m.L.map((L, i) => lch(L, m.C[i], h)); }
 if (process.argv[1] && process.argv[1].endsWith("diverging_palette.mjs")) {
   for (const mode of ["dark", "light"]) {
     const { steps } = ramp(mode);
     console.log(`${mode}: ${steps.map((h, i) => `--div-${i + 1}: ${h};`).join(" ")}`);
+  }
+  for (const mode of ["dark", "light"]) {
+    const s = seqRamp(mode);
+    console.log(`${mode}: ${s.map((h, i) => `--seq-${i + 1}: ${h};`).join(" ")}`);
+    console.log(`  contrast vs page: ${s.map((h) => contrast(h, SEQ[mode].page).toFixed(2)).join(" ")}`);
   }
 }

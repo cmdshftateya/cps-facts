@@ -22,6 +22,7 @@
 <meta name="twitter:image" content="https://schools.ateya.org/og.png">
 <link rel="stylesheet" href="chicago.css">
 <link rel="stylesheet" href="diverging.css">
+<link rel="stylesheet" href="sequential.css">
 <style>
   *{box-sizing:border-box;border-radius:0}
   html,body{margin:0;height:100%}
@@ -53,12 +54,15 @@
   :focus-visible{outline:2px solid var(--blue);outline-offset:1px}
   #stage{position:relative;min-width:0;min-height:0}
   svg#map{width:100%;height:100%;display:block;background:var(--page)}
-  svg#map{touch-action:none;cursor:grab}
+  svg#map{touch-action:none;cursor:grab;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+  svg#map *{-webkit-tap-highlight-color:transparent}
+  .mk:focus{outline:none}
   .zoom{position:absolute;right:12px;top:12px;display:flex;flex-direction:column;border:1px solid var(--rule-firm);background:var(--surface)}
   .zoom button{width:34px;height:34px;border:0;border-bottom:1px solid var(--rule);background:none;color:var(--ink);font:700 18px/1 var(--font-display);cursor:pointer}
   .zoom button:last-child{border-bottom:0}
-  .mk{cursor:pointer}
+  .mk{cursor:pointer;vector-effect:non-scaling-stroke}
   .mk:focus-visible{outline:none;stroke:var(--blue);stroke-width:3}
+  #selring circle{fill:none;vector-effect:non-scaling-stroke;pointer-events:none}
   .mk.dim{opacity:.1;pointer-events:none}
   .mk.excl{opacity:.4}
   .sd{cursor:pointer}
@@ -98,7 +102,7 @@
   #res{max-height:180px;overflow:auto;margin:-6px 0 10px;border:var(--bay) solid var(--rule)}
   #res button{display:block;width:100%;text-align:left;background:var(--sunk);border:0;border-bottom:var(--bay) solid var(--rule);padding:6px 8px;font-size:13px}
   #res button:hover,#res button:focus-visible{background:var(--ink);color:var(--page)}
-  mark{background:var(--mark);color:inherit}
+  mark{background:var(--mark);color:inherit;font-weight:700;box-shadow:inset 0 -2px var(--brass)}
   /* table view */
   .views{display:flex;margin-left:auto}
   .views button{border-right-width:0;padding:4px 12px;font-size:13px}
@@ -118,7 +122,7 @@
   #tablev td.none{color:var(--muted)}
   #tablev tbody tr{cursor:pointer}
   #tablev tbody tr:hover{background:var(--sunk)}
-  #tablev tbody tr.sel{background:var(--sunk);box-shadow:inset 3px 0 0 var(--blue)}
+  #tablev tbody tr.sel{background:var(--sel);box-shadow:inset 4px 0 0 var(--blue)}
   #tablev tbody tr.excl{color:var(--muted)}
   #tablev td button{border:0;padding:0;text-align:left;font-size:13px;font-weight:600;background:none}
   #tablev td button:hover{background:none;color:var(--ink);text-decoration:underline}
@@ -131,14 +135,61 @@
   .seg button[aria-pressed=true]{background:var(--ink);color:var(--page)}
   #g11tog .hint,.hint{font-size:11px;color:var(--muted);margin:0 0 10px}
   #legend .sh svg{flex:none}
-  .cl{cursor:pointer}
-  .cl circle{stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke}
-  .cl text{fill:var(--ink);stroke:var(--page);stroke-width:3px;paint-order:stroke;stroke-linejoin:round;font-family:var(--font-ui);font-weight:700;text-anchor:middle;dominant-baseline:central;pointer-events:none}
-  .cl:focus-visible{outline:none}.cl:focus-visible circle{stroke:var(--blue);stroke-width:3}
   #setmenu{position:fixed;right:14px;bottom:66px;width:340px;max-height:calc(100vh - 90px);overflow:auto;background:var(--surface);border:var(--bay) solid var(--rule-firm);z-index:20;padding:12px 14px}
   #setmenu[hidden]{display:none}
   #setmenu h3{margin:0 0 10px;font:700 15px var(--font-display);text-transform:uppercase;letter-spacing:.06em}
   #setmenu .hint{font-size:11px;color:var(--muted);margin:-6px 0 10px}
+  /* report card: a light "paper" sheet in both themes, printable on its own */
+  #cardv{position:fixed;inset:0;z-index:40;overflow:auto;background:rgba(6,7,8,.72);padding:16px}
+  #cardv[hidden]{display:none}
+  #cardv .tool{max-width:816px;margin:0 auto 10px;display:flex;gap:8px;justify-content:flex-end}
+  #cardv .tool button{background:var(--surface)}
+  #cardv .tool button:hover{background:var(--ink);color:var(--page)}
+  .rc{--p:#ffffff;--i:#16181b;--i2:#454a52;--m:#5f656f;--r:#d8d3ca;--rf:#b3ada2;--b:#15628c;--t:#9c4a1f;
+    max-width:816px;margin:0 auto;background:var(--p);color:var(--i);font-family:var(--font-ui);font-size:13px;line-height:1.35;border:1px solid var(--rf)}
+  .rc header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 24px;background:var(--i);color:var(--p);border:0;font:700 12px/1.2 var(--font-display);text-transform:uppercase;letter-spacing:.1em}
+  .rc .hd{padding:18px 24px 14px;border-bottom:2px solid var(--i)}
+  .rc h2{font:700 34px/1 var(--font-display);text-transform:uppercase;margin:0 0 6px;letter-spacing:.01em}
+  .rc .sub{color:var(--i2);margin-top:2px}
+  .rc .ids{color:var(--m);font-size:11px;margin-top:4px;font-family:var(--font-mono)}
+  .rc .hero{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--rf)}
+  .rc .hero div{padding:12px 24px 12px 24px;border-right:1px solid var(--r);min-width:0}
+  .rc .hero div:last-child{border-right:0}
+  .rc .hero b{display:block;font:700 30px/1.05 var(--font-display);font-variant-numeric:tabular-nums}
+  .rc .k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--m)}
+  .rc .yr{font-family:var(--font-mono);font-size:10px;color:var(--m);border:1px solid var(--rf);padding:0 3px;margin-left:4px;white-space:nowrap}
+  .rc .yr.w{color:var(--t);border-color:var(--t)}
+  .rc section{padding:4px 24px 10px;break-inside:avoid}
+  .rc h3{font:700 13px var(--font-display);text-transform:uppercase;letter-spacing:.12em;margin:10px 0 2px;padding-bottom:4px;border-bottom:1px solid var(--i)}
+  .rc .row{display:grid;grid-template-columns:minmax(0,1fr) 100px 150px 104px;gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--r);font-variant-numeric:tabular-nums}
+  .rc .row .v{font-weight:700;text-align:right;font-size:14px}
+  .rc .row .v.none{font-weight:400;color:var(--m);font-size:12px}
+  .rc .row .md{color:var(--m);font-size:11px}
+  .rc .strip{display:block}
+  .rc .flags{color:var(--t);margin:8px 0 0;padding-left:16px;font-size:12px}
+  .rc .fund{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--r)}
+  .rc .bars{display:flex;align-items:flex-end;gap:2px;height:36px;margin-top:6px}
+  .rc .bars i{flex:1;background:var(--b);min-height:1px}
+  .rc .barlbl{display:flex;gap:2px;font-size:9px;color:var(--m)}.rc .barlbl span{flex:1;text-align:center}
+  .rc footer{padding:10px 24px 16px;color:var(--m);font-size:10.5px;border-top:2px solid var(--i);margin-top:6px}
+  .rc footer p{margin:0 0 4px}
+  .rc .key{display:flex;gap:14px;align-items:center;color:var(--m);font-size:10.5px;margin:6px 0 0}
+  @media(max-width:600px){
+    #cardv{padding:8px}
+    .rc header,.rc .hd,.rc section,.rc footer{padding-left:14px;padding-right:14px}
+    .rc h2{font-size:26px}
+    .rc .hero{grid-template-columns:1fr 1fr}.rc .hero div{padding:10px 14px;border-bottom:1px solid var(--r)}
+    .rc .row{grid-template-columns:minmax(0,1fr) auto;gap:2px 10px}
+    .rc .row .strip{grid-column:1}.rc .row .md{text-align:right}
+  }
+  @media print{
+    @page{size:letter;margin:.4in}
+    html,body{height:auto;overflow:visible;display:block;background:#fff}
+    body>*:not(#cardv){display:none!important}
+    #cardv{position:static;overflow:visible;background:none;padding:0}
+    #cardv .tool{display:none}
+    .rc{border:0;max-width:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
   @media(max-width:760px){
     header{flex-wrap:wrap;gap:6px 12px}
     header .nav{order:9;flex-basis:100%}
@@ -206,6 +257,10 @@
   <select id="s-theme"><option value="auto">Auto</option><option value="dark">Dark</option><option value="light">Light</option></select>
   <button id="s-reset">Reset settings</button>
 </div>
+<div id="cardv" hidden role="dialog" aria-modal="true" aria-label="School report card">
+  <div class="tool"><button id="card-print" type="button">Print or save as PDF</button><button id="card-close" type="button">Close</button></div>
+  <article class="rc" id="card"></article>
+</div>
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
@@ -229,7 +284,7 @@ const FAMILIES=[
  ["Outcomes",["iar_ela_prof","iar_math_prof","ela_growth","math_growth","g11_ela","g11_math","g11_ela_gap","g11_math_gap","act_ela_avg","act_math_avg","attendance_rate","chronic_absent","grad_4yr","ninth_on_track","postsec_12mo"]],
  ["5Essentials",["fe_leaders","fe_teachers","fe_families","fe_environment"]]];
 
-let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",view:"map",sort:"name",dir:1,...DEF_SET},bins=[],medCache={};
+let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",card:false,view:"map",sort:"name",dir:1,...DEF_SET},bins=[],medCache={};
 
 fetch("data/schools.json").then(r=>r.json()).then(init).catch(e=>{document.body.insertAdjacentHTML("beforeend","<p style='padding:20px'>Could not load data/schools.json</p>");console.error(e)});
 
@@ -307,7 +362,9 @@ function wire(){
   $("setbtn").onclick=e=>{e.stopPropagation();toggleMenu()};
   $("setmenu").onclick=e=>e.stopPropagation();
   document.addEventListener("click",()=>toggleMenu(false));
-  document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!$("setmenu").hidden){toggleMenu(false);$("setbtn").focus()}else if(st.sel)select("");hideRes()}});
+  $("card-print").onclick=()=>print();$("card-close").onclick=()=>showCard(false);
+  $("cardv").onclick=e=>{if(e.target===$("cardv"))showCard(false)};
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(st.card){showCard(false);return}if(!$("setmenu").hidden){toggleMenu(false);$("setbtn").focus()}else if(st.sel)select("");hideRes()}});
   addEventListener("hashchange",()=>{readHash();syncControls();render()});
 }
 function toggleMenu(open){const m=$("setmenu");const o=open===undefined?m.hidden:open;m.hidden=!o;$("setbtn").setAttribute("aria-expanded",o)}
@@ -336,7 +393,7 @@ function writeHash(){
   if(st.metric!==DEF_METRIC)u.set("m",st.metric);
   for(const k of ["type","band","net","sub"])if(st[k])u.set(k,st[k]);
   if(st.view!==defView())u.set("v",st.view);
-  if(st.has)u.set("has","1");if(st.sel)u.set("school",st.sel);
+  if(st.has)u.set("has","1");if(st.sel)u.set("school",st.sel);if(st.sel&&st.card)u.set("card","1");
   for(const k of SETKEYS)if(st[k]!==DEF_SET[k])u.set("s_"+k,st[k]===true?"1":st[k]);
   const h=u.toString();history.replaceState(null,"",h?"#"+h:location.pathname+location.search);
 }
@@ -350,7 +407,7 @@ function readHash(){
   st.type=TYPES[t]?t:"";st.band=BANDS[b]?b:"";
   st.net=S.some(s=>s.network===u.get("net"))?u.get("net"):"";st.sub=S.some(s=>s.subdistrict===u.get("sub"))?u.get("sub"):"";
   st.view=["map","table"].includes(u.get("v"))?u.get("v"):defView();
-  st.has=u.get("has")==="1";const sc=u.get("school");st.sel=S.some(s=>s.id===sc)?sc:"";
+  st.has=u.get("has")==="1";const sc=u.get("school");st.sel=S.some(s=>s.id===sc)?sc:"";st.card=!!st.sel&&u.get("card")==="1";
   // settings in the URL win over remembered ones; otherwise keep what localStorage loaded
   const ok={set:["all","district"],mode:["points","sub"],theme:["auto","dark","light"]};
   for(const k of SETKEYS){
@@ -375,7 +432,9 @@ function buildMap(){
     sdEl[s.id]=e;
   }
   const g=document.createElementNS(NS,"g");svg.append(g);
-  cg=document.createElementNS(NS,"g");svg.append(cg);
+  // selection ring: a page-colored halo under an ink ring, so it reads on any fill in either theme
+  ring=document.createElementNS(NS,"g");ring.id="selring";ring.setAttribute("display","none");
+  ring.innerHTML='<circle stroke="var(--page)" stroke-width="6"/><circle stroke="var(--ink)" stroke-width="2.5"/>';svg.append(ring);
   for(const s of S){
     const e=document.createElementNS(NS,"rect");
     if(s.type==="contract"||s.type==="options")e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`);
@@ -390,13 +449,13 @@ function buildMap(){
   panZoom(svg,w,h);
 }
 // pan/zoom by rewriting the viewBox: wheel, drag, pinch, double-click, +/- buttons
-let moved=false,cg,mapApi,cq=0;
-const V={x:0,y:0,w:1,h:1};   // current viewBox, shared with clustering and the size key
+let moved=false,ring,cq=0;
+const V={x:0,y:0,w:1,h:1};   // current viewBox, shared with marker sizing and the size key
 const mapScale=()=>{const r=$("map").getBoundingClientRect();return r.width?Math.min(r.width/V.w,r.height/V.h):0};
 const MAXZ=40;
 function panZoom(svg,W,H){
   const v=V;Object.assign(v,{x:0,y:0,w:W,h:H});
-  const apply=()=>{svg.setAttribute("viewBox",`${v.x} ${v.y} ${v.w} ${v.h}`);cq||(cq=requestAnimationFrame(()=>{cq=0;clusters();sizeKey()}))};
+  const apply=()=>{svg.setAttribute("viewBox",`${v.x} ${v.y} ${v.w} ${v.h}`);cq||(cq=requestAnimationFrame(()=>{cq=0;place();sizeKey()}))};
   const clamp=()=>{v.w=Math.min(W,Math.max(W/MAXZ,v.w));v.h=v.w*H/W;v.x=Math.min(W-v.w,Math.max(0,v.x));v.y=Math.min(H-v.h,Math.max(0,v.y))};
   const rect=()=>svg.getBoundingClientRect();
   // map client point -> viewBox coords, accounting for preserveAspectRatio letterboxing
@@ -426,45 +485,19 @@ function panZoom(svg,W,H){
   bi.onclick=()=>zoomAt(...mid(),1.6);bo.onclick=()=>zoomAt(...mid(),1/1.6);br.onclick=()=>{Object.assign(v,{x:0,y:0,w:W,h:H});apply()};
   st0.append(bar);
   new ResizeObserver(()=>apply()).observe(svg);
-  // zoom so a box (viewBox units) fills the view, always zooming in by at least 1.6x and at most 4x
-  mapApi={zoomBox(x0,y0,x1,y1){
-    let nw=Math.max((x1-x0)*1.8,(y1-y0)*1.8*W/H);nw=Math.max(W/MAXZ,Math.min(v.w/1.6,Math.max(nw,v.w/4)));
-    v.w=nw;v.h=nw*H/W;v.x=(x0+x1)/2-v.w/2;v.y=(y0+y1)/2-v.h/2;clamp();apply()}};
 }
-// group nearby schools into numbered circles at wide zoom; they split as you zoom in
-const CELL=15;   // screen px: about one marker, so only markers that really overlap merge
-function clusters(){
-  if(!cg)return;
-  cg.replaceChildren();for(const s of S)mk[s.id].style.display="";
-  const k=mapScale();
-  if(!k||shading()||st.view!=="map"||V.w<=D.map.viewbox[0]/MAXZ*1.01)return;
-  const cell=CELL/k,b=new Map();
-  for(const s of S){
-    if(!visible(s)||s.id===st.sel)continue;
-    const key=Math.floor(s.x/cell)+","+Math.floor(s.y/cell);
-    if(b.has(key))b.get(key).push(s);else b.set(key,[s]);
-  }
-  for(const m of b.values()){
-    if(m.length<2)continue;
-    let cx=0,cy=0,x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
-    for(const s of m){mk[s.id].style.display="none";cx+=s.x;cy+=s.y;x0=Math.min(x0,s.x);x1=Math.max(x1,s.x);y0=Math.min(y0,s.y);y1=Math.max(y1,s.y)}
-    cx/=m.length;cy/=m.length;
-    const r=Math.min(16,8.5+1.2*Math.sqrt(m.length))/k;
-    const e=document.createElementNS(NS,"g");e.setAttribute("class","cl");e.setAttribute("tabindex","0");e.setAttribute("role","button");
-    e.setAttribute("aria-label",`${m.length} schools. Zoom in.`);
-    const c=document.createElementNS(NS,"circle");c.setAttribute("cx",cx);c.setAttribute("cy",cy);c.setAttribute("r",r);
-    const tx=document.createElementNS(NS,"text");tx.setAttribute("x",cx);tx.setAttribute("y",cy);tx.setAttribute("font-size",12/k);tx.textContent=m.length;
-    // fill with the members' average value so the map still reads as a heat map
-    const vs=cat()?[]:m.map(s=>num(s,st.metric)).filter(v=>v!==null);
-    c.style.fill=vs.length&&bins.length?binColor(vs.reduce((a,b)=>a+b,0)/vs.length):"var(--page)";
-    e.append(c,tx);
-    const go=()=>{$("tip").style.display="none";mapApi.zoomBox(x0,y0,x1,y1)};
-    e.onclick=ev=>{ev.stopPropagation();if(!moved)go()};
-    e.onkeydown=ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go()}};
-    for(const n of ["mouseenter","mousemove"])e.addEventListener(n,ev=>showTip(`${m.length} schools · click to zoom in`,ev));
-    e.addEventListener("mouseleave",()=>$("tip").style.display="none");
-    cg.append(e);
-  }
+// every school is drawn; markers keep about the same on-screen size, growing only gently with zoom,
+// so zooming in pulls overlapping schools apart instead of enlarging them together
+const zoomGrow=()=>Math.pow(D.map.viewbox[0]/V.w,0.25);
+function place(){
+  const k=mapScale();if(!k)return;const g=zoomGrow();
+  for(const s of S){const e=mk[s.id],r=radius(s)*g/k;
+    e.setAttribute("x",s.x-r);e.setAttribute("y",s.y-r);e.setAttribute("width",2*r);e.setAttribute("height",2*r)}
+  const sel=S.find(x=>x.id===st.sel);
+  if(sel&&!shading()){const r=(radius(sel)*1.45+5)*g/k;
+    for(const c of ring.children){c.setAttribute("cx",sel.x);c.setAttribute("cy",sel.y);c.setAttribute("r",r)}
+    ring.removeAttribute("display");ring.parentNode.append(ring)}
+  else ring.setAttribute("display","none");
 }
 function visible(s){
   return (!st.type||s.type===st.type)&&(!st.band||s.band===st.band)&&(!st.net||s.network===st.net)&&(!st.sub||s.subdistrict===st.sub)&&(!st.has||st.metric==="type"||num(s,st.metric)!==null);
@@ -507,28 +540,27 @@ function colorOf(s){
   if(cat())return CATCOL[s.type];
   const v=num(s,st.metric);return v===null||!bins.length?null:binColor(v);
 }
-const radN=n=>Math.max(3,Math.min(13,Math.sqrt(n)/3.2));
+// marker half-width in screen px at the full-city view
+const radN=n=>Math.max(2.5,Math.min(10,Math.sqrt(n)/4));
 function radius(s){
-  if(shading())return 2.5;
-  return st.size?radN(num(s,"enrollment")||0):5.5;
+  if(shading())return 1.6;
+  return st.size?radN(num(s,"enrollment")||0):3.5;
 }
 // size key drawn at the map's current zoom, since marker size scales with it
 function sizeKey(){
-  const e=$("sizekey");if(!e)return;const k=mapScale()||1;
-  e.innerHTML="<span>Marker size = enrollment:</span>"+[100,500,1000,1500].map(n=>{const d=2*radN(n)*k;return `<span><svg width="${d+2}" height="${d+2}" style="vertical-align:middle"><rect x="1" y="1" width="${d}" height="${d}" fill="var(--ink)"/></svg> ${n.toLocaleString()}</span>`}).join("");
+  const e=$("sizekey");if(!e)return;
+  e.innerHTML="<span>Marker size = enrollment:</span>"+[100,500,1000,1500].map(n=>{const d=2*radN(n)*zoomGrow();return `<span><svg width="${d+2}" height="${d+2}" style="vertical-align:middle"><rect x="1" y="1" width="${d}" height="${d}" fill="var(--ink)"/></svg> ${n.toLocaleString()}</span>`}).join("");
 }
 function render(){
-  compute();let n=0;const pts=!shading();
+  compute();let n=0;
   for(const s of S){
-    const e=mk[s.id],vis=visible(s),c=colorOf(s),r=radius(s);if(vis)n++;
-    e.setAttribute("x",s.x-r);e.setAttribute("y",s.y-r);e.setAttribute("width",2*r);e.setAttribute("height",2*r);
+    const e=mk[s.id],vis=visible(s),c=colorOf(s);if(vis)n++;
     e.classList.toggle("dim",!vis);e.classList.toggle("excl",vis&&!inSet(s));
     const noData=!shading()&&c===null;
     if(shading()){e.setAttribute("fill",s.id===st.sel?"var(--ink)":"var(--ink-2)");e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
     else if(noData){e.setAttribute("fill","var(--sunk)");e.setAttribute("stroke","var(--muted)");e.setAttribute("stroke-width","1");e.setAttribute("stroke-dasharray","2 2")}
     else if(s.type==="charter"){e.setAttribute("fill","var(--page)");e.setAttribute("stroke",c);e.setAttribute("stroke-width","2");e.removeAttribute("stroke-dasharray")}
     else{e.setAttribute("fill",c);e.setAttribute("stroke","none");e.removeAttribute("stroke-dasharray")}
-    if(s.id===st.sel&&pts){e.setAttribute("stroke","var(--ink)");e.setAttribute("stroke-width","3");e.removeAttribute("stroke-dasharray")}
   }
   const sel=mk[st.sel];if(sel)sel.parentNode.append(sel);
   for(const [id,e] of Object.entries(sdEl)){
@@ -541,7 +573,7 @@ function render(){
   $("count").textContent=`${n} of ${S.length} schools`;
   const tv=st.view==="table";
   $("main").classList.toggle("tbl",tv);$("v-map").setAttribute("aria-pressed",!tv);$("v-tbl").setAttribute("aria-pressed",tv);
-  clusters();legend();if(tv)table();writeHash();panel();
+  place();legend();if(tv)table();writeHash();panel();card();
 }
 function nonDefault(){
   const a=[];
@@ -639,7 +671,7 @@ function hl(t,q){const i=t.toLowerCase().indexOf(q);return i<0?esc(t):esc(t.slic
 function hideRes(){$("res").hidden=true}
 
 // ---------- panel
-function select(id){st.sel=id;render();if(id)$("panel").scrollTop=0}
+function select(id){st.sel=id;if(!id)st.card=false;render();if(id)$("panel").scrollTop=0}
 function median(k){
   const key=k+"|"+st.set+"|"+st.year;if(key in medCache)return medCache[key];
   const vs=S.filter(inSet).map(s=>num(s,k)).filter(v=>v!==null).sort((a,b)=>a-b);
@@ -669,6 +701,7 @@ function panel(){
     <div class="sub">${esc(s.address)}${s.community_area?" · "+esc(s.community_area):""}</div>
     <div class="sub">Subdistrict ${s.subdistrict||"—"}${s.ward?" · Ward "+s.ward:""}</div>
     <div class="sub" style="color:var(--muted)">CPS ID ${s.id}${s.rcdts?" · RCDTS "+s.rcdts:" · no state record"}</div>
+    <button id="cardbtn" type="button" style="margin-top:10px">Report card (print or PDF)</button>
     ${s.flags&&s.flags.length?`<ul class="flags">${s.flags.map(f=>F[f]?`<li>${esc(F[f])}</li>`:"").join("")}</ul>`:""}</div>`;
   for(const [fam,keys] of FAMILIES){
     const cells=[];
@@ -703,7 +736,80 @@ function panel(){
   h+=`<div id="foot">${[...notes].map(n=>`<p>† ${esc(n)}</p>`).join("")}
     <p>Suppressed: hidden by the state for small groups. No data: not reported (never zero). City medians use ${st.set==="district"?"district-run schools":"all schools"} with a value, for the year policy in Settings.</p>
     <p>Sources: ${srcs.join("; ")}.</p></div>`;
-  $("panel").innerHTML=h;$("close").onclick=()=>select("");
+  $("panel").innerHTML=h;$("close").onclick=()=>select("");$("cardbtn").onclick=()=>showCard(true);
+}
+const cellLabel=(k,m)=>k.startsWith("spend")?label(k):m.label.replace(/ \(%\)$/,"");
+
+// ---------- report card: one printable sheet per school, same values, years, medians and caveats as the panel
+function showCard(on){
+  st.card=on&&!!st.sel;render();
+  if(st.card)$("card-print").focus();else if($("cardbtn"))$("cardbtn").focus();
+}
+const distCache={};
+function dist(k){
+  const key=k+"|"+st.set+"|"+st.year;if(key in distCache)return distCache[key];
+  const vs=S.filter(inSet).map(s=>num(s,k)).filter(v=>v!==null);
+  return distCache[key]=vs.length?{lo:Math.min(...vs),hi:Math.max(...vs),med:median(k),n:vs.length}:null;
+}
+// where the school sits between the lowest and highest school, with the city median marked
+function strip(k,v){
+  const d=dist(k);if(!d||d.hi===d.lo)return "<span></span>";
+  const W=150,x=t=>4+(t-d.lo)/(d.hi-d.lo)*(W-8);
+  return `<svg class="strip" width="${W}" height="16" role="img" aria-label="Range across ${d.n} schools ${fmt(k,d.lo)} to ${fmt(k,d.hi)}; city median ${fmt(k,d.med)}"><line x1="4" x2="${W-4}" y1="8" y2="8" stroke="var(--rf)" stroke-width="2"/><line x1="${x(d.med)}" x2="${x(d.med)}" y1="2" y2="14" stroke="var(--m)" stroke-width="1.5"/><rect x="${x(v)-4.5}" y="3.5" width="9" height="9" fill="var(--b)" stroke="var(--p)" stroke-width="1"/></svg>`;
+}
+function card(){
+  const s=S.find(x=>x.id===st.sel),el=$("card");$("cardv").hidden=!s||!st.card;
+  if(!s||!st.card){el.innerHTML="";return}
+  for(const k in distCache)delete distCache[k];
+  const F=D.meta.flags,notes=new Set();
+  const yr=(k,g)=>{const m=R[seriesKey(k)];let b=g?`<span class="yr">${sy(g.sy)}</span>`:"";
+    if(g&&(m.estimated_years||[]).includes(g.sy))b+='<span class="yr w">est.</span>';
+    if((m.breaks||[]).length){b+='<span class="yr w">†</span>';if(m.note)notes.add(m.note)}return b};
+  const val=(k,g)=>!g?"":g.v==="*"?"suppressed":fmt(k,g.v);
+  const heroK=["enrollment","pct_low_income","attendance_rate",s.band==="ES"?"iar_ela_prof":"grad_4yr"].filter(k=>get(s,k));
+  let h=`<header><span>CPS Facts · School report card</span><span>schools.ateya.org</span></header>
+    <div class="hd"><h2>${esc(s.name)}</h2>
+    ${s.long_name&&s.long_name!==s.name?`<div class="sub">${esc(s.long_name)}</div>`:""}
+    <div class="sub">${TYPES[s.type]} · Grades ${esc(s.grades_served||"—")} · ${esc(s.network)}</div>
+    <div class="sub">${esc(s.address)}${s.community_area?" · "+esc(s.community_area):""} · Subdistrict ${s.subdistrict||"—"}${s.ward?" · Ward "+s.ward:""}</div>
+    <div class="ids">CPS ID ${s.id}${s.rcdts?" · RCDTS "+s.rcdts:" · no state record"}</div>
+    ${s.flags&&s.flags.length?`<ul class="flags">${s.flags.map(f=>F[f]?`<li>${esc(F[f])}</li>`:"").join("")}</ul>`:""}</div>`;
+  if(heroK.length)h+=`<div class="hero">${heroK.map(k=>{const g=get(s,k),m=R[seriesKey(k)];return `<div><span class="k">${esc(cellLabel(k,m))}</span><b>${val(k,g)}</b><span class="k">${sy(g.sy)}</span></div>`}).join("")}</div>`;
+  for(const [fam,keys] of FAMILIES){
+    const rows=[];
+    for(const k of keys){
+      const sk=seriesKey(k),m=R[sk];if(!m)continue;
+      if(!s.m[sk]&&(fam==="Outcomes"||fam==="5Essentials"))continue;
+      const g=get(s,k),n=g&&typeof g.v==="number";
+      const lowN=fam==="Demographics"&&s.flags&&s.flags.includes("low_n");
+      rows.push(`<div class="row"><span>${esc(cellLabel(k,m))}${yr(k,g)}${lowN?'<span class="yr w">n&lt;30</span>':""}</span>
+        ${g?`<span class="v">${val(k,g)}</span>`:`<span class="v none">${st.year==="latest"?"no data":"no data for "+sy(st.year)}</span>`}
+        ${n?strip(k,g.v):"<span></span>"}<span class="md">${n&&median(k)!==null?"Median "+fmt(k,median(k)):""}</span></div>`);
+    }
+    let extra="";
+    if(fam==="Enrollment"){
+      const ec=s.enrollment_change;
+      if(ec&&ec.pct!==null&&ec.pct!==undefined)rows.push(`<div class="row"><span>Change ${sy(ec.from)} → ${sy(ec.to)}</span><span class="v">${ec.count>0?"+":""}${ec.count}</span><span>${ec.pct>0?"+":""}${ec.pct}%</span><span></span></div>`);
+      const GO=["PE","PK","K","1","2","3","4","5","6","7","8","9","10","11","12"];
+      const gr=s.grades?Object.entries(s.grades).sort((a,b)=>GO.indexOf(a[0])-GO.indexOf(b[0])):[];
+      if(gr.length>1){const mx=Math.max(...gr.map(x=>x[1]),1);
+        extra=`<div class="k" style="margin-top:8px">By grade, ${sy(D.meta.roster_year)}</div><div class="bars">${gr.map(([g,n])=>`<i style="height:${Math.max(2,n/mx*100)}%" title="Grade ${g}: ${n}"></i>`).join("")}</div><div class="barlbl">${gr.map(([g,n])=>`<span>${g}<br>${n}</span>`).join("")}</div>`}
+    }
+    if(fam==="Spending"&&s.flags&&s.flags.includes("budget_not_comparable"))extra+=`<p style="color:var(--t);margin:6px 0 0">Charter, contract, ALOP and SAFE budgets are funded differently from district-run schools and are not comparable with them.</p>`;
+    if(fam==="Spending"&&s.budget_funds){
+      const tot=Object.values(s.budget_funds).reduce((a,b)=>a+b,0),top=Object.entries(s.budget_funds).sort((a,b)=>b[1]-a[1]).slice(0,5);
+      extra+=`<div class="k" style="margin-top:8px">CPS FY27 budget by funding source</div>${top.map(([f,v])=>`<div class="fund"><span>${esc(D.meta.funds[f]||f)}</span><span>${Math.round(v/tot*100)}%</span></div>`).join("")}`;
+    }
+    if(rows.length||extra)h+=`<section><h3>${fam}</h3>${rows.join("")}${extra}</section>`;
+  }
+  const srcs=Object.entries(D.meta.sources).map(([id,v])=>{const f=Object.values(v.files||{});const d=f.length?f.map(x=>x.retrieved).sort().pop():"";return `${esc(v.name)}${d?" (retrieved "+d+")":""}`});
+  const url=`https://schools.ateya.org/#school=${s.id}`;
+  h+=`<footer><div class="key"><svg width="150" height="16" aria-hidden="true"><line x1="4" x2="146" y1="8" y2="8" stroke="var(--rf)" stroke-width="2"/><line x1="60" x2="60" y1="2" y2="14" stroke="var(--m)" stroke-width="1.5"/><rect x="95" y="3.5" width="9" height="9" fill="var(--b)"/></svg><span>Bar: lowest to highest school in Chicago, tick = city median, square = this school. Compared with ${st.set==="district"?"district-run schools":"all schools"} that have a value.</span></div>
+    ${[...notes].map(n=>`<p>† ${esc(n)}</p>`).join("")}
+    <p>Each value shows its school year (SY2024-25 = the 2024–25 school year). Suppressed: hidden by the state for small groups. No data: not reported, never zero. ${st.year==="latest"?"Latest available year per measure.":"All measures from "+sy(st.year)+"."}</p>
+    <p>Sources: ${srcs.join("; ")}.</p>
+    <p>Data built ${D.meta.generated.slice(0,10)}. Full profile and methodology: ${url}</p></footer>`;
+  el.innerHTML=h;
 }
 function esc(t){return String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
