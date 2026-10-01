@@ -207,7 +207,7 @@
 </style>
 </head>
 <body>
-<header><h1>CPS Facts</h1><span class="n nav"><a href="methodology.html">Methodology and caveats</a> · <a href="data.html">Data and sources</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><span class="n" id="asof"></span></header>
+<header><h1>CPS Facts</h1><span class="n nav"><a href="/methodology.html">Methodology and caveats</a> · <a href="/data.html">Data and sources</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><span class="n" id="asof"></span></header>
 <main id="main">
   <aside>
     <div class="blk">
@@ -393,9 +393,13 @@ function writeHash(){
   if(st.metric!==DEF_METRIC)u.set("m",st.metric);
   for(const k of ["type","band","net","sub"])if(st[k])u.set(k,st[k]);
   if(st.view!==defView())u.set("v",st.view);
-  if(st.has)u.set("has","1");if(st.sel)u.set("school",st.sel);if(st.sel&&st.card)u.set("card","1");
+  if(st.has)u.set("has","1");if(st.sel&&st.card)u.set("card","1");
   for(const k of SETKEYS)if(st[k]!==DEF_SET[k])u.set("s_"+k,st[k]===true?"1":st[k]);
-  const h=u.toString();history.replaceState(null,"",h?"#"+h:location.pathname+location.search);
+  // a selected school lives in the path (/s/ID/), which has its own link preview; that page sends browsers back here
+  const web=/^https?:$/.test(location.protocol);
+  if(st.sel&&!web)u.set("school",st.sel);
+  const path=st.sel&&web?`/s/${st.sel}/`:location.pathname.startsWith("/s/")?"/":location.pathname+location.search;
+  history.replaceState(null,"",path+(u.toString()?"#"+u:""));
 }
 function readHash(){
   const u=new URLSearchParams(location.hash.slice(1));
@@ -407,7 +411,7 @@ function readHash(){
   st.type=TYPES[t]?t:"";st.band=BANDS[b]?b:"";
   st.net=S.some(s=>s.network===u.get("net"))?u.get("net"):"";st.sub=S.some(s=>s.subdistrict===u.get("sub"))?u.get("sub"):"";
   st.view=["map","table"].includes(u.get("v"))?u.get("v"):defView();
-  st.has=u.get("has")==="1";const sc=u.get("school");st.sel=S.some(s=>s.id===sc)?sc:"";st.card=!!st.sel&&u.get("card")==="1";
+  st.has=u.get("has")==="1";const sc=u.get("school")||(location.pathname.match(/^\/s\/([^/]+)\/?$/)||[])[1];st.sel=S.some(s=>s.id===sc)?sc:"";st.card=!!st.sel&&u.get("card")==="1";
   // settings in the URL win over remembered ones; otherwise keep what localStorage loaded
   const ok={set:["all","district"],mode:["points","sub"],theme:["auto","dark","light"]};
   for(const k of SETKEYS){
@@ -803,7 +807,7 @@ function card(){
     if(rows.length||extra)h+=`<section><h3>${fam}</h3>${rows.join("")}${extra}</section>`;
   }
   const srcs=Object.entries(D.meta.sources).map(([id,v])=>{const f=Object.values(v.files||{});const d=f.length?f.map(x=>x.retrieved).sort().pop():"";return `${esc(v.name)}${d?" (retrieved "+d+")":""}`});
-  const url=`https://schools.ateya.org/#school=${s.id}`;
+  const url=`https://schools.ateya.org/s/${s.id}/`;
   h+=`<footer><div class="key"><svg width="150" height="16" aria-hidden="true"><line x1="4" x2="146" y1="8" y2="8" stroke="var(--rf)" stroke-width="2"/><line x1="60" x2="60" y1="2" y2="14" stroke="var(--m)" stroke-width="1.5"/><rect x="95" y="3.5" width="9" height="9" fill="var(--b)"/></svg><span>Bar: lowest to highest school in Chicago, tick = city median, square = this school. Compared with ${st.set==="district"?"district-run schools":"all schools"} that have a value.</span></div>
     ${[...notes].map(n=>`<p>† ${esc(n)}</p>`).join("")}
     <p>Each value shows its school year (SY2024-25 = the 2024–25 school year). Suppressed: hidden by the state for small groups. No data: not reported, never zero. ${st.year==="latest"?"Latest available year per measure.":"All measures from "+sy(st.year)+"."}</p>

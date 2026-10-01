@@ -2,3 +2,4 @@ python-calamine
 pyshp
 requests
 pypdf
+pillow

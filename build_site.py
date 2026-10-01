@@ -12,7 +12,7 @@ import re
 import shutil
 from pathlib import Path
 
-from pipeline import geo, isbe
+from pipeline import geo, isbe, share
 import sources_catalog as sc
 
 ROOT = Path(__file__).parent
@@ -223,6 +223,7 @@ def main():
     shutil.copy(ROOT.parent / "politics" / "chicago.css", OUT / "chicago.css") if (ROOT.parent / "politics" / "chicago.css").exists() else None
     methodology()
     downloads()
+    share.write_all(data, OUT)
     print(f"{len(data['schools'])} schools, viewbox {data['map']['viewbox']}, {(OUT / 'data' / 'schools.json').stat().st_size / 1e6:.2f} MB")
 
 
