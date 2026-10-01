@@ -18,13 +18,13 @@ Carried forward until closed. Update this list in every entry that opens or clos
 
 ---
 
-## 2026-10-01 10:51–11:05 · Work log, decision register, agent instructions · `630ea84d`
+## 2026-10-01 10:51–11:02 · Work log, decision register, agent instructions · `630ea84d`
 
 **Asked:** Start a work log covering every past conversation (timestamps, accomplishments, obstacles, decisions), and set up agent instructions so the log, commits and decisions stay current automatically. Document the owner's working and decision style too.
 **Done:** Read all 11 earlier transcripts for this repo, plus one in another repo that linked here. Wrote this file, [DECISIONS.md](DECISIONS.md), [AGENTS.md](AGENTS.md) (agent instructions, working style, log protocol) and `CLAUDE.md` (imports AGENTS.md). Added `tools/session_digest.py`, which lists sessions, flags the ones missing from this log, and replays one session's prompts, commits and reports. Added a SessionStart hook in `.claude/settings.json` that runs the digest, so each new session is told which sessions still need entries.
 **Obstacles:** Hashes quoted in transcripts before the history rewrite are stale. The digest matches commits by subject to recover the current hashes. The requirements draft (v0.1–v0.3) existed before the first transcript, and its origin isn't in any Claude Code session.
 **Decisions:** D-022, D-023.
-**Commits:** none yet (left for the owner to review).
+**Commits:** `2d71f60` work log, decision register and agent instructions (this entry's hash line added in the follow-up commit).
 
 ## 2026-10-01 10:34–10:52 · Launch polish, public repo, sources described for outsiders · `0b9d5d09`
 
