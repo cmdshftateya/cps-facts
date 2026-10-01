@@ -35,7 +35,7 @@
 - High school: grade 11 state test (**SAT through 2024, ACT from 2025**; never compared across the break — see `hs-assessment-proposal.md`), 4-yr graduation rate, freshman on-track, college enrollment, attendance, chronic absenteeism. Graduation, on-track, attendance, absenteeism and postsecondary enrollment carry the 3-year trend.
 - Survey: 5Essentials rating (if available for the year).
 
-**Every value carries:** source ID, school year, retrieved date. ISBE `*` = "suppressed"; blank = "no data"; never 0. CPS files have no suppression markers (small cells are literal 0): apply a minimum-n display rule. Low-income / disability labels changed between SY2526 and SY2627: no demographic deltas across that change until CPS confirms comparability. Temporary-living share comes from ISBE (SY2024-25) only.
+**Every value carries:** source ID, school year, retrieved date. ISBE `*` = "suppressed"; blank = "no data"; never 0. CPS files have no suppression markers (small cells are literal 0): publish as given, with a small-school label under 30 students. Low-income / disability labels changed between SY2526 and SY2627: no demographic deltas across that change until CPS confirms comparability. Temporary-living share comes from ISBE (SY2024-25) only.
 
 ### Sources (audited in Phase 0 — details, URLs, join coverage in `sources.md`)
 - Chicago Data Portal: *CPS School Locations SY2526*, *School Profile Information*, attendance boundaries.
@@ -98,7 +98,7 @@ Rules:
 ## 6. Phases
 
 0. **Source audit** — ✅ done. Outputs: `sources.md`, `crosswalk.csv`, `hs-assessment-proposal.md`, `charter-conversions.md`, `bi-portal.md`.
-1. **Data pipeline** — normalized `schools.json` + CSV + validation report.
+1. **Data pipeline** — ✅ done. normalized `schools.json` + CSV + validation report. See `PIPELINE.md`.
 2. **Map + panel** — color-by, filters, search, school panel.
 3. **Table, methodology, downloads.**
 4. **Launch** — `wrangler deploy` to schools.ateya.org, OG images, cross-link from the politics site's board guide (subdistrict → schools).

@@ -28,7 +28,7 @@ Plain-language record of what this project did with the data and where the numbe
 
 **Missing or suppressed values**
 5. The state hides values for small groups and marks them `*`. We show "suppressed", never 0. A blank means the state has no data (for example, a graduation rate for an elementary school).
-6. CPS's own enrollment and demographic files don't hide small numbers; they show 0. In very small schools, percentages can swing on a handful of students, so we apply a minimum-size rule for display.
+6. CPS's own enrollment and demographic files don't hide small numbers; they show 0. In very small schools, percentages can swing on a handful of students, so we label schools under 30 students instead of hiding anything.
 7. CPS's files do not include students in temporary living situations. That figure comes from the state (SY2024-25) only.
 
 **Matching and roster**
@@ -49,6 +49,14 @@ Plain-language record of what this project did with the data and where the numbe
 **The estimated high-school score comparison**
 17. It converts SAT averages to the ACT scale with an official table designed for individual scores, so applied to school averages it is approximate. The national benchmarks come from a self-selected group of test takers, while Illinois tests every junior. It is labeled "estimate".
 18. Open point: the state's ACT column is named "ELA". If it is ACT's ELA composite, the benchmark is 20; if the English subscore, 18. We have to confirm this before building it.
+
+**Added in Phase 1**
+19. A school's CPS budget of $0 is shown as no data, not 0 (six YCCS campuses and Chicago Arts HS).
+20. Catalyst Maria's budget unit covers both campuses ($22.1M). Per pupil is computed on their combined 1,105 students (about $20k) and shown on both schools, labeled. This is our inference from the numbers; confirm with CPS.
+21. State "*" on SAT/ACT/graduation at schools with no high-school grades is shown as no data, not "suppressed".
+22. 5Essentials "Ambitious Instruction" is blank for every Chicago school in 2025 and is not shown; a level of 0 means not rated.
+23. The six converted schools have no coordinates in any city dataset; they use the old charter's location, flagged.
+24. CPS demographic shares are published as CPS gives them, never hidden. Schools under 30 students get a small-school label.
 
 ## 3. Open items
 - Confirm the fiscal year of the state's per-pupil spending (caveat 4).
