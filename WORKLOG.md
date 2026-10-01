@@ -19,13 +19,13 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
-## 2026-10-01 14:55–15:25 · Per-school link previews · `5b9f1914`
+## 2026-10-01 14:55–15:35 · Per-school link previews · `5b9f1914`
 
 **Asked:** When sharing a school's page, a rich link preview "customized for each school", "easily readable", maybe an icon "semi-randomly related to the school's name"; "propose something smart". Approved the proposal: "AMAZING yes please".
 **Done:** Found the real blocker: school links are `/#school=ID` and preview bots drop the fragment, so every school showed `og.png`. New `pipeline/share.py` (called by `build_site.py`, or alone with `python -m pipeline.share`) writes `site/s/<id>/index.html` (own title, description, og/twitter tags, JS redirect to the map) and a 1200×630 `card.png` for all 639 schools: name badge (hashed star colour and pattern plus initials), location star on the city outline, students, low income, and graduation or attendance with school years. Pillow plus vendored Barlow (OFL); about 44 KB per card, 28 MB total, 25–30 s on 4 cores; unchanged cards are not rewritten (re-run touched 0 files). The map now shows `/s/<id>/` in the address bar while a school is open; the report card links there too. Two new tests in `test_published` (every school has a page and card, every number has a year, suppressed and no data never become 0). Checked in Chromium: `/s/<id>/` lands on the right school, reload, Esc back to `/`, old `#school=` links, nav links and back button, 360px in both themes (no horizontal scroll), the no-JS page and its tags.
-**Obstacles:** No `raw/` in the cloud container, so `build_site.py` itself wasn't run; the generator ran from the committed `site/data/schools.json`, which is the same input. Not checked: a real share on a phone or in Slack/iMessage, which needs a deploy.
+**Obstacles:** The cloud container's network policy blocks schools.ateya.org, so the live pages weren't fetched after deploy. No `raw/` in the cloud container, so `build_site.py` itself wasn't run; the generator ran from the committed `site/data/schools.json`, which is the same input. Not checked: a real share on a phone or in Slack/iMessage, which needs a deploy.
 **Decisions:** D-031 (first numbered D-029; renumbered after merging main, where another session took D-029 and D-030).
-**Commits:** `42ec73f` per-school share pages and cards (code) · `25c8deb` generated pages and cards for 639 schools · docs commit with this entry.
+**Commits:** `42ec73f` per-school share pages and cards (code) · `25c8deb` generated pages and cards for 639 schools · `bfa4fda` docs · `f03ec77` merge of main (D-029 renumbered to D-031), pushed to `main` on the owner's "yes merge it" · `f0a85a7` fix: CI installs no packages, so `pipeline/share.py` imports Pillow only inside the drawing functions (the first deploy's test run failed on `import PIL`).
 
 
 ## 2026-10-01 14:05–15:50 · Clutter and overload review of the map page · `8bd56763`
