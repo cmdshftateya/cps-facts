@@ -47,11 +47,11 @@
 ## 3. The map
 
 - **Geographic, vector, self-rendered.** Boundaries + points projected to SVG at build time (Python, same pattern as `site_build.py`). No basemap tiles — they'd break the no-network rule and the flat aesthetic. Context layer = city outline, lake edge, subdistrict lines on hairline `--rule`.
-- **One marker per school**, sized optionally by enrollment. Governance is encoded by **shape and fill**, so it survives any color-by metric (nothing rounded):
+- **One marker per school**, sized optionally by enrollment. Every school is a filled square. When coloring by **school type**, governance is also encoded by **shape and fill** (nothing rounded), and the legend draws each type with its shape (D-026 dropped the shapes from metric views):
   - District-run: filled square
-  - Charter: hollow square (2px stroke in the metric color)
+  - Charter: hollow square (2px stroke in the type color)
   - Contract / options: filled diamond (square rotated 45°)
-  - Legend always shows the three shapes; schools excluded from comparisons (see §3a) keep their color but drop to 40% opacity.
+  - Schools excluded from comparisons (see §3a) keep their color but drop to 40% opacity.
 - **"Color by" selector** — one metric at a time, using the existing 6-step `--seq-*` ramp (quantile bins, legend shows bin edges). Categorical metrics (school type) use `--s1..s4`. Any diverging scale (e.g., enrollment change) needs a new palette run through the same validator.
 - **Optional choropleth mode** (setting): shade Board subdistricts (or community areas) by enrollment-weighted average of the chosen metric.
 - **Filters:** school type, grade band (ES / HS / combo), network, subdistrict, "has data for this metric".

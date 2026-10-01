@@ -24,14 +24,19 @@
 7. **The legend had a separate year line ("SY26-27") and always showed a "No data" key.** **Fixed:** the year sits next to the title, and the "No data" key appears only when a visible school has no data.
 8. **Header and sidebar noise.** The header said "639 of 639 schools" when nothing was filtered, and "Reset filters" showed even with no filters set. **Fixed:** the header reads "639 schools" until a filter applies, and Reset appears only when a filter is set. On phones the "Roster … data built …" line is hidden, so the header is 130 px tall instead of about 155 px.
 
-## Recommended next, not done
+## Second pass, done after the owner said "go"
 
-These need the owner's call, or more than a trim:
+| | Before | After |
+|---|---|---|
+| Sidebar | Search, Color by, then four filter dropdowns, a checkbox and Reset, always open | Search and Color by; filters fold under "Filters", which shows "· N on" when any are set and opens itself when a link carries filters |
+| Color by menu | Full labels, cut off at 260px ("Low income / economically disa…") | Short names ("Low income"). The full label stays in the legend, the table header and the option's tooltip |
+| Governance shapes | Hollow charter squares and diamonds in every view, with a shape key in every legend | Shapes only when coloring by school type (D-026). The legend draws each type with its shape, and clusters in that view fill by type |
+| School panel | The measure you were looking at was somewhere among about 30 tiles | It opens with a highlighted line: the measure, its year, the school's value and the city median |
+| Data and sources page (1280px) | 7,185 px | 1,851 px. Each source is a one-line summary (title and publisher) that opens for detail. The 54-row field table sits behind "Show all 54 values" |
 
-- **Collapse the four filter dropdowns into a "Filters" disclosure** that shows a count when any are active (for example "Filters · 2"). Search and Color by are the primary controls. Type, band, network and subdistrict are secondary, and they take most of the sidebar.
-- **Fold the shape key (District / Charter / Contract) into "About this scale"** or make it opt-in. Hollow charter squares compete with the color scale, and at a glance they read like the dashed "no data" squares. Another option is to drop the shape encoding except when coloring by school type.
-- **Shorten the Color by labels.** "Low income / economically disadvantaged (%)" is cut off in the 260 px sidebar. The full label could appear in the legend and a short one in the menu.
-- **Highlight the current Color by measure in the panel**, for example by moving its tile to the top. When a reader clicks a school, they usually want the measure they were looking at.
-- **Data and sources page:** about 7,000 px long. Collapse each source's "What we take / To get it yourself" detail and the 60-row field table under disclosures, so the page opens as an index.
-- **Methodology page:** fine at its current length.
+I also fixed a stray apostrophe on the Data page ("'In schools.csv").
+
+## Still open
+
 - **Real-phone check** of all of the above. Only emulated viewports were checked.
+- **Phone map density:** at 360px most markers overlap, so the map is mostly clusters until you zoom. Opening phones in table view (the current default under 760px) is the right answer, so I left it alone.
