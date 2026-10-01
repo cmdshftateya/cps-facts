@@ -359,3 +359,16 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 **Decision:** **DECISIONS.md, WORKLOG.md and emails.md stay markdown but follow a strict, documented entry format** (one `## D-0xx · Title` section per decision with Date, Status, Supersedes, Who, Tags and Where fields; the existing work-log headings and fields; Sent, Status and Related lines per email). `tools/logs.py` parses them into an index, single entries, filters and JSON, and `tests/test_logs.py` fails when a file drifts. The SessionStart hook prints `tools/logs.py brief`.
 
 **Why:** Agents should skim the index and pull only the entries they need instead of loading every log into context. Markdown with fixed fields keeps the files readable on GitHub and diffable, with no second source of truth to keep in sync (a YAML or JSON source would need a generated markdown copy).
+
+## D-029 · Each school has a share page with its own preview card
+
+- **Date:** 2026-10-01
+- **Status:** Active
+- **Who:** Owner asked for per-school previews; agent proposed the design and he approved it
+- **Tags:** ui, sharing
+- **Where:** `5b9f1914`
+
+**Decision:** **Every school gets a static page at `/s/<id>/` with its own Open Graph and Twitter tags and a 1200×630 card, generated at build time.** The page redirects browsers to `/#school=<id>`, and the map shows the selected school as `/s/<id>/` in the address bar (report card: `/s/<id>/#card=1`; old `#school=` links still work). The card shows the school name, a badge made from its name (six-point star, initials, colour and pattern hashed from id and name; this encodes no data), a star at its location on the city outline, and three numbers with school years: students, low income, and 4-year graduation (high and combined schools) or attendance (elementary). Suppressed and missing values are spelled out, never shown as 0.
+
+**Why:** Preview bots never see a URL's `#` fragment, so every school link showed the same site image. Static pages keep the site free and serverless (a Worker drawing images on request was the alternative). The location star tells a Chicago reader the most at a glance; the name badge makes each card recognizable; three numbers stay legible at thumbnail size. About 28 MB of PNGs, rewritten only when pixels change.
+
