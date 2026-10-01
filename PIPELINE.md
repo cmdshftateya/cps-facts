@@ -53,6 +53,10 @@ git add -A && git commit && git push   # data/ and site/data/ are committed, so 
 ```
 Pushing to `main` deploys automatically: the GitHub repo is connected to the Worker through Cloudflare Workers Builds (dashboard: Workers & Pages > cps-facts > Settings > Builds). The build command is empty because `site/` is committed already; the deploy command is `npx wrangler deploy`. Build logs are on the Worker's Builds tab. The pipeline itself never runs on Cloudflare (`raw/` is not in git). A manual deploy is still possible with `npx wrangler deploy`.
 
+**If a push does not deploy, or the site will not open**
+- Check the Worker's Builds tab in the Cloudflare dashboard. On 2026-10-01 a push to `main` did not produce a new Worker version; `npx wrangler deploy` (Node 22) deployed it by hand. Confirm what is live with `npx wrangler versions list`, or by comparing the size of the live `index.html` with `site/index.html`.
+- "Could not resolve host" for `schools.ateya.org` while `dig @1.1.1.1 schools.ateya.org` returns addresses means a local resolver (often the home router) cached the "no such domain" answer from before the custom domain was attached. The site is fine. Flush the Mac cache (`sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`), set DNS to 1.1.1.1 (`networksetup -setdnsservers Wi-Fi 1.1.1.1 8.8.8.8`; undo with `... empty`), restart the router, or wait. To test the live site regardless: `curl --resolve schools.ateya.org:443:104.21.24.51 https://schools.ateya.org/`.
+
 **One-time setup**
 - Wrangler needs Node 22 or newer. Install it with nvm (`nvm install 22`) and run `. ~/.nvm/nvm.sh && nvm use 22` in a new shell if `node -v` shows an older version.
 - `npx wrangler login` opens a browser to authorize Cloudflare; it must be approved by a person.
