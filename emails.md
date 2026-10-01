@@ -1,9 +1,20 @@
 # Outreach emails (sent)
 
-Recipient addresses are left blank on purpose: confirm the right office before sending.
+The questions sent to data publishers, and whether they've been answered. The letters below keep the placeholder recipient and signature they were drafted with.
+
+**Format** (parsed by `tools/logs.py outreach`, checked by `tests/test_logs.py`): each email is a `## N. Recipient: topic` heading followed by these lines, then the letter.
+
+```
+**Sent:** YYYY-MM-DD HH:MM to `address`   (or "not sent")
+**Status:** Awaiting reply | Answered YYYY-MM-DD | Bounced | No reply, closed
+**Related:** D-0xx, NOTES.md caveat N   (what to update when the answer comes)
+```
 
 ## 1. CPS budget office: Catalyst Maria
 
+**Sent:** 2026-10-01 09:59 to `financedep@cps.edu`
+**Status:** Awaiting reply
+**Related:** D-008, NOTES.md caveat 20
 **To:** [CPS Office of Budget / Finance contact]
 **Subject:** Question on FY27 budget unit U66433 (Catalyst Maria)
 
@@ -20,6 +31,9 @@ Thank you,
 
 ## 2. CPS data office: Low Income and IEP labels
 
+**Sent:** 2026-10-01 09:59 to `accountability@cps.edu` (a guessed address; watch for a bounce)
+**Status:** Awaiting reply
+**Related:** NOTES.md caveat 3
 **To:** [CPS Office of Student Information / data contact]
 **Subject:** Question on the SY2026-27 20th-day demographics file
 
@@ -38,6 +52,9 @@ Thank you,
 
 ## 3. ISBE Report Card team: per-pupil year and ACT "ELA"
 
+**Sent:** 2026-10-01 09:59 to `reportcard@isbe.net`
+**Status:** Awaiting reply
+**Related:** D-004, NOTES.md caveats 4 and 18
 **To:** [ISBE Illinois Report Card contact]
 **Subject:** Two data questions on the 2025 Report Card public data set
 
