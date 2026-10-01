@@ -3,6 +3,7 @@ import csv
 import json
 
 from .common import CPS_YEARS, DATA, ROSTER_YEAR, SUPPRESSED
+from .cps import GRADE_ORDER
 from .metrics import REGISTRY
 
 FLAT_LATEST = [  # metrics written to schools.csv as latest value + year
@@ -28,7 +29,6 @@ def _file_for(meta, metric, year):
     """Retrieval date of the file behind (metric, year)."""
     reg = REGISTRY[metric]
     src = meta["sources"][reg["source"]]["files"]
-    ytag = year.replace("-", "")[2:4] + year[-2:] if reg["source"].startswith("CPS-DEM") or reg["source"] == "CPS-MEM" else None
     for name, info in src.items():
         if reg["source"] in ("CPS-MEM", "CPS-DEM1", "CPS-DEM2"):
             if name.endswith(f"_{year[2:4]}{year[-2:]}.xlsx"):
@@ -88,8 +88,12 @@ def write_all(schools, meta, report):
                                 "suppressed" if v == SUPPRESSED else "value", reg["unit"], reg["source"],
                                 _file_for(meta, metric, y)])
             # grade-level enrollment, all three years
+            # only grades inside the school's enrolled span (a 0 inside the span is a real 0; outside it is "not offered")
             for y, grades in sorted(s["_grades_by_year"].items()):
-                for g, n in grades.items():
+                nz = [i for i, g in enumerate(GRADE_ORDER) if grades.get(g, 0) > 0]
+                span = GRADE_ORDER[nz[0]:nz[-1] + 1] if nz else []
+                for g in span:
+                    n = grades[g]
                     w.writerow([s["id"], f"enrollment_grade_{g}", y, n, "value", "count", "CPS-MEM",
                                 _file_for(meta, "enrollment", y)])
 

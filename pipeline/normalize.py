@@ -16,8 +16,7 @@ from .common import CPS_YEARS, RAW, ROOT, ROSTER_YEAR, SUPPRESSED
 from .metrics import ISBE_YEARS, REGISTRY, SOURCES
 
 # --- display rules (documented in the validation report and NOTES) ---
-DEMO_SUPPRESS_BELOW = 10   # CPS demographic % shown as "*" when total enrollment is under this
-DEMO_LOW_N_FLAG = 30       # flagged low_n (percentages swing on a handful of students)
+DEMO_LOW_N_FLAG = 30       # flagged low_n (label only; CPS values are published as given, never hidden)
 BUDGET_PP_LOW, BUDGET_PP_HIGH = 5000, 60000   # per-pupil budget outlier flags (flag, never trim)
 
 HS_ONLY = ["grad_4yr", "ninth_on_track", "postsec_12mo", "sat_ela_prof", "sat_math_prof", "sat_ela_avg",
@@ -36,7 +35,12 @@ for _id in ("610602", "610603", "610604", "610605", "610606"):
     ISBE_CAVEATS[_id] = "isbe_predecessor_charter"
 ISBE_CAVEATS["610607"] = "isbe_predecessor_contract"
 
+# CPS budget unit U66433 covers both Catalyst Maria campuses ($22.1M / 564 students = $39k per pupil, but ~$20k on the
+# combined 1,105). Per-pupil uses combined enrollment on both schools, flagged; the budget total stays on 400115 only.
+BUDGET_K12_SHARED = {"400115": ("400115", "400182"), "400182": ("400115", "400182")}
+
 FLAG_TEXT = {
+    "budget_k12_shared": "The CPS budget unit covers both Catalyst Maria campuses (K-12); per-pupil uses their combined enrollment.",
     "isbe_predecessor_charter": "State figures describe the charter that closed, not today's district-run school.",
     "isbe_predecessor_contract": "State figures describe the contract-era school.",
     "isbe_partial_campus": "State figures cover only part of today's combined school.",
@@ -202,12 +206,11 @@ def build(t):
             grades_by_year[y] = row["grades"]
             d1, _ = series_source(t, "dem1", sid, y)
             d2, _ = series_source(t, "dem2", sid, y)
-            small = total < DEMO_SUPPRESS_BELOW
 
             def pct(v):
                 if v is None:
                     return None
-                return SUPPRESSED if small else r1(v)
+                return r1(v)
 
             for key in ("el", "iep", "li"):
                 mid = {"el": "pct_el", "iep": "pct_iep", "li": "pct_low_income"}[key]
@@ -265,6 +268,9 @@ def build(t):
             if fy27:
                 m["cps_budget_fy27"][ROSTER_YEAR] = round(fy27)
                 total = m["enrollment"].get(ROSTER_YEAR)
+                if sid in BUDGET_K12_SHARED:
+                    flags.append("budget_k12_shared")
+                    total = sum(roster[x]["total"] for x in BUDGET_K12_SHARED[sid])
                 if total:
                     pp = round(fy27 / total)
                     m["cps_budget_per_pupil"][ROSTER_YEAR] = pp
@@ -281,8 +287,16 @@ def build(t):
             if t["funds"].get(sid):
                 s["budget_funds"] = {fund_code[k]: round(v) for k, v in
                                      sorted(t["funds"][sid].items(), key=lambda kv: -kv[1]) if abs(v) >= 0.5}
-        else:
+        elif sid not in BUDGET_K12_SHARED:
             flags.append("no_budget_unit")
+        if sid in BUDGET_K12_SHARED and not (b and b["budget_units"]):
+            # no unit of its own: per-pupil comes from the shared unit on the partner campus
+            partner = next(x for x in BUDGET_K12_SHARED[sid] if x != sid)
+            pb = t["budget"].get(partner, {})
+            if pb.get("fy27_proposed_budget"):
+                total = sum(roster[x]["total"] for x in BUDGET_K12_SHARED[sid])
+                m["cps_budget_per_pupil"][ROSTER_YEAR] = round(float(pb["fy27_proposed_budget"]) / total)
+                flags.append("budget_k12_shared")
         if s["type"] != "district":
             flags.append("budget_not_comparable")
 
@@ -318,7 +332,6 @@ def build_meta(t, fund_code, problems, ppe_fence):
         "isbe_years": ISBE_YEARS,
         "value_model": "m[metric][school_year]: number, \"*\" = suppressed, absent = no data. Percentages 0-100.",
         "rules": {
-            "demo_suppress_below": DEMO_SUPPRESS_BELOW,
             "demo_low_n_flag": DEMO_LOW_N_FLAG,
             "budget_per_pupil_outlier": [BUDGET_PP_LOW, BUDGET_PP_HIGH],
             "ppe_outlier_fence_3xIQR": [round(ppe_fence[0]), round(ppe_fence[1])],
