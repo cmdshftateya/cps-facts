@@ -58,7 +58,7 @@ Pushing to `main` does two things automatically:
 - **GitHub Actions** runs `tests/test_published.py` (`.github/workflows/test.yml`); see the Actions tab.
 - **Cloudflare Workers Builds** deploys `site/` to schools.ateya.org (dashboard: Workers & Pages > cps-facts > Settings > Builds; logs on the Builds tab). The build command is empty because `site/` is committed already; the deploy command is `npx wrangler deploy`.
 
-The pipeline itself never runs on Cloudflare or in CI (`raw/` is not in git). When a source or URL changes, edit `sources_catalog.py` as well, so the Data and sources page stays accurate. When the methodology changes, edit `NOTES.md` (it becomes the Methodology page).
+The pipeline itself never runs on Cloudflare or in CI (`raw/` is not in git). When a source or URL changes, edit `sources_catalog.py` as well, so the Data and sources page stays accurate. When the methodology changes, edit `METHODOLOGY.md` (it becomes the Methodology page) and, for the detail behind it, `NOTES.md`.
 
 **If the site does not update, or will not open**
 - Check the Builds tab. Confirm what is live with `npx wrangler versions list` (Node 22), or compare the live `index.html` with `site/index.html` (Cloudflare adds a small script, so sizes differ by about 1 KB). A manual deploy is always possible with `npx wrangler deploy`.

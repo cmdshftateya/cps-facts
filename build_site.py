@@ -154,8 +154,8 @@ def downloads():
 
 
 def methodology():
-    """NOTES.md -> site/methodology.html (minimal converter: headings, tables, lists, paragraphs)."""
-    out, lines, i = [], (ROOT / "NOTES.md").read_text().split("\n"), 0
+    """METHODOLOGY.md -> site/methodology.html (minimal converter: headings, tables, lists, paragraphs)."""
+    out, lines, i = [], (ROOT / "METHODOLOGY.md").read_text().split("\n"), 0
     while i < len(lines):
         ln = lines[i]
         if ln.startswith("|"):

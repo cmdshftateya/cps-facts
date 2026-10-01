@@ -84,7 +84,7 @@ Rules:
 ## 4. Companion views
 
 - **Table view** of all schools, sortable, same filters — the accessible equivalent of the map and the mobile default.
-- **Methodology page** (built from `NOTES.md`): source list, join logic (CPS ID ↔ RCDTS), definitions, suppression rules, known caveats (charter spending comparability, budget vs. expenditure).
+- **Methodology page** (built from `METHODOLOGY.md`): source list, join logic (CPS ID ↔ RCDTS), definitions, suppression rules, known caveats (charter spending comparability, budget vs. expenditure).
 - **CSV/JSON download** of the normalized dataset.
 
 ## 5. Non-functional
@@ -116,4 +116,4 @@ Rules:
 9. **HS test:** per `hs-assessment-proposal.md`, plus a settings toggle for a benchmark-based estimate per `hs-score-benchmark-method.md`. *(decided; ISBE "ELA" column meaning to confirm)*
 10. **Catalyst Maria HS (400182):** no ISBE row of its own; ISBE reports it under 400115. Show ISBE values on 400115 only; 400182 shows "no separate state data" plus CPS enrollment/demographics. *(decided)*
 
-Plain-language record of choices and caveats: `NOTES.md` (source for the Methodology page, §4).
+Plain-language record of choices and caveats: `NOTES.md` (detailed notes) and `METHODOLOGY.md` (source for the Methodology page, §4).

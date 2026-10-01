@@ -123,8 +123,18 @@
   #tablev td button{border:0;padding:0;text-align:left;font-size:13px;font-weight:600;background:none}
   #tablev td button:hover{background:none;color:var(--ink);text-decoration:underline}
   /* settings */
-  #setbtn{position:fixed;right:14px;bottom:14px;width:44px;height:44px;padding:0;background:var(--surface);z-index:20;display:grid;place-items:center}
+  #setbtn{position:fixed;right:14px;bottom:14px;height:44px;padding:0 14px;background:var(--surface);z-index:20;display:flex;gap:8px;align-items:center;font-size:14px}
   #setbtn svg{fill:currentColor}
+  .seg{display:flex;margin-bottom:6px}
+  .seg button{flex:1;border-right-width:0;padding:6px 4px;font-size:13px}
+  .seg button:last-child{border-right-width:var(--bay)}
+  .seg button[aria-pressed=true]{background:var(--ink);color:var(--page)}
+  #g11tog .hint,.hint{font-size:11px;color:var(--muted);margin:0 0 10px}
+  #legend .sh svg{flex:none}
+  .cl{cursor:pointer}
+  .cl circle{stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke}
+  .cl text{fill:var(--ink);stroke:var(--page);stroke-width:3px;paint-order:stroke;stroke-linejoin:round;font-family:var(--font-ui);font-weight:700;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+  .cl:focus-visible{outline:none}.cl:focus-visible circle{stroke:var(--blue);stroke-width:3}
   #setmenu{position:fixed;right:14px;bottom:66px;width:340px;max-height:calc(100vh - 90px);overflow:auto;background:var(--surface);border:var(--bay) solid var(--rule-firm);z-index:20;padding:12px 14px}
   #setmenu[hidden]{display:none}
   #setmenu h3{margin:0 0 10px;font:700 15px var(--font-display);text-transform:uppercase;letter-spacing:.06em}
@@ -141,7 +151,7 @@
     #legend{max-width:calc(100% - 24px)}
     #panel{position:fixed;left:0;right:0;bottom:0;max-height:60vh;border-left:0;border-top:var(--bay) solid var(--rule-firm);z-index:10}
     #setmenu{left:0;right:0;bottom:0;width:auto;max-height:70vh;border-width:var(--bay) 0 0}
-    #setbtn{bottom:14px}
+    main.open~#setbtn{display:none}
   }
 </style>
 </head>
@@ -155,6 +165,11 @@
       <div id="res" hidden></div>
       <label for="metric">Color by</label>
       <select id="metric"></select>
+      <div id="g11tog" hidden>
+        <div class="lbl">Grade 11 score as</div>
+        <div class="seg" role="group" aria-label="Grade 11 score measure"><button id="g-prof" type="button">% proficient</button><button id="g-gap" type="button">Vs. college-ready</button></div>
+        <div class="hint" id="g11hint"></div>
+      </div>
     </div>
     <div class="blk">
       <label for="f-type">School type</label><select id="f-type"></select>
@@ -175,22 +190,18 @@
   <div class="rz" id="rz-a" role="separator" aria-orientation="vertical" aria-label="Resize filters column" tabindex="0"></div>
   <div class="rz" id="rz-p" role="separator" aria-orientation="vertical" aria-label="Resize school profile column" tabindex="0"></div>
 </main>
-<button id="setbtn" aria-label="Settings" aria-expanded="false" aria-controls="setmenu"><svg width="22" height="22" viewBox="-10 -10 20 20" aria-hidden="true"><polygon points="0,-9 2.6,-4.5 7.8,-4.5 5.2,0 7.8,4.5 2.6,4.5 0,9 -2.6,4.5 -7.8,4.5 -5.2,0 -7.8,-4.5 -2.6,-4.5"/></svg></button>
+<button id="setbtn" aria-expanded="false" aria-controls="setmenu" title="Comparison set, year policy, map mode, theme"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 4h14M2 9h14M2 14h14" stroke="currentColor" stroke-width="2" fill="none"/><rect x="11" y="2" width="4" height="4"/><rect x="3" y="7" width="4" height="4"/><rect x="9" y="12" width="4" height="4"/></svg><span>Settings</span></button>
 <div id="setmenu" hidden role="dialog" aria-label="Settings">
   <h3>Settings</h3>
   <label for="s-set">Comparison set</label>
   <select id="s-set"><option value="all">All schools</option><option value="district">District-run only</option></select>
   <div class="hint">District-run only: charter, contract and options schools stay on the map (dimmed) but are left out of bins and medians.</div>
-  <label for="s-spend">Spending figure</label>
-  <select id="s-spend"><option value="ppe">ISBE per-pupil expenditure (comparable)</option><option value="cps">CPS FY27 budget per pupil</option></select>
   <label for="s-year">Year policy</label>
   <select id="s-year"></select>
+  <div class="hint">“SY2024-25” means the 2024–25 school year. “Latest available” shows each measure's newest year; “Aligned” compares every measure from one year.</div>
   <label for="s-mode">Map mode</label>
   <select id="s-mode"><option value="points">School points</option><option value="sub">Subdistrict shading</option></select>
   <label class="chk"><input type="checkbox" id="s-size"> Size markers by enrollment</label>
-  <label for="s-g11">Grade 11 test measure</label>
-  <select id="s-g11"><option value="prof">State proficiency % (SAT to 2024, ACT from 2025)</option><option value="gap">Score vs national benchmark (estimate)</option></select>
-  <div class="hint">Benchmark view: average score minus ACT's college-readiness benchmark (ELA 20, math 22), in points. SAT years (to SY2023-24) are converted to the ACT scale and marked "est." Unlike proficiency, it can be compared across the 2025 test change.</div>
   <label for="s-theme">Theme</label>
   <select id="s-theme"><option value="auto">Auto</option><option value="dark">Dark</option><option value="light">Light</option></select>
   <button id="s-reset">Reset settings</button>
@@ -202,21 +213,21 @@ const NS="http://www.w3.org/2000/svg";
 const TYPES={district:"District-run",charter:"Charter",contract:"Contract",options:"Options"};
 const BANDS={ES:"Elementary",HS:"High school",combo:"Combined"};
 const CATCOL={district:"var(--s1)",charter:"var(--s2)",contract:"var(--s3)",options:"var(--s4)"};
-const DEF_SET={set:"all",spend:"ppe",year:"latest",mode:"points",size:false,theme:"auto",g11:"prof"};
+const DEF_SET={set:"all",year:"latest",mode:"points",size:false,theme:"auto"};
 const DEF_METRIC="pct_low_income";
 
 // color-by menu: [group, key]. "spend", g11_ela, g11_math are virtual (see init)
 const CB=[["Categorical","type"],["Enrollment","enrollment"],["Enrollment","enrollment_change"],
  ["Demographics","pct_low_income"],["Demographics","pct_el"],["Demographics","pct_iep"],["Demographics","pct_latinx"],["Demographics","pct_black"],["Demographics","pct_white"],["Demographics","pct_asian"],["Demographics","pct_homeless"],
- ["Spending","spend"],
- ["Outcomes","iar_ela_prof"],["Outcomes","iar_math_prof"],["Outcomes","ela_growth"],["Outcomes","math_growth"],["Outcomes","g11_ela"],["Outcomes","g11_math"],["Outcomes","attendance_rate"],["Outcomes","chronic_absent"],["Outcomes","grad_4yr"],["Outcomes","ninth_on_track"],["Outcomes","postsec_12mo"],
+ ["Spending","spend"],["Spending","spend_cps"],
+ ["Outcomes","iar_ela_prof"],["Outcomes","iar_math_prof"],["Outcomes","ela_growth"],["Outcomes","math_growth"],["Outcomes","g11_ela"],["Outcomes","g11_math"],["Outcomes","g11_ela_gap"],["Outcomes","g11_math_gap"],["Outcomes","attendance_rate"],["Outcomes","chronic_absent"],["Outcomes","grad_4yr"],["Outcomes","ninth_on_track"],["Outcomes","postsec_12mo"],
  ["5Essentials","fe_leaders"],["5Essentials","fe_teachers"],["5Essentials","fe_families"],["5Essentials","fe_environment"]];
 const FAMILIES=[
  ["Enrollment",["enrollment"]],
  ["Demographics",["pct_low_income","pct_el","pct_iep","pct_latinx","pct_black","pct_white","pct_asian","pct_multiracial","pct_homeless"]],
- ["Spending",["spend","ppe_site","ppe_central","cps_budget_fy27","cps_budget_fy26_projected","cps_positions_fy27"]],
- ["Outcomes",["iar_ela_prof","iar_math_prof","ela_growth","math_growth","g11_ela","g11_math","act_ela_avg","act_math_avg","attendance_rate","chronic_absent","grad_4yr","ninth_on_track","postsec_12mo"]],
- ["5Essentials survey",["fe_leaders","fe_teachers","fe_families","fe_environment"]]];
+ ["Spending",["spend","spend_cps","ppe_site","ppe_central","cps_budget_fy27","cps_budget_fy26_projected","cps_positions_fy27"]],
+ ["Outcomes",["iar_ela_prof","iar_math_prof","ela_growth","math_growth","g11_ela","g11_math","g11_ela_gap","g11_math_gap","act_ela_avg","act_math_avg","attendance_rate","chronic_absent","grad_4yr","ninth_on_track","postsec_12mo"]],
+ ["5Essentials",["fe_leaders","fe_teachers","fe_families","fe_environment"]]];
 
 let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",view:"map",sort:"name",dir:1,...DEF_SET},bins=[],medCache={};
 
@@ -226,6 +237,8 @@ fetch("data/schools.json").then(r=>r.json()).then(init).catch(e=>{document.body.
 function virtual(){
   const M=D.meta.metrics;
   M.spend={label:"Per-pupil spending",unit:"usd",family:"spending",breaks:[],note:""};
+  M.spend_cps={label:"Per-pupil budget",unit:"usd",family:"spending",breaks:[],note:""};
+  for(const k of ["g11_ela_gap","g11_math_gap"])if(M[k])M[k].diverging="gap";
   for(const [k,sub] of [["g11_ela","ela"],["g11_math","math"]]){
     const a=M["sat_"+sub+"_prof"],b=M["act_"+sub+"_prof"];
     M[k]={label:"Grade 11 "+(sub==="ela"?"ELA":"math")+" proficiency (%)",unit:"pct",family:"outcomes",breaks:["2024-25"],years:[...a.years,...b.years],
@@ -234,11 +247,11 @@ function virtual(){
   }
   M.enrollment.label="Enrollment (20th day)";
   // enrollment change: zero-centered, so it uses fixed bins and the diverging ramp, not quantiles
-  M.enrollment_change={label:"Enrollment change, SY2024-25 to SY2026-27 (%)",unit:"pctchg",family:"enrollment",breaks:[],years:["2026-27"],diverging:true,
+  M.enrollment_change={label:"Enrollment change, SY2024-25 to SY2026-27 (%)",unit:"pctchg",family:"enrollment",breaks:[],years:["2026-27"],diverging:"enroll",
     note:"Change in 20th-day enrollment over three school years. Fixed bins around zero: about flat is -3% to +3%. Converted charters use their predecessor's earlier counts."};
   for(const s of S){const ec=s.enrollment_change;if(ec&&ec.pct!==null&&ec.pct!==undefined)s.m.enrollment_change={[ec.to]:ec.pct}}
 }
-function seriesKey(k){if(st.g11==="gap"&&(k==="g11_ela"||k==="g11_math"))return k+"_gap";return k==="spend"?(st.spend==="ppe"?"ppe_total":"cps_budget_per_pupil"):k}
+function seriesKey(k){return k==="spend"?"ppe_total":k==="spend_cps"?"cps_budget_per_pupil":k}
 function get(s,k){
   const ser=s.m[seriesKey(k)];if(!ser)return null;
   if(st.year==="latest"){const ys=Object.keys(ser).sort();const y=ys[ys.length-1];return y?{v:ser[y],sy:y}:null}
@@ -252,7 +265,7 @@ function fmt(k,v){
   if(u==="pctchg")return (v>0?"+":"")+v.toFixed(1)+"%";if(u==="points")return (v>0?"+":"")+v.toFixed(1);if(u==="level")return v.toFixed(1)+" / 5";if(u==="percentile")return Math.round(v)+"";
   if(u==="score")return v.toFixed(1);return Math.round(v).toLocaleString();
 }
-function label(k){return k==="spend"?(st.spend==="ppe"?"Per-pupil spending (ISBE)":"Per-pupil budget (CPS FY27)"):k==="type"?"School type":R[seriesKey(k)].label}
+function label(k){return k==="spend"?"Per-pupil spending (state figure, comparable)":k==="spend_cps"?"Per-pupil budget (CPS FY27, proposed)":k==="type"?"School type":R[seriesKey(k)].label}
 function metricYears(k){const ys=new Set();for(const s of S){const g=get(s,k);if(g&&typeof g.v==="number")ys.add(g.sy)}return [...ys].sort()}
 const sy=y=>"SY"+y.slice(2);
 
@@ -275,10 +288,11 @@ function init(data){
 const defView=()=>matchMedia("(max-width:760px)").matches?"table":"map";
 function opts(id,pairs,all){const el=$(id);el.innerHTML="";el.append(new Option(all,""));for(const [v,l] of pairs)el.append(new Option(l,v))}
 function wire(){
-  $("metric").onchange=e=>{st.metric=e.target.value;render()};
+  $("metric").onchange=e=>{st.metric=e.target.value;syncG11();render()};
   for(const [id,k] of [["f-type","type"],["f-band","band"],["f-net","net"],["f-sub","sub"]])$(id).onchange=e=>{st[k]=e.target.value;render()};
   $("f-has").onchange=e=>{st.has=e.target.checked;render()};
   $("reset").onclick=()=>{Object.assign(st,{type:"",band:"",net:"",sub:"",has:false});$("q").value="";hideRes();syncControls();render()};
+  for(const [id,gap] of [["g-prof",false],["g-gap",true]])$(id).onclick=()=>{st.metric=g11Pair(st.metric,gap);syncControls();render()};
   $("v-map").onclick=()=>{st.view="map";render()};$("v-tbl").onclick=()=>{st.view="table";render()};
   $("tablev").onclick=e=>{
     const th=e.target.closest("th[data-k]");
@@ -287,7 +301,7 @@ function wire(){
   };
   $("q").oninput=search;
   $("q").onkeydown=e=>{if(e.key==="Enter"){const b=$("res").querySelector("button");if(b)b.click()}};
-  for(const [id,k] of [["s-set","set"],["s-spend","spend"],["s-year","year"],["s-mode","mode"],["s-g11","g11"],["s-theme","theme"]])$(id).onchange=e=>{st[k]=e.target.value;settingsChanged()};
+  for(const [id,k] of [["s-set","set"],["s-year","year"],["s-mode","mode"],["s-theme","theme"]])$(id).onchange=e=>{st[k]=e.target.value;settingsChanged()};
   $("s-size").onchange=e=>{st.size=e.target.checked;settingsChanged()};
   $("s-reset").onclick=()=>{Object.assign(st,DEF_SET);syncControls();settingsChanged()};
   $("setbtn").onclick=e=>{e.stopPropagation();toggleMenu()};
@@ -298,11 +312,20 @@ function wire(){
 }
 function toggleMenu(open){const m=$("setmenu");const o=open===undefined?m.hidden:open;m.hidden=!o;$("setbtn").setAttribute("aria-expanded",o)}
 function settingsChanged(){saveSettings();applyTheme();for(const o of $("metric").options)o.textContent=label(o.dataset.k);render()}
+const isG11=k=>/^g11_(ela|math)(_gap)?$/.test(k);
+const g11Pair=(k,gap)=>k.replace(/_gap$/,"")+(gap?"_gap":"");
+function syncG11(){
+  const on=isG11(st.metric),gap=on&&st.metric.endsWith("_gap");$("g11tog").hidden=!on;
+  $("g-prof").setAttribute("aria-pressed",on&&!gap);$("g-gap").setAttribute("aria-pressed",gap);
+  $("g11hint").textContent=gap
+    ?"Average score minus the college-readiness benchmark (ACT 20 in English, 22 in math), in points; negative means below it. SAT years (to SY2023-24) are converted and marked “est.” Comparable across the 2025 test change."
+    :"Share of juniors the state rates proficient. The test and cut scores changed in 2025, so don't compare 2024 with 2025; use “Vs. college-ready” for that.";
+}
 function syncControls(){
   $("metric").value=st.metric;$("f-type").value=st.type;$("f-band").value=st.band;$("f-net").value=st.net;$("f-sub").value=st.sub;$("f-has").checked=st.has;
-  $("s-set").value=st.set;$("s-spend").value=st.spend;$("s-year").value=st.year;$("s-mode").value=st.mode;$("s-size").checked=st.size;$("s-theme").value=st.theme;$("s-g11").value=st.g11;
+  $("s-set").value=st.set;$("s-year").value=st.year;$("s-mode").value=st.mode;$("s-size").checked=st.size;$("s-theme").value=st.theme;
   for(const o of $("metric").options)o.textContent=label(o.dataset.k);
-  applyTheme();
+  applyTheme();syncG11();
 }
 function applyTheme(){if(st.theme==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.dataset.theme=st.theme}
 
@@ -321,13 +344,15 @@ function readHash(){
   const u=new URLSearchParams(location.hash.slice(1));
   const keys=new Set(CB.map(c=>c[1]));
   st.metric=keys.has(u.get("m"))?u.get("m"):DEF_METRIC;
+  if(st.metric==="spend"&&u.get("s_spend")==="cps")st.metric="spend_cps";
+  if((st.metric==="g11_ela"||st.metric==="g11_math")&&u.get("s_g11")==="gap")st.metric+="_gap";   // old links: benchmark view was a setting
   const t=u.get("type"),b=u.get("band");
   st.type=TYPES[t]?t:"";st.band=BANDS[b]?b:"";
   st.net=S.some(s=>s.network===u.get("net"))?u.get("net"):"";st.sub=S.some(s=>s.subdistrict===u.get("sub"))?u.get("sub"):"";
   st.view=["map","table"].includes(u.get("v"))?u.get("v"):defView();
   st.has=u.get("has")==="1";const sc=u.get("school");st.sel=S.some(s=>s.id===sc)?sc:"";
   // settings in the URL win over remembered ones; otherwise keep what localStorage loaded
-  const ok={set:["all","district"],spend:["ppe","cps"],mode:["points","sub"],theme:["auto","dark","light"],g11:["prof","gap"]};
+  const ok={set:["all","district"],mode:["points","sub"],theme:["auto","dark","light"]};
   for(const k of SETKEYS){
     const v=u.get("s_"+k);if(v===null)continue;
     if(k==="size")st.size=v==="1";
@@ -350,6 +375,7 @@ function buildMap(){
     sdEl[s.id]=e;
   }
   const g=document.createElementNS(NS,"g");svg.append(g);
+  cg=document.createElementNS(NS,"g");svg.append(cg);
   for(const s of S){
     const e=document.createElementNS(NS,"rect");
     if(s.type==="contract"||s.type==="options")e.setAttribute("transform",`rotate(45 ${s.x} ${s.y})`);
@@ -364,10 +390,13 @@ function buildMap(){
   panZoom(svg,w,h);
 }
 // pan/zoom by rewriting the viewBox: wheel, drag, pinch, double-click, +/- buttons
-let moved=false;
+let moved=false,cg,mapApi,cq=0;
+const V={x:0,y:0,w:1,h:1};   // current viewBox, shared with clustering and the size key
+const mapScale=()=>{const r=$("map").getBoundingClientRect();return r.width?Math.min(r.width/V.w,r.height/V.h):0};
+const MAXZ=40;
 function panZoom(svg,W,H){
-  let v={x:0,y:0,w:W,h:H};const MAXZ=40;
-  const apply=()=>{svg.setAttribute("viewBox",`${v.x} ${v.y} ${v.w} ${v.h}`)};
+  const v=V;Object.assign(v,{x:0,y:0,w:W,h:H});
+  const apply=()=>{svg.setAttribute("viewBox",`${v.x} ${v.y} ${v.w} ${v.h}`);cq||(cq=requestAnimationFrame(()=>{cq=0;clusters();sizeKey()}))};
   const clamp=()=>{v.w=Math.min(W,Math.max(W/MAXZ,v.w));v.h=v.w*H/W;v.x=Math.min(W-v.w,Math.max(0,v.x));v.y=Math.min(H-v.h,Math.max(0,v.y))};
   const rect=()=>svg.getBoundingClientRect();
   // map client point -> viewBox coords, accounting for preserveAspectRatio letterboxing
@@ -394,16 +423,62 @@ function panZoom(svg,W,H){
   const bar=document.createElement("div");bar.className="zoom";
   bar.innerHTML='<button aria-label="Zoom in">+</button><button aria-label="Zoom out">−</button><button aria-label="Reset view">⌂</button>';
   const [bi,bo,br]=bar.children,mid=()=>{const r=rect();return[r.left+r.width/2,r.top+r.height/2]};
-  bi.onclick=()=>zoomAt(...mid(),1.6);bo.onclick=()=>zoomAt(...mid(),1/1.6);br.onclick=()=>{v={x:0,y:0,w:W,h:H};apply()};
+  bi.onclick=()=>zoomAt(...mid(),1.6);bo.onclick=()=>zoomAt(...mid(),1/1.6);br.onclick=()=>{Object.assign(v,{x:0,y:0,w:W,h:H});apply()};
   st0.append(bar);
+  new ResizeObserver(()=>apply()).observe(svg);
+  // zoom so a box (viewBox units) fills the view, always zooming in by at least 1.6x and at most 4x
+  mapApi={zoomBox(x0,y0,x1,y1){
+    let nw=Math.max((x1-x0)*1.8,(y1-y0)*1.8*W/H);nw=Math.max(W/MAXZ,Math.min(v.w/1.6,Math.max(nw,v.w/4)));
+    v.w=nw;v.h=nw*H/W;v.x=(x0+x1)/2-v.w/2;v.y=(y0+y1)/2-v.h/2;clamp();apply()}};
+}
+// group nearby schools into numbered circles at wide zoom; they split as you zoom in
+const CELL=15;   // screen px: about one marker, so only markers that really overlap merge
+function clusters(){
+  if(!cg)return;
+  cg.replaceChildren();for(const s of S)mk[s.id].style.display="";
+  const k=mapScale();
+  if(!k||shading()||st.view!=="map"||V.w<=D.map.viewbox[0]/MAXZ*1.01)return;
+  const cell=CELL/k,b=new Map();
+  for(const s of S){
+    if(!visible(s)||s.id===st.sel)continue;
+    const key=Math.floor(s.x/cell)+","+Math.floor(s.y/cell);
+    if(b.has(key))b.get(key).push(s);else b.set(key,[s]);
+  }
+  for(const m of b.values()){
+    if(m.length<2)continue;
+    let cx=0,cy=0,x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    for(const s of m){mk[s.id].style.display="none";cx+=s.x;cy+=s.y;x0=Math.min(x0,s.x);x1=Math.max(x1,s.x);y0=Math.min(y0,s.y);y1=Math.max(y1,s.y)}
+    cx/=m.length;cy/=m.length;
+    const r=Math.min(16,8.5+1.2*Math.sqrt(m.length))/k;
+    const e=document.createElementNS(NS,"g");e.setAttribute("class","cl");e.setAttribute("tabindex","0");e.setAttribute("role","button");
+    e.setAttribute("aria-label",`${m.length} schools. Zoom in.`);
+    const c=document.createElementNS(NS,"circle");c.setAttribute("cx",cx);c.setAttribute("cy",cy);c.setAttribute("r",r);
+    const tx=document.createElementNS(NS,"text");tx.setAttribute("x",cx);tx.setAttribute("y",cy);tx.setAttribute("font-size",12/k);tx.textContent=m.length;
+    // fill with the members' average value so the map still reads as a heat map
+    const vs=cat()?[]:m.map(s=>num(s,st.metric)).filter(v=>v!==null);
+    c.style.fill=vs.length&&bins.length?binColor(vs.reduce((a,b)=>a+b,0)/vs.length):"var(--page)";
+    e.append(c,tx);
+    const go=()=>{$("tip").style.display="none";mapApi.zoomBox(x0,y0,x1,y1)};
+    e.onclick=ev=>{ev.stopPropagation();if(!moved)go()};
+    e.onkeydown=ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go()}};
+    for(const n of ["mouseenter","mousemove"])e.addEventListener(n,ev=>showTip(`${m.length} schools · click to zoom in`,ev));
+    e.addEventListener("mouseleave",()=>$("tip").style.display="none");
+    cg.append(e);
+  }
 }
 function visible(s){
   return (!st.type||s.type===st.type)&&(!st.band||s.band===st.band)&&(!st.net||s.network===st.net)&&(!st.sub||s.subdistrict===st.sub)&&(!st.has||st.metric==="type"||num(s,st.metric)!==null);
 }
 const cat=()=>st.metric==="type";
-const DIV_EDGES=[-20,-10,-3,3,10,20];   // decline <-> about flat <-> growth; 7 classes, three per arm
-const div=()=>!!R[seriesKey(st.metric)]?.diverging;
-const divBin=v=>v<-20?1:v<-10?2:v<-3?3:v<=3?4:v<=10?5:v<=20?6:7;
+// zero-centered metrics: 7 fixed classes, three per arm, the middle one means "about zero"
+const sgn=(v,u)=>(v>0?"+":"−")+Math.abs(v)+u;
+const DIVS={
+  enroll:{edges:[-20,-10,-3,3,10,20],fmt:v=>sgn(v,"%"),lo:"◄ Decline",mid:"About flat",hi:"Growth ►"},
+  gap:{edges:[-9,-5,-1,1,5,9],fmt:v=>sgn(v,""),lo:"◄ Below benchmark",mid:"At benchmark",hi:"Above ►",
+    gloss:"Points of ACT score above (+) or below (−) the national college-readiness benchmark: 20 in English/reading/writing, 22 in math."}};
+const divCfg=()=>DIVS[R[seriesKey(st.metric)]?.diverging];
+const div=()=>!!divCfg();
+const divBin=v=>{const e=divCfg().edges;return v<e[0]?1:v<e[1]?2:v<e[2]?3:v<=e[3]?4:v<=e[4]?5:v<=e[5]?6:7};
 const binColor=v=>div()?`var(--div-${divBin(v)})`:`var(--seq-${binOf(v,bins)})`;
 const shading=()=>st.mode==="sub"&&!cat();
 function quant(vs){
@@ -424,7 +499,7 @@ function computeSub(){
 function compute(){
   medCache={};
   if(cat()){bins=[];return}
-  if(div()){if(shading())computeSub();bins=DIV_EDGES;return}
+  if(div()){if(shading())computeSub();bins=divCfg().edges;return}
   if(shading()){computeSub();bins=quant(Object.values(subVals).map(x=>x.v));return}
   bins=quant(S.filter(s=>visible(s)&&inSet(s)).map(s=>num(s,st.metric)).filter(v=>v!==null));
 }
@@ -432,9 +507,15 @@ function colorOf(s){
   if(cat())return CATCOL[s.type];
   const v=num(s,st.metric);return v===null||!bins.length?null:binColor(v);
 }
+const radN=n=>Math.max(3,Math.min(13,Math.sqrt(n)/3.2));
 function radius(s){
   if(shading())return 2.5;
-  if(!st.size)return 5.5;const n=num(s,"enrollment")||0;return Math.max(3,Math.min(13,Math.sqrt(n)/3.2));
+  return st.size?radN(num(s,"enrollment")||0):5.5;
+}
+// size key drawn at the map's current zoom, since marker size scales with it
+function sizeKey(){
+  const e=$("sizekey");if(!e)return;const k=mapScale()||1;
+  e.innerHTML="<span>Marker size = enrollment:</span>"+[100,500,1000,1500].map(n=>{const d=2*radN(n)*k;return `<span><svg width="${d+2}" height="${d+2}" style="vertical-align:middle"><rect x="1" y="1" width="${d}" height="${d}" fill="var(--ink)"/></svg> ${n.toLocaleString()}</span>`}).join("");
 }
 function render(){
   compute();let n=0;const pts=!shading();
@@ -460,13 +541,11 @@ function render(){
   $("count").textContent=`${n} of ${S.length} schools`;
   const tv=st.view==="table";
   $("main").classList.toggle("tbl",tv);$("v-map").setAttribute("aria-pressed",!tv);$("v-tbl").setAttribute("aria-pressed",tv);
-  legend();if(tv)table();writeHash();panel();
+  clusters();legend();if(tv)table();writeHash();panel();
 }
 function nonDefault(){
   const a=[];
   if(st.set!==DEF_SET.set)a.push("District-run only");
-  if(st.spend!==DEF_SET.spend)a.push("CPS budget");
-  if(st.g11!==DEF_SET.g11)a.push("Grade 11: score vs benchmark (est.)");
   if(st.year==="latest"){const ys=cat()?[]:metricYears(st.metric);if(ys.length)a.push(ys.map(sy).join(", "))}else a.push("Aligned "+sy(st.year));
   if(st.mode==="sub"&&!cat())a.push("Subdistrict shading");
   const f=[];if(st.type)f.push(TYPES[st.type]);if(st.band)f.push(BANDS[st.band]);if(st.net)f.push(st.net);if(st.sub)f.push("Subdistrict "+st.sub);if(st.has)f.push("has data");
@@ -476,11 +555,13 @@ function legend(){
   const k=st.metric;let h=`<div class="lbl">${esc(label(k))}</div>`;
   if(cat())h+=Object.entries(TYPES).map(([t,l])=>`<div><span style="display:inline-block;width:10px;height:10px;background:${CATCOL[t]};margin-right:6px"></span>${l}</div>`).join("");
   else if(div()&&bins.length){
-    const m=R[seriesKey(k)];
+    const m=R[seriesKey(k)],c=divCfg();
     h+=`<div class="bins">${[1,2,3,4,5,6,7].map(i=>`<i style="background:var(--div-${i})"></i>`).join("")}</div>
-      <div class="ed" style="display:grid;grid-template-columns:repeat(7,1fr)">${DIV_EDGES.map(e=>`<span style="text-align:right;margin-right:-12px">${e>0?"+":"−"}${Math.abs(e)}%</span>`).join("")}<span></span></div>
-      <div class="ed"><span>◄ Decline</span><span>About flat</span><span>Growth ►</span></div>`;
-    h+=`<details class="note"><summary>About this scale</summary>${esc(m.note)}<br>${esc("Fixed bins"+(shading()?"; subdistrict shading is the enrollment-weighted average change":"")+". Not quantiles, so the middle always means about flat.")}</details>`;
+      <div class="ed" style="display:grid;grid-template-columns:repeat(7,1fr)">${c.edges.map(e=>`<span style="text-align:right;margin-right:-12px">${c.fmt(e)}</span>`).join("")}<span></span></div>
+      <div class="ed"><span>${c.lo}</span><span>${c.mid}</span><span>${c.hi}</span></div>`;
+    if(c.gloss)h+=`<div class="note">${esc(c.gloss)}</div>`;
+    const ys=metricYears(k);if(ys.length>1)h+=`<div class="warn">Years differ across schools: ${ys.map(sy).join(", ")}. (SY2024-25 = the 2024–25 school year.)</div>`;
+    h+=`<details class="note"><summary>About this scale</summary>${esc(m.note)}<br>${esc("Fixed bins"+(shading()?"; subdistrict shading is the enrollment-weighted average":"")+" rather than equal-sized groups, so the middle color always means "+c.mid.toLowerCase()+".")}</details>`;
   }
   else if(bins.length){
     const edges=bins.map(b=>fmt(k,b));
@@ -488,17 +569,23 @@ function legend(){
       <div class="ed">${edges.map(e=>`<span>${e}</span>`).join("")}</div>
     `;
     const ys=metricYears(k),m=R[seriesKey(k)],nt=[];
-    nt.push("Quantile bins"+(shading()?" of subdistrict averages (enrollment-weighted)":"")+(st.set==="district"?", district-run schools":"")+".");
+    nt.push("Schools are sorted into six groups of about equal size, from lowest to highest"+(shading()?" (subdistrict averages, weighted by enrollment)":"")+(st.set==="district"?", counting district-run schools only":"")+". The numbers are where one color ends and the next begins.");
     if(m&&m.note)nt.push(m.note);
-    if(ys.length>1)h+=`<div class="warn">Years differ across schools: ${ys.map(sy).join(", ")}.</div>`;
+    if(ys.length>1)h+=`<div class="warn">Years differ across schools: ${ys.map(sy).join(", ")}. (SY2024-25 = the 2024–25 school year.)</div>`;
     h+=`<details class="note"><summary>About this scale</summary>${nt.map(esc).join("<br>")}</details>`;
-  }else h+="<div class=\"note\">No data for the current filters.</div>";
-  h+=`<div class="sh"><span><svg width="14" height="14" style="vertical-align:-2px"><rect x="1" y="1" width="12" height="12" fill="var(--ink)"/></svg> District</span>
+  }else{
+    const any=S.some(s=>num(s,k)!==null);
+    h+=`<div class="note">${any?"No schools match the current filters with data for this measure. Try Reset filters."
+      :st.year==="latest"?"No school has data for this measure."
+      :`No school has data for this measure in ${sy(st.year)}. Set the year policy in Settings to “Latest available”.`}</div>`;
+  }
+  if(!shading())h+=`<div class="sh"><span><svg width="14" height="14" style="vertical-align:-2px"><rect x="1" y="1" width="12" height="12" fill="var(--ink)"/></svg> District</span>
     <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="none" stroke="var(--ink)" stroke-width="2"/></svg> Charter</span>
     <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="3" y="3" width="8" height="8" fill="var(--ink)" transform="rotate(45 7 7)"/></svg> Contract / options</span>
     <span><svg width="14" height="14" style="vertical-align:-2px"><rect x="2" y="2" width="10" height="10" fill="var(--sunk)" stroke="var(--muted)" stroke-dasharray="2 2"/></svg> No data</span></div>`;
+  if(st.size&&!shading())h+=`<div class="sh" id="sizekey"></div>`;
   const nd=nonDefault();if(nd)h+=`<div class="note">${esc(nd)}</div>`;
-  $("legend").innerHTML=h;
+  $("legend").innerHTML=h;sizeKey();
 }
 function showTip(text,ev){
   const t=$("tip");t.textContent=text;t.style.display="block";
@@ -554,7 +641,7 @@ function hideRes(){$("res").hidden=true}
 // ---------- panel
 function select(id){st.sel=id;render();if(id)$("panel").scrollTop=0}
 function median(k){
-  const key=k+"|"+st.set+"|"+st.year+"|"+st.spend+"|"+st.g11;if(key in medCache)return medCache[key];
+  const key=k+"|"+st.set+"|"+st.year;if(key in medCache)return medCache[key];
   const vs=S.filter(inSet).map(s=>num(s,k)).filter(v=>v!==null).sort((a,b)=>a-b);
   let m=null;if(vs.length){const i=vs.length>>1;m=vs.length%2?vs[i]:(vs[i-1]+vs[i])/2}
   return medCache[key]=m;
@@ -588,12 +675,12 @@ function panel(){
     for(const k of keys){
       const sk=seriesKey(k),m=R[sk];if(!m)continue;
       if(!s.m[sk]&&fam==="Outcomes")continue;           // outcomes a school can't have are omitted, not "no data"
-      if(!s.m[sk]&&fam==="5Essentials survey")continue;
+      if(!s.m[sk]&&fam==="5Essentials")continue;
       const g=get(s,k),med=g&&typeof g.v==="number"?median(k):null;
       let tr=trendOf(s,k);if(tr&&st.year!=="latest")tr=tr.filter(x=>x[0]<=st.year),tr=tr.length>=2?tr:null;
       const brk=(m.breaks||[]).length;if(brk&&m.note)notes.add(m.note);
       const lowN=fam==="Demographics"&&s.flags&&s.flags.includes("low_n");
-      cells.push(`<div class="cell"><div class="k">${esc(k==="spend"?label(k):m.label.replace(/ \(%\)$/,""))}${g?`<span class="badge">${sy(g.sy)}</span>`:""}${g&&(m.estimated_years||[]).includes(g.sy)?'<span class="badge w" title="Estimate: school mean SAT score converted to the ACT scale with the official ACT-SAT concordance">est.</span>':""}${lowN?'<span class="badge w">n&lt;30</span>':""}${brk?'<span class="badge w" title="Not comparable across a scoring or definition change">†</span>':""}</div>
+      cells.push(`<div class="cell"><div class="k">${esc(k.startsWith("spend")?label(k):m.label.replace(/ \(%\)$/,""))}${g?`<span class="badge">${sy(g.sy)}</span>`:""}${g&&(m.estimated_years||[]).includes(g.sy)?'<span class="badge w" title="Estimate: school mean SAT score converted to the ACT scale with the official ACT-SAT concordance">est.</span>':""}${lowN?'<span class="badge w">n&lt;30</span>':""}${brk?'<span class="badge w" title="Not comparable across a scoring or definition change">†</span>':""}</div>
         ${g?`<div class="v">${g.v==="*"?"suppressed":fmt(k,g.v)}</div>`:`<div class="v none">${st.year==="latest"?"no data":"no data for "+sy(st.year)}</div>`}
         ${med!==null?`<div class="c">City median ${fmt(k,med)}${st.set==="district"?" (district-run)":""}</div>`:""}${tr?spark(tr):""}</div>`);
     }

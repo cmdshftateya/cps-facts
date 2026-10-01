@@ -12,7 +12,8 @@ The project is a static, map-first site at **https://schools.ateya.org** coverin
 | [DECISIONS.md](DECISIONS.md) | Settled choices. Don't reopen them without new evidence. |
 | [REQUIREMENTS.md](REQUIREMENTS.md) | Scope, phases and display rules |
 | [PIPELINE.md](PIPELINE.md) | How to build, test, update and deploy, plus troubleshooting |
-| [NOTES.md](NOTES.md) | User-facing caveats; becomes the Methodology page |
+| [METHODOLOGY.md](METHODOLOGY.md) | The short, reader-facing Methodology page (the site builds it) |
+| [NOTES.md](NOTES.md) | Detailed caveats and working notes behind it; keep them in step |
 | [sources.md](sources.md), `sources_catalog.py` | Source audit, and the public description of each source |
 
 ```
@@ -44,7 +45,7 @@ These patterns come from the sessions so far. Update the list when you learn som
 - **He favors transparency over caution.** Publish what's published, show honest caveats, ask the source directly. Guessing an email address is acceptable to him.
 - **Cost-averse infrastructure:** static, free tiers, nothing that bills later.
 - **Messages are often dictated and terse**, so read for intent. For example, "fix the texts" meant fix the tests. If the intent is still ambiguous and the action is cheap to redo, pick the likeliest reading and say so.
-- **He asks "did you document it?"** Document as you go: PIPELINE.md for process, NOTES.md for caveats, DECISIONS.md for choices, WORKLOG.md for the session.
+- **He asks "did you document it?"** Document as you go: PIPELINE.md for process, NOTES.md for detailed caveats, METHODOLOGY.md for what readers see, DECISIONS.md for choices, WORKLOG.md for the session.
 - **"Check status and propose next steps"** expects a status table (done, open, blocked), problems found, and an ordered list of steps.
 
 ## Work log protocol
