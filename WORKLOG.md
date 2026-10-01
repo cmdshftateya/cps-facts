@@ -26,7 +26,7 @@ Carried forward until closed. Update this list in every entry that opens or clos
 **Done:** Rebased on main (per-school link cards). Share button next to Report card: a 1080×1440 PNG drawn on a canvas when the panel opens (badge, name, location star on the city outline, students, spending per student, ELA proficiency, chronic absenteeism, each with year and city median), passed to `navigator.share` with a one-line summary and `/s/<id>/`; download plus clipboard where there is no share sheet. Barlow fonts served from `site/fonts/` (about 340 KB, loaded only for sharing). Checked in the browser pane: elementary, high school with a long name, a suppressed value, 375px in dark mode, and the fallback (image saved; clipboard blocked in the pane). `tests.test_published` passes.
 **Obstacles:** No `.venv` in this worktree, so `build_site.py` and `tests.test_gates` weren't run; fonts copied by hand (same files the build copies). The pane has no Web Share, so the real share sheet is untested.
 **Decisions:** D-032.
-**Commits:** `1519566` share button and fonts · docs commit with this entry. Not pushed.
+**Commits:** `1519566` share button and fonts · `8e35cb7` docs; pushed to `main` on the owner's "push it to main".
 
 ## 2026-10-01 14:55–15:35 · Per-school link previews · `5b9f1914`
 
