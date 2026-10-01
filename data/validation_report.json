@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-01T14:51:16Z",
+ "generated": "2026-10-01T15:11:02Z",
  "schools": 639,
  "failed": [],
  "warnings": [
@@ -427,6 +427,26 @@
     "2083 high-school-only values at schools with no grade 9-12",
     "488 IAR values at schools with no grade 3-8"
    ]
+  },
+  {
+   "id": "g11_ela_rank_corr",
+   "severity": "warn",
+   "status": "pass",
+   "title": "Grade 11 ela estimate: SAT-2024 vs ACT-2025 rank correlation below 0.85",
+   "count": 0,
+   "total": null,
+   "detail": "Spearman rho 0.909 across 142 schools.",
+   "examples": []
+  },
+  {
+   "id": "g11_math_rank_corr",
+   "severity": "warn",
+   "status": "pass",
+   "title": "Grade 11 math estimate: SAT-2024 vs ACT-2025 rank correlation below 0.85",
+   "count": 0,
+   "total": null,
+   "detail": "Spearman rho 0.913 across 142 schools.",
+   "examples": []
   }
  ],
  "coverage": {
@@ -1025,6 +1045,40 @@
     "value": 138,
     "suppressed": 0,
     "none": 501
+   }
+  },
+  "g11_ela_gap": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   },
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   }
+  },
+  "g11_math_gap": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
+   },
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
+    "none": 495
    }
   }
  },

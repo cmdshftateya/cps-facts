@@ -1,6 +1,6 @@
 # Validation report
 
-Generated 2026-10-01T14:51:16Z · roster 2026-27 · **639 schools** · **PASS**
+Generated 2026-10-01T15:11:02Z · roster 2026-27 · **639 schools** · **PASS**
 
 By type: charter 100, contract 16, district 519, options 4 · by grade band: ES 472, HS 144, combo 23
 With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
@@ -43,6 +43,8 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 | pass | Non-numeric, non-'*' values (`non_numeric_value`) |  |  |
 | pass | Percentages / percentiles / levels outside their valid range (`percent_range`) |  |  |
 | pass | Zero or negative dollar/score values (should be no data) (`zero_dollars`) |  |  |
+| pass | Grade 11 ela estimate: SAT-2024 vs ACT-2025 rank correlation below 0.85 (`g11_ela_rank_corr`) |  | Spearman rho 0.909 across 142 schools. |
+| pass | Grade 11 math estimate: SAT-2024 vs ACT-2025 rank correlation below 0.85 (`g11_math_rank_corr`) |  | Spearman rho 0.913 across 142 schools. |
 
 ## Examples (first 12 per non-passing check)
 
@@ -232,6 +234,12 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 | fe_teachers | 2024-25 | 581 | 0 | 58 |
 | fe_families | 2024-25 | 572 | 0 | 67 |
 | fe_environment | 2024-25 | 138 | 0 | 501 |
+| g11_ela_gap | 2022-23 | 142 | 0 | 497 |
+| g11_ela_gap | 2023-24 | 143 | 1 | 495 |
+| g11_ela_gap | 2024-25 | 143 | 1 | 495 |
+| g11_math_gap | 2022-23 | 142 | 0 | 497 |
+| g11_math_gap | 2023-24 | 143 | 1 | 495 |
+| g11_math_gap | 2024-25 | 143 | 1 | 495 |
 
 ## Rules applied
 - `demo_low_n_flag`: 30
@@ -240,6 +248,7 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 - `isbe_star_on_inapplicable_metric`: dropped to no-data (HS metrics at schools with no grade 9-12, IAR at schools with no grade 3-8)
 
 ## Source files
+- CONCORD `act_sat_concordance.pdf` retrieved 2026-10-01
 - CPS-MEM `cps_mem_2425.xlsx` retrieved 2026-09-30
 - CPS-MEM `cps_mem_2526.xlsx` retrieved 2026-09-30
 - CPS-MEM `cps_mem_2627.xlsx` retrieved 2026-09-30
