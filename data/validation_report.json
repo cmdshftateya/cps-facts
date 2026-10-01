@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-01T02:46:30Z",
+ "generated": "2026-10-01T14:51:16Z",
  "schools": 639,
  "failed": [],
  "warnings": [
@@ -449,205 +449,205 @@
   },
   "pct_white": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_black": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_latinx": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_asian": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_multiracial": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_native": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_pacific": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_mena": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_race_na": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_el": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_iep": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
   "pct_low_income": {
    "2024-25": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2025-26": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    },
    "2026-27": {
-    "value": 638,
-    "suppressed": 1,
+    "value": 639,
+    "suppressed": 0,
     "none": 0
    }
   },
@@ -709,9 +709,9 @@
   },
   "cps_budget_per_pupil": {
    "2026-27": {
-    "value": 630,
+    "value": 631,
     "suppressed": 0,
-    "none": 9
+    "none": 8
    }
   },
   "cps_positions_fy27": {

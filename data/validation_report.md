@@ -1,6 +1,6 @@
 # Validation report
 
-Generated 2026-10-01T02:46:30Z · roster 2026-27 · **639 schools** · **PASS**
+Generated 2026-10-01T14:51:16Z · roster 2026-27 · **639 schools** · **PASS**
 
 By type: charter 100, contract 16, district 519, options 4 · by grade band: ES 472, HS 144, combo 23
 With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
@@ -136,42 +136,42 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 | enrollment | 2024-25 | 639 | 0 | 0 |
 | enrollment | 2025-26 | 639 | 0 | 0 |
 | enrollment | 2026-27 | 639 | 0 | 0 |
-| pct_white | 2024-25 | 638 | 1 | 0 |
-| pct_white | 2025-26 | 638 | 1 | 0 |
-| pct_white | 2026-27 | 638 | 1 | 0 |
-| pct_black | 2024-25 | 638 | 1 | 0 |
-| pct_black | 2025-26 | 638 | 1 | 0 |
-| pct_black | 2026-27 | 638 | 1 | 0 |
-| pct_latinx | 2024-25 | 638 | 1 | 0 |
-| pct_latinx | 2025-26 | 638 | 1 | 0 |
-| pct_latinx | 2026-27 | 638 | 1 | 0 |
-| pct_asian | 2024-25 | 638 | 1 | 0 |
-| pct_asian | 2025-26 | 638 | 1 | 0 |
-| pct_asian | 2026-27 | 638 | 1 | 0 |
-| pct_multiracial | 2024-25 | 638 | 1 | 0 |
-| pct_multiracial | 2025-26 | 638 | 1 | 0 |
-| pct_multiracial | 2026-27 | 638 | 1 | 0 |
-| pct_native | 2024-25 | 638 | 1 | 0 |
-| pct_native | 2025-26 | 638 | 1 | 0 |
-| pct_native | 2026-27 | 638 | 1 | 0 |
-| pct_pacific | 2024-25 | 638 | 1 | 0 |
-| pct_pacific | 2025-26 | 638 | 1 | 0 |
-| pct_pacific | 2026-27 | 638 | 1 | 0 |
-| pct_mena | 2024-25 | 638 | 1 | 0 |
-| pct_mena | 2025-26 | 638 | 1 | 0 |
-| pct_mena | 2026-27 | 638 | 1 | 0 |
-| pct_race_na | 2024-25 | 638 | 1 | 0 |
-| pct_race_na | 2025-26 | 638 | 1 | 0 |
-| pct_race_na | 2026-27 | 638 | 1 | 0 |
-| pct_el | 2024-25 | 638 | 1 | 0 |
-| pct_el | 2025-26 | 638 | 1 | 0 |
-| pct_el | 2026-27 | 638 | 1 | 0 |
-| pct_iep | 2024-25 | 638 | 1 | 0 |
-| pct_iep | 2025-26 | 638 | 1 | 0 |
-| pct_iep | 2026-27 | 638 | 1 | 0 |
-| pct_low_income | 2024-25 | 638 | 1 | 0 |
-| pct_low_income | 2025-26 | 638 | 1 | 0 |
-| pct_low_income | 2026-27 | 638 | 1 | 0 |
+| pct_white | 2024-25 | 639 | 0 | 0 |
+| pct_white | 2025-26 | 639 | 0 | 0 |
+| pct_white | 2026-27 | 639 | 0 | 0 |
+| pct_black | 2024-25 | 639 | 0 | 0 |
+| pct_black | 2025-26 | 639 | 0 | 0 |
+| pct_black | 2026-27 | 639 | 0 | 0 |
+| pct_latinx | 2024-25 | 639 | 0 | 0 |
+| pct_latinx | 2025-26 | 639 | 0 | 0 |
+| pct_latinx | 2026-27 | 639 | 0 | 0 |
+| pct_asian | 2024-25 | 639 | 0 | 0 |
+| pct_asian | 2025-26 | 639 | 0 | 0 |
+| pct_asian | 2026-27 | 639 | 0 | 0 |
+| pct_multiracial | 2024-25 | 639 | 0 | 0 |
+| pct_multiracial | 2025-26 | 639 | 0 | 0 |
+| pct_multiracial | 2026-27 | 639 | 0 | 0 |
+| pct_native | 2024-25 | 639 | 0 | 0 |
+| pct_native | 2025-26 | 639 | 0 | 0 |
+| pct_native | 2026-27 | 639 | 0 | 0 |
+| pct_pacific | 2024-25 | 639 | 0 | 0 |
+| pct_pacific | 2025-26 | 639 | 0 | 0 |
+| pct_pacific | 2026-27 | 639 | 0 | 0 |
+| pct_mena | 2024-25 | 639 | 0 | 0 |
+| pct_mena | 2025-26 | 639 | 0 | 0 |
+| pct_mena | 2026-27 | 639 | 0 | 0 |
+| pct_race_na | 2024-25 | 639 | 0 | 0 |
+| pct_race_na | 2025-26 | 639 | 0 | 0 |
+| pct_race_na | 2026-27 | 639 | 0 | 0 |
+| pct_el | 2024-25 | 639 | 0 | 0 |
+| pct_el | 2025-26 | 639 | 0 | 0 |
+| pct_el | 2026-27 | 639 | 0 | 0 |
+| pct_iep | 2024-25 | 639 | 0 | 0 |
+| pct_iep | 2025-26 | 639 | 0 | 0 |
+| pct_iep | 2026-27 | 639 | 0 | 0 |
+| pct_low_income | 2024-25 | 639 | 0 | 0 |
+| pct_low_income | 2025-26 | 639 | 0 | 0 |
+| pct_low_income | 2026-27 | 639 | 0 | 0 |
 | pct_homeless | 2024-25 | 383 | 230 | 26 |
 | pct_youth_in_care | 2024-25 | 19 | 594 | 26 |
 | ppe_total | 2024-25 | 611 | 0 | 28 |
@@ -180,7 +180,7 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 | cps_budget_fy27 | 2026-27 | 630 | 0 | 9 |
 | cps_budget_fy26_projected | 2025-26 | 630 | 0 | 9 |
 | cps_budget_fy26_adopted | 2025-26 | 625 | 0 | 14 |
-| cps_budget_per_pupil | 2026-27 | 630 | 0 | 9 |
+| cps_budget_per_pupil | 2026-27 | 631 | 0 | 8 |
 | cps_positions_fy27 | 2026-27 | 630 | 0 | 9 |
 | attendance_rate | 2022-23 | 607 | 0 | 32 |
 | attendance_rate | 2023-24 | 607 | 0 | 32 |
@@ -234,7 +234,6 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 | fe_environment | 2024-25 | 138 | 0 | 501 |
 
 ## Rules applied
-- `demo_suppress_below`: 10
 - `demo_low_n_flag`: 30
 - `budget_per_pupil_outlier`: [5000, 60000]
 - `ppe_outlier_fence_3xIQR`: [238, 42512]
