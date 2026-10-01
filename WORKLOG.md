@@ -26,7 +26,7 @@ Carried forward until closed. Update this list in every entry that opens or clos
 **Asked:** Make the decision file "machine readable so you can programmatically skim it instead of having to load in all the context"; then "same for the worklog" and "any other logs as well".
 **Done:** DECISIONS.md went from one wide table to one `## D-0xx · Title` section per decision, each with a new short title and tags plus Date, Status, Supersedes, Who and Where fields (content unchanged). Open-thread bullets in WORKLOG.md now all read `- **Label:** text`; emails.md gained Sent, Status and Related lines per email. New `tools/logs.py` (stdlib only): `brief` (default), `decisions` (index, ids, `--tag`, `--grep`, `--active`, `--tags`, `--next`), `worklog` (index, id prefix, `--grep`, `--decision`, `-n`), `threads`, `outreach`, all with `--json`. The brief is about 4 KB versus about 35 KB for reading DECISIONS.md and WORKLOG.md whole. New `tests/test_logs.py` (8 tests) checks all three formats; the SessionStart hook now also prints the brief. AGENTS.md points to the tool.
 **Decisions:** D-025.
-**Commits:** pending.
+**Commits:** `a0b81a8` logs tool, format tests, SessionStart brief · `3763ee5` structured decisions, threads and outreach log. On branch `claude/machine-readable-decisions-740a0c`, not pushed.
 
 ## 2026-10-01 13:32–13:40 · Data page: drop filename labels · `255a5c46`
 
