@@ -46,7 +46,8 @@ def _dp(pts, tol):
 
 def _inline(t):
     t = html.escape(t, quote=False)
-    t = re.sub(r"`([^`]+)`", r"<code>\1</code>", t)
+    t = re.sub(r"`([^`]+)`", lambda m: f"<a href={REPO}/blob/main/{m[1]}><code>{m[1]}</code></a>" if (ROOT / m[1]).is_file() else f"<code>{m[1]}</code>", t)
+    t = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r"<a href=\2>\1</a>", t)
     return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", t)
 
 
@@ -94,8 +95,8 @@ def downloads():
 
 
 def methodology():
-    """NOTES.md -> site/methodology.html (minimal converter: headings, tables, lists, paragraphs)."""
-    out, lines, i = [], (ROOT / "NOTES.md").read_text().split("\n"), 0
+    """METHODOLOGY.md -> site/methodology.html (minimal converter: headings, tables, lists, paragraphs)."""
+    out, lines, i = [], (ROOT / "METHODOLOGY.md").read_text().split("\n"), 0
     while i < len(lines):
         ln = lines[i]
         if ln.startswith("|"):

@@ -1,6 +1,6 @@
 # Notes and Caveats
 
-Plain-language record of what this project did with the data and where the numbers have limits. Updated 2026-09-30 (end of Phase 0). The public methodology page (Phase 3) should be built from this file. Technical detail lives in `sources.md`.
+How CPS Facts picks years, matches schools across sources, and where the numbers have limits. Last updated 2026-09-30. These are the detailed working notes; the reader-facing page is `METHODOLOGY.md`. Technical detail lives in `sources.md`.
 
 ## 1. What we chose, and why
 
@@ -15,7 +15,7 @@ Plain-language record of what this project did with the data and where the numbe
 | **Elementary test scores** | Same cut-score change in 2025, so no trend lines or changes between 2024 and 2025. | Same reason. |
 | **School board subdistricts** | We use the Illinois Senate's shapefile of the 20 enacted subdistricts (1a–10b) and place each school by its coordinates. We checked it against the Board of Elections' official map. | The Board of Elections publishes only PDF pictures of the map, not data. |
 | **Charter schools that became district schools** | Five Acero schools and ChiArts became district-managed in the same buildings in July 2026. We link each to its former charter so history is kept (`charter-conversions.md`). | Otherwise those schools would show no history. |
-| **CPS's interactive budget dashboard** | Used only through a file you exported yourself. We did not sign in to it. | The dashboard needs a sign-in, so it can't feed an automated build. |
+| **CPS's interactive budget dashboard** | You can retrieve this data yourself: open "Interactive Reports 2027" on the [CPS FY27 budget page](https://www.cps.edu/about/finance/budget/budget-2027/) and export the line-item report. We download that export by hand and don't automate it. | The dashboard opens through a shared guest login built into that link, which we chose not to script, so it can't feed an automated build. |
 | **Catalyst Maria** | The state reports Catalyst Maria as one K-12 school. We attach the state's figures to the main school (400115) and show the high school (400182) as "no separate state data", with its CPS enrollment and demographics. | Attaching the same numbers to both would duplicate them, and for the high school they would mostly describe younger students. |
 
 ## 2. Caveats users should know
@@ -50,7 +50,7 @@ Plain-language record of what this project did with the data and where the numbe
 17. It converts SAT averages to the ACT scale with an official table designed for individual scores, so applied to school averages it is approximate. The national benchmarks come from a self-selected group of test takers, while Illinois tests every junior. It is labeled "estimate".
 18. The state's ACT "ELA" column is the ACT ELA score (English, reading and writing; Illinois grade 11 takes the ACT with Writing), so the national benchmark is 20. ISBE has not confirmed this in writing.
 
-**Added in Phase 1**
+**Other details**
 19. A school's CPS budget of $0 is shown as no data, not 0 (six YCCS campuses and Chicago Arts HS).
 20. Catalyst Maria's budget unit covers both campuses ($22.1M). Per pupil is computed on their combined 1,105 students (about $20k) and shown on both schools, labeled. This is our inference from the numbers; confirm with CPS.
 21. State "*" on SAT/ACT/graduation at schools with no high-school grades is shown as no data, not "suppressed".
@@ -58,7 +58,7 @@ Plain-language record of what this project did with the data and where the numbe
 23. The six converted schools have no coordinates in any city dataset; they use the old charter's location, flagged.
 24. CPS demographic shares are published as CPS gives them, never hidden. Schools under 30 students get a small-school label.
 
-## 3. Open items
+## 3. Still being confirmed
 - Confirm with CPS whether the low-income / disability change was a definition change (caveat 3).
-- Questions to CPS and ISBE (Catalyst Maria budget unit, low-income and IEP labels, per-pupil year, ACT ELA) were sent; drafts are in `emails.md`. Awaiting replies; record any answers in the caveats above.
+- Questions to CPS and ISBE (Catalyst Maria budget unit, low-income and IEP labels, per-pupil year, ACT ELA) were sent. We are waiting for replies and will record any answers in the caveats above.
 - Re-run the audit when the 2026 Illinois Report Card is released.

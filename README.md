@@ -2,7 +2,7 @@
 
 A sourced map of every Chicago public school: enrollment, demographics, test scores, attendance, graduation and spending, each value labeled with its school year and source. Live at **https://schools.ateya.org**.
 
-- **Methodology and caveats:** [NOTES.md](NOTES.md) (also on the site's Methodology page)
+- **Methodology and caveats:** [METHODOLOGY.md](METHODOLOGY.md) (also on the site's Methodology page); detailed working notes in [NOTES.md](NOTES.md)
 - **Data downloads:** https://schools.ateya.org/data.html (the same files are in [`data/`](data))
 - **Sources and joins:** [sources.md](sources.md), [PIPELINE.md](PIPELINE.md)
 
