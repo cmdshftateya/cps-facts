@@ -6,3 +6,6 @@ __pycache__/
 # large downloaded source files (see raw/MANIFEST.json)
 raw/*
 !raw/MANIFEST.json
+
+# hand-downloaded CPS budget export; the same file lives in raw/ (see PIPELINE.md)
+/Budget_Book_FY27.csv
