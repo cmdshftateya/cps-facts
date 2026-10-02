@@ -432,3 +432,15 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 **Decision:** **Each school may carry a `program` (special-education school, transition program, detention, parenting, short-term placement, dropout recovery, preschool only), with a neutral sentence on its panel, report card and table row.** The list is hand-kept in `program_overrides.csv` with a source URL per school; preschool-only centers come from the CPS "School Type" column. Nothing is removed or recolored yet: medians, color bins and ranks are unchanged (comparison set is a later step). No new marker outline, because D-030 keeps markers plain.
 
 **Why:** Readers were comparing detention and dropout-recovery schools against neighborhood schools with no explanation. Labels fix that without hiding anything (D-009). Groups that need the City Data Portal `classification_description` (selective, application, cluster hosts) wait until `raw/` can be re-fetched.
+
+## D-035 · Default comparison set leaves out special-program schools
+
+- **Date:** 2026-10-02
+- **Status:** Active
+- **Who:** Delegated: owner said "Sure" to Step 3 of the issue 4 proposal and "start"; agent set the rules below.
+- **Tags:** data, display, ui
+- **Where:** `7232628c`, `pipeline/program.py`, [D-034](DECISIONS.md)
+
+**Decision:** **Comparison set becomes "Comparable schools" (default), "All schools" or "District-run only".** Comparable leaves out every school with a `program` (D-034) from color groups, city medians, range bars and subdistrict averages; they stay on the map (dimmed), in the table and in downloads. Selective-exam, application/lottery and special-education-cluster schools stay in every comparison and get a quieter label. A "What the school does" filter selects one group. A comparison set saved in the browser before this change is ignored (`setv` stamp) so returning visitors get the new default. Admission and cluster context come from the Data Portal School Profile fields; unknown classification text raises a warning.
+
+**Why:** Ranking a detention or dropout-recovery school against neighborhood schools misleads readers; "All schools" is one click away, so D-009 (no suppression) holds. Selective and cluster schools are real peers of nearby schools, and dropping 140+ of them would distort comparisons the other way. Supersedes the default stated in REQUIREMENTS.md settings table.

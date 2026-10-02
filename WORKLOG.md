@@ -13,7 +13,7 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Outreach replies pending:** sent 2026-10-01 09:59 (`python3 tools/logs.py outreach`): CPS finance (`financedep@cps.edu`) on the Catalyst Maria budget unit; CPS accountability (`accountability@cps.edu`, a guessed address, so watch for a bounce) on the low-income/IEP relabel; ISBE (`reportcard@isbe.net`) on the per-pupil fiscal year and the ACT "ELA" column. Record answers in NOTES.md and DECISIONS.md.
 - **2026 Illinois Report Card:** expected late October 2026; re-run `build.py`, re-audit the crosswalk and break flags, and move "latest" years forward.
 - **FY27 budget label:** the board apparently approved the budget on 2026-07-30. Nobody has compared the approved book to the "proposed" export the site uses.
-- **Program context, steps 3 and 4 (issue 4):** comparison-set choice ("Comparable schools" default), School type filter, Methodology section, and re-engagement measures. Needs `raw/` re-fetched to add selective/application schools and `sped_cluster` from the Data Portal School Profile (`classification_description`, `significantlymodifiedmod`). The hand-kept list's source URLs for the dropout-recovery schools are the 2015 Chicago Reporter article; CPS has not confirmed the list (emails to Diverse Learner Supports and Options/Alternative Schools not sent).
+- **Program context follow-ups (issue 4):** re-engagement measures (show ISBE 5-year graduation beside 4-year if the Report Card publishes it; mark attendance not comparable for shortened-day programs) and CPS confirmation of `program_overrides.csv` (emails to Diverse Learner Supports and Options/Alternative Schools not sent; dropout-recovery rows cite the 2015 Chicago Reporter article only). Mixed selective/neighborhood buildings cannot be separated.
 - **Cross-link from the politics board guide:** the edit to `../politics/chicago-school-board-2026-guide.html` is uncommitted in that repo.
 - **For the owner to confirm on the Data page:** the budget-export steps ("Interactive Reports", then "Download Data") and the Data Portal titles for the boundary datasets, which were written from memory.
 - **Share button on a real phone:** check the snapshot in iOS Safari's share sheet (iMessage, Instagram) and Android Chrome; only the no-share-sheet fallback was tried, in the desktop browser pane.
@@ -21,6 +21,13 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
+## 2026-10-02 19:00–20:30 · Comparison set and program filter · `7232628c`
+
+**Asked:** "Sure but rebase to master first", then "start" (Step 3 of issue 4). Rebased the branch onto `main` (conflicts only in generated JSON and WORKLOG), then built Step 3.
+**Done:** Full `build.py` and `build_site.py` now run here (allowed `data.cityofchicago.org`, `www.cps.edu`, `www.isbe.net`, `www.ilsenateredistricting.com`, `www.act.org`; the build's bare `act.org` URL is still blocked, so the ACT PDF was fetched from the `www` address). New fields `admission` (27 exam, 153 application) and `sped_cluster` (147) from the School Profile. Default comparison set is "Comparable schools": 49 schools dimmed and out of bins, medians and ranges (checked: low-income city median 79.3% vs 80.3% with all schools); "All schools" and "District-run only" still work. New "What the school does" filter (hash param `prog`). Cluster and admission notes on the panel and report card; Methodology section "Not every school does the same job"; `program_overrides.csv` published on the Data page; `tests/test_program.py`. Checked at 360px light and dark (panel) and in a desktop browser (settings, filters, old localStorage ignored); not checked: printed card, real phone, the table at 360px with the filter on.
+**Obstacles:** `test_logs` fails on `main` too: the Latinx session's entry id `01DZdSP2` is not 8 lowercase hex characters. Left alone (another session's entry).
+**Decisions:** D-035.
+**Commits:** `ab18948` Add admission and cluster context · `00bfdd1` Comparable-schools default, program filter · `d36ef2a` Regenerate data and site; document. Pushed to `claude/keen-curie-0wo4oz` only.
 
 ## 2026-10-02 · Latinx → Latino in labels · `01DZdSP2`
 
