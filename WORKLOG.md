@@ -27,7 +27,8 @@ Carried forward until closed. Update this list in every entry that opens or clos
 **Obstacles:** `chicago.css` styles every `a` with an underline and a blue hover fill; overridden for `#home`.
 **Decisions:** D-033.
 **Follow-up (10-02):** owner disliked the wordmark font (same Helvetica Condensed as the ChiElections masthead, but small and loosely spaced); from four options side by side he picked Barlow Condensed Black. Bars shortened to just wider than the star and thickened, star points poking out. Rechecked at 360px and in both themes. Then the nav sat about 7px below the wordmark (the header aligned on the icon's bottom edge); the wordmark now sets the baseline. Then the wordmark rode about 3px above the Map/Table/Settings buttons (a negative margin on the logo); removed it, so the header is 3px taller and icon, capitals and buttons share a center.
-**Commits:** `2d13bce` logo and reset · `d90fcce` docs · `0024c79` font and bars · `a5beac3` docs · `672d0da` baseline fix · `01fe3c4` centering fix. Not pushed.
+Owner called the header's "Roster SY2026-27 · data built 2026-10-01" line useless; removed (each number still carries its own school year).
+**Commits:** `2d13bce` logo and reset · `d90fcce` docs · `0024c79` font and bars · `a5beac3` docs · `672d0da` baseline fix · `01fe3c4` centering fix · `23024e8` header date line removed. Not pushed.
 
 ## 2026-10-01 15:40–16:20 · Share snapshot button · `ba5e68c6`
 
