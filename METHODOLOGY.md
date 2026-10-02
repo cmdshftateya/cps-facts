@@ -15,6 +15,10 @@ Every value on the map shows its school year and source. This page explains the 
 - In 2025 Illinois lowered proficiency cut scores for every grade, and grade 11 switched from the SAT to the ACT. We never show trends or changes across that break, because most of the apparent "improvement" would be policy.
 - "Vs. college-ready" is an estimate that does hold across the break: a school's average score minus the ACT's national college-readiness benchmark (20 in English, 22 in math). SAT averages are converted to the ACT scale with an official table designed for individual students, so school results are approximate. See the [full method](https://github.com/cmdshftateya/cps-facts/blob/main/hs-score-benchmark-method.md).
 
+## Charts
+- The Chart view plots one measure against another, one dot per school. Each axis uses a single school year: the year most of the shown schools report for both measures, or the year chosen in Settings. Schools without that year are left out, never filled in from another year. Suppressed and missing values are left out too, and the chart says how many.
+- The dashed line is the least-squares trend. The labeled schools are the ones farthest above or below it. A pattern across schools does not show that one measure causes the other.
+
 ## Spending
 - **Per-pupil spending** is the state's figure for fiscal year 2025. It includes costs the district pays centrally, so it is the fairer comparison, especially for charters.
 - **Per-pupil budget** is CPS's proposed FY27 budget for the school divided by its enrollment. It leaves out some central costs. We add up the line items from CPS's interactive budget reports; their total matches the published $10.11B budget. You can retrieve the same data from "Interactive Reports 2027" on the [CPS FY27 budget page](https://www.cps.edu/about/finance/budget/budget-2027/).

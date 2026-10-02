@@ -432,3 +432,16 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 **Decision:** **The chart builder is a local-only tool (`tools/ask/`), and v1 is deterministic.** Menus pick the metrics, years, filters, colors and outlier count. The server builds the SQL from choices checked against the metric registry, runs it on read-only in-memory SQLite, and labels outliers (largest residuals from the least-squares line). The page draws plain SVG with no libraries. A natural-language box, where Claude writes the SQL, stays in the code but shows only when `ANTHROPIC_API_KEY` is set.
 
 **Why:** Deterministic means it's free, repeatable, and can't invent numbers or break the integrity rules, and nearly every chart question is "X vs Y for these schools". The AI path was already built and reuses the same chart engine, so keeping it switched off by default costs nothing. Going public would need a spend cap and bot protection first.
+
+## D-035 · Chart view on the site: client-side scatter, reportage styling
+
+- **Date:** 2026-10-02
+- **Status:** Active
+- **Who:** Delegated (owner: "finalize how you'd add the chart builder to the main site and show me"; "steal the chart styling from reportage"; "is there an export chart?")
+- **Tags:** ui, charts
+- **Where:** `1e317668`, `site/index.html`, METHODOLOGY.md (Charts)
+
+**Decision:** **The chart builder joins the site as a third view, Map | Table | Chart, running fully in the browser on the already-loaded `schools.json`.** It's a scatter only (the Table already ranks). Y is the sidebar's measure and X is picked in the view. The sidebar's filters, comparison set and year setting apply. Each axis uses one school year (the year most schools report for both, or the aligned year), with no fallback. The least-squares trend is drawn, the N schools with the largest residuals are labeled (0, 5, 8, 12 or 20), and the selected school is always labeled. Clicking a dot opens the profile. Styling follows the reportage style guide (hairline grid, Helvetica Neue, `s1` dots, `s2` outliers, no rounding or shadows) using the site's existing tokens. PNG export renders at a fixed 960px with a source line and site address; CSV export gives each school's two values, the years and its distance from the trend. The local `tools/ask/` builder (D-034) stays as the prototype.
+
+**Why:** It needs no server, no build step and no cost, and it reuses the site's filters and settings, so a reader can move between map, table and chart without losing the question. Matching years and leaving out missing values keep the integrity rules; the "not a cause" line heads off the obvious misreading.
+
