@@ -48,6 +48,8 @@ def validate(schools, meta, t, problems):
           [s["id"] for s in schools if not (s["name"] and s["type"] and s["governance"])], total=n)
     R.add("program_context", "fail", "Program overrides or program sentences incomplete (unknown school or program, no source URL, no sentence)",
           program_mod.problems(schools, t["programs"]), total=len(t["programs"]))
+    R.add("program_unknown_class", "warn", "City Data Portal school classifications this build does not recognize (no admission label shown)",
+          program_mod.unknown_descriptions(t["prof"].values()), total=len(t["prof"]))
     roster_total = sum(s["m"]["enrollment"][ROSTER_YEAR] for s in schools)
     R.add("roster_total", "fail", "Roster enrollment sum differs from the CPS file's district total",
           [] if roster_total == _district_total(t) else [f"roster {roster_total} vs district {_district_total(t)}"],

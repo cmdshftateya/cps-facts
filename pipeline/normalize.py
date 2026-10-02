@@ -168,7 +168,7 @@ def build(t):
         s["governance"] = mem["governance"]
         s["network"] = mem["network"]
         s["school_type"] = mem["school_type"]
-        program_mod.assign(s, mem["school_type"], t["programs"])
+        program_mod.assign(s, mem["school_type"], t["programs"], t["prof"].get(sid))
         s["grades_served"], s["band"] = grade_span(mem["grades"])
         s["grades"] = {g: n for g, n in mem["grades"].items() if n > 0}
         if pred:
@@ -357,6 +357,6 @@ def build_meta(t, fund_code, problems, ppe_fence):
         "sources": src,
         "metrics": REGISTRY,
         "flags": FLAG_TEXT,
-        "programs": program_mod.meta(),
+        **program_mod.meta(),
         "funds": {code: name for name, code in fund_code.items()},
     }

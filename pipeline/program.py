@@ -6,9 +6,8 @@ come from the CPS 20th-day "School Type" column. A school with no program has no
 Comparison rules (which programs leave medians and color bins) are not applied here.
 """
 import csv
-import json
 
-from .common import DATA, ROOT
+from .common import ROOT
 
 # code -> (label shown on the site, sentence for the school panel). Neutral wording, no judgments.
 PROGRAMS = {
@@ -29,17 +28,69 @@ PROGRAMS = {
 }
 
 
+# Context that does not take a school out of comparisons (it still gets a label on its panel).
+# `admission` comes from the City Data Portal School Profile `classification_description`;
+# `sped_cluster` from its `significantlymodifiedmod` flag (the school hosts special-education cluster programs).
+ADMISSION = {
+    "exam": ("Admission by entrance exam",
+             "Admits students by application and entrance exam, so results partly reflect who is admitted. Some of these schools share a building with a neighborhood program."),
+    "application": ("Admission by application or lottery",
+                    "Admits students by application or lottery rather than by home address, so results partly reflect who applies and is admitted."),
+}
+CLUSTER = ("Hosts special-education cluster programs",
+           "Students in the cluster program are assigned from outside the attendance area, so the share of students with IEPs, budget per pupil and test averages reflect that program as well as the neighborhood.")
+
+# first words of each `classification_description` -> admission; None = no admission context to show
+_ADMISSION_BY_START = {
+    "Schools that offer a rigorous curriculum": "exam",              # selective enrollment
+    "Schools that provide an accelerated": "exam",                   # regional gifted and academic centers
+    "Provides a challenging liberal arts": "exam",                   # classical
+    "For students who wish to develop leadership": "application",    # military academies
+    "Schools that specialize in a specific subject": "application",  # magnet
+    "Schools that are open to all Chicago children": "application",  # charter
+    "Schools that are operated by private entities": "application",  # contract
+    "Students receive a college-preparatory": "application",         # career academies
+    "Schools that have an attendance boundary": None,
+    "These schools limit their student populations": None,
+    "Schools that have their own processes": None,                   # covered by `program`
+    "Schools for students with disabilities": None,                  # covered by `program`
+}
+
+
+def from_profile(prof):
+    """-> (admission or None, sped_cluster bool, description_is_known) from one School Profile row."""
+    if not prof:
+        return None, False, True
+    d = (prof.get("classification_description") or "").strip()
+    cluster = str(prof.get("significantlymodifiedmod")).lower() == "true"
+    if not d:
+        return None, cluster, True
+    for start, adm in _ADMISSION_BY_START.items():
+        if d.startswith(start):
+            return adm, cluster, True
+    return None, cluster, False
+
+
 def load_overrides():
     with open(ROOT / "program_overrides.csv", newline="", encoding="utf-8") as f:
         return {r["school_id"]: r for r in csv.DictReader(f)}
 
 
 def meta():
-    return {k: {"label": v[0], "sentence": v[1]} for k, v in PROGRAMS.items()}
+    """Every program leaves the default comparison set (`comparable` false); admission and cluster context does not."""
+    out = {k: {"label": v[0], "sentence": v[1], "comparable": False} for k, v in PROGRAMS.items()}
+    return {"programs": out,
+            "admission": {k: {"label": v[0], "sentence": v[1]} for k, v in ADMISSION.items()},
+            "cluster": {"label": CLUSTER[0], "sentence": CLUSTER[1]}}
 
 
-def assign(school, school_type, overrides):
-    """Set school['program'] (and 'program_note' when the row has its own sentence)."""
+def assign(school, school_type, overrides, prof=None):
+    """Set school['program'] (and 'program_note' when the row has its own sentence), 'admission' and 'sped_cluster'."""
+    adm, cluster, _ = from_profile(prof)
+    if adm:
+        school["admission"] = adm
+    if cluster:
+        school["sped_cluster"] = True
     row = overrides.get(school["id"])
     if row:
         school["program"] = row["program"]
@@ -47,6 +98,12 @@ def assign(school, school_type, overrides):
             school["program_note"] = row["sentence"].strip()
     elif school_type == "Early Childhood":
         school["program"] = "early_childhood"
+
+
+def unknown_descriptions(profiles):
+    """Portal classification texts this module does not know yet (a new CPS category would be silently unlabeled)."""
+    return sorted({(p.get("classification_description") or "").strip() for p in profiles
+                   if not from_profile(p)[2]})
 
 
 def problems(schools, overrides):
@@ -65,38 +122,3 @@ def problems(schools, overrides):
         if p and not (s.get("program_note") or PROGRAMS.get(p, ("", ""))[1]):
             bad.append(f"{s['id']} no sentence")
     return bad
-
-
-def patch_published():
-    """Add `program` to the committed data/ files without re-reading raw/ (same result as a full build)."""
-    path = DATA / "schools.json"
-    d = json.load(open(path, encoding="utf-8"))
-    ov = load_overrides()
-    for s in d["schools"]:
-        s.pop("program", None)
-        s.pop("program_note", None)
-        assign(s, s["school_type"], ov)
-    assert not problems(d["schools"], ov)
-    d["meta"]["programs"] = meta()
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(d, f, separators=(",", ":"), ensure_ascii=False)
-    prog = {s["id"]: s.get("program", "") for s in d["schools"]}
-    path = DATA / "schools.csv"
-    rows = list(csv.reader(open(path, newline="", encoding="utf-8")))
-    h = rows[0]
-    if "program" in h:
-        i = h.index("program")
-        for r in rows[1:]:
-            r[i] = prog[r[0]]
-    else:
-        i = h.index("school_type") + 1
-        h.insert(i, "program")
-        for r in rows[1:]:
-            r.insert(i, prog[r[0]])
-    with open(path, "w", newline="", encoding="utf-8") as f:
-        csv.writer(f).writerows(rows)
-    print(sum(1 for v in prog.values() if v), "schools with a program")
-
-
-if __name__ == "__main__":
-    patch_published()
