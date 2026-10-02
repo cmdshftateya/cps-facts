@@ -28,7 +28,7 @@ SOURCES = [
     ("cps-race", "Chicago Public Schools (CPS)", "20th-day racial/ethnic report, \"Schools\" sheet",
      [("Demographics page", CPS_DEMO)],
      "SY2024-25, SY2025-26, SY2026-27",
-     "Share of students in each CPS racial/ethnic group (White, Black/African American, Latinx, Asian, Multiracial, Native American/Alaskan, Hawaiian/Pacific Islander, Middle Eastern/North African, Not Available). Shown as CPS publishes them.",
+     "Share of students in each CPS racial/ethnic group (White, Black/African American, Latino, Asian, Multiracial, Native American/Alaskan, Hawaiian/Pacific Islander, Middle Eastern/North African, Not Available). Shown as CPS publishes them.",
      [("SY2026-27 file", CPS_FILES + "2026-27-demographics-racial-ethnic-20th-day-report.xlsx"),
       ("SY2025-26 file", CPS_FILES + "demographics_racialethnic_20thday_sy2026_forweb.xlsx"),
       ("SY2024-25 file", CPS_FILES + "demographics_racialethnic_20thday_sy2025_final.xlsx")],
@@ -104,7 +104,7 @@ OTHER_FIELDS = {
     "g11_math_gap": ("Calculated", "ISBE average math score (SAT converted to the ACT scale for SY2022-23 and SY2023-24) minus 22"),
 }
 OTHER_FIELDS_NOTE = {"sat_ela_prof": " (SY2022-23: Level 3 % + Level 4 %)", "sat_math_prof": " (SY2022-23: Level 3 % + Level 4 %)"}
-for _k, _g in (("pct_white", "White"), ("pct_black", "Black/African American"), ("pct_latinx", "Latinx"), ("pct_asian", "Asian"),
+for _k, _g in (("pct_white", "White"), ("pct_black", "Black/African American"), ("pct_latinx", "Latino"), ("pct_asian", "Asian"),
                ("pct_multiracial", "Multiracial"), ("pct_native", "Native American/Alaskan"), ("pct_pacific", "Hawaiian/Pacific Islander"),
                ("pct_mena", "Middle Eastern/Northern African"), ("pct_race_na", "Not Available")):
     OTHER_FIELDS[_k] = ("CPS 20th-day racial/ethnic", f"{_g}, %")

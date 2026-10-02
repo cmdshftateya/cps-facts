@@ -26,8 +26,27 @@ Carried forward until closed. Update this list in every entry that opens or clos
 **Asked:** "How hard is it to build a natural language discussion bot" for the data (e.g. which school "grew the most in math but had the highest poverty rate"); then "build a private prototype that lets you make charts", with X and Y axes and "label the outliers with their names"; then, mid-build, "i thought we were going to make a deterministic v1".
 **Done:** Answered the example by hand: among the poorest quarter (≥84.1% low income, 2024-25), Davis M has the highest math growth percentile (78.6). Built `tools/ask/`, a local server (127.0.0.1:8899) and page. Menus choose X and Y (metric and year), school type and grade band filters, color by, and the number of outliers. Charts are a scatter with trend line and labeled outliers (largest residuals, collision-avoiding labels, listed with values), or a ranked bar. Footnotes come from the registry, the SQL is editable, downloads are PNG, SVG and CSV, and the choices are saved in the URL. First built AI-first (Claude writes the SQL); after the owner's note it was reworked so the default is deterministic, with the AI box shown only when a key is set. `tests/test_ask.py`: 7 tests (determinism, rejected metric/year, filter injection, read-only, fake-model loop). Checked in the browser pane: desktop in light mode, 360px in dark mode (no sideways scroll), scatter, bar with HS filter, "Also label", PNG export.
 **Obstacles:** No `ANTHROPIC_API_KEY` here, so the optional AI path was only tested with a fake client. Installed `anthropic` 1.11.0 into the main `.venv`. The hidden pane doesn't fire ResizeObserver, so charts are now attached before drawing.
-**Decisions:** D-033.
+**Decisions:** D-034 (first numbered D-033; renumbered after merging main, where the logo took D-033).
 **Commits:** `3dbe21b` chart builder and tests · `4d2a88a` docs. Not pushed; on branch `claude/nlp-data-discussion-bot-db5041`.
+
+
+## 2026-10-02 · Latinx → Latino in labels · `01DZdSP2`
+
+**Asked:** "Remove any mentions of the word latinx to be latino".
+**Done:** Reader-facing text now says "Latino" (pipeline/metrics.py label, sources.md, sources_catalog.py, site/index.html, site/data.html, schools.json copies). Internal ids (`pct_latinx`, CPS source header key) are unchanged so the published column names stay stable.
+**Obstacles:** Couldn't run build.py here (no pypdf/pyshp, no raw/), so generated files were patched with the same one-word replacement; a normal rebuild should give identical output.
+**Decisions:** Kept `pct_latinx` as the metric id (renaming would break downloads for anyone using the CSV).
+**Commits:** see git log on branch `claude/zealous-bohr-pfmr3m`.
+
+## 2026-10-01 17:05–17:25 · Fun logo that resets the map · `970a2ff2`
+
+**Asked:** "Improve the top right logo": "a creative and fun logo", and clicking it "should reset the map to the default view".
+**Done:** The header wordmark (top left; the only logo) is now an inline SVG mark, the flag star in a graduation cap between two blue bars, plus "CPS Facts" with "Facts" in red. Hover swings the tassel; a click tosses the cap, spins the star, animates the map back to the full city and resets metric, filters, search, open school and view (Settings kept). Checked in the browser pane at 1280px and 360px, light and dark, mid-animation; console clean; `tests.test_gates tests.test_published` pass.
+**Obstacles:** `chicago.css` styles every `a` with an underline and a blue hover fill; overridden for `#home`.
+**Decisions:** D-033.
+**Follow-up (10-02):** owner disliked the wordmark font (same Helvetica Condensed as the ChiElections masthead, but small and loosely spaced); from four options side by side he picked Barlow Condensed Black. Bars shortened to just wider than the star and thickened, star points poking out. Rechecked at 360px and in both themes. Then the nav sat about 7px below the wordmark (the header aligned on the icon's bottom edge); the wordmark now sets the baseline. Then the wordmark rode about 3px above the Map/Table/Settings buttons (a negative margin on the logo); removed it, so the header is 3px taller and icon, capitals and buttons share a center.
+Owner called the header's "Roster SY2026-27 · data built 2026-10-01" line useless; removed (each number still carries its own school year).
+**Commits:** `2d13bce` logo and reset · `d90fcce` docs · `0024c79` font and bars · `a5beac3` docs · `672d0da` baseline fix · `01fe3c4` centering fix · `23024e8` header date line removed; pushed to `main` on the owner's "push it to main".
 
 ## 2026-10-01 15:40–16:20 · Share snapshot button · `ba5e68c6`
 

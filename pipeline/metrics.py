@@ -21,7 +21,7 @@ REGISTRY["enrollment"] = M("20th-day enrollment", "count", "enrollment", "CPS-ME
 
 # --- demographics, CPS, % of 20th-day enrollment ---
 _LABEL_BREAK = "CPS relabelled this group between SY2025-26 and SY2026-27 (district share fell 71.8% -> 68.9%); comparability unconfirmed, so no deltas across it."
-for key, label in [("white", "White"), ("black", "Black / African American"), ("latinx", "Latinx"),
+for key, label in [("white", "White"), ("black", "Black / African American"), ("latinx", "Latino"),
                    ("asian", "Asian"), ("multiracial", "Multiracial"), ("native", "Native American / Alaskan"),
                    ("pacific", "Hawaiian / Pacific Islander"), ("mena", "Middle Eastern / North African"),
                    ("race_na", "Race not available")]:
