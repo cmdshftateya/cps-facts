@@ -27,7 +27,7 @@ Carried forward until closed. Update this list in every entry that opens or clos
 **Done:** Answered the example by hand: among the poorest quarter (≥84.1% low income, 2024-25), Davis M has the highest math growth percentile (78.6). Built `tools/ask/`, a local server (127.0.0.1:8899) and page. Menus choose X and Y (metric and year), school type and grade band filters, color by, and the number of outliers. Charts are a scatter with trend line and labeled outliers (largest residuals, collision-avoiding labels, listed with values), or a ranked bar. Footnotes come from the registry, the SQL is editable, downloads are PNG, SVG and CSV, and the choices are saved in the URL. First built AI-first (Claude writes the SQL); after the owner's note it was reworked so the default is deterministic, with the AI box shown only when a key is set. `tests/test_ask.py`: 7 tests (determinism, rejected metric/year, filter injection, read-only, fake-model loop). Checked in the browser pane: desktop in light mode, 360px in dark mode (no sideways scroll), scatter, bar with HS filter, "Also label", PNG export.
 **Obstacles:** No `ANTHROPIC_API_KEY` here, so the optional AI path was only tested with a fake client. Installed `anthropic` 1.11.0 into the main `.venv`. The hidden pane doesn't fire ResizeObserver, so charts are now attached before drawing.
 **Decisions:** D-033.
-**Commits:** see below.
+**Commits:** `3dbe21b` chart builder and tests · `4d2a88a` docs. Not pushed; on branch `claude/nlp-data-discussion-bot-db5041`.
 
 ## 2026-10-01 15:40–16:20 · Share snapshot button · `ba5e68c6`
 
