@@ -20,6 +20,15 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
+
+## 2026-10-02 · Latinx → Latino in labels · `01DZdSP2`
+
+**Asked:** "Remove any mentions of the word latinx to be latino".
+**Done:** Reader-facing text now says "Latino" (pipeline/metrics.py label, sources.md, sources_catalog.py, site/index.html, site/data.html, schools.json copies). Internal ids (`pct_latinx`, CPS source header key) are unchanged so the published column names stay stable.
+**Obstacles:** Couldn't run build.py here (no pypdf/pyshp, no raw/), so generated files were patched with the same one-word replacement; a normal rebuild should give identical output.
+**Decisions:** Kept `pct_latinx` as the metric id (renaming would break downloads for anyone using the CSV).
+**Commits:** see git log on branch `claude/zealous-bohr-pfmr3m`.
+
 ## 2026-10-01 17:05–17:25 · Fun logo that resets the map · `970a2ff2`
 
 **Asked:** "Improve the top right logo": "a creative and fun logo", and clicking it "should reset the map to the default view".

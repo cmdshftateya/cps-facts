@@ -79,7 +79,7 @@ SUBDIST   https://www.ilsenateredistricting.com/images/shape-files/ERSB_20_Sub_D
 
 ### 3.2 Demographics — CPS-DEM1 / CPS-DEM2 (sheet `Schools`)
 - DEM1 fields: `…, Total, State English Learners N/%, Students with IEPs N/%, Low Income N/%` (header row 2). Percentages are 0–1 fractions, not 0–100.
-- DEM2 fields: N/Pct pairs for White, Black/African American, Native American/Alaskan, Latinx, Multiracial, Asian, Hawaiian/Pacific Islander, Not Available, Middle Eastern/North African. Header labels contain embedded newlines.
+- DEM2 fields: N/Pct pairs for White, Black/African American, Native American/Alaskan, Latino, Multiracial, Asian, Hawaiian/Pacific Islander, Not Available, Middle Eastern/North African. Header labels contain embedded newlines.
 - **No suppression markers** appear in the CPS files: small cells are literal 0s. The "suppressed, never 0" rule can therefore only be honoured for ISBE-sourced values. For CPS counts, the real risk is small-n percentages (e.g. a school with 3 students): set a minimum-n display rule in Phase 1.
 - **Definition drift:** SY2526 "Economically Disadvantaged" / "Students with Disabilities" → SY2627 "Low Income" / "Students with IEPs". The district-level share dropped 71.8% → 68.9%. I did not verify what changed, so treat 3-year demographic deltas as **not comparable until the definition is confirmed with CPS**.
 - **Not available from CPS files: students in temporary living situations.** Source it from ISBE (`% Student Enrollment - Homeless`, `- Youth in Care`), SY2024-25 only, with `*` suppression.
