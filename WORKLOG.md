@@ -36,7 +36,7 @@ Carried forward until closed. Update this list in every entry that opens or clos
 **Done:** `program_overrides.csv` (44 hand-kept rows, source URL each: 6 special-education schools, 2 transition, 2 detention, Simpson, 3 SAFE placements, 31 dropout-recovery) plus 5 preschool-only centers from the CPS School Type = 49 schools with a `program`. `pipeline/program.py` assigns it, `data/schools.json|csv` and the site copies carry `program` and `meta.programs`, and a `program_context` validation gate (tested in `test_gates`) checks sources and sentences. The school panel and the report card show a neutral note; table rows get a badge. Checked at 360px in dark mode (panel) and the table; not checked: light-mode panel, the printed card, a real phone.
 **Obstacles:** `data.cityofchicago.org` is blocked in this sandbox and `raw/` is absent, so `build.py` and `build_site.py` could not run. `python3 -m pipeline.program` patched the committed `data/` files and `site/data/schools.json` and `site/downloads/` were patched to match; a normal build gives the same result.
 **Decisions:** D-034.
-**Commits:** `eae8991` Add program context · `ea61b06` Regenerate data with program field · `44fb0d0` Log program context work and D-034. Pushed to `claude/keen-curie-0wo4oz` only.
+**Commits:** `2c82e4e` Add program context · `0775208` Regenerate data with program field · `0ee8baf` Log program context work and D-034 (rebased onto main). Pushed to `claude/keen-curie-0wo4oz` only.
 
 ## 2026-10-01 17:05–17:25 · Fun logo that resets the map · `970a2ff2`
 
