@@ -12,7 +12,7 @@ FLAT_LATEST = [  # metrics written to schools.csv as latest value + year
     "cps_budget_fy27", "cps_budget_per_pupil", "cps_budget_fy26_projected", "cps_positions_fy27",
     "ppe_total", "ppe_site", "ppe_central",
     "iar_ela_prof", "iar_math_prof", "ela_growth", "math_growth", "attendance_rate", "chronic_absent",
-    "grad_4yr", "ninth_on_track", "postsec_12mo", "sat_ela_prof", "sat_math_prof", "act_ela_prof", "act_math_prof",
+    "grad_4yr", "grad_5yr", "ninth_on_track", "postsec_12mo", "sat_ela_prof", "sat_math_prof", "act_ela_prof", "act_math_prof",
     "act_ela_avg", "act_math_avg", "fe_leaders", "fe_teachers", "fe_families", "fe_environment",
 ]
 

@@ -77,7 +77,7 @@ class Outreach(unittest.TestCase):
         for o in os_:
             with self.subTest(o["n"]):
                 self.assertTrue(o["sent"] and o["status"] and o["related"])
-                self.assertRegex(o["status"], r"^(Awaiting reply|Answered \d{4}-\d{2}-\d{2}|Bounced|No reply, closed)")
+                self.assertRegex(o["status"], r"^(Draft, not sent|Awaiting reply|Answered \d{4}-\d{2}-\d{2}|Bounced|No reply, closed)")
 
 
 if __name__ == "__main__":

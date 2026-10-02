@@ -20,7 +20,7 @@ from .metrics import ISBE_YEARS, REGISTRY, SOURCES
 DEMO_LOW_N_FLAG = 30       # flagged low_n (label only; CPS values are published as given, never hidden)
 BUDGET_PP_LOW, BUDGET_PP_HIGH = 5000, 60000   # per-pupil budget outlier flags (flag, never trim)
 
-HS_ONLY = ["grad_4yr", "ninth_on_track", "postsec_12mo", "sat_ela_prof", "sat_math_prof", "sat_ela_avg",
+HS_ONLY = ["grad_4yr", "grad_5yr", "ninth_on_track", "postsec_12mo", "sat_ela_prof", "sat_math_prof", "sat_ela_avg",
            "sat_math_avg", "sat_ela_part", "sat_math_part", "act_ela_prof", "act_math_prof", "act_ela_avg",
            "act_math_avg", "act_ela_part", "act_math_part", "act_ela_growth", "act_math_growth"]
 IAR_ONLY = ["iar_ela_prof", "iar_math_prof", "ela_growth", "math_growth"]

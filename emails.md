@@ -66,3 +66,23 @@ Hello,
 
 Thank you,
 [Name]
+
+## 4. CPS Options and Reengagement offices: which schools serve which students
+
+**Sent:** not sent (draft; owner to approve and supply the address)
+**Status:** Draft, not sent
+**Related:** D-034, D-035, issue 4
+**To:** [CPS office that runs Options schools and re-engagement programs; address not yet confirmed]
+**Subject:** Confirming which CPS schools are dropout-recovery, detention, parenting and short-term placement schools
+
+Hello,
+
+I run schools.ateya.org, a free map of every CPS school's public data. Some schools serve students who are not comparable with neighborhood-school students, so the site shows each of them with a short note and leaves them out of city medians by default. I built the list by hand from public pages. Could you check it?
+
+1. Attached is the list (`program_overrides.csv`, 44 schools, with the public page I used for each). Are any wrong or missing?
+2. Which of the dropout-recovery schools (YCCS, Ombudsman, Pathways in Education, Excel Academy, Instituto Justice and Leadership Academy, Peace and Education Coalition) run shortened days, so attendance rates are not comparable?
+3. Is there a public list of these programs, or a CPS page I should cite?
+
+Thank you,
+[Name]
+

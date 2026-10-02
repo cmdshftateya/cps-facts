@@ -22,6 +22,7 @@ class Program(unittest.TestCase):
     def test_profile_mapping(self):
         self.assertEqual(program.from_profile({"classification_description": "Schools that offer a rigorous curriculum with mainly honors", "significantlymodifiedmod": True}), ("exam", True, True))
         self.assertEqual(program.from_profile({"classification_description": "Schools that have an attendance boundary. x", "significantlymodifiedmod": False}), (None, False, True))
+        self.assertEqual(program.from_profile({"classification_description": "Schools that offer a rigorous curriculum", "attendance_boundaries": True})[0], "mixed")
         self.assertFalse(program.from_profile({"classification_description": "A category CPS invented", "significantlymodifiedmod": False})[2])
 
     def test_published_programs_leave_the_default_set(self):

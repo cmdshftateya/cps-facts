@@ -33,10 +33,16 @@ PROGRAMS = {
 # `sped_cluster` from its `significantlymodifiedmod` flag (the school hosts special-education cluster programs).
 ADMISSION = {
     "exam": ("Admission by entrance exam",
-             "Admits students by application and entrance exam, so results partly reflect who is admitted. Some of these schools share a building with a neighborhood program."),
+             "Admits students by application and entrance exam, so results partly reflect who is admitted."),
     "application": ("Admission by application or lottery",
                     "Admits students by application or lottery rather than by home address, so results partly reflect who applies and is admitted."),
 }
+ADMISSION["mixed"] = ("Selective and neighborhood programs",
+                      "The building holds a selective program that admits by entrance exam and a neighborhood program for students who live nearby. The figures cover both and cannot be separated.")
+# Hand additions where the School Profile fields cannot say it. Carnegie mixes a gifted and a neighborhood program
+# (issue 4) although the portal's attendance_boundaries flag is false; Goode (an early-college STEM school) is
+# classified "own processes for enrollment" but admits through the GoCPS application.
+ADMISSION_OVERRIDES = {"609837": "mixed", "610558": "application"}
 CLUSTER = ("Hosts special-education cluster programs",
            "Students in the cluster program are assigned from outside the attendance area, so the share of students with IEPs, budget per pupil and test averages reflect that program as well as the neighborhood.")
 
@@ -67,6 +73,8 @@ def from_profile(prof):
         return None, cluster, True
     for start, adm in _ADMISSION_BY_START.items():
         if d.startswith(start):
+            if adm == "exam" and str(prof.get("attendance_boundaries")).lower() == "true":
+                adm = "mixed"   # an exam program and a neighborhood program in one building
             return adm, cluster, True
     return None, cluster, False
 
@@ -87,6 +95,7 @@ def meta():
 def assign(school, school_type, overrides, prof=None):
     """Set school['program'] (and 'program_note' when the row has its own sentence), 'admission' and 'sped_cluster'."""
     adm, cluster, _ = from_profile(prof)
+    adm = ADMISSION_OVERRIDES.get(school["id"], adm)
     if adm:
         school["admission"] = adm
     if cluster:

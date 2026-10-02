@@ -54,11 +54,13 @@ for mid, label, unit, extra in [
     ("attendance_rate", "Student attendance rate (%)", "pct", {}),
     ("chronic_absent", "Chronic absenteeism (%)", "pct", {}),
     ("grad_4yr", "4-year graduation rate (%)", "pct", {}),
+    ("grad_5yr", "5-year graduation rate (%)", "pct", {}),
     ("ninth_on_track", "Freshman on-track (%)", "pct", {}),
     ("postsec_12mo", "Graduates enrolled in postsecondary within 12 months (%)", "pct", {}),
     ("isbe_enrollment", "ISBE enrollment (count)", "count", {}),
 ]:
     REGISTRY[mid] = M(label, unit, "outcomes" if mid != "isbe_enrollment" else "enrollment", "ISBE-RC", ISBE_YEARS, **extra)
+REGISTRY["grad_5yr"]["note"] = "Counts students who graduate within five years of starting ninth grade, so it describes an earlier group of ninth graders than the 4-year rate shown for the same school year."
 
 _CUT = "ISBE lowered proficiency cut scores in 2025 and did not re-score earlier years: not comparable across 2024-25."
 REGISTRY["iar_ela_prof"] = M("IAR ELA proficiency (%)", "pct", "outcomes", "ISBE-RC", ["2023-24", "2024-25"],
