@@ -32,9 +32,9 @@
   /* the logo: the city-flag star, graduating; click it to fly home (whole city, no filters, no school open) */
   #home,#home:hover{display:inline-flex;align-items:center;gap:7px;color:inherit;background:none;border:0;text-decoration:none;white-space:nowrap;margin:-6px 0}
   @font-face{font-family:"Barlow Condensed";font-weight:900;font-display:swap;src:url(/fonts/BarlowCondensed-Black.ttf)}
-  #home .wm{font:900 27px/.92 "Barlow Condensed",var(--font-display);letter-spacing:.005em}
+  #home .wm{font:900 27px/34px "Barlow Condensed",var(--font-display);letter-spacing:.005em;align-self:baseline}  /* the wordmark, not the icon, gives the header its baseline, so the nav sits on the letters */
   #home .wm b{font-weight:inherit;color:var(--red)}
-  .lg{display:block;overflow:visible;flex:none}
+  .lg{display:block;overflow:visible;flex:none;align-self:center}
   .lg .bar{fill:var(--blue)}
   .lg .star{fill:var(--red);transform-origin:17px 21.5px;transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
   .lg .cap{transform-origin:17px 8px;fill:var(--ink)}
