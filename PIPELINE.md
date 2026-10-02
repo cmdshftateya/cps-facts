@@ -75,3 +75,18 @@ The pipeline itself never runs on Cloudflare or in CI (`raw/` is not in git). Wh
 - In git: code, docs, the small curated CSVs (`budget_units.csv`, `budget_unit_funds.csv`, `crosswalk.csv`, `lineage.csv`), `data/` outputs and `site/`.
 - Local only, never pushed: `raw/` (downloads, rebuilt by `fetch.py` from the URLs and hashes in `raw/MANIFEST.json`) and the hand-downloaded CPS budget export `raw/fy27_bi_budget_book.csv`. Nothing is stored in cloud storage, to avoid ongoing cost.
 - The repo `cmdshftateya/cps-facts` on GitHub is public (MIT for code). Issues are enabled and linked from the site header, the Methodology and Data pages, and the README; templates are in `.github/ISSUE_TEMPLATE/`. Keep credentials and the hand-downloaded budget export out of the repo.
+
+## Ask: the private chart builder (`tools/ask/`)
+
+A local tool for making charts from `data/`. Pick X and Y metrics and school years, filter by school type or grade band, color by a category, and choose how many outliers to label. You get a scatter (with trend line) or a ranked bar chart, plus PNG, SVG and CSV downloads. It is not part of the site and is never deployed (it lives outside `site/`, and the server binds to 127.0.0.1 only).
+
+```
+.venv/bin/python tools/ask/server.py      # http://127.0.0.1:8899
+```
+
+- **v1 is deterministic: no AI and no cost.** The server builds the SQL from the menu choices, each checked against `pipeline/metrics.py`. The same choices always give the same chart, and the choices are saved in the URL, so a chart can be bookmarked.
+- **Outliers:** for a scatter, the server fits a least-squares line and labels the schools with the largest residuals (default 8), plus any schools typed into "Also label". It lists them with their values under the chart.
+- **Footnotes** come from the registry: the source names, "suppressed and missing are left out, never zero", and each metric's caveat note.
+- **SQL box:** every chart shows its SQL. You can edit it and re-run against the same read-only in-memory copy of `schools.csv` and `school_values.csv`, where suppressed values are NULL.
+- **Optional AI question box:** this appears only when `ANTHROPIC_API_KEY` is set (it needs `pip install anthropic`). Claude (`claude-opus-5-5`) writes the SQL from plain English, using the same chart path. Each answer shows its estimated cost. Off by default.
+- Tests: `tests/test_ask.py`, with no API calls.

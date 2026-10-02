@@ -408,3 +408,14 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 
 **Why:** 3:4 portrait is Instagram's tall feed size and fits a phone screen. Four numbers stay quick to read; low income is left off because the link card already shows it. Drawing in the browser adds no files per school (the link cards already take 28 MB) and follows the reader's comparison set and year policy for the medians. Safari drops a share call that waits on slow work after the tap, hence the pre-render.
 
+## D-033 · Private chart builder: deterministic v1, AI optional
+
+- **Date:** 2026-10-02
+- **Status:** Active
+- **Who:** Owner ("i thought we were going to make a deterministic v1"); the agent chose the design within that
+- **Tags:** tooling, llm, cost
+- **Where:** `1e317668`, [PIPELINE.md](PIPELINE.md) (Ask)
+
+**Decision:** **The chart builder is a local-only tool (`tools/ask/`), and v1 is deterministic.** Menus pick the metrics, years, filters, colors and outlier count. The server builds the SQL from choices checked against the metric registry, runs it on read-only in-memory SQLite, and labels outliers (largest residuals from the least-squares line). The page draws plain SVG with no libraries. A natural-language box, where Claude writes the SQL, stays in the code but shows only when `ANTHROPIC_API_KEY` is set.
+
+**Why:** Deterministic means it's free, repeatable, and can't invent numbers or break the integrity rules, and nearly every chart question is "X vs Y for these schools". The AI path was already built and reuses the same chart engine, so keeping it switched off by default costs nothing. Going public would need a spend cap and bot protection first.
