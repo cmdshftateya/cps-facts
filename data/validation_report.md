@@ -1,6 +1,6 @@
 # Validation report
 
-Generated 2026-10-01T15:11:02Z · roster 2026-27 · **639 schools** · **PASS**
+Generated 2026-10-02T20:49:10Z · roster 2026-27 · **639 schools** · **PASS**
 
 By type: charter 100, contract 16, district 519, options 4 · by grade band: ES 472, HS 144, combo 23
 With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
@@ -23,6 +23,7 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 | pass | Duplicate school IDs (`dup_ids`) |  |  |
 | pass | One RCDTS assigned to more than one school (`dup_rcdts`) |  |  |
 | pass | Schools missing name, type or governance (`missing_fields`) |  |  |
+| pass | Program overrides or program sentences incomplete (unknown school or program, no source URL, no sentence) (`program_context`) |  |  |
 | pass | Roster enrollment sum differs from the CPS file's district total (`roster_total`) |  | Roster sum 304,687. |
 | pass | Schools without coordinates (`missing_coords`) |  |  |
 | pass | Schools not in exactly one Board subdistrict (`missing_subdistrict`) |  |  |

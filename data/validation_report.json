@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-01T15:11:02Z",
+ "generated": "2026-10-02T20:49:10Z",
  "schools": 639,
  "failed": [],
  "warnings": [
@@ -43,6 +43,16 @@
    "title": "Schools missing name, type or governance",
    "count": 0,
    "total": 639,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "program_context",
+   "severity": "fail",
+   "status": "pass",
+   "title": "Program overrides or program sentences incomplete (unknown school or program, no source URL, no sentence)",
+   "count": 0,
+   "total": 44,
    "detail": "",
    "examples": []
   },
