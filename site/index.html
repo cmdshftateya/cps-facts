@@ -147,6 +147,34 @@
   #tablev{min-width:0;min-height:0;overflow:auto;display:none;background:var(--page)}
   main.tbl #stage{display:none}
   main.tbl #tablev{display:block}
+  /* chart view: scatter of two measures; styling follows the reportage chart guide (hairlines, flat marks, no rounding) */
+  #chartv{min-width:0;min-height:0;overflow:auto;display:none;background:var(--page);padding:10px 16px 24px;position:relative}
+  main.cht #stage{display:none}
+  main.cht #chartv{display:block}
+  .cv-ctl{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:flex-end;margin-bottom:12px}
+  .cv-ctl label{display:flex;flex-direction:column;gap:3px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);min-width:0}
+  .cv-ctl select{max-width:100%}
+  .cv-ctl .cv-x,.cv-ctl .cv-y{flex:1 1 220px}
+  #cv-svg{display:block;width:100%;height:auto;font-family:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;font-variant-numeric:tabular-nums}
+  .cv-grid{stroke:var(--rule);stroke-width:1}
+  .cv-axis{stroke:var(--rule-firm);stroke-width:1}
+  .cv-tick{fill:var(--muted);font-size:11px}
+  .cv-axt{fill:var(--ink-2);font-size:12px}
+  .cv-title{fill:var(--ink);font-size:16px;font-weight:700}
+  .cv-sub{fill:var(--ink-2);font-size:12.5px}
+  .cv-trend{stroke:var(--ink-2);stroke-width:1;stroke-dasharray:5 4;fill:none}
+  .cv-dot{fill:var(--s1);stroke:var(--page);stroke-width:1;fill-opacity:.8;cursor:pointer}
+  .cv-dot.out{fill:var(--s2);fill-opacity:1;stroke-width:2}
+  .cv-dot.sel{fill:var(--ink);fill-opacity:1;stroke:var(--page);stroke-width:2}
+  .cv-dot:hover{fill:var(--ink);fill-opacity:1}
+  .cv-lab{fill:var(--ink);font-size:12px;stroke:var(--page);stroke-width:3;paint-order:stroke;stroke-linejoin:round;pointer-events:none}
+  .cv-lead{stroke:var(--muted);stroke-width:1}
+  .cv-foot{font-size:12px;color:var(--muted);max-width:760px;margin:8px 0 0}
+  .cv-foot b{color:var(--ink-2);font-weight:600}
+  #cv-tip{position:absolute;display:none;pointer-events:none;background:var(--surface);border:var(--bay) solid var(--rule-firm);padding:5px 8px;font-size:12px;z-index:5;font-variant-numeric:tabular-nums}
+  .cv-dl{display:flex;gap:6px;margin-left:auto}
+  .cv-dl button{font-size:13px;padding:5px 10px}
+  .cv-empty{color:var(--muted);font-size:14px;padding:24px 0}
   #tablev table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
   #tablev caption{text-align:left;padding:8px 12px;color:var(--muted);font-size:12px}
   #tablev th{position:sticky;top:0;background:var(--surface);border-bottom:var(--bay) solid var(--rule-firm);text-align:left;padding:0;z-index:1}
@@ -236,6 +264,7 @@
     aside{border-right:0;order:2}
     #stage{height:64vh;order:1}
     #tablev{order:1;max-height:none;overflow-x:auto}
+    #chartv{order:1;padding:10px 12px 20px}
     #legend{max-width:calc(100% - 24px)}
     #panel{position:fixed;left:0;right:0;bottom:0;max-height:60vh;border-left:0;border-top:var(--bay) solid var(--rule-firm);z-index:10}
     #setmenu{left:0;right:0;top:auto;bottom:0;width:auto;max-height:70vh;border-width:var(--bay) 0 0}
@@ -243,7 +272,7 @@
 </style>
 </head>
 <body>
-<header><h1><a id="home" href="/" title="Back to the whole city"><svg class="lg" viewBox="4 0 26 34" width="26" height="34" aria-hidden="true"><rect class="bar" x="5" y="15" width="24" height="4.5"/><rect class="bar" x="5" y="23.5" width="24" height="4.5"/><g class="star"><path d="M17.0 10.5L20.2 16.0L26.5 16.0L23.4 21.5L26.5 27.0L20.2 27.0L17.0 32.5L13.8 27.0L7.5 27.0L10.6 21.5L7.5 16.0L13.8 16.0Z"/></g><g class="cap"><path class="skull" d="M12 8.5V11.5Q17 14 22 11.5V8.5Z"/><path class="board" d="M7 8L17 4L27 8L17 12Z"/><g class="tassel"><path d="M17 8L25.5 9.2V14"/><rect x="24.4" y="13.5" width="2.2" height="3.4"/></g></g></svg><span class="wm">CPS <b>Facts</b></span></a></h1><span class="n nav"><a href="/methodology.html">Methodology and caveats</a> · <a href="/data.html">Data and sources</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button></div><button id="setbtn" aria-expanded="false" aria-controls="setmenu" title="Comparison set, year policy, map mode, theme"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 4h14M2 9h14M2 14h14" stroke="currentColor" stroke-width="2" fill="none"/><rect x="11" y="2" width="4" height="4"/><rect x="3" y="7" width="4" height="4"/><rect x="9" y="12" width="4" height="4"/></svg><span>Settings</span></button></header>
+<header><h1><a id="home" href="/" title="Back to the whole city"><svg class="lg" viewBox="4 0 26 34" width="26" height="34" aria-hidden="true"><rect class="bar" x="5" y="15" width="24" height="4.5"/><rect class="bar" x="5" y="23.5" width="24" height="4.5"/><g class="star"><path d="M17.0 10.5L20.2 16.0L26.5 16.0L23.4 21.5L26.5 27.0L20.2 27.0L17.0 32.5L13.8 27.0L7.5 27.0L10.6 21.5L7.5 16.0L13.8 16.0Z"/></g><g class="cap"><path class="skull" d="M12 8.5V11.5Q17 14 22 11.5V8.5Z"/><path class="board" d="M7 8L17 4L27 8L17 12Z"/><g class="tassel"><path d="M17 8L25.5 9.2V14"/><rect x="24.4" y="13.5" width="2.2" height="3.4"/></g></g></svg><span class="wm">CPS <b>Facts</b></span></a></h1><span class="n nav"><a href="/methodology.html">Methodology and caveats</a> · <a href="/data.html">Data and sources</a> · <a href="https://github.com/cmdshftateya/cps-facts/issues">Report an issue</a></span><span class="n" id="count"></span><div class="views" role="group" aria-label="View"><button id="v-map" aria-pressed="true">Map</button><button id="v-tbl" aria-pressed="false">Table</button><button id="v-cht" aria-pressed="false">Chart</button></div><button id="setbtn" aria-expanded="false" aria-controls="setmenu" title="Comparison set, year policy, map mode, theme"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 4h14M2 9h14M2 14h14" stroke="currentColor" stroke-width="2" fill="none"/><rect x="11" y="2" width="4" height="4"/><rect x="3" y="7" width="4" height="4"/><rect x="9" y="12" width="4" height="4"/></svg><span>Settings</span></button></header>
 <main id="main">
   <aside>
     <div class="blk">
@@ -273,6 +302,17 @@
     <div id="tip"></div>
   </div>
   <div id="tablev"></div>
+  <div id="chartv">
+    <div class="cv-ctl">
+      <label class="cv-y">Y axis (vertical)<select id="cv-y"></select></label>
+      <label class="cv-x">X axis (horizontal)<select id="cv-x"></select></label>
+      <label>Label outliers<select id="cv-n"><option>0</option><option>5</option><option>8</option><option>12</option><option>20</option></select></label>
+      <span class="cv-dl"><button id="cv-png" type="button">Download PNG</button><button id="cv-csv" type="button">Download CSV</button></span>
+    </div>
+    <svg id="cv-svg" role="img"></svg>
+    <div id="cv-foot"></div>
+    <div id="cv-tip"></div>
+  </div>
   <section id="panel" aria-live="polite"></section>
   <div class="rz" id="rz-a" role="separator" aria-orientation="vertical" aria-label="Resize filters column" tabindex="0"></div>
   <div class="rz" id="rz-p" role="separator" aria-orientation="vertical" aria-label="Resize school profile column" tabindex="0"></div>
@@ -331,7 +371,7 @@ const ROWGROUP={pct_latinx:"Race and ethnicity",pct_black:"Race and ethnicity",p
  ppe_site:"Spending detail",ppe_central:"Spending detail",cps_budget_fy27:"Spending detail",cps_budget_fy26_projected:"Spending detail",cps_positions_fy27:"Spending detail",
  fe_leaders:"Level, 1 (lowest) to 5 (highest)",fe_teachers:"Level, 1 (lowest) to 5 (highest)",fe_families:"Level, 1 (lowest) to 5 (highest)",fe_environment:"Level, 1 (lowest) to 5 (highest)",
  act_ela_avg:"Grade 11 average scores",act_math_avg:"Grade 11 average scores"};
-let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",card:false,view:"map",sort:"name",dir:1,...DEF_SET},bins=[],medCache={};
+let D,S=[],R={},mk={},sdEl={},st={metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",card:false,view:"map",cx:"pct_low_income",cn:8,sort:"name",dir:1,...DEF_SET},bins=[],medCache={};
 
 fetch("data/schools.json").then(r=>r.json()).then(init).catch(e=>{document.body.insertAdjacentHTML("beforeend","<p style='padding:20px'>Could not load data/schools.json</p>");console.error(e)});
 
@@ -384,6 +424,7 @@ function init(data){
   opts("f-sub",subs.map(x=>[x,"District "+x]),"All subdistricts");
   const yrs=new Set();for(const [,k] of CB)if(k!=="type")for(const s of S){const ser=s.m[seriesKey(k)];if(ser)Object.keys(ser).forEach(y=>yrs.add(y))}
   $("s-year").innerHTML='<option value="latest">Latest available per metric</option>'+[...yrs].sort().reverse().map(y=>`<option value="${y}">Aligned: SY${y}</option>`).join("");
+  for(const id of ["cv-y","cv-x"])for(const [grp,ks] of Object.entries(g)){if(grp==="Categorical")continue;const og=document.createElement("optgroup");og.label=grp;for(const k of ks)og.append(new Option(menuLabel(k),k));$(id).append(og)}
   loadSettings();readHash();syncControls();buildMap();wire();render();
   if(st.type||st.band||st.net||st.sub||st.has)$("filters").open=true;
 }
@@ -395,7 +436,15 @@ function wire(){
   $("f-has").onchange=e=>{st.has=e.target.checked;render()};
   $("reset").onclick=()=>{Object.assign(st,{type:"",band:"",net:"",sub:"",has:false});$("q").value="";hideRes();syncControls();render()};
   for(const [id,gap] of [["g-prof",false],["g-gap",true]])$(id).onclick=()=>{st.metric=g11Pair(st.metric,gap);syncControls();render()};
-  $("v-map").onclick=()=>{st.view="map";render()};$("v-tbl").onclick=()=>{st.view="table";render()};
+  $("v-map").onclick=()=>{st.view="map";render()};$("v-tbl").onclick=()=>{st.view="table";render()};$("v-cht").onclick=()=>{st.view="chart";render()};
+  $("cv-y").onchange=e=>{st.metric=e.target.value;syncControls();render()};
+  $("cv-x").onchange=e=>{st.cx=e.target.value;render()};
+  $("cv-n").onchange=e=>{st.cn=+e.target.value;render()};
+  $("cv-png").onclick=chartPng;$("cv-csv").onclick=chartCsv;
+  $("cv-svg").addEventListener("click",e=>{const id=e.target.dataset&&e.target.dataset.id;if(id)select(id===st.sel?"":id)});
+  $("cv-svg").addEventListener("mousemove",e=>{const id=e.target.dataset&&e.target.dataset.id;if(id)chartTip(id,e);else $("cv-tip").style.display="none"});
+  $("cv-svg").addEventListener("mouseleave",()=>$("cv-tip").style.display="none");
+  let cvW=0;new ResizeObserver(()=>{const w=$("chartv").clientWidth;if(st.view==="chart"&&w&&w!==cvW){cvW=w;chart()}}).observe($("chartv"));
   // the logo resets to the landing view: whole city, default metric, no filters or search, no school open
   $("home").onclick=e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;e.preventDefault();
     Object.assign(st,{metric:DEF_METRIC,type:"",band:"",net:"",sub:"",has:false,sel:"",card:false,view:"map"});
@@ -447,6 +496,7 @@ function writeHash(){
   if(st.metric!==DEF_METRIC)u.set("m",st.metric);
   for(const k of ["type","band","net","sub"])if(st[k])u.set(k,st[k]);
   if(st.view!==defView())u.set("v",st.view);
+  if(st.view==="chart"){if(st.cx!=="pct_low_income")u.set("x",st.cx);if(st.cn!==8)u.set("n",st.cn)}
   if(st.has)u.set("has","1");if(st.sel&&st.card)u.set("card","1");
   for(const k of SETKEYS)if(st[k]!==DEF_SET[k])u.set("s_"+k,st[k]===true?"1":st[k]);
   // a selected school lives in the path (/s/ID/), which has its own link preview; that page sends browsers back here
@@ -464,7 +514,9 @@ function readHash(){
   const t=u.get("type"),b=u.get("band");
   st.type=TYPES[t]?t:"";st.band=BANDS[b]?b:"";
   st.net=S.some(s=>s.network===u.get("net"))?u.get("net"):"";st.sub=S.some(s=>s.subdistrict===u.get("sub"))?u.get("sub"):"";
-  st.view=["map","table"].includes(u.get("v"))?u.get("v"):defView();
+  st.view=["map","table","chart"].includes(u.get("v"))?u.get("v"):defView();
+  st.cx=keys.has(u.get("x"))&&u.get("x")!=="type"?u.get("x"):"pct_low_income";
+  st.cn=[0,5,8,12,20].includes(+u.get("n"))&&u.get("n")!==null?+u.get("n"):8;
   st.has=u.get("has")==="1";const sc=u.get("school")||(location.pathname.match(/^\/s\/([^/]+)\/?$/)||[])[1];st.sel=S.some(s=>s.id===sc)?sc:"";st.card=!!st.sel&&u.get("card")==="1";
   // settings in the URL win over remembered ones; otherwise keep what localStorage loaded
   const ok={set:["all","district"],mode:["points","sub"],theme:["auto","dark","light"]};
@@ -637,9 +689,10 @@ function render(){
   $("count").textContent=n===S.length?`${n} schools`:`${n} of ${S.length} schools`;
   const nf=[st.type,st.band,st.net,st.sub,st.has].filter(Boolean).length;
   $("reset").hidden=!nf;$("fcount").textContent=nf?"· "+nf+" on":"";
-  const tv=st.view==="table";
-  $("main").classList.toggle("tbl",tv);$("v-map").setAttribute("aria-pressed",!tv);$("v-tbl").setAttribute("aria-pressed",tv);
-  place();legend();if(tv)table();writeHash();panel();card();
+  const tv=st.view==="table",cv=st.view==="chart";
+  $("main").classList.toggle("tbl",tv);$("main").classList.toggle("cht",cv);
+  $("v-map").setAttribute("aria-pressed",st.view==="map");$("v-tbl").setAttribute("aria-pressed",tv);$("v-cht").setAttribute("aria-pressed",cv);
+  place();legend();if(tv)table();if(cv)chart();writeHash();panel();card();
 }
 function nonDefault(){
   const a=[];
@@ -720,6 +773,144 @@ function table(){
   };
   $("tablev").innerHTML=`<table><caption>${rows.length} of ${S.length} schools. Click a column to sort; click a row for the full profile. No data is never zero.${ys.length>1?" Years differ across schools: "+ys.map(sy).join(", ")+".":""}${nonDefault()?" · "+esc(nonDefault()):""}</caption><thead><tr>${cols.map(c=>`<th scope="col" data-k="${c.k}" class="${c.r?"r":""}${c.metric?" mt":""}" aria-sort="${st.sort===c.k?(st.dir>0?"ascending":"descending"):"none"}"><button type="button">${esc(c.l)}${st.sort===c.k?(st.dir>0?" ▲":" ▼"):""}</button></th>`).join("")}</tr></thead>
     <tbody>${sorted.map(s=>`<tr data-id="${s.id}" class="${s.id===st.sel?"sel":""}${inSet(s)?"":" excl"}">${cols.map(c=>td(s,c)).join("")}</tr>`).join("")}</tbody></table>`;
+}
+
+// ---------- chart
+// Y is the color-by measure (so switching views keeps the question); X is chosen here.
+// One school year per axis, never mixed: the aligned year if set, otherwise the year most of these schools report.
+function chartY(){const m=st.metric;return m==="type"||m===st.cx?(st.cx==="math_growth"?"pct_low_income":"math_growth"):m}
+// years for the two axes: the aligned year if set; otherwise the school year where most of these schools report
+// both measures (latest wins ties), so the axes match; only when they share no year does each take its own
+function axisYears(yk,xk,rows){
+  if(st.year!=="latest")return [st.year,st.year];
+  const cnt=(ks)=>{const c={};for(const s of rows){const ys=ks.map(k=>s.m[seriesKey(k)]||{});for(const y of Object.keys(ys[0]))if(ys.every(o=>typeof o[y]==="number"))c[y]=(c[y]||0)+1}return c};
+  const best=c=>Object.keys(c).sort((a,b)=>c[b]-c[a]||b.localeCompare(a))[0]||null;
+  const both=best(cnt([yk,xk]));
+  return both?[both,both]:[best(cnt([yk])),best(cnt([xk]))];
+}
+function niceTicks(lo,hi,n){
+  if(lo===hi){lo-=1;hi+=1}
+  const raw=(hi-lo)/n,mag=10**Math.floor(Math.log10(raw)),e=raw/mag,step=mag*(e>=7.5?10:e>=3.5?5:e>=1.5?2:1),t=[];
+  for(let v=Math.floor(lo/step)*step;v<=Math.ceil(hi/step)*step+step/2;v+=step)t.push(+v.toFixed(10));
+  return t;
+}
+function tickFmt(k,v){
+  const u=R[seriesKey(k)]?.unit||R[k]?.unit;
+  if(u==="pct")return Math.round(v)+"%";if(u==="pctchg")return (v>0?"+":"")+Math.round(v)+"%";
+  if(u==="usd")return "$"+(Math.abs(v)>=1000?Math.round(v/1000)+"k":Math.round(v));
+  if(u==="points")return (v>0?"+":"")+v;return Math.abs(v)>=10000?Math.round(v/1000)+"k":v.toLocaleString();
+}
+function srcName(k){const m=R[seriesKey(k)];const so=m&&D.meta.sources[m.source];return so?so.name:""}
+function svgEl(tag,a,parent,text){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);if(text!=null)e.textContent=text;if(parent)parent.append(e);return e}
+function wrapLines(t,max){const out=[];let cur="";for(const w of t.split(/\s+/)){if((cur+" "+w).trim().length>max&&cur){out.push(cur);cur=w}else cur=(cur+" "+w).trim()}if(cur)out.push(cur);return out}
+let CV={};
+function chart(fixedW){
+  const yk=chartY(),xk=st.cx;
+  $("cv-y").value=yk;$("cv-x").value=xk;$("cv-n").value=st.cn;
+  for(const o of [...$("cv-y").options,...$("cv-x").options])o.textContent=menuLabel(o.value);
+  const rows=S.filter(s=>visible(s)&&inSet(s));
+  const [yy,xy]=axisYears(yk,xk,rows);
+  const pts=[];let sup=0,none=0;
+  for(const s of rows){
+    const a=yy&&s.m[seriesKey(yk)]?.[yy],b=xy&&s.m[seriesKey(xk)]?.[xy];
+    if(a==="*"||b==="*"){sup++;continue}
+    if(typeof a!=="number"||typeof b!=="number"){none++;continue}
+    pts.push({s,x:b,y:a});
+  }
+  const svg=$("cv-svg");svg.innerHTML="";$("cv-foot").innerHTML="";
+  if(pts.length<3){svg.setAttribute("viewBox","0 0 10 1");$("cv-foot").innerHTML=`<p class="cv-empty">Too few schools have both measures${nonDefault()?" with these filters":""}. Try another pair, or clear the filters.</p>`;return}
+  // least-squares trend; outliers are the largest residuals
+  const n=pts.length,mx=pts.reduce((a,p)=>a+p.x,0)/n,my=pts.reduce((a,p)=>a+p.y,0)/n;
+  let sxx=0,sxy=0,syy=0;for(const p of pts){sxx+=(p.x-mx)**2;sxy+=(p.x-mx)*(p.y-my);syy+=(p.y-my)**2}
+  const b=sxx?sxy/sxx:0,a0=my-b*mx,r=sxx&&syy?sxy/Math.sqrt(sxx*syy):0;
+  const res=pts.map(p=>p.y-(a0+b*p.x)),sd=Math.sqrt(res.reduce((a,v)=>a+v*v,0)/n)||1;
+  pts.forEach((p,i)=>p.z=res[i]/sd);
+  const ranked=[...pts].sort((p,q)=>Math.abs(q.z)-Math.abs(p.z));
+  ranked.slice(0,st.cn).forEach(p=>p.out=true);
+  const selP=pts.find(p=>p.s.id===st.sel);if(selP)selP.lab=true;
+
+  const W=fixedW||Math.max(300,$("chartv").clientWidth-(matchMedia("(max-width:760px)").matches?24:32)),small=W<560;
+  const title=`${menuLabel(yk)} vs. ${menuLabel(xk).toLowerCase()}`;
+  const sub=`${n} schools · ${yy===xy?sy(yy):"Y "+sy(yy)+", X "+sy(xy)}${nonDefault()?" · "+nonDefault():""}`;
+  const tl=wrapLines(title,Math.floor(W/9)),sl=wrapLines(sub,Math.floor(W/6.6));
+  const m={t:tl.length*20+sl.length*16+16,r:small?10:20,b:46,l:small?42:56};
+  const ph=Math.round(Math.min(small?W*0.95:W*0.6,Math.max(320,innerHeight-260))),pw=W-m.l-m.r,H=m.t+ph+m.b;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);svg.setAttribute("aria-label",`${title}. ${sub}.`);
+  let ty=18;tl.forEach(l=>{svgEl("text",{x:0,y:ty,class:"cv-title"},svg,l);ty+=20});sl.forEach(l=>{svgEl("text",{x:0,y:ty,class:"cv-sub"},svg,l);ty+=16});
+  const g=svgEl("g",{transform:`translate(${m.l},${m.t})`},svg);
+  const xt=niceTicks(Math.min(...pts.map(p=>p.x)),Math.max(...pts.map(p=>p.x)),small?4:7),yt=niceTicks(Math.min(...pts.map(p=>p.y)),Math.max(...pts.map(p=>p.y)),6);
+  const x0=xt[0],x1=xt[xt.length-1],y0=yt[0],y1=yt[yt.length-1],sx=v=>(v-x0)/(x1-x0)*pw,sy_=v=>ph-(v-y0)/(y1-y0)*ph;
+  for(const t of yt){svgEl("line",{x1:0,x2:pw,y1:sy_(t),y2:sy_(t),class:"cv-grid"},g);svgEl("text",{x:-6,y:sy_(t)+4,"text-anchor":"end",class:"cv-tick"},g,tickFmt(yk,t))}
+  xt.forEach((t,i)=>svgEl("text",{x:sx(t),y:ph+16,"text-anchor":i===xt.length-1?"end":i===0?"start":"middle",class:"cv-tick"},g,tickFmt(xk,t)));
+  svgEl("line",{x1:0,x2:pw,y1:ph,y2:ph,class:"cv-axis"},g);svgEl("line",{x1:0,x2:0,y1:0,y2:ph,class:"cv-axis"},g);
+  svgEl("text",{x:pw/2,y:ph+36,"text-anchor":"middle",class:"cv-axt"},g,`${menuLabel(xk)}, ${sy(xy)}`);
+  svgEl("text",{x:-ph/2,y:small?-30:-42,transform:"rotate(-90)","text-anchor":"middle",class:"cv-axt"},g,`${menuLabel(yk)}, ${sy(yy)}`);
+  const clip=svgEl("clipPath",{id:"cv-clip"},g);svgEl("rect",{x:0,y:0,width:pw,height:ph},clip);
+  svgEl("line",{x1:0,y1:sy_(a0+b*x0),x2:pw,y2:sy_(a0+b*x1),class:"cv-trend","clip-path":"url(#cv-clip)"},g);
+  const order=[...pts].sort((p,q)=>(p.out||p.lab?1:0)-(q.out||q.lab?1:0));
+  for(const p of order)svgEl("circle",{cx:sx(p.x),cy:sy_(p.y),r:p.s.id===st.sel?6:p.out?4.5:3.2,class:"cv-dot"+(p.s.id===st.sel?" sel":p.out?" out":""),"data-id":p.s.id},g);
+  // labels: try spots around each point, skip any that would collide; the selected school first
+  const boxes=pts.filter(p=>p.out||p.lab).map(p=>({x:sx(p.x)-5,y:sy_(p.y)-5,w:10,h:10}));
+  const hit=(A,B)=>A.x<B.x+B.w&&B.x<A.x+A.w&&A.y<B.y+B.h&&B.y<A.y+A.h;
+  const want=[...(selP?[selP]:[]),...ranked.filter(p=>p.out&&p!==selP)];const placed=[];
+  for(const p of want){
+    const t=p.s.name,lab=svgEl("text",{x:-999,y:-999,class:"cv-lab","font-weight":p.s.id===st.sel?700:400},g,t);
+    let w;try{w=lab.getComputedTextLength()+4}catch(e){}if(!w)w=t.length*7.6+4;
+    const h=15,px=sx(p.x),py=sy_(p.y);let ok=false;
+    for(const [dx,dy] of [[8,-h/2],[-8-w,-h/2],[-w/2,-h-6],[-w/2,7],[8,-h-4],[-8-w,-h-4],[8,4],[-8-w,4],[14,-h-14],[-14-w,-h-14],[14,14],[-14-w,14]]){
+      const bx={x:px+dx,y:py+dy,w,h};
+      if(bx.x<0||bx.x+w>pw||bx.y<0||bx.y+h>ph||boxes.some(o=>hit(bx,o)))continue;
+      boxes.push(bx);placed.push(p);
+      if(Math.abs(dx)>10||dy<-h-5||dy>10)svgEl("line",{x1:px,y1:py,x2:dx<0?bx.x+w:bx.x,y2:bx.y+h/2,class:"cv-lead"},g);
+      lab.setAttribute("x",bx.x+2);lab.setAttribute("y",bx.y+h-3);g.append(lab);ok=true;break;
+    }
+    if(!ok)lab.remove();
+  }
+  CV={yk,xk,yy,xy,pts,title,r};
+  const outs=ranked.filter(p=>p.out);
+  const notes=[...new Set([yk,xk].map(k=>R[seriesKey(k)]?.note).filter(Boolean))];
+  $("cv-foot").innerHTML=`<p class="cv-foot">${outs.length?`<b>Farthest from the trend:</b> ${outs.map(p=>`${esc(p.s.name)} (${fmt(xk,p.x)}, ${fmt(yk,p.y)})`).join(" · ")}. `:""}`+
+    `Dashed line: least-squares trend (r = ${r.toFixed(2)}). A pattern across schools is not a cause.`+
+    ` Left out: ${sup} suppressed, ${none} with no data for one of the two, never counted as zero.`+
+    ` Sources: ${esc([...new Set([srcName(yk),srcName(xk)])].filter(Boolean).join("; "))}.${notes.length?" "+esc(notes.join(" ")):""} Click a dot for the school's profile.</p>`;
+}
+// ---------- chart export
+function cvSlug(){return ("cps-facts-"+menuLabel(CV.yk)+"-vs-"+menuLabel(CV.xk)).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/-$/,"")}
+function cvSave(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+function chartCsv(){
+  if(!CV.pts)return;
+  const q=v=>/[",\n]/.test(v)?`"${v.replace(/"/g,'""')}"`:v;
+  const head=["school_id","name",`${CV.yk} (${CV.yy})`,`${CV.xk} (${CV.xy})`,"labeled_outlier","distance_from_trend_sd"];
+  const lines=[head.map(q).join(","),...CV.pts.map(p=>[p.s.id,q(p.s.name),p.y,p.x,p.out?"yes":"",p.z.toFixed(2)].join(","))];
+  cvSave(new Blob([lines.join("\n")+"\n"],{type:"text/csv"}),cvSlug()+".csv");
+}
+// the chart's look comes from CSS variables, which an exported image can't see: copy the computed styles onto a clone
+function chartPng(){
+  if(!CV.pts)return;
+  chart(960);   // exports are the same size from a phone or a desktop; the on-screen chart is redrawn below
+  const src=$("cv-svg");
+  const clone=src.cloneNode(true),a=src.querySelectorAll("*"),b=clone.querySelectorAll("*");
+  const P=["fill","fill-opacity","stroke","stroke-width","stroke-dasharray","font-size","font-weight","font-family","paint-order","stroke-linejoin","font-variant-numeric"];
+  a.forEach((el,i)=>{const cs=getComputedStyle(el);for(const k of P){const v=cs.getPropertyValue(k);if(v)b[i].setAttribute(k,v)}b[i].removeAttribute("class")});
+  const [,, W,H]=src.getAttribute("viewBox").split(" ").map(Number),pad=16;
+  const css=getComputedStyle(document.body),bg=css.backgroundColor,muted=getComputedStyle(document.documentElement).getPropertyValue("--muted").trim();
+  const foot=wrapLines(`Source: ${[...new Set([srcName(CV.yk),srcName(CV.xk)])].filter(Boolean).join("; ")}. Dashed line: least-squares trend (r = ${CV.r.toFixed(2)}). schools.ateya.org`,Math.floor(W/6.2));
+  const FH=foot.length*15+8,out=document.createElementNS(NS,"svg"),TW=W+pad*2,TH=H+FH+pad*2;
+  out.setAttribute("xmlns",NS);out.setAttribute("viewBox",`0 0 ${TW} ${TH}`);out.setAttribute("width",TW);out.setAttribute("height",TH);
+  svgEl("rect",{x:0,y:0,width:TW,height:TH,fill:bg},out);
+  const inner=svgEl("g",{transform:`translate(${pad},${pad})`},out);[...clone.childNodes].forEach(n=>inner.append(n));
+  foot.forEach((l,i)=>svgEl("text",{x:pad,y:pad+H+14+i*15,fill:muted,"font-size":11,"font-family":'"Helvetica Neue",Helvetica,Arial,sans-serif'},out,l));
+  const img=new Image(),scale=2;
+  img.onload=()=>{const c=document.createElement("canvas");c.width=TW*scale;c.height=TH*scale;const x=c.getContext("2d");x.scale(scale,scale);x.drawImage(img,0,0);c.toBlob(bl=>cvSave(bl,cvSlug()+".png"))};
+  img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(new XMLSerializer().serializeToString(out));
+  chart();
+}
+function chartTip(id,ev){
+  const s=S.find(x=>x.id===id),t=$("cv-tip");if(!s)return;
+  const g=(k,y)=>{const v=s.m[seriesKey(k)]?.[y];return typeof v==="number"?fmt(k,v):v==="*"?"suppressed":"no data"};
+  t.innerHTML=`<b>${esc(s.name)}</b><br>${esc(menuLabel(CV.yk))}: ${g(CV.yk,CV.yy)}<br>${esc(menuLabel(CV.xk))}: ${g(CV.xk,CV.xy)}`;
+  t.style.display="block";const r=$("chartv").getBoundingClientRect();
+  t.style.left=Math.max(4,Math.min(ev.clientX-r.left+12,r.width-t.offsetWidth-4))+"px";t.style.top=(ev.clientY-r.top+$("chartv").scrollTop+12)+"px";
 }
 
 // ---------- search
