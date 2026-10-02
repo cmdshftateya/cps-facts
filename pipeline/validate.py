@@ -5,6 +5,7 @@ validate() returns a report dict; report["failed"] is the list of failing check 
 import statistics
 from collections import Counter
 
+from . import program as program_mod
 from .common import CPS_YEARS, ROSTER_YEAR, SUPPRESSED
 from .metrics import REGISTRY
 
@@ -45,6 +46,8 @@ def validate(schools, meta, t, problems):
     R.add("dup_rcdts", "fail", "One RCDTS assigned to more than one school", dup_rc, total=len(rc))
     R.add("missing_fields", "fail", "Schools missing name, type or governance",
           [s["id"] for s in schools if not (s["name"] and s["type"] and s["governance"])], total=n)
+    R.add("program_context", "fail", "Program overrides or program sentences incomplete (unknown school or program, no source URL, no sentence)",
+          program_mod.problems(schools, t["programs"]), total=len(t["programs"]))
     roster_total = sum(s["m"]["enrollment"][ROSTER_YEAR] for s in schools)
     R.add("roster_total", "fail", "Roster enrollment sum differs from the CPS file's district total",
           [] if roster_total == _district_total(t) else [f"roster {roster_total} vs district {_district_total(t)}"],

@@ -51,7 +51,7 @@ def write_all(schools, meta, report):
         json.dump({"meta": meta, "schools": clean}, f, separators=(",", ":"), ensure_ascii=False)
 
     # --- schools.csv: one row per school ---
-    cols = ["school_id", "name", "long_name", "type", "governance", "network", "school_type", "grades_served", "band",
+    cols = ["school_id", "name", "long_name", "type", "governance", "network", "school_type", "program", "grades_served", "band",
             "address", "lat", "lon", "subdistrict", "community_area", "ward", "rcdts", "predecessor_id",
             "enrollment_2026_27", "enrollment_2025_26", "enrollment_2024_25", "enrollment_change_count",
             "enrollment_change_pct"]
@@ -65,6 +65,7 @@ def write_all(schools, meta, report):
             enr = s["m"].get("enrollment", {})
             ch = s.get("enrollment_change", {})
             row = [s["id"], s["name"], s.get("long_name", ""), s["type"], s["governance"], s["network"], s["school_type"],
+                   s.get("program", ""),
                    s["grades_served"], s["band"], s["address"] or "", s["lat"] or "", s["lon"] or "",
                    s.get("subdistrict") or "", s["community_area"], s.get("ward") or "", s["rcdts"] or "",
                    s.get("predecessor", ""), enr.get("2026-27", ""), enr.get("2025-26", ""), enr.get("2024-25", ""),

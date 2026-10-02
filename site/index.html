@@ -125,6 +125,8 @@
   #panel h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0;padding:14px 14px 6px}
   .flags{margin:8px 0 0;padding:0;list-style:none;font-size:12px;color:var(--terra)}
   .flags li{margin-top:3px}
+  .prog{margin:10px 0 0;padding:8px 10px;border-left:3px solid var(--rule-firm);background:var(--sunk);font-size:12px;line-height:1.45}
+  .prog b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:2px}
   #foot{font-size:12px;color:var(--muted);padding:12px 14px}
   #foot p{margin:0 0 6px}
   .bars{display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:6px}
@@ -360,6 +362,8 @@ function get(s,k){
   return st.year in ser?{v:ser[st.year],sy:st.year}:null;
 }
 const num=(s,k)=>{const g=get(s,k);return g&&typeof g.v==="number"?g.v:null};
+const progOf=s=>s.program&&D.meta.programs&&D.meta.programs[s.program];
+const progNote=s=>{const p=progOf(s);return p?`<p class="prog"><b>${esc(p.label)}</b>${esc(s.program_note||p.sentence)}</p>`:""};
 const inSet=s=>st.set==="all"||s.type==="district";
 function fmt(k,v){
   const u=R[seriesKey(k)]?.unit||R[k]?.unit;
@@ -712,7 +716,7 @@ function table(){
   ok.sort((a,b)=>st.dir*nat(sv(a,st.sort),sv(b,st.sort))||a.name.localeCompare(b.name));
   const sorted=ok.concat(nn);   // schools with no value for the sort column always last
   const td=(s,c)=>{
-    if(c.k==="name")return `<td class="n"><button type="button">${esc(s.name)}</button></td>`;
+    if(c.k==="name"){const p=progOf(s);return `<td class="n"><button type="button">${esc(s.name)}</button>${p?`<span class="badge" title="${esc(s.program_note||p.sentence)}">${esc(p.label)}</span>`:""}</td>`}
     if(c.k==="enrollment"||c.metric){const g=get(s,c.k);
       if(!g)return `<td class="r none">no data</td>`;
       return `<td class="r">${g.v==="*"?"suppressed":fmt(c.k,g.v)}${c.metric&&g.sy!==ymain?` <span class="badge">${sy(g.sy)}</span>`:""}</td>`}
@@ -774,6 +778,7 @@ function panel(){
     <div class="sub">${esc(s.address)}${s.community_area?" · "+esc(s.community_area):""}</div>
     <div class="sub">Subdistrict ${s.subdistrict||"—"}${s.ward?" · Ward "+s.ward:""}</div>
     <div class="sub" style="color:var(--muted)">CPS ID ${s.id}${s.rcdts?" · RCDTS "+s.rcdts:" · no state record"}</div>
+    ${progNote(s)}
     ${focus(s)}
     <div class="acts"><button id="cardbtn" type="button">Report card (print or PDF)</button><button id="sharebtn" type="button">Share</button></div>
     ${s.flags&&s.flags.length?`<ul class="flags">${s.flags.map(f=>F[f]?`<li>${esc(F[f])}</li>`:"").join("")}</ul>`:""}</div>`;
@@ -862,6 +867,7 @@ function card(){
     <div class="sub">${TYPES[s.type]} · Grades ${esc(s.grades_served||"—")} · ${esc(s.network)}</div>
     <div class="sub">${esc(s.address)}${s.community_area?" · "+esc(s.community_area):""} · Subdistrict ${s.subdistrict||"—"}${s.ward?" · Ward "+s.ward:""}</div>
     <div class="ids">CPS ID ${s.id}${s.rcdts?" · RCDTS "+s.rcdts:" · no state record"}</div>
+    ${progNote(s)}
     ${s.flags&&s.flags.length?`<ul class="flags">${s.flags.map(f=>F[f]?`<li>${esc(F[f])}</li>`:"").join("")}</ul>`:""}</div>`;
   if(heroK.length)h+=`<div class="hero">${heroK.map(k=>{const g=get(s,k),m=R[seriesKey(k)];return `<div><span class="k">${esc(cellLabel(k,m))}</span><b>${val(k,g)}</b><span class="k">${sy(g.sy)}</span></div>`}).join("")}</div>`;
   for(const [fam,keys] of FAMILIES){
