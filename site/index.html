@@ -121,6 +121,7 @@
   #foot summary{cursor:pointer}
   .badge{font-size:10px;color:var(--muted);border:var(--bay) solid var(--rule-firm);padding:0 4px;margin-left:4px;vertical-align:middle;font-family:var(--font-mono);white-space:nowrap}
   .badge.w{color:var(--terra);border-color:var(--terra)}
+  .badge.nc{white-space:normal;display:inline-block}
   .spark{display:block;margin-top:4px}
   #panel h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0;padding:14px 14px 6px}
   .flags{margin:8px 0 0;padding:0;list-style:none;font-size:12px;color:var(--terra)}
@@ -314,20 +315,20 @@ const DEF_METRIC="pct_low_income";
 const CB=[["Categorical","type"],["Enrollment","enrollment"],["Enrollment","enrollment_change"],
  ["Demographics","pct_low_income"],["Demographics","pct_el"],["Demographics","pct_iep"],["Demographics","pct_latinx"],["Demographics","pct_black"],["Demographics","pct_white"],["Demographics","pct_asian"],["Demographics","pct_homeless"],
  ["Spending","spend"],["Spending","spend_cps"],
- ["Outcomes","iar_ela_prof"],["Outcomes","iar_math_prof"],["Outcomes","ela_growth"],["Outcomes","math_growth"],["Outcomes","g11_ela"],["Outcomes","g11_math"],["Outcomes","g11_ela_gap"],["Outcomes","g11_math_gap"],["Outcomes","attendance_rate"],["Outcomes","chronic_absent"],["Outcomes","grad_4yr"],["Outcomes","ninth_on_track"],["Outcomes","postsec_12mo"],
+ ["Outcomes","iar_ela_prof"],["Outcomes","iar_math_prof"],["Outcomes","ela_growth"],["Outcomes","math_growth"],["Outcomes","g11_ela"],["Outcomes","g11_math"],["Outcomes","g11_ela_gap"],["Outcomes","g11_math_gap"],["Outcomes","attendance_rate"],["Outcomes","chronic_absent"],["Outcomes","grad_4yr"],["Outcomes","grad_5yr"],["Outcomes","ninth_on_track"],["Outcomes","postsec_12mo"],
  ["5Essentials","fe_leaders"],["5Essentials","fe_teachers"],["5Essentials","fe_families"],["5Essentials","fe_environment"]];
 // short names for the Color by menu; the legend and table keep the full label
 const SHORT={type:"School type",enrollment:"Enrollment",enrollment_change:"Enrollment change",pct_low_income:"Low income",pct_el:"English learners",pct_iep:"Students with IEPs",
  pct_latinx:"Latino",pct_black:"Black",pct_white:"White",pct_asian:"Asian",pct_homeless:"Temporary living situations",spend:"Per-pupil spending (state)",spend_cps:"Per-pupil budget (CPS)",
  iar_ela_prof:"IAR ELA proficiency",iar_math_prof:"IAR math proficiency",ela_growth:"ELA growth",math_growth:"Math growth",g11_ela:"Grade 11 ELA proficiency",g11_math:"Grade 11 math proficiency",
- g11_ela_gap:"Grade 11 ELA vs. benchmark",g11_math_gap:"Grade 11 math vs. benchmark",attendance_rate:"Attendance",chronic_absent:"Chronic absenteeism",grad_4yr:"4-year graduation",
+ g11_ela_gap:"Grade 11 ELA vs. benchmark",g11_math_gap:"Grade 11 math vs. benchmark",attendance_rate:"Attendance",chronic_absent:"Chronic absenteeism",grad_4yr:"4-year graduation",grad_5yr:"5-year graduation",
  ninth_on_track:"Freshman on-track",postsec_12mo:"Postsecondary enrollment",fe_leaders:"Effective leaders",fe_teachers:"Collaborative teachers",fe_families:"Involved families",fe_environment:"Supportive environment"};
 const menuLabel=k=>SHORT[k]||label(k);
 const FAMILIES=[
  ["Enrollment",["enrollment"]],
  ["Demographics",["pct_low_income","pct_el","pct_iep","pct_latinx","pct_black","pct_white","pct_asian","pct_multiracial","pct_homeless"]],
  ["Spending",["spend","spend_cps","ppe_site","ppe_central","cps_budget_fy27","cps_budget_fy26_projected","cps_positions_fy27"]],
- ["Outcomes",["iar_ela_prof","iar_math_prof","ela_growth","math_growth","g11_ela","g11_math","g11_ela_gap","g11_math_gap","act_ela_avg","act_math_avg","attendance_rate","chronic_absent","grad_4yr","ninth_on_track","postsec_12mo"]],
+ ["Outcomes",["iar_ela_prof","iar_math_prof","ela_growth","math_growth","g11_ela","g11_math","g11_ela_gap","g11_math_gap","act_ela_avg","act_math_avg","attendance_rate","chronic_absent","grad_4yr","grad_5yr","ninth_on_track","postsec_12mo"]],
  ["5Essentials",["fe_leaders","fe_teachers","fe_families","fe_environment"]]];
 
 // secondary measures in one compact table per group instead of a tile each
@@ -370,13 +371,14 @@ function ctxNotes(s){
   const M=D.meta,out=[],p=progOf(s);
   if(p)out.push([p.label,s.program_note||p.sentence]);
   if(s.sped_cluster&&!p&&M.cluster)out.push([M.cluster.label,M.cluster.sentence]);
-  const a=s.admission&&M.admission&&M.admission[s.admission];if(a)out.push([a.label,a.sentence]);
+  const a=!p&&s.admission&&M.admission&&M.admission[s.admission];if(a)out.push([a.label,a.sentence]);
   return out;
 }
 const progNote=s=>ctxNotes(s).map(([l,x],i)=>`<p class="prog${i===0&&progOf(s)?"":" lite"}"><b>${esc(l)}</b>${esc(x)}</p>`).join("");
 const PROGOPT=()=>{const M=D.meta,o={none:"No special program"};for(const [k,v] of Object.entries(M.programs||{}))o[k]=v.label;
   if(M.cluster)o.cluster=M.cluster.label;for(const [k,v] of Object.entries(M.admission||{}))o[k]=v.label;return o};
-const hasProg=(s,f)=>f==="none"?!s.program:f==="cluster"?!!s.sped_cluster:(f==="exam"||f==="application")?s.admission===f:s.program===f;
+const hasProg=(s,f)=>f==="none"?!s.program:f==="cluster"?!!s.sped_cluster:(D.meta.admission&&D.meta.admission[f])?s.admission===f:s.program===f;
+const NC=(s,k)=>s.program==="reengagement"&&["attendance_rate","chronic_absent","grad_4yr"].includes(k);
 const outside=s=>{const p=progOf(s);return !!p&&p.comparable===false};
 const inSet=s=>st.set==="all"||(st.set==="district"?s.type==="district"&&!outside(s):!outside(s));
 const setName=()=>st.set==="district"?"district-run schools":st.set==="all"?"all schools":"comparable schools";
@@ -808,8 +810,8 @@ function panel(){
     const yc={};for(const it of items)if(it.g)yc[it.g.sy]=(yc[it.g.sy]||0)+1;
     const fy=Object.keys(yc).sort((a,b)=>yc[b]-yc[a]||b.localeCompare(a))[0];
     const marks=it=>{const {k,m,g}=it,lowN=fam==="Demographics"&&s.flags&&s.flags.includes("low_n"),brk=(m.breaks||[]).length;
-      if(brk&&m.note)notes.add(m.note);
-      return `${g&&g.sy!==fy?`<span class="badge">${sy(g.sy)}</span>`:""}${g&&(m.estimated_years||[]).includes(g.sy)?'<span class="badge w" title="Estimate: school mean SAT score converted to the ACT scale with the official ACT-SAT concordance">est.</span>':""}${lowN?'<span class="badge w">n&lt;30</span>':""}${brk?'<span class="badge w" title="Not comparable across a scoring or definition change">†</span>':""}`};
+      if((brk||k==="grad_5yr")&&m.note)notes.add(m.note);
+      return `${g&&g.sy!==fy?`<span class="badge">${sy(g.sy)}</span>`:""}${g&&(m.estimated_years||[]).includes(g.sy)?'<span class="badge w" title="Estimate: school mean SAT score converted to the ACT scale with the official ACT-SAT concordance">est.</span>':""}${lowN?'<span class="badge w">n&lt;30</span>':""}${NC(s,k)?'<span class="badge w nc" title="Not comparable with other schools: students arrive already behind and many attend shorter days">not comparable</span>':""}${brk?'<span class="badge w" title="Not comparable across a scoring or definition change">†</span>':""}`};
     const trend=k=>{let tr=trendOf(s,k);if(tr&&st.year!=="latest")tr=tr.filter(x=>x[0]<=st.year),tr=tr.length>=2?tr:null;return tr};
     const val=g=>g?(g.v==="*"?"suppressed":fmt(g.k,g.v)):(st.year==="latest"?"no data":"no data for "+sy(st.year));
     const name=it=>it.k.startsWith("spend")?label(it.k):it.m.label.replace(/ \((%|\$|% of enrollment)\)$/,"").replace(/^5Essentials: /,"").replace(/ \(level 1-5\)$/i,"").replace(/, grade 11$/,"");
@@ -892,7 +894,7 @@ function card(){
       if(!s.m[sk]&&(fam==="Outcomes"||fam==="5Essentials"))continue;
       const g=get(s,k),n=g&&typeof g.v==="number";
       const lowN=fam==="Demographics"&&s.flags&&s.flags.includes("low_n");
-      rows.push(`<div class="row"><span>${esc(cellLabel(k,m))}${yr(k,g)}${lowN?'<span class="yr w">n&lt;30</span>':""}</span>
+      rows.push(`<div class="row"><span>${esc(cellLabel(k,m))}${yr(k,g)}${lowN?'<span class="yr w">n&lt;30</span>':""}${NC(s,k)?'<span class="yr w">not comparable</span>':""}</span>
         ${g?`<span class="v">${val(k,g)}</span>`:`<span class="v none">${st.year==="latest"?"no data":"no data for "+sy(st.year)}</span>`}
         ${n?strip(k,g.v):"<span></span>"}<span class="md">${n&&median(k)!==null?"Median "+fmt(k,median(k)):""}</span></div>`);
     }
