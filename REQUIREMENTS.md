@@ -66,7 +66,7 @@ A single square button fixed to the **bottom-right** corner (flag star icon, hai
 
 | Setting | Options | Default |
 |---|---|---|
-| Comparison set | All schools / District-run only (charter + contract/options shown but excluded from rankings, quantile bins and city medians) | All schools |
+| Comparison set | Comparable schools / All schools / District-run only (schools left out are shown dimmed but excluded from quantile bins, medians and ranges; "Comparable" leaves out schools with a `program`, see D-034, D-035) | Comparable schools |
 | Spending figure | ISBE per-pupil expenditure / CPS budget per pupil | ISBE per-pupil expenditure |
 | Year policy | Latest available per metric / Aligned year (picker lists the school years present in the data) | Latest per metric |
 | Size by enrollment | On / Off | Off |

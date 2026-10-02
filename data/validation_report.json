@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-02T20:49:10Z",
+ "generated": "2026-10-02T20:52:22Z",
  "schools": 639,
  "failed": [],
  "warnings": [
@@ -53,6 +53,16 @@
    "title": "Program overrides or program sentences incomplete (unknown school or program, no source URL, no sentence)",
    "count": 0,
    "total": 44,
+   "detail": "",
+   "examples": []
+  },
+  {
+   "id": "program_unknown_class",
+   "severity": "warn",
+   "status": "pass",
+   "title": "City Data Portal school classifications this build does not recognize (no admission label shown)",
+   "count": 0,
+   "total": 652,
    "detail": "",
    "examples": []
   },
