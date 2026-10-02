@@ -13,7 +13,7 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Outreach replies pending:** sent 2026-10-01 09:59 (`python3 tools/logs.py outreach`): CPS finance (`financedep@cps.edu`) on the Catalyst Maria budget unit; CPS accountability (`accountability@cps.edu`, a guessed address, so watch for a bounce) on the low-income/IEP relabel; ISBE (`reportcard@isbe.net`) on the per-pupil fiscal year and the ACT "ELA" column. Record answers in NOTES.md and DECISIONS.md.
 - **2026 Illinois Report Card:** expected late October 2026; re-run `build.py`, re-audit the crosswalk and break flags, and move "latest" years forward.
 - **FY27 budget label:** the board apparently approved the budget on 2026-07-30. Nobody has compared the approved book to the "proposed" export the site uses.
-- **Program context follow-ups (issue 4):** re-engagement measures (show ISBE 5-year graduation beside 4-year if the Report Card publishes it; mark attendance not comparable for shortened-day programs) and CPS confirmation of `program_overrides.csv` (emails to Diverse Learner Supports and Options/Alternative Schools not sent; dropout-recovery rows cite the 2015 Chicago Reporter article only). Mixed selective/neighborhood buildings cannot be separated.
+- **Program context follow-ups (issue 4):** send email 4 in `emails.md` (draft; needs the CPS Options/Reengagement address) so CPS can confirm `program_overrides.csv`; ask ISBE to confirm the 5-year graduation cohort definition; dropout-recovery rows still cite the 2015 Chicago Reporter article only.
 - **Cross-link from the politics board guide:** the edit to `../politics/chicago-school-board-2026-guide.html` is uncommitted in that repo.
 - **For the owner to confirm on the Data page:** the budget-export steps ("Interactive Reports", then "Download Data") and the Data Portal titles for the boundary datasets, which were written from memory.
 - **Share button on a real phone:** check the snapshot in iOS Safari's share sheet (iMessage, Instagram) and Android Chrome; only the no-share-sheet fallback was tried, in the desktop browser pane.
@@ -21,6 +21,14 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
+## 2026-10-02 21:00–21:45 · Re-engagement measures and context fixes · `7232628c`
+
+**Asked:** "propose solutions using an opus subagent but be brief", then "Yeah, sure" to its four proposals.
+**Done:** `grad_5yr` from the ISBE General sheet for 2022-23 to 2024-25 (144 schools, same as the 4-year rate), shown beside `grad_4yr`; "not comparable" tag on the 4-year rate, attendance and chronic absenteeism for the 31 re-engagement schools; admission `mixed` for 8 buildings (7 by the portal's boundary flag, Carnegie by hand); Goode HS labeled application; admission note hidden when a school has a program; draft email 4 in `emails.md` (not sent).
+**Obstacles:** Checked at 360px light and dark (panel); the badge overflowed a narrow cell and now wraps. Not checked: the printed card, a real phone.
+**Decisions:** D-036.
+**Commits:** `eefea48` Add 5-year graduation rate and labels · `b53c960` Show 5-year graduation; tag not comparable · `2074167` Regenerate data and site. Pushed to `claude/keen-curie-0wo4oz` only.
+
 ## 2026-10-02 19:00–20:30 · Comparison set and program filter · `7232628c`
 
 **Asked:** "Sure but rebase to master first", then "start" (Step 3 of issue 4). Rebased the branch onto `main` (conflicts only in generated JSON and WORKLOG), then built Step 3.

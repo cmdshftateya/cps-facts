@@ -444,3 +444,15 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 **Decision:** **Comparison set becomes "Comparable schools" (default), "All schools" or "District-run only".** Comparable leaves out every school with a `program` (D-034) from color groups, city medians, range bars and subdistrict averages; they stay on the map (dimmed), in the table and in downloads. Selective-exam, application/lottery and special-education-cluster schools stay in every comparison and get a quieter label. A "What the school does" filter selects one group. A comparison set saved in the browser before this change is ignored (`setv` stamp) so returning visitors get the new default. Admission and cluster context come from the Data Portal School Profile fields; unknown classification text raises a warning.
 
 **Why:** Ranking a detention or dropout-recovery school against neighborhood schools misleads readers; "All schools" is one click away, so D-009 (no suppression) holds. Selective and cluster schools are real peers of nearby schools, and dropping 140+ of them would distort comparisons the other way. Supersedes the default stated in REQUIREMENTS.md settings table.
+
+## D-036 · Re-engagement schools: add 5-year graduation, tag the rest not comparable
+
+- **Date:** 2026-10-02
+- **Status:** Active
+- **Who:** Delegated: owner said "Yeah, sure" to an Opus subagent's proposals; agent implemented them.
+- **Tags:** data, display
+- **Where:** `7232628c`, `pipeline/isbe.py`, `pipeline/program.py`
+
+**Decision:** **Every high school shows ISBE's 5-year graduation rate (`grad_5yr`, all three Report Card years) beside the 4-year rate. For `reengagement` schools, the 4-year rate, attendance and chronic absenteeism carry a "not comparable" tag; nothing is hidden.** Exam-classified schools that also have an attendance boundary (plus Carnegie by hand) get a "Selective and neighborhood programs" label. Goode HS is labeled "admission by application" by hand; it gets no program.
+
+**Why:** The 5-year rate is the fitting yardstick for students who arrive behind (YCCS Truman: 34.3% at 4 years, 53.2% at 5), and the tags follow D-009 (publish, label, never suppress). The 5-year cohort is an earlier class than the 4-year one in the same report year; the wording says so, but ISBE has not confirmed the definition in writing.
