@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask CPS Facts</title>
+<style>
+:root {
+  --bg: #fbfaf7; --fg: #1d1d1b; --muted: #6b6a66; --line: #dddad3; --panel: #ffffff;
+  --point: #7d8a96; --accent: #c2410c; --trend: #1d1d1b; --user: #eef2f6;
+  --c1: #2563a8; --c2: #c2410c; --c3: #2f855a; --c4: #8b5cf6; --c5: #b7791f; --c6: #0e7490;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161615; --fg: #ecebe7; --muted: #a09e98; --line: #34332f; --panel: #1f1f1d;
+    --point: #8c99a6; --accent: #fb8a4c; --trend: #ecebe7; --user: #24292f;
+    --c1: #6aa6e8; --c2: #fb8a4c; --c3: #63c48f; --c4: #b39cff; --c5: #e6b450; --c6: #4fc3d9;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161615; --fg: #ecebe7; --muted: #a09e98; --line: #34332f; --panel: #1f1f1d;
+  --point: #8c99a6; --accent: #fb8a4c; --trend: #ecebe7; --user: #24292f;
+  --c1: #6aa6e8; --c2: #fb8a4c; --c3: #63c48f; --c4: #b39cff; --c5: #e6b450; --c6: #4fc3d9;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+header h1 { font-size: 17px; margin: 0; }
+header .status { color: var(--muted); font-size: 13px; flex: 1; min-width: 0; }
+@media (max-width: 560px) { header .status { order: 3; flex-basis: 100%; font-size: 12px; } header h1 { flex: 1; } }
+button { font: inherit; color: var(--fg); background: var(--panel); border: 1px solid var(--line);
+  border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+button:hover { border-color: var(--muted); }
+main { max-width: 920px; margin: 0 auto; padding: 16px 16px 140px; }
+.turn { margin: 0 0 22px; }
+.q { background: var(--user); border-radius: 8px; padding: 9px 12px; display: inline-block; max-width: 100%; }
+.a p { margin: 10px 0; }
+.a .err { color: var(--accent); }
+.figure { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px; margin: 12px 0 6px; }
+.figure svg { display: block; width: 100%; height: auto; }
+.tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tools button { font-size: 13px; padding: 3px 8px; }
+details { margin-top: 8px; font-size: 13px; }
+details summary { cursor: pointer; color: var(--muted); }
+textarea.sql { width: 100%; min-height: 140px; font: 12px/1.45 ui-monospace, Menlo, monospace; color: var(--fg);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px; margin-top: 6px; }
+.meta { color: var(--muted); font-size: 12px; }
+.examples { color: var(--muted); }
+.examples button { margin: 4px 4px 0 0; font-size: 13px; text-align: left; }
+form { position: fixed; left: 0; right: 0; bottom: 0; background: var(--bg); border-top: 1px solid var(--line); padding: 12px 16px; }
+form .row { max-width: 920px; margin: 0 auto; display: flex; gap: 8px; }
+form textarea { flex: 1; min-width: 0; resize: none; height: 54px; font: inherit; color: var(--fg); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+form button { align-self: stretch; padding: 0 16px; }
+.tip { position: fixed; pointer-events: none; background: var(--panel); color: var(--fg); border: 1px solid var(--line);
+  border-radius: 6px; padding: 5px 8px; font-size: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.15); display: none; z-index: 5; }
+.thinking { color: var(--muted); font-style: italic; }
+#builder { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px 14px; align-items: end;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+#builder label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); min-width: 0; }
+#builder select, #builder input { font: inherit; font-size: 14px; color: var(--fg); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 6px; padding: 5px 6px; min-width: 0; width: 100%; }
+#builder .pair { display: grid; grid-template-columns: 1fr 96px; gap: 6px; }
+#builder .wide { grid-column: 1 / -1; }
+#builder .chips { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; color: var(--fg); }
+#builder .chips label { flex-direction: row; align-items: center; gap: 4px; font-size: 13px; color: var(--fg); }
+#builder .chips input { width: auto; }
+#out .err { color: var(--accent); }
+body.has-key main { padding-bottom: 140px; }
+body:not(.has-key) form#ask, body:not(.has-key) #reset { display: none; }
+body:not(.has-key) main { padding-bottom: 32px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Ask CPS Facts</h1>
+  <span class="status" id="status">private · local only</span>
+  <button id="theme" type="button" title="Toggle theme">◐</button>
+  <button id="reset" type="button">New chat</button>
+</header>
+<main>
+  <section id="builder" aria-label="Chart builder">
+    <label>Chart <select id="kind"><option value="scatter">Scatter: X vs Y</option><option value="bar">Bar: rank schools by Y</option></select></label>
+    <label class="xonly">X axis <span class="pair"><select id="xm"></select><select id="xy"></select></span></label>
+    <label>Y axis <span class="pair"><select id="ym"></select><select id="yy"></select></span></label>
+    <label>Color by <select id="color"><option value="">Nothing</option></select></label>
+    <label class="xonly">Outliers to label <input id="nout" type="number" min="0" max="50" value="8"></label>
+    <label class="baronly">Show <span class="pair"><select id="order"><option value="desc">Highest</option><option value="asc">Lowest</option></select><input id="top" type="number" min="1" max="60" value="20"></span></label>
+    <label class="xonly">Also label <input id="names" placeholder="e.g. Dewey, Sumner"></label>
+    <div class="wide chips" id="filters"></div>
+  </section>
+  <div id="out"></div>
+  <div id="log"></div>
+</main>
+<form id="ask">
+  <div class="row">
+    <textarea id="q" placeholder="Or ask in plain English (uses the API, costs money)…"></textarea>
+    <button type="submit">Ask</button>
+  </div>
+</form>
+<div class="tip" id="tip"></div>
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const NS = "http://www.w3.org/2000/svg";
+let convId = crypto.randomUUID ? crypto.randomUUID() : String(Math.random());
+let busy = false, totalCost = 0;
+const rendered = [];   // [{chart, holder}] re-drawn on resize/theme change
+
+// ---------- theme ----------
+try { const t = localStorage.getItem("ask-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+$("#theme").onclick = () => {
+  const dark = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim() === "#161615";
+  const next = dark ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem("ask-theme", next); } catch (e) {}
+  redrawAll();
+};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+function redrawAll() { rendered.forEach(r => draw(r.chart, r.holder)); }
+function colors() {
+  const cs = getComputedStyle(document.documentElement), v = n => cs.getPropertyValue(n).trim();
+  return { bg: v("--panel"), fg: v("--fg"), muted: v("--muted"), line: v("--line"), point: v("--point"),
+           accent: v("--accent"), trend: v("--trend"), cats: ["--c1","--c3","--c4","--c5","--c6","--c2"].map(v) };
+}
+
+// ---------- status ----------
+fetch("/api/status").then(r => r.json()).then(s => {
+  document.body.classList.toggle("has-key", s.key);
+  $("#status").textContent = "private · local only · no AI, same choices give the same chart" + (s.key ? ` · question box uses ${s.model}` : "");
+});
+
+// ---------- conversation ----------
+$("#ask").addEventListener("submit", e => { e.preventDefault(); submit(); });
+$("#q").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } });
+$("#reset").onclick = async () => {
+  await fetch("/api/reset", { method: "POST", body: JSON.stringify({ conv_id: convId }) });
+  convId = crypto.randomUUID ? crypto.randomUUID() : String(Math.random());
+  location.reload();
+};
+
+async function submit() {
+  const text = $("#q").value.trim();
+  if (!text || busy) return;
+  busy = true; $("#q").value = "";
+  const turn = el("div", "turn");
+  turn.append(el("div", "q", text));
+  const a = el("div", "a"); a.append(el("p", "thinking", "Working…"));
+  turn.append(a); $("#log").append(turn);
+  turn.scrollIntoView({ behavior: "smooth", block: "start" });
+  try {
+    const r = await fetch("/api/chat", { method: "POST", body: JSON.stringify({ conv_id: convId, message: text }) });
+    const d = await r.json();
+    a.innerHTML = "";
+    if (!r.ok) { a.append(el("p", "err", d.error)); return; }
+    d.charts.forEach(c => figure(c, a));
+    a.append(prose(d.text));
+    totalCost += d.cost_usd;
+    const m = el("div", "meta", `≈ $${d.cost_usd.toFixed(3)} this answer · $${totalCost.toFixed(3)} this session · ` +
+      `${d.usage.input + d.usage.cache_read + d.usage.cache_write} in / ${d.usage.output} out tokens`);
+    if (d.queries.length) {
+      const det = el("details"); det.append(el("summary", null, `${d.queries.length} exploratory quer${d.queries.length > 1 ? "ies" : "y"}`));
+      d.queries.forEach(q => { const pre = el("pre", "meta"); pre.textContent = q; det.append(pre); });
+      a.append(det);
+    }
+    a.append(m);
+  } catch (err) {
+    a.innerHTML = ""; a.append(el("p", "err", String(err)));
+  } finally { busy = false; }
+}
+
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function prose(text) {
+  const wrap = el("div");
+  (text || "").split(/\n{2,}/).forEach(par => {
+    const p = el("p");
+    par.split(/(\*\*[^*]+\*\*)/).forEach(part => {
+      if (/^\*\*.+\*\*$/.test(part)) p.append(el("strong", null, part.slice(2, -2)));
+      else p.append(document.createTextNode(part));
+    });
+    wrap.append(p);
+  });
+  return wrap;
+}
+
+// ---------- figure: chart + tools ----------
+function figure(chart, parent) {
+  const fig = el("div", "figure");
+  parent.append(fig);   // attach first so the chart can measure its width
+  const holder = el("div");
+  fig.append(holder);
+  const entry = { chart, holder };
+  rendered.push(entry);
+  draw(chart, holder);
+  let lastW = holder.clientWidth;   // draw once the holder is on the page, and again when its width changes
+  new ResizeObserver(() => { const w = holder.clientWidth; if (w && w !== lastW) { lastW = w; draw(entry.chart, holder); } }).observe(holder);
+
+  const tools = el("div", "tools");
+  const png = el("button", null, "Download PNG"); png.type = "button"; png.onclick = () => download(holder, chart, "png");
+  const svg = el("button", null, "Download SVG"); svg.type = "button"; svg.onclick = () => download(holder, chart, "svg");
+  const csv = el("button", null, "Download CSV"); csv.type = "button"; csv.onclick = () => downloadCsv(chart);
+  tools.append(png, svg, csv);
+  fig.append(tools);
+
+  const det = el("details");
+  det.append(el("summary", null, "SQL (edit and re-run, free)"));
+  const ta = el("textarea", "sql"); ta.value = chart.sql;
+  const nl = el("label", "meta", " Outliers to label: ");
+  const n = el("input"); n.type = "number"; n.min = 0; n.max = 50; n.value = chart.label_outliers ?? 8; n.style.width = "4em";
+  nl.append(n);
+  const run = el("button", null, "Re-run"); run.type = "button";
+  const msg = el("span", "meta");
+  run.onclick = async () => {
+    msg.textContent = " running…";
+    const spec = { ...chart, sql: ta.value, label_outliers: +n.value };
+    delete spec.points; delete spec.fit;
+    const r = await fetch("/api/chart", { method: "POST", body: JSON.stringify(spec) });
+    const d = await r.json();
+    if (!r.ok) { msg.textContent = " " + d.error; return; }
+    msg.textContent = ` ${d.chart.points.length} points`;
+    entry.chart = chart = d.chart;
+    draw(chart, holder);
+  };
+  const row = el("div", "tools"); row.append(run, nl, msg);
+  det.append(ta, row);
+  fig.append(det);
+}
+
+// ---------- drawing ----------
+function niceTicks(lo, hi, count) {
+  if (lo === hi) { lo -= 1; hi += 1; }
+  const span = hi - lo, step0 = span / count, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const err = step0 / mag, step = mag * (err >= 7.5 ? 10 : err >= 3.5 ? 5 : err >= 1.5 ? 2 : 1);
+  const start = Math.floor(lo / step) * step, end = Math.ceil(hi / step) * step, ticks = [];
+  for (let v = start; v <= end + step / 2; v += step) ticks.push(+v.toFixed(10));
+  return ticks;
+}
+function fmt(v) {
+  const a = Math.abs(v);
+  if (a >= 1e6) return (v / 1e6).toFixed(a >= 1e7 ? 0 : 1) + "M";
+  if (a >= 1e4) return Math.round(v / 1e3) + "k";
+  if (a >= 1000) return v.toLocaleString("en-US", { maximumFractionDigits: 0 });
+  return +v.toFixed(a < 10 ? 1 : 0) + "";
+}
+function fmtFull(v) { return typeof v === "number" ? v.toLocaleString("en-US", { maximumFractionDigits: 1 }) : v; }
+function node(tag, attrs, parent, text) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  if (parent) parent.append(e);
+  return e;
+}
+function wrapText(text, maxChars) {
+  const words = (text || "").split(/\s+/), lines = []; let cur = "";
+  words.forEach(w => { if ((cur + " " + w).trim().length > maxChars && cur) { lines.push(cur); cur = w; } else cur = (cur + " " + w).trim(); });
+  if (cur) lines.push(cur);
+  return lines;
+}
+
+function draw(chart, holder) {
+  const C = colors();
+  const W = Math.max(300, holder.clientWidth || 860);
+  const small = W < 560, fs = small ? 11 : 12;
+  const groups = [...new Set(chart.points.map(p => p.group).filter(g => g != null).map(String))];
+  const colorOf = g => groups.length ? C.cats[groups.indexOf(String(g)) % C.cats.length] : C.point;
+
+  // header text block
+  const titleLines = wrapText(chart.title, Math.floor(W / (small ? 9 : 10)));
+  const subLines = wrapText(chart.subtitle, Math.floor(W / 7));
+  const noteLines = wrapText([chart.note, chart.dropped ? `${chart.dropped} rows without numbers left out.` : "",
+                              chart.kind === "scatter" && chart.fit && !chart.fit.hidden ? `Dashed line: least-squares trend (r = ${chart.fit.r.toFixed(2)}).` : "",
+                              chart.kind === "scatter" && chart.points.some(p => p.outlier) ? "Labeled: schools farthest from the trend line" + (chart.label_names?.length ? ", plus those requested" : "") + "." : ""]
+                             .filter(Boolean).join(" "), Math.floor(W / 6.3));
+  const headH = titleLines.length * 22 + subLines.length * 17 + (groups.length ? 26 : 8) + 6;
+  const footH = noteLines.length * 15 + 10;
+
+  const isBar = chart.kind === "bar";
+  const maxName = isBar ? Math.min(small ? 120 : 210, Math.max(...chart.points.map(p => String(p.label ?? p.name).length)) * 6.6 + 8) : 0;
+  const m = { top: headH, right: small ? 12 : 24, bottom: (isBar ? 30 : 46) + footH, left: isBar ? maxName : (small ? 44 : 58) };
+  const plotH = isBar ? chart.points.length * (small ? 18 : 20) : Math.round(Math.min(W * (small ? 0.85 : 0.62), 560));
+  const H = m.top + plotH + m.bottom, pw = W - m.left - m.right;
+
+  const svg = node("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, "font-family": "system-ui, -apple-system, Segoe UI, sans-serif" });
+  node("rect", { x: 0, y: 0, width: W, height: H, fill: C.bg }, svg);
+  let y = 20;
+  titleLines.forEach(l => { node("text", { x: 4, y, "font-size": small ? 15 : 17, "font-weight": 650, fill: C.fg }, svg, l); y += 22; });
+  subLines.forEach(l => { node("text", { x: 4, y: y - 3, "font-size": fs, fill: C.muted }, svg, l); y += 17; });
+  if (groups.length) {
+    let lx = 4;
+    groups.forEach(g => {
+      node("circle", { cx: lx + 5, cy: y + 2, r: 5, fill: colorOf(g) }, svg);
+      node("text", { x: lx + 14, y: y + 6, "font-size": fs, fill: C.fg }, svg, g);
+      lx += 26 + g.length * 6.6;
+    });
+  }
+  const g = node("g", { transform: `translate(${m.left},${m.top})` }, svg);
+  if (isBar) drawBar(chart, g, pw, plotH, C, colorOf, fs);
+  else drawScatter(chart, g, pw, plotH, C, colorOf, fs, small);
+
+  let ny = H - footH + 12;
+  noteLines.forEach(l => { node("text", { x: 4, y: ny, "font-size": 11, fill: C.muted }, svg, l); ny += 15; });
+  holder.innerHTML = ""; holder.append(svg);
+}
+
+function drawScatter(chart, g, pw, ph, C, colorOf, fs, small) {
+  const pts = chart.points;
+  const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+  const xt = niceTicks(Math.min(...xs), Math.max(...xs), small ? 4 : 7), yt = niceTicks(Math.min(...ys), Math.max(...ys), 6);
+  const x0 = xt[0], x1 = xt[xt.length - 1], y0 = yt[0], y1 = yt[yt.length - 1];
+  const sx = v => (v - x0) / (x1 - x0) * pw, sy = v => ph - (v - y0) / (y1 - y0) * ph;
+
+  xt.forEach(t => {
+    node("line", { x1: sx(t), x2: sx(t), y1: 0, y2: ph, stroke: C.line, "stroke-width": 1 }, g);
+    node("text", { x: sx(t), y: ph + 16, "text-anchor": "middle", "font-size": fs, fill: C.muted }, g, fmt(t));
+  });
+  yt.forEach(t => {
+    node("line", { x1: 0, x2: pw, y1: sy(t), y2: sy(t), stroke: C.line, "stroke-width": 1 }, g);
+    node("text", { x: -6, y: sy(t) + 4, "text-anchor": "end", "font-size": fs, fill: C.muted }, g, fmt(t));
+  });
+  if (chart.x_label) node("text", { x: pw / 2, y: ph + 36, "text-anchor": "middle", "font-size": fs + 1, fill: C.fg }, g, chart.x_label);
+  if (chart.y_label) node("text", { x: -ph / 2, y: small ? -32 : -44, transform: "rotate(-90)", "text-anchor": "middle", "font-size": fs + 1, fill: C.fg }, g, chart.y_label);
+
+  if (chart.fit && !chart.fit.hidden) {
+    const f = chart.fit, ya = f.a + f.b * x0, yb = f.a + f.b * x1;
+    const clip = node("clipPath", { id: "c" + chart.id }, g); node("rect", { x: 0, y: 0, width: pw, height: ph }, clip);
+    node("line", { x1: 0, y1: sy(ya), x2: pw, y2: sy(yb), stroke: C.trend, "stroke-width": 1.2, "stroke-dasharray": "5 4",
+                   opacity: 0.55, "clip-path": `url(#c${chart.id})` }, g);
+  }
+
+  const tip = $("#tip");
+  const ordered = [...pts].sort((a, b) => (a.outlier ? 1 : 0) - (b.outlier ? 1 : 0));
+  ordered.forEach(p => {
+    const c = node("circle", { cx: sx(p.x), cy: sy(p.y), r: p.outlier ? 4.5 : 3.2,
+      fill: p.outlier && p.group == null ? C.accent : colorOf(p.group), "fill-opacity": p.outlier ? 0.95 : 0.55,
+      stroke: p.outlier ? (p.group != null ? C.fg : C.bg) : "none", "stroke-width": p.outlier && p.group != null ? 1.5 : 1 }, g);
+    c.addEventListener("mousemove", e => {
+      tip.style.display = "block"; tip.style.left = e.clientX + 12 + "px"; tip.style.top = e.clientY + 12 + "px";
+      tip.innerHTML = ""; tip.append(el("strong", null, p.name));
+      tip.append(el("div", null, `${chart.x_label || "x"}: ${fmtFull(p.x)}`), el("div", null, `${chart.y_label || "y"}: ${fmtFull(p.y)}`));
+      if (p.group != null) tip.append(el("div", null, String(p.group)));
+    });
+    c.addEventListener("mouseleave", () => tip.style.display = "none");
+  });
+
+  // labels: try 8 positions around each outlier, skip boxes that collide
+  const placed = pts.filter(p => p.outlier).map(p => ({ x: sx(p.x), y: sy(p.y), w: 0, h: 0 }));
+  placed.forEach(b => { b.x -= 5; b.y -= 5; b.w = 10; b.h = 10; });
+  const hit = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  pts.filter(p => p.outlier).sort((a, b) => Math.abs(b.resid_z || 0) - Math.abs(a.resid_z || 0)).forEach(p => {
+    const text = titleCase(String(p.label ?? p.name)), w = text.length * (fs * 0.56) + 4, h = fs + 3, px = sx(p.x), py = sy(p.y);
+    const cands = [[8, -h / 2], [-8 - w, -h / 2], [-w / 2, -h - 6], [-w / 2, 7], [8, -h - 4], [-8 - w, -h - 4], [8, 4], [-8 - w, 4],
+                   [14, -h - 14], [-14 - w, -h - 14], [14, 14], [-14 - w, 14]];
+    for (const [dx, dy] of cands) {
+      const box = { x: px + dx, y: py + dy, w, h };
+      if (box.x < 0 || box.x + w > pw || box.y < 0 || box.y + h > ph) continue;
+      if (placed.some(b => hit(box, b))) continue;
+      placed.push(box);
+      if (Math.abs(dx) > 10 || dy < -h - 5 || dy > 10)
+        node("line", { x1: px, y1: py, x2: dx < 0 ? box.x + w : box.x, y2: box.y + h / 2, stroke: C.muted, "stroke-width": 0.8 }, g);
+      node("text", { x: box.x + 2, y: box.y + h - 4, "font-size": fs, "font-weight": 600, fill: C.fg,
+                     stroke: C.bg, "stroke-width": 3, "paint-order": "stroke", "stroke-linejoin": "round" }, g, text);
+      return;
+    }
+  });
+}
+
+function drawBar(chart, g, pw, ph, C, colorOf, fs) {
+  const pts = chart.points, ys = pts.map(p => p.y);
+  const lo = Math.min(0, ...ys), hi = Math.max(0, ...ys), t = niceTicks(lo, hi, 5), t0 = t[0], t1 = t[t.length - 1];
+  const sx = v => (v - t0) / (t1 - t0) * pw, bh = ph / pts.length;
+  t.forEach(v => {
+    node("line", { x1: sx(v), x2: sx(v), y1: 0, y2: ph, stroke: v === 0 ? C.muted : C.line, "stroke-width": 1 }, g);
+    node("text", { x: sx(v), y: ph + 16, "text-anchor": "middle", "font-size": fs, fill: C.muted }, g, fmt(v));
+  });
+  pts.forEach((p, i) => {
+    const xa = sx(Math.min(0, p.y)), xb = sx(Math.max(0, p.y));
+    node("rect", { x: xa, y: i * bh + 2, width: Math.max(1, xb - xa), height: bh - 4, fill: p.group != null ? colorOf(p.group) : C.cats[0], rx: 2 }, g);
+    node("text", { x: -6, y: i * bh + bh / 2 + 4, "text-anchor": "end", "font-size": fs, fill: C.fg }, g, titleCase(String(p.label ?? p.name)));
+    const inside = xb - xa > 60;
+    node("text", { x: p.y >= 0 ? (inside ? xb - 4 : xb + 4) : xa - 4, y: i * bh + bh / 2 + 4,
+                   "text-anchor": p.y >= 0 ? (inside ? "end" : "start") : "end", "font-size": fs - 1,
+                   fill: inside ? C.bg : C.fg }, g, fmtFull(p.y));
+  });
+  if (chart.y_label) node("text", { x: pw / 2, y: ph + 30, "text-anchor": "middle", "font-size": fs + 1, fill: C.fg }, g, chart.y_label);
+}
+
+// CPS short names are upper case ("DAVIS M"); soften them for labels.
+function titleCase(s) {
+  if (s !== s.toUpperCase()) return s;
+  return s.toLowerCase().replace(/\b([a-z])/g, c => c.toUpperCase()).replace(/\b(Hs|Es|Ms|Cics|Cca|Kipp|Ib|Stem|Ii|Iii)\b/g, w => w.toUpperCase());
+}
+
+// ---------- builder (deterministic, no model) ----------
+let CAT, METRICS = {};
+const FAMILY = { enrollment: "Enrollment", demographics: "Demographics", spending: "Spending", outcomes: "Outcomes" };
+fetch("/api/catalog").then(r => r.json()).then(cat => {
+  CAT = cat; cat.metrics.forEach(m => METRICS[m.id] = m);
+  for (const id of ["xm", "ym"]) {
+    const sel = $("#" + id);
+    Object.entries(FAMILY).forEach(([f, name]) => {
+      const og = document.createElement("optgroup"); og.label = name;
+      cat.metrics.filter(m => m.family === f).forEach(m => og.append(new Option(m.label, m.id)));
+      if (og.children.length) sel.append(og);
+    });
+  }
+  Object.entries(cat.filter_labels).forEach(([f, name]) => {
+    $("#color").append(new Option(name, f));
+    const box = el("div", "chips"); box.append(el("span", "meta", name + ":"));
+    cat.filters[f].forEach(v => { const l = el("label"); const c = el("input"); c.type = "checkbox"; c.dataset.f = f; c.value = v; l.append(c, v); box.append(l); });
+    $("#filters").append(box);
+  });
+  restore();
+  $("#builder").addEventListener("change", e => { if (e.target.id === "xm" || e.target.id === "ym") years(e.target.id[0]); plot(); });
+});
+function years(ax, want) {
+  const m = METRICS[$("#" + ax + "m").value], sel = $("#" + ax + "y"), keep = want || sel.value;
+  sel.innerHTML = ""; m.years.forEach(y => sel.append(new Option(y, y)));
+  sel.value = m.years.includes(keep) ? keep : m.years[m.years.length - 1];
+}
+function state() {
+  const filters = {};
+  document.querySelectorAll("#filters input:checked").forEach(c => (filters[c.dataset.f] ||= []).push(c.value));
+  return { kind: $("#kind").value, x: { metric: $("#xm").value, year: $("#xy").value }, y: { metric: $("#ym").value, year: $("#yy").value },
+           color_by: $("#color").value, label_outliers: +$("#nout").value, label_names: $("#names").value.split(","),
+           order: $("#order").value, top: +$("#top").value, filters };
+}
+function restore() {
+  let st = {};
+  try { st = JSON.parse(decodeURIComponent(location.hash.slice(1)) || "{}"); } catch (e) {}
+  $("#kind").value = st.kind || "scatter";
+  $("#xm").value = st.x?.metric || "pct_low_income"; years("x", st.x?.year || "2024-25");
+  $("#ym").value = st.y?.metric || "math_growth"; years("y", st.y?.year);
+  $("#color").value = st.color_by || ""; $("#nout").value = st.label_outliers ?? 8;
+  $("#names").value = (st.label_names || []).filter(Boolean).join(", ");
+  $("#order").value = st.order || "desc"; $("#top").value = st.top || 20;
+  document.querySelectorAll("#filters input").forEach(c => c.checked = (st.filters?.[c.dataset.f] || []).includes(c.value));
+  plot();
+}
+let plotSeq = 0;
+async function plot() {
+  const st = state(), seq = ++plotSeq;
+  document.querySelectorAll("#builder .xonly").forEach(e => e.style.display = st.kind === "scatter" ? "" : "none");
+  document.querySelectorAll("#builder .baronly").forEach(e => e.style.display = st.kind === "bar" ? "" : "none");
+  history.replaceState(null, "", "#" + encodeURIComponent(JSON.stringify(st)));
+  const r = await fetch("/api/plot", { method: "POST", body: JSON.stringify(st) }), d = await r.json();
+  if (seq !== plotSeq) return;   // a newer choice already drew
+  const out = $("#out"); out.innerHTML = "";
+  rendered.splice(0, rendered.length, ...rendered.filter(e => document.contains(e.holder)));
+  if (!r.ok) { out.append(el("p", "err", d.error)); return; }
+  figure(d.chart, out);
+  const ol = d.summary.labeled_outliers;
+  if (ol?.length) {
+    const p = el("p", "meta", "Labeled, farthest from the trend: ");
+    p.append(ol.map(o => `${titleCase(o.name)} (${fmtFull(o.x)}, ${fmtFull(o.y)})`).join(" · "));
+    out.append(p);
+  }
+}
+
+// ---------- export ----------
+function slug(s) { return (s || "chart").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60); }
+function save(blob, name) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+function download(holder, chart, type) {
+  const svg = holder.querySelector("svg"), xml = new XMLSerializer().serializeToString(svg);
+  if (type === "svg") return save(new Blob([xml], { type: "image/svg+xml" }), slug(chart.title) + ".svg");
+  const img = new Image(), w = +svg.getAttribute("width"), h = +svg.getAttribute("height");
+  img.onload = () => {
+    const c = document.createElement("canvas"); c.width = w * 2; c.height = h * 2;
+    const ctx = c.getContext("2d"); ctx.scale(2, 2); ctx.drawImage(img, 0, 0);
+    c.toBlob(b => save(b, slug(chart.title) + ".png"));
+  };
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(xml);
+}
+function downloadCsv(chart) {
+  const keys = ["school_id", "name", "x", "y", "group", "outlier"].filter(k => chart.points.some(p => p[k] != null));
+  const esc = v => v == null ? "" : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
+  const rows = [keys.join(","), ...chart.points.map(p => keys.map(k => esc(p[k])).join(","))];
+  save(new Blob([rows.join("\n")], { type: "text/csv" }), slug(chart.title) + ".csv");
+}
+</script>
+</body>
+</html>
