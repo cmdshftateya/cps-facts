@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-02T20:52:22Z",
+ "generated": "2026-10-02T21:53:07Z",
  "schools": 639,
  "failed": [],
  "warnings": [
@@ -444,7 +444,7 @@
    "total": null,
    "detail": "",
    "examples": [
-    "2083 high-school-only values at schools with no grade 9-12",
+    "2150 high-school-only values at schools with no grade 9-12",
     "488 IAR values at schools with no grade 3-8"
    ]
   },
@@ -809,6 +809,23 @@
    "2024-25": {
     "value": 142,
     "suppressed": 2,
+    "none": 495
+   }
+  },
+  "grad_5yr": {
+   "2022-23": {
+    "value": 142,
+    "suppressed": 0,
+    "none": 497
+   },
+   "2023-24": {
+    "value": 142,
+    "suppressed": 1,
+    "none": 496
+   },
+   "2024-25": {
+    "value": 143,
+    "suppressed": 1,
     "none": 495
    }
   },
