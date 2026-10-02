@@ -13,6 +13,7 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Outreach replies pending:** sent 2026-10-01 09:59 (`python3 tools/logs.py outreach`): CPS finance (`financedep@cps.edu`) on the Catalyst Maria budget unit; CPS accountability (`accountability@cps.edu`, a guessed address, so watch for a bounce) on the low-income/IEP relabel; ISBE (`reportcard@isbe.net`) on the per-pupil fiscal year and the ACT "ELA" column. Record answers in NOTES.md and DECISIONS.md.
 - **2026 Illinois Report Card:** expected late October 2026; re-run `build.py`, re-audit the crosswalk and break flags, and move "latest" years forward.
 - **FY27 budget label:** the board apparently approved the budget on 2026-07-30. Nobody has compared the approved book to the "proposed" export the site uses.
+- **Program context, steps 3 and 4 (issue 4):** comparison-set choice ("Comparable schools" default), School type filter, Methodology section, and re-engagement measures. Needs `raw/` re-fetched to add selective/application schools and `sped_cluster` from the Data Portal School Profile (`classification_description`, `significantlymodifiedmod`). The hand-kept list's source URLs for the dropout-recovery schools are the 2015 Chicago Reporter article; CPS has not confirmed the list (emails to Diverse Learner Supports and Options/Alternative Schools not sent).
 - **Cross-link from the politics board guide:** the edit to `../politics/chicago-school-board-2026-guide.html` is uncommitted in that repo.
 - **For the owner to confirm on the Data page:** the budget-export steps ("Interactive Reports", then "Download Data") and the Data Portal titles for the boundary datasets, which were written from memory.
 - **Share button on a real phone:** check the snapshot in iOS Safari's share sheet (iMessage, Instagram) and Android Chrome; only the no-share-sheet fallback was tried, in the desktop browser pane.
@@ -28,6 +29,14 @@ Carried forward until closed. Update this list in every entry that opens or clos
 **Obstacles:** Couldn't run build.py here (no pypdf/pyshp, no raw/), so generated files were patched with the same one-word replacement; a normal rebuild should give identical output.
 **Decisions:** Kept `pct_latinx` as the metric id (renaming would break downloads for anyone using the CSV).
 **Commits:** see git log on branch `claude/zealous-bohr-pfmr3m`.
+
+## 2026-10-02 16:30–17:10 · Program context for non-neighborhood schools · `7232628c`
+
+**Asked:** "See the latest GitHub issue and propose a correction", then "Yes, start with steps 1 and 2" (issue 4: schools that serve special populations).
+**Done:** `program_overrides.csv` (44 hand-kept rows, source URL each: 6 special-education schools, 2 transition, 2 detention, Simpson, 3 SAFE placements, 31 dropout-recovery) plus 5 preschool-only centers from the CPS School Type = 49 schools with a `program`. `pipeline/program.py` assigns it, `data/schools.json|csv` and the site copies carry `program` and `meta.programs`, and a `program_context` validation gate (tested in `test_gates`) checks sources and sentences. The school panel and the report card show a neutral note; table rows get a badge. Checked at 360px in dark mode (panel) and the table; not checked: light-mode panel, the printed card, a real phone.
+**Obstacles:** `data.cityofchicago.org` is blocked in this sandbox and `raw/` is absent, so `build.py` and `build_site.py` could not run. `python3 -m pipeline.program` patched the committed `data/` files and `site/data/schools.json` and `site/downloads/` were patched to match; a normal build gives the same result.
+**Decisions:** D-034.
+**Commits:** `eae8991` Add program context · `ea61b06` Regenerate data with program field · `44fb0d0` Log program context work and D-034. Pushed to `claude/keen-curie-0wo4oz` only.
 
 ## 2026-10-01 17:05–17:25 · Fun logo that resets the map · `970a2ff2`
 

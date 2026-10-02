@@ -420,3 +420,15 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 **Decision:** **The header logo is a link to `/`: the city-flag mark (two blue bars, the red six-pointed star) wearing a mortarboard with a brass tassel, beside "CPS Facts" with "Facts" in red.** The bars are only slightly wider than the star and sit close to its center, so its top and bottom points stick out past them. The wordmark is Barlow Condensed Black (the share-image font, served from `site/fonts/`), chosen by the owner over the Helvetica Condensed in `chicago.css`. Hover tilts the star and swings the tassel; a click tosses the cap while the star spins, and the map flies back to the whole city over 0.6 s. The reset restores the landing state: map view (on phones too, where the landing default is the table), default metric, no filters, no search, no school open, filters panel closed. Reader preferences in Settings (comparison set, year policy, map mode, theme) are kept. Reduced-motion turns off all of the animation. Cmd/Ctrl/Shift-click still opens `/` normally. The favicon is unchanged.
 
 **Why:** The flag star ties it to Chicago and the existing favicon; the cap says "schools" without words. Settings are preferences stored across visits, so resetting them on a logo click would be a surprise; everything else is navigation state. The owner asked to reset "the map", so phones land on the map rather than their table default.
+
+## D-034 · Program context: labels first, comparison rules later
+
+- **Date:** 2026-10-02
+- **Status:** Active
+- **Who:** Delegated: owner said "Yes, start with steps 1 and 2" on the proposal for GitHub issue 4; agent chose the scope below.
+- **Tags:** data, display, ui
+- **Where:** `7232628c`, `program_overrides.csv`, `pipeline/program.py`
+
+**Decision:** **Each school may carry a `program` (special-education school, transition program, detention, parenting, short-term placement, dropout recovery, preschool only), with a neutral sentence on its panel, report card and table row.** The list is hand-kept in `program_overrides.csv` with a source URL per school; preschool-only centers come from the CPS "School Type" column. Nothing is removed or recolored yet: medians, color bins and ranks are unchanged (comparison set is a later step). No new marker outline, because D-030 keeps markers plain.
+
+**Why:** Readers were comparing detention and dropout-recovery schools against neighborhood schools with no explanation. Labels fix that without hiding anything (D-009). Groups that need the City Data Portal `classification_description` (selective, application, cluster hosts) wait until `raw/` can be re-fetched.
