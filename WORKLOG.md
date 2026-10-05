@@ -18,8 +18,17 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Share button on a real phone:** check the snapshot in iOS Safari's share sheet (iMessage, Instagram) and Android Chrome; only the no-share-sheet fallback was tried, in the desktop browser pane.
 - **Check a shared school link after deploy:** paste one `/s/<id>/` link into iMessage, WhatsApp and Slack, and run it through the Facebook Sharing Debugger so cached previews refresh.
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
+- **Sparkline guidance beyond hover:** desktop hover tooltip shipped on the branch `sparkline-hover-tooltip`. Still open: tap-to-show on touch, a change caption ("+4 since SY24-25"), a minimum vertical range so tiny changes don't look steep, gaps at suppressed years, a "Trend" header on the compact tables, and a footer line explaining the lines.
 
 ---
+
+## 2026-10-05 11:56–12:02 · Sparkline hover tooltip · `4ea4152b`
+
+**Asked:** propose how to explain what the sparklines show; the owner pointed out the year tooltip "doesn't" appear, then asked for "a hover on desktop most importantly as an MVP".
+**Done:** Confirmed in the browser pane that the year range and values sat only in an SVG `<title>` and `aria-label`, so nothing was visible. Added `#sparktip`, a styled tooltip that follows the pointer over any panel sparkline (tiles and compact tables) and lists every year and value, with the shown year in bold. `aria-label` now carries the formatted values. Checked at 1280px in light and dark. Not checked: 360px/touch (hover only, by design), the report card.
+**Obstacles:** Port 8817 was another worktree's server, so I first tested the wrong site. While freeing the port I briefly killed that server (metrics-snapshot-share worktree); it was restarted on 8817 from the same folder.
+**Decisions:** Lines found to span only 3 points (SY24-25 to SY26-27) for most measures; the fuller proposal is in Open threads.
+**Commits:** `88db823` Panel: hover tooltip on sparklines listing each year's value. Not pushed.
 
 ## 2026-10-02 · Latinx → Latino in labels · `01DZdSP2`
 
