@@ -62,7 +62,7 @@ Pushing to `main` does two things automatically:
 
 The pipeline itself never runs on Cloudflare or in CI (`raw/` is not in git). When a source or URL changes, edit `sources_catalog.py` as well, so the Data and sources page stays accurate. When the methodology changes, edit `METHODOLOGY.md` (it becomes the Methodology page) and, for the detail behind it, `NOTES.md`.
 
-**Preview a branch without deploying:** `npx wrangler versions upload --preview-alias <branch>` (Node 22) uploads a version that takes no production traffic and serves it at `https://<branch>-cps-facts.bodaateya.workers.dev`. schools.ateya.org changes only on `wrangler deploy` or a push to `main`. Cloudflare's automatic build of pushed non-`main` branches has been failing (logs not yet read), so make previews this way for now.
+**Branch previews:** pushing any branch other than `main` makes Workers Builds run `npx wrangler preview`, which needs the (empty) `previews` block in `wrangler.jsonc`. The preview is served at a workers.dev Preview URL shown in the build log and on the commit's check in GitHub, and it takes no production traffic. schools.ateya.org changes only on a push to `main` (or `wrangler deploy`). By hand: `npx wrangler versions upload --preview-alias <branch>` (Node 22) gives `https://<branch>-cps-facts.bodaateya.workers.dev`.
 
 **If the site does not update, or will not open**
 - Check the Builds tab. Confirm what is live with `npx wrangler versions list` (Node 22), or compare the live `index.html` with `site/index.html` (Cloudflare adds a small script, so sizes differ by about 1 KB). A manual deploy is always possible with `npx wrangler deploy`.
