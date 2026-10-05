@@ -72,6 +72,12 @@ The pipeline itself never runs on Cloudflare or in CI (`raw/` is not in git). Wh
 - `npx wrangler login` opens a browser to authorize Cloudflare; it must be approved by a person.
 - The first deploy attaches `schools.ateya.org` as a custom domain (DNS and the certificate can take a few minutes). Check status in the Cloudflare dashboard if the site does not load.
 
+**Previewing a branch before it reaches `main`**
+- Workers Builds builds every branch that is not `main` as a Preview (enabled in the Worker's Settings > Builds; the preview command is `npx wrangler preview`). Pushing a branch is the whole step. A push to `main` is still the only thing that deploys production.
+- Each branch gets a stable URL of the form `<branch>-cps-facts.<subdomain>.workers.dev` (slashes in the branch name become dashes). Find it in the Worker's **Previews** section. These URLs carry `X-Robots-Tag: noindex`, so search engines skip them.
+- A custom preview hostname such as `<branch>.preview.schools.ateya.org` fails with `ERR_SSL_VERSION_OR_CIPHER_MISMATCH` until a certificate covers it: the free Universal SSL certificate covers only `ateya.org` and one level below. Use the `workers.dev` URL, or add Advanced Certificate Manager ($10/month) or an uploaded wildcard certificate.
+- A preview is not production: it shares no custom domain, and the data and share pages in it are whatever was committed to the branch.
+
 **What lives where**
 - In git: code, docs, the small curated CSVs (`budget_units.csv`, `budget_unit_funds.csv`, `crosswalk.csv`, `lineage.csv`), `data/` outputs and `site/`.
 - Local only, never pushed: `raw/` (downloads, rebuilt by `fetch.py` from the URLs and hashes in `raw/MANIFEST.json`) and the hand-downloaded CPS budget export `raw/fy27_bi_budget_book.csv`. Nothing is stored in cloud storage, to avoid ongoing cost.
