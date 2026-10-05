@@ -56,7 +56,7 @@ SOURCES = [
     ("chi-profile", "City of Chicago Data Portal", "Chicago Public Schools - School Profile Information SY2024-25 (dataset 3dhs-m3w4)",
      [("Dataset page", "https://data.cityofchicago.org/d/3dhs-m3w4")],
      "SY2024-25",
-     "The finance ID that links a school to its budget unit, and the school address. We do not use its student counts, which come from a different snapshot than the 20th-day counts.",
+     "The finance ID that links a school to its budget unit, and the school address. Its classification text (field classification_description) tells us which schools admit by entrance exam or by application or lottery, and its significantlymodifiedmod flag marks schools that host special-education cluster programs. We do not use its student counts, which come from a different snapshot than the 20th-day counts.",
      [("JSON", "https://data.cityofchicago.org/resource/3dhs-m3w4.json?$limit=5000")],
      "Search the Data Portal for the dataset ID."),
     ("chi-boundaries", "City of Chicago Data Portal", "Boundaries - Community Areas (dataset igwz-8jzy) and Boundaries - Wards, 2023- (dataset p293-wvbd)",
@@ -81,6 +81,8 @@ SOURCES = [
 OURS = [
     ("School ID lookup (CSV)", "downloads/crosswalk.csv",
      "Links each CPS School ID to the state's 15-digit school ID (RCDTS), with how it was matched (two older City of Chicago datasets, or by hand from names and addresses) and our confidence. There is no official list. Dataset 'CPS Schools 2013-2014' (c7jj-qjvh) has an isbe_id field, and 'School Progress Reports SY1617' (cp7s-7gxg) has the state report card link; both are on the City of Chicago Data Portal."),
+    ("What each school does (CSV)", "downloads/program_overrides.csv",
+     "Schools whose students or setting differ from a neighborhood school's (special-education schools, detention facilities, dropout-recovery schools, short-term placements, a school for parenting students), with the public page that describes each. Preschool-only centers are not listed here; they come from the CPS School Type column."),
     ("Charter-to-district conversions (CSV)", "downloads/lineage.csv",
      "Schools that changed from charter to district-run in July 2026, with the CPS announcement or board action for each (Acero schools, voted 2025-02-27; ChiArts, voted 2025-11-05)."),
     ("CPS school budget totals (CSV)", "downloads/budget_units.csv",

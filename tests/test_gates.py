@@ -55,6 +55,10 @@ def main():
         x["budget_funds"][k] += 100000
     run(funds_off, "budget_fund_sum", t, schools, meta, problems)
 
+    def program_no_sentence(s, p):
+        s[0]["program"] = "not_a_program"
+    run(program_no_sentence, "program_context", t, schools, meta, problems)
+
     def no_subdistrict(s, p):
         s[0]["subdistrict"] = None
     run(no_subdistrict, "missing_subdistrict", t, schools, meta, problems)

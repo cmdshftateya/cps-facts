@@ -12,6 +12,7 @@ import statistics
 from collections import Counter, defaultdict
 
 from . import concordance, cps, geo, isbe
+from . import program as program_mod
 from .common import CPS_YEARS, RAW, ROOT, ROSTER_YEAR, SUPPRESSED
 from .metrics import ISBE_YEARS, REGISTRY, SOURCES
 
@@ -19,7 +20,7 @@ from .metrics import ISBE_YEARS, REGISTRY, SOURCES
 DEMO_LOW_N_FLAG = 30       # flagged low_n (label only; CPS values are published as given, never hidden)
 BUDGET_PP_LOW, BUDGET_PP_HIGH = 5000, 60000   # per-pupil budget outlier flags (flag, never trim)
 
-HS_ONLY = ["grad_4yr", "ninth_on_track", "postsec_12mo", "sat_ela_prof", "sat_math_prof", "sat_ela_avg",
+HS_ONLY = ["grad_4yr", "grad_5yr", "ninth_on_track", "postsec_12mo", "sat_ela_prof", "sat_math_prof", "sat_ela_avg",
            "sat_math_avg", "sat_ela_part", "sat_math_part", "act_ela_prof", "act_math_prof", "act_ela_avg",
            "act_math_avg", "act_ela_part", "act_math_part", "act_ela_growth", "act_math_growth"]
 IAR_ONLY = ["iar_ela_prof", "iar_math_prof", "ela_growth", "math_growth"]
@@ -111,6 +112,7 @@ def load_all():
     t["loc"] = {r["school_id"]: r for r in json.load(open(RAW / "chi_loc.json"))}
     t["prof"] = {r["school_id"]: r for r in json.load(open(RAW / "chi_prof.json"))}
     t["crosswalk"] = {r["school_id"]: r for r in read_csv("crosswalk.csv")}
+    t["programs"] = program_mod.load_overrides()
     t["lineage"] = {r["school_id"]: r for r in read_csv("lineage.csv")}
     t["budget"] = {r["school_id"]: r for r in read_csv("budget_units.csv")}
     funds = defaultdict(dict)
@@ -166,6 +168,7 @@ def build(t):
         s["governance"] = mem["governance"]
         s["network"] = mem["network"]
         s["school_type"] = mem["school_type"]
+        program_mod.assign(s, mem["school_type"], t["programs"], t["prof"].get(sid))
         s["grades_served"], s["band"] = grade_span(mem["grades"])
         s["grades"] = {g: n for g, n in mem["grades"].items() if n > 0}
         if pred:
@@ -354,5 +357,6 @@ def build_meta(t, fund_code, problems, ppe_fence):
         "sources": src,
         "metrics": REGISTRY,
         "flags": FLAG_TEXT,
+        **program_mod.meta(),
         "funds": {code: name for name, code in fund_code.items()},
     }

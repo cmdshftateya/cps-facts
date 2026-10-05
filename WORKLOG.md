@@ -13,6 +13,7 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Outreach replies pending:** sent 2026-10-01 09:59 (`python3 tools/logs.py outreach`): CPS finance (`financedep@cps.edu`) on the Catalyst Maria budget unit; CPS accountability (`accountability@cps.edu`, a guessed address, so watch for a bounce) on the low-income/IEP relabel; ISBE (`reportcard@isbe.net`) on the per-pupil fiscal year and the ACT "ELA" column. Record answers in NOTES.md and DECISIONS.md.
 - **2026 Illinois Report Card:** expected late October 2026; re-run `build.py`, re-audit the crosswalk and break flags, and move "latest" years forward.
 - **FY27 budget label:** the board apparently approved the budget on 2026-07-30. Nobody has compared the approved book to the "proposed" export the site uses.
+- **Program context follow-ups (issue 4):** send email 4 in `emails.md` (draft; needs the CPS Options/Reengagement address) so CPS can confirm `program_overrides.csv`; ask ISBE to confirm the 5-year graduation cohort definition; dropout-recovery rows still cite the 2015 Chicago Reporter article only.
 - **Cross-link from the politics board guide:** the edit to `../politics/chicago-school-board-2026-guide.html` is uncommitted in that repo.
 - **For the owner to confirm on the Data page:** the budget-export steps ("Interactive Reports", then "Download Data") and the Data Portal titles for the boundary datasets, which were written from memory.
 - **Share button on a real phone:** check the snapshot in iOS Safari's share sheet (iMessage, Instagram) and Android Chrome; only the no-share-sheet fallback was tried, in the desktop browser pane.
@@ -20,6 +21,29 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
+## 2026-10-05 12:00–12:40 · Branch previews on Cloudflare · `7232628c`
+
+**Asked:** "does cloudflare make it so that we can have a preview version? like preview.schools.ateya.org", then to push to the branch so it deploys, then "just go".
+**Done:** Branch previews work through Workers Builds: every non-`main` branch is built with `npx wrangler preview` and gets a `workers.dev` URL. `wrangler.jsonc` now has `"previews": {}` and `"preview_urls": true`; the first preview build failed with "missing a `previews` block" until it was added. PIPELINE.md has a "Previewing a branch" section. Log parser accepts mixed-case 8-character session ids, which fixes the `test_logs` failure that turned CI red on the Latinx entry (`01DZdSP2`).
+**Obstacles:** `<branch>.preview.schools.ateya.org` gave `ERR_SSL_VERSION_OR_CIPHER_MISMATCH`: Universal SSL covers only one subdomain level. Left on the `workers.dev` URL (free); custom-domain previews would need Advanced Certificate Manager ($10/month) or an uploaded wildcard certificate. Not confirmed from here: that the new preview build succeeded, or that the `previews` block is harmless on the production deploy; check the first `main` build log after merging.
+**Decisions:** none new.
+**Commits:** `8672479` Document branch previews · `a10124b` Add previews block · plus the log-parser fix and this entry below.
+
+## 2026-10-02 21:00–21:45 · Re-engagement measures and context fixes · `7232628c`
+
+**Asked:** "propose solutions using an opus subagent but be brief", then "Yeah, sure" to its four proposals.
+**Done:** `grad_5yr` from the ISBE General sheet for 2022-23 to 2024-25 (144 schools, same as the 4-year rate), shown beside `grad_4yr`; "not comparable" tag on the 4-year rate, attendance and chronic absenteeism for the 31 re-engagement schools; admission `mixed` for 8 buildings (7 by the portal's boundary flag, Carnegie by hand); Goode HS labeled application; admission note hidden when a school has a program; draft email 4 in `emails.md` (not sent).
+**Obstacles:** Checked at 360px light and dark (panel); the badge overflowed a narrow cell and now wraps. Not checked: the printed card, a real phone.
+**Decisions:** D-036.
+**Commits:** `eefea48` Add 5-year graduation rate and labels · `b53c960` Show 5-year graduation; tag not comparable · `2074167` Regenerate data and site. Pushed to `claude/keen-curie-0wo4oz` only.
+
+## 2026-10-02 19:00–20:30 · Comparison set and program filter · `7232628c`
+
+**Asked:** "Sure but rebase to master first", then "start" (Step 3 of issue 4). Rebased the branch onto `main` (conflicts only in generated JSON and WORKLOG), then built Step 3.
+**Done:** Full `build.py` and `build_site.py` now run here (allowed `data.cityofchicago.org`, `www.cps.edu`, `www.isbe.net`, `www.ilsenateredistricting.com`, `www.act.org`; the build's bare `act.org` URL is still blocked, so the ACT PDF was fetched from the `www` address). New fields `admission` (27 exam, 153 application) and `sped_cluster` (147) from the School Profile. Default comparison set is "Comparable schools": 49 schools dimmed and out of bins, medians and ranges (checked: low-income city median 79.3% vs 80.3% with all schools); "All schools" and "District-run only" still work. New "What the school does" filter (hash param `prog`). Cluster and admission notes on the panel and report card; Methodology section "Not every school does the same job"; `program_overrides.csv` published on the Data page; `tests/test_program.py`. Checked at 360px light and dark (panel) and in a desktop browser (settings, filters, old localStorage ignored); not checked: printed card, real phone, the table at 360px with the filter on.
+**Obstacles:** `test_logs` fails on `main` too: the Latinx session's entry id `01DZdSP2` is not 8 lowercase hex characters. Left alone (another session's entry).
+**Decisions:** D-035.
+**Commits:** `ab18948` Add admission and cluster context · `00bfdd1` Comparable-schools default, program filter · `d36ef2a` Regenerate data and site; document. Pushed to `claude/keen-curie-0wo4oz` only.
 
 ## 2026-10-02 · Latinx → Latino in labels · `01DZdSP2`
 
@@ -28,6 +52,14 @@ Carried forward until closed. Update this list in every entry that opens or clos
 **Obstacles:** Couldn't run build.py here (no pypdf/pyshp, no raw/), so generated files were patched with the same one-word replacement; a normal rebuild should give identical output.
 **Decisions:** Kept `pct_latinx` as the metric id (renaming would break downloads for anyone using the CSV).
 **Commits:** see git log on branch `claude/zealous-bohr-pfmr3m`.
+
+## 2026-10-02 16:30–17:10 · Program context for non-neighborhood schools · `7232628c`
+
+**Asked:** "See the latest GitHub issue and propose a correction", then "Yes, start with steps 1 and 2" (issue 4: schools that serve special populations).
+**Done:** `program_overrides.csv` (44 hand-kept rows, source URL each: 6 special-education schools, 2 transition, 2 detention, Simpson, 3 SAFE placements, 31 dropout-recovery) plus 5 preschool-only centers from the CPS School Type = 49 schools with a `program`. `pipeline/program.py` assigns it, `data/schools.json|csv` and the site copies carry `program` and `meta.programs`, and a `program_context` validation gate (tested in `test_gates`) checks sources and sentences. The school panel and the report card show a neutral note; table rows get a badge. Checked at 360px in dark mode (panel) and the table; not checked: light-mode panel, the printed card, a real phone.
+**Obstacles:** `data.cityofchicago.org` is blocked in this sandbox and `raw/` is absent, so `build.py` and `build_site.py` could not run. `python3 -m pipeline.program` patched the committed `data/` files and `site/data/schools.json` and `site/downloads/` were patched to match; a normal build gives the same result.
+**Decisions:** D-034.
+**Commits:** `2c82e4e` Add program context · `0775208` Regenerate data with program field · `0ee8baf` Log program context work and D-034 (rebased onto main). Pushed to `claude/keen-curie-0wo4oz` only.
 
 ## 2026-10-01 17:05–17:25 · Fun logo that resets the map · `970a2ff2`
 

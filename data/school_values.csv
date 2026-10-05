@@ -1175,6 +1175,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400032,grad_4yr,2022-23,68.6,value,pct,ISBE-RC,2026-09-30
 400032,grad_4yr,2023-24,73.5,value,pct,ISBE-RC,2026-09-30
 400032,grad_4yr,2024-25,71.4,value,pct,ISBE-RC,2026-09-30
+400032,grad_5yr,2022-23,82.0,value,pct,ISBE-RC,2026-09-30
+400032,grad_5yr,2023-24,76.5,value,pct,ISBE-RC,2026-09-30
+400032,grad_5yr,2024-25,74.0,value,pct,ISBE-RC,2026-09-30
 400032,ninth_on_track,2022-23,83.7,value,pct,ISBE-RC,2026-09-30
 400032,ninth_on_track,2023-24,81.8,value,pct,ISBE-RC,2026-09-30
 400032,ninth_on_track,2024-25,70.0,value,pct,ISBE-RC,2026-09-30
@@ -1284,6 +1287,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400033,grad_4yr,2022-23,85.9,value,pct,ISBE-RC,2026-09-30
 400033,grad_4yr,2023-24,82.6,value,pct,ISBE-RC,2026-09-30
 400033,grad_4yr,2024-25,85.3,value,pct,ISBE-RC,2026-09-30
+400033,grad_5yr,2022-23,81.4,value,pct,ISBE-RC,2026-09-30
+400033,grad_5yr,2023-24,88.9,value,pct,ISBE-RC,2026-09-30
+400033,grad_5yr,2024-25,84.7,value,pct,ISBE-RC,2026-09-30
 400033,ninth_on_track,2022-23,87.6,value,pct,ISBE-RC,2026-09-30
 400033,ninth_on_track,2023-24,93.1,value,pct,ISBE-RC,2026-09-30
 400033,ninth_on_track,2024-25,86.9,value,pct,ISBE-RC,2026-09-30
@@ -1416,6 +1422,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400034,grad_4yr,2022-23,93.1,value,pct,ISBE-RC,2026-09-30
 400034,grad_4yr,2023-24,90.9,value,pct,ISBE-RC,2026-09-30
 400034,grad_4yr,2024-25,92.6,value,pct,ISBE-RC,2026-09-30
+400034,grad_5yr,2022-23,97.7,value,pct,ISBE-RC,2026-09-30
+400034,grad_5yr,2023-24,94.0,value,pct,ISBE-RC,2026-09-30
+400034,grad_5yr,2024-25,94.2,value,pct,ISBE-RC,2026-09-30
 400034,ninth_on_track,2022-23,95.9,value,pct,ISBE-RC,2026-09-30
 400034,ninth_on_track,2023-24,95.5,value,pct,ISBE-RC,2026-09-30
 400034,ninth_on_track,2024-25,82.7,value,pct,ISBE-RC,2026-09-30
@@ -1525,6 +1534,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400035,grad_4yr,2022-23,87.2,value,pct,ISBE-RC,2026-09-30
 400035,grad_4yr,2023-24,87.9,value,pct,ISBE-RC,2026-09-30
 400035,grad_4yr,2024-25,87.5,value,pct,ISBE-RC,2026-09-30
+400035,grad_5yr,2022-23,94.5,value,pct,ISBE-RC,2026-09-30
+400035,grad_5yr,2023-24,92.9,value,pct,ISBE-RC,2026-09-30
+400035,grad_5yr,2024-25,93.4,value,pct,ISBE-RC,2026-09-30
 400035,ninth_on_track,2022-23,77.0,value,pct,ISBE-RC,2026-09-30
 400035,ninth_on_track,2023-24,,suppressed,pct,ISBE-RC,2026-09-30
 400035,ninth_on_track,2024-25,84.3,value,pct,ISBE-RC,2026-09-30
@@ -2311,6 +2323,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400051,grad_4yr,2022-23,93.8,value,pct,ISBE-RC,2026-09-30
 400051,grad_4yr,2023-24,95.3,value,pct,ISBE-RC,2026-09-30
 400051,grad_4yr,2024-25,86.1,value,pct,ISBE-RC,2026-09-30
+400051,grad_5yr,2022-23,96.3,value,pct,ISBE-RC,2026-09-30
+400051,grad_5yr,2023-24,93.8,value,pct,ISBE-RC,2026-09-30
+400051,grad_5yr,2024-25,96.6,value,pct,ISBE-RC,2026-09-30
 400051,ninth_on_track,2022-23,88.4,value,pct,ISBE-RC,2026-09-30
 400051,ninth_on_track,2023-24,94.6,value,pct,ISBE-RC,2026-09-30
 400051,ninth_on_track,2024-25,92.6,value,pct,ISBE-RC,2026-09-30
@@ -2420,6 +2435,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400052,grad_4yr,2022-23,92.1,value,pct,ISBE-RC,2026-09-30
 400052,grad_4yr,2023-24,90.8,value,pct,ISBE-RC,2026-09-30
 400052,grad_4yr,2024-25,85.5,value,pct,ISBE-RC,2026-09-30
+400052,grad_5yr,2022-23,89.7,value,pct,ISBE-RC,2026-09-30
+400052,grad_5yr,2023-24,93.0,value,pct,ISBE-RC,2026-09-30
+400052,grad_5yr,2024-25,93.7,value,pct,ISBE-RC,2026-09-30
 400052,ninth_on_track,2022-23,86.2,value,pct,ISBE-RC,2026-09-30
 400052,ninth_on_track,2023-24,72.6,value,pct,ISBE-RC,2026-09-30
 400052,ninth_on_track,2024-25,69.1,value,pct,ISBE-RC,2026-09-30
@@ -2546,6 +2564,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400053,grad_4yr,2022-23,84.2,value,pct,ISBE-RC,2026-09-30
 400053,grad_4yr,2023-24,91.6,value,pct,ISBE-RC,2026-09-30
 400053,grad_4yr,2024-25,91.4,value,pct,ISBE-RC,2026-09-30
+400053,grad_5yr,2022-23,98.2,value,pct,ISBE-RC,2026-09-30
+400053,grad_5yr,2023-24,86.0,value,pct,ISBE-RC,2026-09-30
+400053,grad_5yr,2024-25,92.9,value,pct,ISBE-RC,2026-09-30
 400053,ninth_on_track,2022-23,91.9,value,pct,ISBE-RC,2026-09-30
 400053,ninth_on_track,2023-24,93.0,value,pct,ISBE-RC,2026-09-30
 400053,ninth_on_track,2024-25,93.9,value,pct,ISBE-RC,2026-09-30
@@ -2655,6 +2676,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400054,grad_4yr,2022-23,97.9,value,pct,ISBE-RC,2026-09-30
 400054,grad_4yr,2023-24,96.1,value,pct,ISBE-RC,2026-09-30
 400054,grad_4yr,2024-25,90.8,value,pct,ISBE-RC,2026-09-30
+400054,grad_5yr,2022-23,99.1,value,pct,ISBE-RC,2026-09-30
+400054,grad_5yr,2023-24,99.6,value,pct,ISBE-RC,2026-09-30
+400054,grad_5yr,2024-25,97.8,value,pct,ISBE-RC,2026-09-30
 400054,ninth_on_track,2022-23,92.8,value,pct,ISBE-RC,2026-09-30
 400054,ninth_on_track,2023-24,80.8,value,pct,ISBE-RC,2026-09-30
 400054,ninth_on_track,2024-25,86.7,value,pct,ISBE-RC,2026-09-30
@@ -2764,6 +2788,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400055,grad_4yr,2022-23,90.2,value,pct,ISBE-RC,2026-09-30
 400055,grad_4yr,2023-24,90.4,value,pct,ISBE-RC,2026-09-30
 400055,grad_4yr,2024-25,81.8,value,pct,ISBE-RC,2026-09-30
+400055,grad_5yr,2022-23,96.3,value,pct,ISBE-RC,2026-09-30
+400055,grad_5yr,2023-24,92.0,value,pct,ISBE-RC,2026-09-30
+400055,grad_5yr,2024-25,88.8,value,pct,ISBE-RC,2026-09-30
 400055,ninth_on_track,2022-23,95.5,value,pct,ISBE-RC,2026-09-30
 400055,ninth_on_track,2023-24,94.6,value,pct,ISBE-RC,2026-09-30
 400055,ninth_on_track,2024-25,82.2,value,pct,ISBE-RC,2026-09-30
@@ -2870,6 +2897,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400056,grad_4yr,2022-23,88.4,value,pct,ISBE-RC,2026-09-30
 400056,grad_4yr,2023-24,90.6,value,pct,ISBE-RC,2026-09-30
 400056,grad_4yr,2024-25,83.3,value,pct,ISBE-RC,2026-09-30
+400056,grad_5yr,2022-23,93.1,value,pct,ISBE-RC,2026-09-30
+400056,grad_5yr,2023-24,88.4,value,pct,ISBE-RC,2026-09-30
+400056,grad_5yr,2024-25,91.8,value,pct,ISBE-RC,2026-09-30
 400056,ninth_on_track,2022-23,81.9,value,pct,ISBE-RC,2026-09-30
 400056,ninth_on_track,2023-24,93.0,value,pct,ISBE-RC,2026-09-30
 400056,ninth_on_track,2024-25,90.5,value,pct,ISBE-RC,2026-09-30
@@ -2976,6 +3006,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400057,grad_4yr,2022-23,91.2,value,pct,ISBE-RC,2026-09-30
 400057,grad_4yr,2023-24,91.4,value,pct,ISBE-RC,2026-09-30
 400057,grad_4yr,2024-25,86.6,value,pct,ISBE-RC,2026-09-30
+400057,grad_5yr,2022-23,98.7,value,pct,ISBE-RC,2026-09-30
+400057,grad_5yr,2023-24,92.0,value,pct,ISBE-RC,2026-09-30
+400057,grad_5yr,2024-25,92.7,value,pct,ISBE-RC,2026-09-30
 400057,ninth_on_track,2022-23,82.1,value,pct,ISBE-RC,2026-09-30
 400057,ninth_on_track,2023-24,85.0,value,pct,ISBE-RC,2026-09-30
 400057,ninth_on_track,2024-25,83.7,value,pct,ISBE-RC,2026-09-30
@@ -3085,6 +3118,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400058,grad_4yr,2022-23,85.1,value,pct,ISBE-RC,2026-09-30
 400058,grad_4yr,2023-24,87.0,value,pct,ISBE-RC,2026-09-30
 400058,grad_4yr,2024-25,94.0,value,pct,ISBE-RC,2026-09-30
+400058,grad_5yr,2022-23,89.3,value,pct,ISBE-RC,2026-09-30
+400058,grad_5yr,2023-24,88.9,value,pct,ISBE-RC,2026-09-30
+400058,grad_5yr,2024-25,91.9,value,pct,ISBE-RC,2026-09-30
 400058,ninth_on_track,2022-23,87.7,value,pct,ISBE-RC,2026-09-30
 400058,ninth_on_track,2023-24,76.8,value,pct,ISBE-RC,2026-09-30
 400058,ninth_on_track,2024-25,82.9,value,pct,ISBE-RC,2026-09-30
@@ -3194,6 +3230,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400059,grad_4yr,2022-23,94.9,value,pct,ISBE-RC,2026-09-30
 400059,grad_4yr,2023-24,86.7,value,pct,ISBE-RC,2026-09-30
 400059,grad_4yr,2024-25,93.5,value,pct,ISBE-RC,2026-09-30
+400059,grad_5yr,2022-23,92.4,value,pct,ISBE-RC,2026-09-30
+400059,grad_5yr,2023-24,94.8,value,pct,ISBE-RC,2026-09-30
+400059,grad_5yr,2024-25,89.2,value,pct,ISBE-RC,2026-09-30
 400059,ninth_on_track,2022-23,90.2,value,pct,ISBE-RC,2026-09-30
 400059,ninth_on_track,2023-24,76.3,value,pct,ISBE-RC,2026-09-30
 400059,ninth_on_track,2024-25,87.8,value,pct,ISBE-RC,2026-09-30
@@ -3399,6 +3438,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400061,grad_4yr,2022-23,90.2,value,pct,ISBE-RC,2026-09-30
 400061,grad_4yr,2023-24,88.9,value,pct,ISBE-RC,2026-09-30
 400061,grad_4yr,2024-25,79.7,value,pct,ISBE-RC,2026-09-30
+400061,grad_5yr,2022-23,75.6,value,pct,ISBE-RC,2026-09-30
+400061,grad_5yr,2023-24,89.2,value,pct,ISBE-RC,2026-09-30
+400061,grad_5yr,2024-25,88.1,value,pct,ISBE-RC,2026-09-30
 400061,ninth_on_track,2022-23,91.0,value,pct,ISBE-RC,2026-09-30
 400061,ninth_on_track,2023-24,86.2,value,pct,ISBE-RC,2026-09-30
 400061,ninth_on_track,2024-25,83.0,value,pct,ISBE-RC,2026-09-30
@@ -3525,6 +3567,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400062,grad_4yr,2022-23,82.8,value,pct,ISBE-RC,2026-09-30
 400062,grad_4yr,2023-24,87.1,value,pct,ISBE-RC,2026-09-30
 400062,grad_4yr,2024-25,89.3,value,pct,ISBE-RC,2026-09-30
+400062,grad_5yr,2022-23,97.3,value,pct,ISBE-RC,2026-09-30
+400062,grad_5yr,2023-24,86.9,value,pct,ISBE-RC,2026-09-30
+400062,grad_5yr,2024-25,90.4,value,pct,ISBE-RC,2026-09-30
 400062,ninth_on_track,2022-23,96.9,value,pct,ISBE-RC,2026-09-30
 400062,ninth_on_track,2023-24,94.2,value,pct,ISBE-RC,2026-09-30
 400062,ninth_on_track,2024-25,87.7,value,pct,ISBE-RC,2026-09-30
@@ -3634,6 +3679,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400064,grad_4yr,2022-23,89.2,value,pct,ISBE-RC,2026-09-30
 400064,grad_4yr,2023-24,86.3,value,pct,ISBE-RC,2026-09-30
 400064,grad_4yr,2024-25,87.0,value,pct,ISBE-RC,2026-09-30
+400064,grad_5yr,2022-23,95.7,value,pct,ISBE-RC,2026-09-30
+400064,grad_5yr,2023-24,93.7,value,pct,ISBE-RC,2026-09-30
+400064,grad_5yr,2024-25,87.8,value,pct,ISBE-RC,2026-09-30
 400064,ninth_on_track,2022-23,86.9,value,pct,ISBE-RC,2026-09-30
 400064,ninth_on_track,2023-24,87.1,value,pct,ISBE-RC,2026-09-30
 400064,ninth_on_track,2024-25,83.3,value,pct,ISBE-RC,2026-09-30
@@ -3758,6 +3806,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400066,grad_4yr,2022-23,85.3,value,pct,ISBE-RC,2026-09-30
 400066,grad_4yr,2023-24,88.6,value,pct,ISBE-RC,2026-09-30
 400066,grad_4yr,2024-25,89.2,value,pct,ISBE-RC,2026-09-30
+400066,grad_5yr,2022-23,93.8,value,pct,ISBE-RC,2026-09-30
+400066,grad_5yr,2023-24,86.5,value,pct,ISBE-RC,2026-09-30
+400066,grad_5yr,2024-25,92.6,value,pct,ISBE-RC,2026-09-30
 400066,ninth_on_track,2022-23,88.4,value,pct,ISBE-RC,2026-09-30
 400066,ninth_on_track,2023-24,83.3,value,pct,ISBE-RC,2026-09-30
 400066,ninth_on_track,2024-25,85.3,value,pct,ISBE-RC,2026-09-30
@@ -4249,6 +4300,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400077,grad_4yr,2022-23,83.6,value,pct,ISBE-RC,2026-09-30
 400077,grad_4yr,2023-24,84.6,value,pct,ISBE-RC,2026-09-30
 400077,grad_4yr,2024-25,82.1,value,pct,ISBE-RC,2026-09-30
+400077,grad_5yr,2022-23,93.0,value,pct,ISBE-RC,2026-09-30
+400077,grad_5yr,2023-24,85.1,value,pct,ISBE-RC,2026-09-30
+400077,grad_5yr,2024-25,89.5,value,pct,ISBE-RC,2026-09-30
 400077,ninth_on_track,2022-23,81.4,value,pct,ISBE-RC,2026-09-30
 400077,ninth_on_track,2023-24,71.3,value,pct,ISBE-RC,2026-09-30
 400077,ninth_on_track,2024-25,89.9,value,pct,ISBE-RC,2026-09-30
@@ -4567,6 +4621,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400085,grad_4yr,2022-23,95.6,value,pct,ISBE-RC,2026-09-30
 400085,grad_4yr,2023-24,88.8,value,pct,ISBE-RC,2026-09-30
 400085,grad_4yr,2024-25,91.7,value,pct,ISBE-RC,2026-09-30
+400085,grad_5yr,2022-23,93.9,value,pct,ISBE-RC,2026-09-30
+400085,grad_5yr,2023-24,95.6,value,pct,ISBE-RC,2026-09-30
+400085,grad_5yr,2024-25,88.9,value,pct,ISBE-RC,2026-09-30
 400085,ninth_on_track,2022-23,97.9,value,pct,ISBE-RC,2026-09-30
 400085,ninth_on_track,2023-24,95.8,value,pct,ISBE-RC,2026-09-30
 400085,ninth_on_track,2024-25,93.9,value,pct,ISBE-RC,2026-09-30
@@ -4676,6 +4733,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400086,grad_4yr,2022-23,80.0,value,pct,ISBE-RC,2026-09-30
 400086,grad_4yr,2023-24,83.3,value,pct,ISBE-RC,2026-09-30
 400086,grad_4yr,2024-25,78.3,value,pct,ISBE-RC,2026-09-30
+400086,grad_5yr,2022-23,86.2,value,pct,ISBE-RC,2026-09-30
+400086,grad_5yr,2023-24,81.6,value,pct,ISBE-RC,2026-09-30
+400086,grad_5yr,2024-25,89.7,value,pct,ISBE-RC,2026-09-30
 400086,ninth_on_track,2022-23,87.2,value,pct,ISBE-RC,2026-09-30
 400086,ninth_on_track,2023-24,,suppressed,pct,ISBE-RC,2026-09-30
 400086,ninth_on_track,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -4880,6 +4940,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400091,grad_4yr,2022-23,86.5,value,pct,ISBE-RC,2026-09-30
 400091,grad_4yr,2023-24,90.7,value,pct,ISBE-RC,2026-09-30
 400091,grad_4yr,2024-25,88.7,value,pct,ISBE-RC,2026-09-30
+400091,grad_5yr,2022-23,94.4,value,pct,ISBE-RC,2026-09-30
+400091,grad_5yr,2023-24,88.6,value,pct,ISBE-RC,2026-09-30
+400091,grad_5yr,2024-25,91.9,value,pct,ISBE-RC,2026-09-30
 400091,ninth_on_track,2022-23,87.6,value,pct,ISBE-RC,2026-09-30
 400091,ninth_on_track,2023-24,79.4,value,pct,ISBE-RC,2026-09-30
 400091,ninth_on_track,2024-25,80.0,value,pct,ISBE-RC,2026-09-30
@@ -5174,6 +5237,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400097,grad_4yr,2022-23,94.2,value,pct,ISBE-RC,2026-09-30
 400097,grad_4yr,2023-24,95.8,value,pct,ISBE-RC,2026-09-30
 400097,grad_4yr,2024-25,88.2,value,pct,ISBE-RC,2026-09-30
+400097,grad_5yr,2022-23,98.8,value,pct,ISBE-RC,2026-09-30
+400097,grad_5yr,2023-24,96.1,value,pct,ISBE-RC,2026-09-30
+400097,grad_5yr,2024-25,95.4,value,pct,ISBE-RC,2026-09-30
 400097,ninth_on_track,2022-23,93.8,value,pct,ISBE-RC,2026-09-30
 400097,ninth_on_track,2023-24,84.6,value,pct,ISBE-RC,2026-09-30
 400097,ninth_on_track,2024-25,88.8,value,pct,ISBE-RC,2026-09-30
@@ -5283,6 +5349,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400098,grad_4yr,2022-23,96.0,value,pct,ISBE-RC,2026-09-30
 400098,grad_4yr,2023-24,92.3,value,pct,ISBE-RC,2026-09-30
 400098,grad_4yr,2024-25,92.3,value,pct,ISBE-RC,2026-09-30
+400098,grad_5yr,2022-23,97.6,value,pct,ISBE-RC,2026-09-30
+400098,grad_5yr,2023-24,96.0,value,pct,ISBE-RC,2026-09-30
+400098,grad_5yr,2024-25,92.3,value,pct,ISBE-RC,2026-09-30
 400098,ninth_on_track,2022-23,91.8,value,pct,ISBE-RC,2026-09-30
 400098,ninth_on_track,2023-24,82.8,value,pct,ISBE-RC,2026-09-30
 400098,ninth_on_track,2024-25,85.4,value,pct,ISBE-RC,2026-09-30
@@ -5389,6 +5458,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400104,grad_4yr,2022-23,81.3,value,pct,ISBE-RC,2026-09-30
 400104,grad_4yr,2023-24,78.2,value,pct,ISBE-RC,2026-09-30
 400104,grad_4yr,2024-25,84.0,value,pct,ISBE-RC,2026-09-30
+400104,grad_5yr,2022-23,91.7,value,pct,ISBE-RC,2026-09-30
+400104,grad_5yr,2023-24,86.3,value,pct,ISBE-RC,2026-09-30
+400104,grad_5yr,2024-25,82.9,value,pct,ISBE-RC,2026-09-30
 400104,ninth_on_track,2022-23,68.5,value,pct,ISBE-RC,2026-09-30
 400104,ninth_on_track,2023-24,66.7,value,pct,ISBE-RC,2026-09-30
 400104,ninth_on_track,2024-25,79.9,value,pct,ISBE-RC,2026-09-30
@@ -5498,6 +5570,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400106,grad_4yr,2022-23,87.3,value,pct,ISBE-RC,2026-09-30
 400106,grad_4yr,2023-24,81.9,value,pct,ISBE-RC,2026-09-30
 400106,grad_4yr,2024-25,82.7,value,pct,ISBE-RC,2026-09-30
+400106,grad_5yr,2022-23,92.7,value,pct,ISBE-RC,2026-09-30
+400106,grad_5yr,2023-24,88.1,value,pct,ISBE-RC,2026-09-30
+400106,grad_5yr,2024-25,85.4,value,pct,ISBE-RC,2026-09-30
 400106,ninth_on_track,2022-23,84.2,value,pct,ISBE-RC,2026-09-30
 400106,ninth_on_track,2023-24,87.6,value,pct,ISBE-RC,2026-09-30
 400106,ninth_on_track,2024-25,84.1,value,pct,ISBE-RC,2026-09-30
@@ -5895,6 +5970,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400115,grad_4yr,2022-23,78.9,value,pct,ISBE-RC,2026-09-30
 400115,grad_4yr,2023-24,85.6,value,pct,ISBE-RC,2026-09-30
 400115,grad_4yr,2024-25,91.2,value,pct,ISBE-RC,2026-09-30
+400115,grad_5yr,2022-23,96.4,value,pct,ISBE-RC,2026-09-30
+400115,grad_5yr,2023-24,82.1,value,pct,ISBE-RC,2026-09-30
+400115,grad_5yr,2024-25,90.4,value,pct,ISBE-RC,2026-09-30
 400115,ninth_on_track,2022-23,92.0,value,pct,ISBE-RC,2026-09-30
 400115,ninth_on_track,2023-24,92.3,value,pct,ISBE-RC,2026-09-30
 400115,ninth_on_track,2024-25,86.5,value,pct,ISBE-RC,2026-09-30
@@ -6122,6 +6200,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400117,grad_4yr,2022-23,82.2,value,pct,ISBE-RC,2026-09-30
 400117,grad_4yr,2023-24,88.3,value,pct,ISBE-RC,2026-09-30
 400117,grad_4yr,2024-25,86.1,value,pct,ISBE-RC,2026-09-30
+400117,grad_5yr,2022-23,93.4,value,pct,ISBE-RC,2026-09-30
+400117,grad_5yr,2023-24,84.1,value,pct,ISBE-RC,2026-09-30
+400117,grad_5yr,2024-25,90.7,value,pct,ISBE-RC,2026-09-30
 400117,ninth_on_track,2022-23,92.6,value,pct,ISBE-RC,2026-09-30
 400117,ninth_on_track,2023-24,92.5,value,pct,ISBE-RC,2026-09-30
 400117,ninth_on_track,2024-25,90.4,value,pct,ISBE-RC,2026-09-30
@@ -6231,6 +6312,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400118,grad_4yr,2022-23,76.7,value,pct,ISBE-RC,2026-09-30
 400118,grad_4yr,2023-24,79.2,value,pct,ISBE-RC,2026-09-30
 400118,grad_4yr,2024-25,69.7,value,pct,ISBE-RC,2026-09-30
+400118,grad_5yr,2022-23,88.6,value,pct,ISBE-RC,2026-09-30
+400118,grad_5yr,2023-24,85.1,value,pct,ISBE-RC,2026-09-30
+400118,grad_5yr,2024-25,81.8,value,pct,ISBE-RC,2026-09-30
 400118,ninth_on_track,2022-23,81.5,value,pct,ISBE-RC,2026-09-30
 400118,ninth_on_track,2023-24,56.8,value,pct,ISBE-RC,2026-09-30
 400118,ninth_on_track,2024-25,79.3,value,pct,ISBE-RC,2026-09-30
@@ -6340,6 +6424,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400119,grad_4yr,2022-23,81.0,value,pct,ISBE-RC,2026-09-30
 400119,grad_4yr,2023-24,85.4,value,pct,ISBE-RC,2026-09-30
 400119,grad_4yr,2024-25,84.6,value,pct,ISBE-RC,2026-09-30
+400119,grad_5yr,2022-23,92.5,value,pct,ISBE-RC,2026-09-30
+400119,grad_5yr,2023-24,82.3,value,pct,ISBE-RC,2026-09-30
+400119,grad_5yr,2024-25,85.4,value,pct,ISBE-RC,2026-09-30
 400119,ninth_on_track,2022-23,82.9,value,pct,ISBE-RC,2026-09-30
 400119,ninth_on_track,2023-24,80.8,value,pct,ISBE-RC,2026-09-30
 400119,ninth_on_track,2024-25,75.5,value,pct,ISBE-RC,2026-09-30
@@ -6545,6 +6632,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400123,grad_4yr,2022-23,37.3,value,pct,ISBE-RC,2026-09-30
 400123,grad_4yr,2023-24,60.0,value,pct,ISBE-RC,2026-09-30
 400123,grad_4yr,2024-25,50.8,value,pct,ISBE-RC,2026-09-30
+400123,grad_5yr,2022-23,44.6,value,pct,ISBE-RC,2026-09-30
+400123,grad_5yr,2023-24,54.5,value,pct,ISBE-RC,2026-09-30
+400123,grad_5yr,2024-25,61.0,value,pct,ISBE-RC,2026-09-30
 400123,postsec_12mo,2022-23,6.3,value,pct,ISBE-RC,2026-09-30
 400123,postsec_12mo,2023-24,11.4,value,pct,ISBE-RC,2026-09-30
 400123,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -6646,6 +6736,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400124,grad_4yr,2022-23,39.0,value,pct,ISBE-RC,2026-09-30
 400124,grad_4yr,2023-24,50.0,value,pct,ISBE-RC,2026-09-30
 400124,grad_4yr,2024-25,63.5,value,pct,ISBE-RC,2026-09-30
+400124,grad_5yr,2022-23,58.6,value,pct,ISBE-RC,2026-09-30
+400124,grad_5yr,2023-24,63.4,value,pct,ISBE-RC,2026-09-30
+400124,grad_5yr,2024-25,66.0,value,pct,ISBE-RC,2026-09-30
 400124,postsec_12mo,2022-23,8.6,value,pct,ISBE-RC,2026-09-30
 400124,postsec_12mo,2023-24,12.5,value,pct,ISBE-RC,2026-09-30
 400124,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -6748,6 +6841,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400125,grad_4yr,2022-23,41.8,value,pct,ISBE-RC,2026-09-30
 400125,grad_4yr,2023-24,39.0,value,pct,ISBE-RC,2026-09-30
 400125,grad_4yr,2024-25,51.9,value,pct,ISBE-RC,2026-09-30
+400125,grad_5yr,2022-23,44.6,value,pct,ISBE-RC,2026-09-30
+400125,grad_5yr,2023-24,54.0,value,pct,ISBE-RC,2026-09-30
+400125,grad_5yr,2024-25,53.6,value,pct,ISBE-RC,2026-09-30
 400125,postsec_12mo,2022-23,20.8,value,pct,ISBE-RC,2026-09-30
 400125,postsec_12mo,2023-24,20.2,value,pct,ISBE-RC,2026-09-30
 400125,postsec_12mo,2024-25,12.7,value,pct,ISBE-RC,2026-09-30
@@ -6849,6 +6945,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400126,grad_4yr,2022-23,43.9,value,pct,ISBE-RC,2026-09-30
 400126,grad_4yr,2023-24,37.5,value,pct,ISBE-RC,2026-09-30
 400126,grad_4yr,2024-25,37.3,value,pct,ISBE-RC,2026-09-30
+400126,grad_5yr,2022-23,33.3,value,pct,ISBE-RC,2026-09-30
+400126,grad_5yr,2023-24,53.8,value,pct,ISBE-RC,2026-09-30
+400126,grad_5yr,2024-25,38.3,value,pct,ISBE-RC,2026-09-30
 400126,postsec_12mo,2022-23,18.2,value,pct,ISBE-RC,2026-09-30
 400126,postsec_12mo,2023-24,9.4,value,pct,ISBE-RC,2026-09-30
 400126,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -6947,6 +7046,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400128,grad_4yr,2022-23,62.1,value,pct,ISBE-RC,2026-09-30
 400128,grad_4yr,2023-24,68.5,value,pct,ISBE-RC,2026-09-30
 400128,grad_4yr,2024-25,59.7,value,pct,ISBE-RC,2026-09-30
+400128,grad_5yr,2022-23,58.1,value,pct,ISBE-RC,2026-09-30
+400128,grad_5yr,2023-24,66.2,value,pct,ISBE-RC,2026-09-30
+400128,grad_5yr,2024-25,73.4,value,pct,ISBE-RC,2026-09-30
 400128,postsec_12mo,2022-23,17.0,value,pct,ISBE-RC,2026-09-30
 400128,postsec_12mo,2023-24,8.2,value,pct,ISBE-RC,2026-09-30
 400128,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -7049,6 +7151,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400129,grad_4yr,2022-23,59.8,value,pct,ISBE-RC,2026-09-30
 400129,grad_4yr,2023-24,65.4,value,pct,ISBE-RC,2026-09-30
 400129,grad_4yr,2024-25,56.2,value,pct,ISBE-RC,2026-09-30
+400129,grad_5yr,2022-23,57.1,value,pct,ISBE-RC,2026-09-30
+400129,grad_5yr,2023-24,60.0,value,pct,ISBE-RC,2026-09-30
+400129,grad_5yr,2024-25,66.7,value,pct,ISBE-RC,2026-09-30
 400129,postsec_12mo,2022-23,4.9,value,pct,ISBE-RC,2026-09-30
 400129,postsec_12mo,2023-24,11.7,value,pct,ISBE-RC,2026-09-30
 400129,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -7146,6 +7251,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400130,grad_4yr,2022-23,31.9,value,pct,ISBE-RC,2026-09-30
 400130,grad_4yr,2023-24,27.8,value,pct,ISBE-RC,2026-09-30
 400130,grad_4yr,2024-25,30.6,value,pct,ISBE-RC,2026-09-30
+400130,grad_5yr,2022-23,50.9,value,pct,ISBE-RC,2026-09-30
+400130,grad_5yr,2023-24,46.0,value,pct,ISBE-RC,2026-09-30
+400130,grad_5yr,2024-25,43.5,value,pct,ISBE-RC,2026-09-30
 400130,postsec_12mo,2022-23,13.6,value,pct,ISBE-RC,2026-09-30
 400130,postsec_12mo,2023-24,13.5,value,pct,ISBE-RC,2026-09-30
 400130,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -7248,6 +7356,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400131,grad_4yr,2022-23,40.7,value,pct,ISBE-RC,2026-09-30
 400131,grad_4yr,2023-24,37.8,value,pct,ISBE-RC,2026-09-30
 400131,grad_4yr,2024-25,33.3,value,pct,ISBE-RC,2026-09-30
+400131,grad_5yr,2022-23,53.4,value,pct,ISBE-RC,2026-09-30
+400131,grad_5yr,2023-24,56.9,value,pct,ISBE-RC,2026-09-30
+400131,grad_5yr,2024-25,51.3,value,pct,ISBE-RC,2026-09-30
 400131,postsec_12mo,2022-23,14.3,value,pct,ISBE-RC,2026-09-30
 400131,postsec_12mo,2023-24,17.2,value,pct,ISBE-RC,2026-09-30
 400131,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -7345,6 +7456,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400133,grad_4yr,2022-23,49.2,value,pct,ISBE-RC,2026-09-30
 400133,grad_4yr,2023-24,48.6,value,pct,ISBE-RC,2026-09-30
 400133,grad_4yr,2024-25,56.7,value,pct,ISBE-RC,2026-09-30
+400133,grad_5yr,2022-23,51.2,value,pct,ISBE-RC,2026-09-30
+400133,grad_5yr,2023-24,57.1,value,pct,ISBE-RC,2026-09-30
+400133,grad_5yr,2024-25,57.5,value,pct,ISBE-RC,2026-09-30
 400133,postsec_12mo,2022-23,14.0,value,pct,ISBE-RC,2026-09-30
 400133,postsec_12mo,2023-24,16.4,value,pct,ISBE-RC,2026-09-30
 400133,postsec_12mo,2024-25,16.5,value,pct,ISBE-RC,2026-09-30
@@ -7448,6 +7562,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400135,grad_4yr,2022-23,33.3,value,pct,ISBE-RC,2026-09-30
 400135,grad_4yr,2023-24,20.7,value,pct,ISBE-RC,2026-09-30
 400135,grad_4yr,2024-25,24.0,value,pct,ISBE-RC,2026-09-30
+400135,grad_5yr,2022-23,35.8,value,pct,ISBE-RC,2026-09-30
+400135,grad_5yr,2023-24,36.3,value,pct,ISBE-RC,2026-09-30
+400135,grad_5yr,2024-25,33.3,value,pct,ISBE-RC,2026-09-30
 400135,postsec_12mo,2022-23,14.3,value,pct,ISBE-RC,2026-09-30
 400135,postsec_12mo,2023-24,28.6,value,pct,ISBE-RC,2026-09-30
 400135,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -7551,6 +7668,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400136,grad_4yr,2022-23,32.0,value,pct,ISBE-RC,2026-09-30
 400136,grad_4yr,2023-24,21.0,value,pct,ISBE-RC,2026-09-30
 400136,grad_4yr,2024-25,23.3,value,pct,ISBE-RC,2026-09-30
+400136,grad_5yr,2022-23,35.1,value,pct,ISBE-RC,2026-09-30
+400136,grad_5yr,2023-24,37.5,value,pct,ISBE-RC,2026-09-30
+400136,grad_5yr,2024-25,32.1,value,pct,ISBE-RC,2026-09-30
 400136,postsec_12mo,2022-23,3.6,value,pct,ISBE-RC,2026-09-30
 400136,postsec_12mo,2023-24,18.5,value,pct,ISBE-RC,2026-09-30
 400136,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -7649,6 +7769,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400139,grad_4yr,2022-23,41.1,value,pct,ISBE-RC,2026-09-30
 400139,grad_4yr,2023-24,36.1,value,pct,ISBE-RC,2026-09-30
 400139,grad_4yr,2024-25,40.3,value,pct,ISBE-RC,2026-09-30
+400139,grad_5yr,2022-23,37.1,value,pct,ISBE-RC,2026-09-30
+400139,grad_5yr,2023-24,48.1,value,pct,ISBE-RC,2026-09-30
+400139,grad_5yr,2024-25,42.3,value,pct,ISBE-RC,2026-09-30
 400139,postsec_12mo,2022-23,7.0,value,pct,ISBE-RC,2026-09-30
 400139,postsec_12mo,2023-24,8.6,value,pct,ISBE-RC,2026-09-30
 400139,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -7751,6 +7874,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400141,grad_4yr,2022-23,34.3,value,pct,ISBE-RC,2026-09-30
 400141,grad_4yr,2023-24,27.8,value,pct,ISBE-RC,2026-09-30
 400141,grad_4yr,2024-25,34.3,value,pct,ISBE-RC,2026-09-30
+400141,grad_5yr,2022-23,47.7,value,pct,ISBE-RC,2026-09-30
+400141,grad_5yr,2023-24,50.0,value,pct,ISBE-RC,2026-09-30
+400141,grad_5yr,2024-25,53.2,value,pct,ISBE-RC,2026-09-30
 400141,postsec_12mo,2022-23,55.0,value,pct,ISBE-RC,2026-09-30
 400141,postsec_12mo,2023-24,37.8,value,pct,ISBE-RC,2026-09-30
 400141,postsec_12mo,2024-25,29.9,value,pct,ISBE-RC,2026-09-30
@@ -7849,6 +7975,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400143,grad_4yr,2022-23,50.0,value,pct,ISBE-RC,2026-09-30
 400143,grad_4yr,2023-24,41.4,value,pct,ISBE-RC,2026-09-30
 400143,grad_4yr,2024-25,48.4,value,pct,ISBE-RC,2026-09-30
+400143,grad_5yr,2022-23,60.9,value,pct,ISBE-RC,2026-09-30
+400143,grad_5yr,2023-24,55.6,value,pct,ISBE-RC,2026-09-30
+400143,grad_5yr,2024-25,58.8,value,pct,ISBE-RC,2026-09-30
 400143,postsec_12mo,2022-23,21.8,value,pct,ISBE-RC,2026-09-30
 400143,postsec_12mo,2023-24,13.0,value,pct,ISBE-RC,2026-09-30
 400143,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -7952,6 +8081,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400144,grad_4yr,2022-23,64.2,value,pct,ISBE-RC,2026-09-30
 400144,grad_4yr,2023-24,56.2,value,pct,ISBE-RC,2026-09-30
 400144,grad_4yr,2024-25,60.0,value,pct,ISBE-RC,2026-09-30
+400144,grad_5yr,2022-23,46.8,value,pct,ISBE-RC,2026-09-30
+400144,grad_5yr,2023-24,74.5,value,pct,ISBE-RC,2026-09-30
+400144,grad_5yr,2024-25,61.5,value,pct,ISBE-RC,2026-09-30
 400144,postsec_12mo,2022-23,13.8,value,pct,ISBE-RC,2026-09-30
 400144,postsec_12mo,2023-24,20.7,value,pct,ISBE-RC,2026-09-30
 400144,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -8049,6 +8181,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400145,grad_4yr,2022-23,56.9,value,pct,ISBE-RC,2026-09-30
 400145,grad_4yr,2023-24,61.8,value,pct,ISBE-RC,2026-09-30
 400145,grad_4yr,2024-25,37.5,value,pct,ISBE-RC,2026-09-30
+400145,grad_5yr,2022-23,57.0,value,pct,ISBE-RC,2026-09-30
+400145,grad_5yr,2023-24,59.7,value,pct,ISBE-RC,2026-09-30
+400145,grad_5yr,2024-25,63.5,value,pct,ISBE-RC,2026-09-30
 400145,postsec_12mo,2022-23,6.7,value,pct,ISBE-RC,2026-09-30
 400145,postsec_12mo,2023-24,9.3,value,pct,ISBE-RC,2026-09-30
 400145,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -8303,6 +8438,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400149,grad_4yr,2022-23,91.2,value,pct,ISBE-RC,2026-09-30
 400149,grad_4yr,2023-24,91.0,value,pct,ISBE-RC,2026-09-30
 400149,grad_4yr,2024-25,90.1,value,pct,ISBE-RC,2026-09-30
+400149,grad_5yr,2022-23,98.3,value,pct,ISBE-RC,2026-09-30
+400149,grad_5yr,2023-24,91.2,value,pct,ISBE-RC,2026-09-30
+400149,grad_5yr,2024-25,93.1,value,pct,ISBE-RC,2026-09-30
 400149,ninth_on_track,2022-23,97.1,value,pct,ISBE-RC,2026-09-30
 400149,ninth_on_track,2023-24,90.6,value,pct,ISBE-RC,2026-09-30
 400149,ninth_on_track,2024-25,93.8,value,pct,ISBE-RC,2026-09-30
@@ -8412,6 +8550,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400150,grad_4yr,2022-23,43.8,value,pct,ISBE-RC,2026-09-30
 400150,grad_4yr,2023-24,52.9,value,pct,ISBE-RC,2026-09-30
 400150,grad_4yr,2024-25,54.8,value,pct,ISBE-RC,2026-09-30
+400150,grad_5yr,2022-23,41.0,value,pct,ISBE-RC,2026-09-30
+400150,grad_5yr,2023-24,54.2,value,pct,ISBE-RC,2026-09-30
+400150,grad_5yr,2024-25,66.7,value,pct,ISBE-RC,2026-09-30
 400150,postsec_12mo,2022-23,14.0,value,pct,ISBE-RC,2026-09-30
 400150,postsec_12mo,2023-24,10.7,value,pct,ISBE-RC,2026-09-30
 400150,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -8695,6 +8836,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400156,grad_4yr,2022-23,93.1,value,pct,ISBE-RC,2026-09-30
 400156,grad_4yr,2023-24,92.1,value,pct,ISBE-RC,2026-09-30
 400156,grad_4yr,2024-25,89.4,value,pct,ISBE-RC,2026-09-30
+400156,grad_5yr,2022-23,96.4,value,pct,ISBE-RC,2026-09-30
+400156,grad_5yr,2023-24,93.8,value,pct,ISBE-RC,2026-09-30
+400156,grad_5yr,2024-25,95.1,value,pct,ISBE-RC,2026-09-30
 400156,ninth_on_track,2022-23,87.9,value,pct,ISBE-RC,2026-09-30
 400156,ninth_on_track,2023-24,87.9,value,pct,ISBE-RC,2026-09-30
 400156,ninth_on_track,2024-25,90.7,value,pct,ISBE-RC,2026-09-30
@@ -8801,6 +8945,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400157,grad_4yr,2022-23,76.3,value,pct,ISBE-RC,2026-09-30
 400157,grad_4yr,2023-24,71.9,value,pct,ISBE-RC,2026-09-30
 400157,grad_4yr,2024-25,76.4,value,pct,ISBE-RC,2026-09-30
+400157,grad_5yr,2022-23,84.8,value,pct,ISBE-RC,2026-09-30
+400157,grad_5yr,2023-24,83.6,value,pct,ISBE-RC,2026-09-30
+400157,grad_5yr,2024-25,77.2,value,pct,ISBE-RC,2026-09-30
 400157,ninth_on_track,2022-23,85.0,value,pct,ISBE-RC,2026-09-30
 400157,ninth_on_track,2023-24,87.0,value,pct,ISBE-RC,2026-09-30
 400157,ninth_on_track,2024-25,77.8,value,pct,ISBE-RC,2026-09-30
@@ -9006,6 +9153,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400161,grad_4yr,2022-23,89.3,value,pct,ISBE-RC,2026-09-30
 400161,grad_4yr,2023-24,71.4,value,pct,ISBE-RC,2026-09-30
 400161,grad_4yr,2024-25,78.4,value,pct,ISBE-RC,2026-09-30
+400161,grad_5yr,2022-23,85.3,value,pct,ISBE-RC,2026-09-30
+400161,grad_5yr,2023-24,92.9,value,pct,ISBE-RC,2026-09-30
+400161,grad_5yr,2024-25,64.5,value,pct,ISBE-RC,2026-09-30
 400161,ninth_on_track,2022-23,97.9,value,pct,ISBE-RC,2026-09-30
 400161,ninth_on_track,2023-24,100.0,value,pct,ISBE-RC,2026-09-30
 400161,ninth_on_track,2024-25,97.6,value,pct,ISBE-RC,2026-09-30
@@ -9130,6 +9280,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400162,grad_4yr,2022-23,90.4,value,pct,ISBE-RC,2026-09-30
 400162,grad_4yr,2023-24,95.0,value,pct,ISBE-RC,2026-09-30
 400162,grad_4yr,2024-25,91.1,value,pct,ISBE-RC,2026-09-30
+400162,grad_5yr,2022-23,97.6,value,pct,ISBE-RC,2026-09-30
+400162,grad_5yr,2023-24,92.2,value,pct,ISBE-RC,2026-09-30
+400162,grad_5yr,2024-25,95.7,value,pct,ISBE-RC,2026-09-30
 400162,ninth_on_track,2022-23,46.4,value,pct,ISBE-RC,2026-09-30
 400162,ninth_on_track,2023-24,78.2,value,pct,ISBE-RC,2026-09-30
 400162,ninth_on_track,2024-25,90.9,value,pct,ISBE-RC,2026-09-30
@@ -9349,6 +9502,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400164,grad_4yr,2022-23,42.1,value,pct,ISBE-RC,2026-09-30
 400164,grad_4yr,2023-24,27.8,value,pct,ISBE-RC,2026-09-30
 400164,grad_4yr,2024-25,25.0,value,pct,ISBE-RC,2026-09-30
+400164,grad_5yr,2022-23,38.8,value,pct,ISBE-RC,2026-09-30
+400164,grad_5yr,2023-24,50.8,value,pct,ISBE-RC,2026-09-30
+400164,grad_5yr,2024-25,35.6,value,pct,ISBE-RC,2026-09-30
 400164,postsec_12mo,2022-23,8.1,value,pct,ISBE-RC,2026-09-30
 400164,postsec_12mo,2023-24,6.9,value,pct,ISBE-RC,2026-09-30
 400164,postsec_12mo,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
@@ -9530,6 +9686,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400167,grad_4yr,2022-23,92.3,value,pct,ISBE-RC,2026-09-30
 400167,grad_4yr,2023-24,80.4,value,pct,ISBE-RC,2026-09-30
 400167,grad_4yr,2024-25,92.6,value,pct,ISBE-RC,2026-09-30
+400167,grad_5yr,2022-23,100.0,value,pct,ISBE-RC,2026-09-30
+400167,grad_5yr,2023-24,94.7,value,pct,ISBE-RC,2026-09-30
+400167,grad_5yr,2024-25,93.8,value,pct,ISBE-RC,2026-09-30
 400167,ninth_on_track,2022-23,2.1,value,pct,ISBE-RC,2026-09-30
 400167,ninth_on_track,2023-24,,suppressed,pct,ISBE-RC,2026-09-30
 400167,ninth_on_track,2024-25,88.5,value,pct,ISBE-RC,2026-09-30
@@ -9768,6 +9927,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400169,grad_4yr,2022-23,93.7,value,pct,ISBE-RC,2026-09-30
 400169,grad_4yr,2023-24,92.0,value,pct,ISBE-RC,2026-09-30
 400169,grad_4yr,2024-25,86.8,value,pct,ISBE-RC,2026-09-30
+400169,grad_5yr,2022-23,96.8,value,pct,ISBE-RC,2026-09-30
+400169,grad_5yr,2023-24,94.4,value,pct,ISBE-RC,2026-09-30
+400169,grad_5yr,2024-25,93.1,value,pct,ISBE-RC,2026-09-30
 400169,ninth_on_track,2022-23,94.7,value,pct,ISBE-RC,2026-09-30
 400169,ninth_on_track,2023-24,86.7,value,pct,ISBE-RC,2026-09-30
 400169,ninth_on_track,2024-25,85.9,value,pct,ISBE-RC,2026-09-30
@@ -9877,6 +10039,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400170,grad_4yr,2022-23,92.1,value,pct,ISBE-RC,2026-09-30
 400170,grad_4yr,2023-24,88.4,value,pct,ISBE-RC,2026-09-30
 400170,grad_4yr,2024-25,84.2,value,pct,ISBE-RC,2026-09-30
+400170,grad_5yr,2022-23,97.5,value,pct,ISBE-RC,2026-09-30
+400170,grad_5yr,2023-24,94.3,value,pct,ISBE-RC,2026-09-30
+400170,grad_5yr,2024-25,90.3,value,pct,ISBE-RC,2026-09-30
 400170,ninth_on_track,2022-23,88.8,value,pct,ISBE-RC,2026-09-30
 400170,ninth_on_track,2023-24,91.1,value,pct,ISBE-RC,2026-09-30
 400170,ninth_on_track,2024-25,92.4,value,pct,ISBE-RC,2026-09-30
@@ -10250,6 +10415,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400179,grad_4yr,2022-23,94.8,value,pct,ISBE-RC,2026-09-30
 400179,grad_4yr,2023-24,92.9,value,pct,ISBE-RC,2026-09-30
 400179,grad_4yr,2024-25,88.7,value,pct,ISBE-RC,2026-09-30
+400179,grad_5yr,2022-23,94.6,value,pct,ISBE-RC,2026-09-30
+400179,grad_5yr,2023-24,95.5,value,pct,ISBE-RC,2026-09-30
+400179,grad_5yr,2024-25,93.0,value,pct,ISBE-RC,2026-09-30
 400179,ninth_on_track,2022-23,85.2,value,pct,ISBE-RC,2026-09-30
 400179,ninth_on_track,2023-24,92.4,value,pct,ISBE-RC,2026-09-30
 400179,ninth_on_track,2024-25,90.6,value,pct,ISBE-RC,2026-09-30
@@ -10480,6 +10648,7 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 400181,ela_growth,2024-25,42.3,value,percentile,ISBE-RC,2026-09-30
 400181,math_growth,2023-24,46.6,value,percentile,ISBE-RC,2026-09-30
 400181,math_growth,2024-25,42.8,value,percentile,ISBE-RC,2026-09-30
+400181,grad_5yr,2024-25,91.0,value,pct,ISBE-RC,2026-09-30
 400181,pct_homeless,2024-25,6.1,value,pct,ISBE-RC,2026-09-30
 400181,pct_youth_in_care,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
 400181,fe_leaders,2024-25,2.0,value,level,ISBE-RC,2026-09-30
@@ -10626,6 +10795,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609674,grad_4yr,2022-23,75.2,value,pct,ISBE-RC,2026-09-30
 609674,grad_4yr,2023-24,64.8,value,pct,ISBE-RC,2026-09-30
 609674,grad_4yr,2024-25,70.0,value,pct,ISBE-RC,2026-09-30
+609674,grad_5yr,2022-23,78.0,value,pct,ISBE-RC,2026-09-30
+609674,grad_5yr,2023-24,72.4,value,pct,ISBE-RC,2026-09-30
+609674,grad_5yr,2024-25,67.8,value,pct,ISBE-RC,2026-09-30
 609674,ninth_on_track,2022-23,90.7,value,pct,ISBE-RC,2026-09-30
 609674,ninth_on_track,2023-24,94.5,value,pct,ISBE-RC,2026-09-30
 609674,ninth_on_track,2024-25,92.5,value,pct,ISBE-RC,2026-09-30
@@ -10735,6 +10907,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609676,grad_4yr,2022-23,77.9,value,pct,ISBE-RC,2026-09-30
 609676,grad_4yr,2023-24,72.4,value,pct,ISBE-RC,2026-09-30
 609676,grad_4yr,2024-25,83.6,value,pct,ISBE-RC,2026-09-30
+609676,grad_5yr,2022-23,87.7,value,pct,ISBE-RC,2026-09-30
+609676,grad_5yr,2023-24,78.6,value,pct,ISBE-RC,2026-09-30
+609676,grad_5yr,2024-25,77.3,value,pct,ISBE-RC,2026-09-30
 609676,ninth_on_track,2022-23,70.9,value,pct,ISBE-RC,2026-09-30
 609676,ninth_on_track,2023-24,76.3,value,pct,ISBE-RC,2026-09-30
 609676,ninth_on_track,2024-25,66.3,value,pct,ISBE-RC,2026-09-30
@@ -10844,6 +11019,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609678,grad_4yr,2022-23,94.0,value,pct,ISBE-RC,2026-09-30
 609678,grad_4yr,2023-24,94.9,value,pct,ISBE-RC,2026-09-30
 609678,grad_4yr,2024-25,94.7,value,pct,ISBE-RC,2026-09-30
+609678,grad_5yr,2022-23,98.0,value,pct,ISBE-RC,2026-09-30
+609678,grad_5yr,2023-24,95.6,value,pct,ISBE-RC,2026-09-30
+609678,grad_5yr,2024-25,95.7,value,pct,ISBE-RC,2026-09-30
 609678,ninth_on_track,2022-23,96.7,value,pct,ISBE-RC,2026-09-30
 609678,ninth_on_track,2023-24,97.4,value,pct,ISBE-RC,2026-09-30
 609678,ninth_on_track,2024-25,97.3,value,pct,ISBE-RC,2026-09-30
@@ -10953,6 +11131,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609679,grad_4yr,2022-23,90.3,value,pct,ISBE-RC,2026-09-30
 609679,grad_4yr,2023-24,89.2,value,pct,ISBE-RC,2026-09-30
 609679,grad_4yr,2024-25,95.7,value,pct,ISBE-RC,2026-09-30
+609679,grad_5yr,2022-23,92.9,value,pct,ISBE-RC,2026-09-30
+609679,grad_5yr,2023-24,93.7,value,pct,ISBE-RC,2026-09-30
+609679,grad_5yr,2024-25,91.3,value,pct,ISBE-RC,2026-09-30
 609679,ninth_on_track,2022-23,87.9,value,pct,ISBE-RC,2026-09-30
 609679,ninth_on_track,2023-24,80.3,value,pct,ISBE-RC,2026-09-30
 609679,ninth_on_track,2024-25,85.7,value,pct,ISBE-RC,2026-09-30
@@ -11062,6 +11243,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609680,grad_4yr,2022-23,96.2,value,pct,ISBE-RC,2026-09-30
 609680,grad_4yr,2023-24,95.3,value,pct,ISBE-RC,2026-09-30
 609680,grad_4yr,2024-25,96.6,value,pct,ISBE-RC,2026-09-30
+609680,grad_5yr,2022-23,99.3,value,pct,ISBE-RC,2026-09-30
+609680,grad_5yr,2023-24,96.9,value,pct,ISBE-RC,2026-09-30
+609680,grad_5yr,2024-25,96.3,value,pct,ISBE-RC,2026-09-30
 609680,ninth_on_track,2022-23,99.4,value,pct,ISBE-RC,2026-09-30
 609680,ninth_on_track,2023-24,98.3,value,pct,ISBE-RC,2026-09-30
 609680,ninth_on_track,2024-25,97.6,value,pct,ISBE-RC,2026-09-30
@@ -11171,6 +11355,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609682,grad_4yr,2022-23,68.8,value,pct,ISBE-RC,2026-09-30
 609682,grad_4yr,2023-24,64.0,value,pct,ISBE-RC,2026-09-30
 609682,grad_4yr,2024-25,70.5,value,pct,ISBE-RC,2026-09-30
+609682,grad_5yr,2022-23,68.5,value,pct,ISBE-RC,2026-09-30
+609682,grad_5yr,2023-24,70.0,value,pct,ISBE-RC,2026-09-30
+609682,grad_5yr,2024-25,71.6,value,pct,ISBE-RC,2026-09-30
 609682,ninth_on_track,2022-23,82.3,value,pct,ISBE-RC,2026-09-30
 609682,ninth_on_track,2023-24,84.2,value,pct,ISBE-RC,2026-09-30
 609682,ninth_on_track,2024-25,76.5,value,pct,ISBE-RC,2026-09-30
@@ -11280,6 +11467,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609691,grad_4yr,2022-23,84.0,value,pct,ISBE-RC,2026-09-30
 609691,grad_4yr,2023-24,78.4,value,pct,ISBE-RC,2026-09-30
 609691,grad_4yr,2024-25,85.5,value,pct,ISBE-RC,2026-09-30
+609691,grad_5yr,2022-23,87.8,value,pct,ISBE-RC,2026-09-30
+609691,grad_5yr,2023-24,87.8,value,pct,ISBE-RC,2026-09-30
+609691,grad_5yr,2024-25,84.4,value,pct,ISBE-RC,2026-09-30
 609691,ninth_on_track,2022-23,82.5,value,pct,ISBE-RC,2026-09-30
 609691,ninth_on_track,2023-24,88.6,value,pct,ISBE-RC,2026-09-30
 609691,ninth_on_track,2024-25,80.8,value,pct,ISBE-RC,2026-09-30
@@ -11389,6 +11579,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609692,grad_4yr,2022-23,88.5,value,pct,ISBE-RC,2026-09-30
 609692,grad_4yr,2023-24,85.6,value,pct,ISBE-RC,2026-09-30
 609692,grad_4yr,2024-25,84.0,value,pct,ISBE-RC,2026-09-30
+609692,grad_5yr,2022-23,92.9,value,pct,ISBE-RC,2026-09-30
+609692,grad_5yr,2023-24,91.3,value,pct,ISBE-RC,2026-09-30
+609692,grad_5yr,2024-25,87.6,value,pct,ISBE-RC,2026-09-30
 609692,ninth_on_track,2022-23,87.3,value,pct,ISBE-RC,2026-09-30
 609692,ninth_on_track,2023-24,78.6,value,pct,ISBE-RC,2026-09-30
 609692,ninth_on_track,2024-25,79.0,value,pct,ISBE-RC,2026-09-30
@@ -11498,6 +11691,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609693,grad_4yr,2022-23,93.8,value,pct,ISBE-RC,2026-09-30
 609693,grad_4yr,2023-24,92.9,value,pct,ISBE-RC,2026-09-30
 609693,grad_4yr,2024-25,94.1,value,pct,ISBE-RC,2026-09-30
+609693,grad_5yr,2022-23,98.9,value,pct,ISBE-RC,2026-09-30
+609693,grad_5yr,2023-24,94.4,value,pct,ISBE-RC,2026-09-30
+609693,grad_5yr,2024-25,93.6,value,pct,ISBE-RC,2026-09-30
 609693,ninth_on_track,2022-23,87.6,value,pct,ISBE-RC,2026-09-30
 609693,ninth_on_track,2023-24,91.2,value,pct,ISBE-RC,2026-09-30
 609693,ninth_on_track,2024-25,88.7,value,pct,ISBE-RC,2026-09-30
@@ -11607,6 +11803,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609694,grad_4yr,2022-23,97.5,value,pct,ISBE-RC,2026-09-30
 609694,grad_4yr,2023-24,97.1,value,pct,ISBE-RC,2026-09-30
 609694,grad_4yr,2024-25,98.6,value,pct,ISBE-RC,2026-09-30
+609694,grad_5yr,2022-23,98.0,value,pct,ISBE-RC,2026-09-30
+609694,grad_5yr,2023-24,96.7,value,pct,ISBE-RC,2026-09-30
+609694,grad_5yr,2024-25,98.0,value,pct,ISBE-RC,2026-09-30
 609694,ninth_on_track,2022-23,99.2,value,pct,ISBE-RC,2026-09-30
 609694,ninth_on_track,2023-24,99.3,value,pct,ISBE-RC,2026-09-30
 609694,ninth_on_track,2024-25,99.2,value,pct,ISBE-RC,2026-09-30
@@ -11716,6 +11915,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609695,grad_4yr,2022-23,90.8,value,pct,ISBE-RC,2026-09-30
 609695,grad_4yr,2023-24,86.8,value,pct,ISBE-RC,2026-09-30
 609695,grad_4yr,2024-25,88.9,value,pct,ISBE-RC,2026-09-30
+609695,grad_5yr,2022-23,92.8,value,pct,ISBE-RC,2026-09-30
+609695,grad_5yr,2023-24,90.5,value,pct,ISBE-RC,2026-09-30
+609695,grad_5yr,2024-25,89.9,value,pct,ISBE-RC,2026-09-30
 609695,ninth_on_track,2022-23,91.2,value,pct,ISBE-RC,2026-09-30
 609695,ninth_on_track,2023-24,86.0,value,pct,ISBE-RC,2026-09-30
 609695,ninth_on_track,2024-25,84.1,value,pct,ISBE-RC,2026-09-30
@@ -11825,6 +12027,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609698,grad_4yr,2022-23,66.5,value,pct,ISBE-RC,2026-09-30
 609698,grad_4yr,2023-24,69.0,value,pct,ISBE-RC,2026-09-30
 609698,grad_4yr,2024-25,69.9,value,pct,ISBE-RC,2026-09-30
+609698,grad_5yr,2022-23,71.3,value,pct,ISBE-RC,2026-09-30
+609698,grad_5yr,2023-24,67.0,value,pct,ISBE-RC,2026-09-30
+609698,grad_5yr,2024-25,72.8,value,pct,ISBE-RC,2026-09-30
 609698,ninth_on_track,2022-23,75.0,value,pct,ISBE-RC,2026-09-30
 609698,ninth_on_track,2023-24,77.6,value,pct,ISBE-RC,2026-09-30
 609698,ninth_on_track,2024-25,76.5,value,pct,ISBE-RC,2026-09-30
@@ -11934,6 +12139,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609704,grad_4yr,2022-23,62.6,value,pct,ISBE-RC,2026-09-30
 609704,grad_4yr,2023-24,59.8,value,pct,ISBE-RC,2026-09-30
 609704,grad_4yr,2024-25,74.3,value,pct,ISBE-RC,2026-09-30
+609704,grad_5yr,2022-23,71.9,value,pct,ISBE-RC,2026-09-30
+609704,grad_5yr,2023-24,62.0,value,pct,ISBE-RC,2026-09-30
+609704,grad_5yr,2024-25,67.4,value,pct,ISBE-RC,2026-09-30
 609704,ninth_on_track,2022-23,81.5,value,pct,ISBE-RC,2026-09-30
 609704,ninth_on_track,2023-24,71.4,value,pct,ISBE-RC,2026-09-30
 609704,ninth_on_track,2024-25,76.6,value,pct,ISBE-RC,2026-09-30
@@ -12043,6 +12251,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609705,grad_4yr,2022-23,57.4,value,pct,ISBE-RC,2026-09-30
 609705,grad_4yr,2023-24,58.5,value,pct,ISBE-RC,2026-09-30
 609705,grad_4yr,2024-25,60.4,value,pct,ISBE-RC,2026-09-30
+609705,grad_5yr,2022-23,54.1,value,pct,ISBE-RC,2026-09-30
+609705,grad_5yr,2023-24,56.2,value,pct,ISBE-RC,2026-09-30
+609705,grad_5yr,2024-25,67.9,value,pct,ISBE-RC,2026-09-30
 609705,ninth_on_track,2022-23,82.9,value,pct,ISBE-RC,2026-09-30
 609705,ninth_on_track,2023-24,90.6,value,pct,ISBE-RC,2026-09-30
 609705,ninth_on_track,2024-25,81.3,value,pct,ISBE-RC,2026-09-30
@@ -12152,6 +12363,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609708,grad_4yr,2022-23,56.4,value,pct,ISBE-RC,2026-09-30
 609708,grad_4yr,2023-24,52.7,value,pct,ISBE-RC,2026-09-30
 609708,grad_4yr,2024-25,60.4,value,pct,ISBE-RC,2026-09-30
+609708,grad_5yr,2022-23,58.0,value,pct,ISBE-RC,2026-09-30
+609708,grad_5yr,2023-24,60.1,value,pct,ISBE-RC,2026-09-30
+609708,grad_5yr,2024-25,63.3,value,pct,ISBE-RC,2026-09-30
 609708,ninth_on_track,2022-23,74.2,value,pct,ISBE-RC,2026-09-30
 609708,ninth_on_track,2023-24,83.6,value,pct,ISBE-RC,2026-09-30
 609708,ninth_on_track,2024-25,68.6,value,pct,ISBE-RC,2026-09-30
@@ -12261,6 +12475,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609709,grad_4yr,2022-23,58.0,value,pct,ISBE-RC,2026-09-30
 609709,grad_4yr,2023-24,62.8,value,pct,ISBE-RC,2026-09-30
 609709,grad_4yr,2024-25,67.5,value,pct,ISBE-RC,2026-09-30
+609709,grad_5yr,2022-23,64.0,value,pct,ISBE-RC,2026-09-30
+609709,grad_5yr,2023-24,62.1,value,pct,ISBE-RC,2026-09-30
+609709,grad_5yr,2024-25,71.7,value,pct,ISBE-RC,2026-09-30
 609709,ninth_on_track,2022-23,91.7,value,pct,ISBE-RC,2026-09-30
 609709,ninth_on_track,2023-24,85.5,value,pct,ISBE-RC,2026-09-30
 609709,ninth_on_track,2024-25,94.1,value,pct,ISBE-RC,2026-09-30
@@ -12370,6 +12587,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609710,grad_4yr,2022-23,60.7,value,pct,ISBE-RC,2026-09-30
 609710,grad_4yr,2023-24,64.1,value,pct,ISBE-RC,2026-09-30
 609710,grad_4yr,2024-25,54.3,value,pct,ISBE-RC,2026-09-30
+609710,grad_5yr,2022-23,77.7,value,pct,ISBE-RC,2026-09-30
+609710,grad_5yr,2023-24,60.2,value,pct,ISBE-RC,2026-09-30
+609710,grad_5yr,2024-25,68.5,value,pct,ISBE-RC,2026-09-30
 609710,ninth_on_track,2022-23,60.3,value,pct,ISBE-RC,2026-09-30
 609710,ninth_on_track,2023-24,75.0,value,pct,ISBE-RC,2026-09-30
 609710,ninth_on_track,2024-25,93.1,value,pct,ISBE-RC,2026-09-30
@@ -12479,6 +12699,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609712,grad_4yr,2022-23,48.8,value,pct,ISBE-RC,2026-09-30
 609712,grad_4yr,2023-24,47.8,value,pct,ISBE-RC,2026-09-30
 609712,grad_4yr,2024-25,50.0,value,pct,ISBE-RC,2026-09-30
+609712,grad_5yr,2022-23,50.7,value,pct,ISBE-RC,2026-09-30
+609712,grad_5yr,2023-24,38.6,value,pct,ISBE-RC,2026-09-30
+609712,grad_5yr,2024-25,49.0,value,pct,ISBE-RC,2026-09-30
 609712,ninth_on_track,2022-23,69.2,value,pct,ISBE-RC,2026-09-30
 609712,ninth_on_track,2023-24,55.6,value,pct,ISBE-RC,2026-09-30
 609712,ninth_on_track,2024-25,80.0,value,pct,ISBE-RC,2026-09-30
@@ -12588,6 +12811,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609713,grad_4yr,2022-23,81.5,value,pct,ISBE-RC,2026-09-30
 609713,grad_4yr,2023-24,66.3,value,pct,ISBE-RC,2026-09-30
 609713,grad_4yr,2024-25,77.6,value,pct,ISBE-RC,2026-09-30
+609713,grad_5yr,2022-23,90.8,value,pct,ISBE-RC,2026-09-30
+609713,grad_5yr,2023-24,79.7,value,pct,ISBE-RC,2026-09-30
+609713,grad_5yr,2024-25,75.7,value,pct,ISBE-RC,2026-09-30
 609713,ninth_on_track,2022-23,69.9,value,pct,ISBE-RC,2026-09-30
 609713,ninth_on_track,2023-24,67.3,value,pct,ISBE-RC,2026-09-30
 609713,ninth_on_track,2024-25,68.7,value,pct,ISBE-RC,2026-09-30
@@ -12697,6 +12923,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609715,grad_4yr,2022-23,67.6,value,pct,ISBE-RC,2026-09-30
 609715,grad_4yr,2023-24,72.1,value,pct,ISBE-RC,2026-09-30
 609715,grad_4yr,2024-25,73.6,value,pct,ISBE-RC,2026-09-30
+609715,grad_5yr,2022-23,79.7,value,pct,ISBE-RC,2026-09-30
+609715,grad_5yr,2023-24,73.3,value,pct,ISBE-RC,2026-09-30
+609715,grad_5yr,2024-25,79.7,value,pct,ISBE-RC,2026-09-30
 609715,ninth_on_track,2022-23,76.1,value,pct,ISBE-RC,2026-09-30
 609715,ninth_on_track,2023-24,75.8,value,pct,ISBE-RC,2026-09-30
 609715,ninth_on_track,2024-25,79.8,value,pct,ISBE-RC,2026-09-30
@@ -12806,6 +13035,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609716,grad_4yr,2022-23,71.8,value,pct,ISBE-RC,2026-09-30
 609716,grad_4yr,2023-24,60.2,value,pct,ISBE-RC,2026-09-30
 609716,grad_4yr,2024-25,72.5,value,pct,ISBE-RC,2026-09-30
+609716,grad_5yr,2022-23,74.0,value,pct,ISBE-RC,2026-09-30
+609716,grad_5yr,2023-24,70.9,value,pct,ISBE-RC,2026-09-30
+609716,grad_5yr,2024-25,62.0,value,pct,ISBE-RC,2026-09-30
 609716,ninth_on_track,2022-23,69.2,value,pct,ISBE-RC,2026-09-30
 609716,ninth_on_track,2023-24,82.6,value,pct,ISBE-RC,2026-09-30
 609716,ninth_on_track,2024-25,82.6,value,pct,ISBE-RC,2026-09-30
@@ -12929,6 +13161,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609718,grad_4yr,2022-23,76.1,value,pct,ISBE-RC,2026-09-30
 609718,grad_4yr,2023-24,73.0,value,pct,ISBE-RC,2026-09-30
 609718,grad_4yr,2024-25,81.4,value,pct,ISBE-RC,2026-09-30
+609718,grad_5yr,2022-23,78.9,value,pct,ISBE-RC,2026-09-30
+609718,grad_5yr,2023-24,79.0,value,pct,ISBE-RC,2026-09-30
+609718,grad_5yr,2024-25,79.3,value,pct,ISBE-RC,2026-09-30
 609718,ninth_on_track,2022-23,70.2,value,pct,ISBE-RC,2026-09-30
 609718,ninth_on_track,2023-24,75.0,value,pct,ISBE-RC,2026-09-30
 609718,ninth_on_track,2024-25,77.7,value,pct,ISBE-RC,2026-09-30
@@ -13038,6 +13273,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609719,grad_4yr,2022-23,84.0,value,pct,ISBE-RC,2026-09-30
 609719,grad_4yr,2023-24,79.3,value,pct,ISBE-RC,2026-09-30
 609719,grad_4yr,2024-25,81.5,value,pct,ISBE-RC,2026-09-30
+609719,grad_5yr,2022-23,89.1,value,pct,ISBE-RC,2026-09-30
+609719,grad_5yr,2023-24,85.8,value,pct,ISBE-RC,2026-09-30
+609719,grad_5yr,2024-25,84.0,value,pct,ISBE-RC,2026-09-30
 609719,ninth_on_track,2022-23,82.7,value,pct,ISBE-RC,2026-09-30
 609719,ninth_on_track,2023-24,83.8,value,pct,ISBE-RC,2026-09-30
 609719,ninth_on_track,2024-25,77.3,value,pct,ISBE-RC,2026-09-30
@@ -13147,6 +13385,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609720,grad_4yr,2022-23,96.1,value,pct,ISBE-RC,2026-09-30
 609720,grad_4yr,2023-24,95.7,value,pct,ISBE-RC,2026-09-30
 609720,grad_4yr,2024-25,97.5,value,pct,ISBE-RC,2026-09-30
+609720,grad_5yr,2022-23,97.9,value,pct,ISBE-RC,2026-09-30
+609720,grad_5yr,2023-24,96.9,value,pct,ISBE-RC,2026-09-30
+609720,grad_5yr,2024-25,96.0,value,pct,ISBE-RC,2026-09-30
 609720,ninth_on_track,2022-23,96.7,value,pct,ISBE-RC,2026-09-30
 609720,ninth_on_track,2023-24,96.1,value,pct,ISBE-RC,2026-09-30
 609720,ninth_on_track,2024-25,94.7,value,pct,ISBE-RC,2026-09-30
@@ -13267,6 +13508,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609722,grad_4yr,2022-23,34.8,value,pct,ISBE-RC,2026-09-30
 609722,grad_4yr,2023-24,26.7,value,pct,ISBE-RC,2026-09-30
 609722,grad_4yr,2024-25,43.4,value,pct,ISBE-RC,2026-09-30
+609722,grad_5yr,2022-23,40.0,value,pct,ISBE-RC,2026-09-30
+609722,grad_5yr,2023-24,38.8,value,pct,ISBE-RC,2026-09-30
+609722,grad_5yr,2024-25,35.8,value,pct,ISBE-RC,2026-09-30
 609722,ninth_on_track,2022-23,53.3,value,pct,ISBE-RC,2026-09-30
 609722,ninth_on_track,2023-24,78.3,value,pct,ISBE-RC,2026-09-30
 609722,ninth_on_track,2024-25,68.8,value,pct,ISBE-RC,2026-09-30
@@ -13376,6 +13620,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609723,grad_4yr,2022-23,60.6,value,pct,ISBE-RC,2026-09-30
 609723,grad_4yr,2023-24,52.4,value,pct,ISBE-RC,2026-09-30
 609723,grad_4yr,2024-25,59.1,value,pct,ISBE-RC,2026-09-30
+609723,grad_5yr,2022-23,67.0,value,pct,ISBE-RC,2026-09-30
+609723,grad_5yr,2023-24,69.1,value,pct,ISBE-RC,2026-09-30
+609723,grad_5yr,2024-25,59.0,value,pct,ISBE-RC,2026-09-30
 609723,ninth_on_track,2022-23,92.5,value,pct,ISBE-RC,2026-09-30
 609723,ninth_on_track,2023-24,82.4,value,pct,ISBE-RC,2026-09-30
 609723,ninth_on_track,2024-25,86.8,value,pct,ISBE-RC,2026-09-30
@@ -13485,6 +13732,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609724,grad_4yr,2022-23,83.2,value,pct,ISBE-RC,2026-09-30
 609724,grad_4yr,2023-24,76.1,value,pct,ISBE-RC,2026-09-30
 609724,grad_4yr,2024-25,74.6,value,pct,ISBE-RC,2026-09-30
+609724,grad_5yr,2022-23,87.1,value,pct,ISBE-RC,2026-09-30
+609724,grad_5yr,2023-24,85.3,value,pct,ISBE-RC,2026-09-30
+609724,grad_5yr,2024-25,80.5,value,pct,ISBE-RC,2026-09-30
 609724,ninth_on_track,2022-23,81.3,value,pct,ISBE-RC,2026-09-30
 609724,ninth_on_track,2023-24,75.0,value,pct,ISBE-RC,2026-09-30
 609724,ninth_on_track,2024-25,79.8,value,pct,ISBE-RC,2026-09-30
@@ -13594,6 +13844,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609725,grad_4yr,2022-23,83.3,value,pct,ISBE-RC,2026-09-30
 609725,grad_4yr,2023-24,83.7,value,pct,ISBE-RC,2026-09-30
 609725,grad_4yr,2024-25,86.5,value,pct,ISBE-RC,2026-09-30
+609725,grad_5yr,2022-23,82.4,value,pct,ISBE-RC,2026-09-30
+609725,grad_5yr,2023-24,83.6,value,pct,ISBE-RC,2026-09-30
+609725,grad_5yr,2024-25,83.5,value,pct,ISBE-RC,2026-09-30
 609725,ninth_on_track,2022-23,81.9,value,pct,ISBE-RC,2026-09-30
 609725,ninth_on_track,2023-24,83.3,value,pct,ISBE-RC,2026-09-30
 609725,ninth_on_track,2024-25,85.1,value,pct,ISBE-RC,2026-09-30
@@ -13717,6 +13970,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609726,grad_4yr,2022-23,94.3,value,pct,ISBE-RC,2026-09-30
 609726,grad_4yr,2023-24,91.4,value,pct,ISBE-RC,2026-09-30
 609726,grad_4yr,2024-25,97.0,value,pct,ISBE-RC,2026-09-30
+609726,grad_5yr,2022-23,94.5,value,pct,ISBE-RC,2026-09-30
+609726,grad_5yr,2023-24,95.2,value,pct,ISBE-RC,2026-09-30
+609726,grad_5yr,2024-25,91.9,value,pct,ISBE-RC,2026-09-30
 609726,ninth_on_track,2022-23,92.8,value,pct,ISBE-RC,2026-09-30
 609726,ninth_on_track,2023-24,89.3,value,pct,ISBE-RC,2026-09-30
 609726,ninth_on_track,2024-25,88.9,value,pct,ISBE-RC,2026-09-30
@@ -13840,6 +14096,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609727,grad_4yr,2022-23,70.7,value,pct,ISBE-RC,2026-09-30
 609727,grad_4yr,2023-24,74.1,value,pct,ISBE-RC,2026-09-30
 609727,grad_4yr,2024-25,67.8,value,pct,ISBE-RC,2026-09-30
+609727,grad_5yr,2022-23,73.5,value,pct,ISBE-RC,2026-09-30
+609727,grad_5yr,2023-24,71.1,value,pct,ISBE-RC,2026-09-30
+609727,grad_5yr,2024-25,78.9,value,pct,ISBE-RC,2026-09-30
 609727,ninth_on_track,2022-23,62.8,value,pct,ISBE-RC,2026-09-30
 609727,ninth_on_track,2023-24,73.3,value,pct,ISBE-RC,2026-09-30
 609727,ninth_on_track,2024-25,69.2,value,pct,ISBE-RC,2026-09-30
@@ -13949,6 +14208,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609728,grad_4yr,2022-23,71.8,value,pct,ISBE-RC,2026-09-30
 609728,grad_4yr,2023-24,75.2,value,pct,ISBE-RC,2026-09-30
 609728,grad_4yr,2024-25,74.3,value,pct,ISBE-RC,2026-09-30
+609728,grad_5yr,2022-23,78.6,value,pct,ISBE-RC,2026-09-30
+609728,grad_5yr,2023-24,74.2,value,pct,ISBE-RC,2026-09-30
+609728,grad_5yr,2024-25,80.8,value,pct,ISBE-RC,2026-09-30
 609728,ninth_on_track,2022-23,83.5,value,pct,ISBE-RC,2026-09-30
 609728,ninth_on_track,2023-24,76.3,value,pct,ISBE-RC,2026-09-30
 609728,ninth_on_track,2024-25,73.4,value,pct,ISBE-RC,2026-09-30
@@ -14058,6 +14320,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609729,grad_4yr,2022-23,76.9,value,pct,ISBE-RC,2026-09-30
 609729,grad_4yr,2023-24,76.4,value,pct,ISBE-RC,2026-09-30
 609729,grad_4yr,2024-25,78.7,value,pct,ISBE-RC,2026-09-30
+609729,grad_5yr,2022-23,78.2,value,pct,ISBE-RC,2026-09-30
+609729,grad_5yr,2023-24,76.5,value,pct,ISBE-RC,2026-09-30
+609729,grad_5yr,2024-25,79.5,value,pct,ISBE-RC,2026-09-30
 609729,ninth_on_track,2022-23,71.3,value,pct,ISBE-RC,2026-09-30
 609729,ninth_on_track,2023-24,68.4,value,pct,ISBE-RC,2026-09-30
 609729,ninth_on_track,2024-25,71.7,value,pct,ISBE-RC,2026-09-30
@@ -14167,6 +14432,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609730,grad_4yr,2022-23,86.8,value,pct,ISBE-RC,2026-09-30
 609730,grad_4yr,2023-24,83.7,value,pct,ISBE-RC,2026-09-30
 609730,grad_4yr,2024-25,81.5,value,pct,ISBE-RC,2026-09-30
+609730,grad_5yr,2022-23,88.2,value,pct,ISBE-RC,2026-09-30
+609730,grad_5yr,2023-24,88.3,value,pct,ISBE-RC,2026-09-30
+609730,grad_5yr,2024-25,89.2,value,pct,ISBE-RC,2026-09-30
 609730,ninth_on_track,2022-23,89.9,value,pct,ISBE-RC,2026-09-30
 609730,ninth_on_track,2023-24,81.0,value,pct,ISBE-RC,2026-09-30
 609730,ninth_on_track,2024-25,84.0,value,pct,ISBE-RC,2026-09-30
@@ -14276,6 +14544,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609732,grad_4yr,2022-23,65.3,value,pct,ISBE-RC,2026-09-30
 609732,grad_4yr,2023-24,67.8,value,pct,ISBE-RC,2026-09-30
 609732,grad_4yr,2024-25,69.3,value,pct,ISBE-RC,2026-09-30
+609732,grad_5yr,2022-23,80.8,value,pct,ISBE-RC,2026-09-30
+609732,grad_5yr,2023-24,70.5,value,pct,ISBE-RC,2026-09-30
+609732,grad_5yr,2024-25,75.6,value,pct,ISBE-RC,2026-09-30
 609732,ninth_on_track,2022-23,69.0,value,pct,ISBE-RC,2026-09-30
 609732,ninth_on_track,2023-24,68.1,value,pct,ISBE-RC,2026-09-30
 609732,ninth_on_track,2024-25,75.9,value,pct,ISBE-RC,2026-09-30
@@ -14385,6 +14656,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609733,grad_4yr,2022-23,72.0,value,pct,ISBE-RC,2026-09-30
 609733,grad_4yr,2023-24,68.7,value,pct,ISBE-RC,2026-09-30
 609733,grad_4yr,2024-25,66.8,value,pct,ISBE-RC,2026-09-30
+609733,grad_5yr,2022-23,87.1,value,pct,ISBE-RC,2026-09-30
+609733,grad_5yr,2023-24,75.3,value,pct,ISBE-RC,2026-09-30
+609733,grad_5yr,2024-25,74.7,value,pct,ISBE-RC,2026-09-30
 609733,ninth_on_track,2022-23,79.6,value,pct,ISBE-RC,2026-09-30
 609733,ninth_on_track,2023-24,71.6,value,pct,ISBE-RC,2026-09-30
 609733,ninth_on_track,2024-25,80.4,value,pct,ISBE-RC,2026-09-30
@@ -14494,6 +14768,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609734,grad_4yr,2022-23,89.2,value,pct,ISBE-RC,2026-09-30
 609734,grad_4yr,2023-24,84.4,value,pct,ISBE-RC,2026-09-30
 609734,grad_4yr,2024-25,86.9,value,pct,ISBE-RC,2026-09-30
+609734,grad_5yr,2022-23,91.3,value,pct,ISBE-RC,2026-09-30
+609734,grad_5yr,2023-24,90.5,value,pct,ISBE-RC,2026-09-30
+609734,grad_5yr,2024-25,87.8,value,pct,ISBE-RC,2026-09-30
 609734,ninth_on_track,2022-23,92.1,value,pct,ISBE-RC,2026-09-30
 609734,ninth_on_track,2023-24,92.5,value,pct,ISBE-RC,2026-09-30
 609734,ninth_on_track,2024-25,88.4,value,pct,ISBE-RC,2026-09-30
@@ -14617,6 +14894,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609735,grad_4yr,2022-23,57.6,value,pct,ISBE-RC,2026-09-30
 609735,grad_4yr,2023-24,51.2,value,pct,ISBE-RC,2026-09-30
 609735,grad_4yr,2024-25,56.3,value,pct,ISBE-RC,2026-09-30
+609735,grad_5yr,2022-23,65.8,value,pct,ISBE-RC,2026-09-30
+609735,grad_5yr,2023-24,62.5,value,pct,ISBE-RC,2026-09-30
+609735,grad_5yr,2024-25,62.8,value,pct,ISBE-RC,2026-09-30
 609735,ninth_on_track,2022-23,94.7,value,pct,ISBE-RC,2026-09-30
 609735,ninth_on_track,2023-24,66.7,value,pct,ISBE-RC,2026-09-30
 609735,ninth_on_track,2024-25,55.4,value,pct,ISBE-RC,2026-09-30
@@ -14726,6 +15006,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609737,grad_4yr,2022-23,92.7,value,pct,ISBE-RC,2026-09-30
 609737,grad_4yr,2023-24,94.1,value,pct,ISBE-RC,2026-09-30
 609737,grad_4yr,2024-25,97.9,value,pct,ISBE-RC,2026-09-30
+609737,grad_5yr,2022-23,98.8,value,pct,ISBE-RC,2026-09-30
+609737,grad_5yr,2023-24,93.5,value,pct,ISBE-RC,2026-09-30
+609737,grad_5yr,2024-25,95.3,value,pct,ISBE-RC,2026-09-30
 609737,ninth_on_track,2022-23,87.3,value,pct,ISBE-RC,2026-09-30
 609737,ninth_on_track,2023-24,89.7,value,pct,ISBE-RC,2026-09-30
 609737,ninth_on_track,2024-25,90.7,value,pct,ISBE-RC,2026-09-30
@@ -14835,6 +15118,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609738,grad_4yr,2022-23,88.5,value,pct,ISBE-RC,2026-09-30
 609738,grad_4yr,2023-24,87.0,value,pct,ISBE-RC,2026-09-30
 609738,grad_4yr,2024-25,89.0,value,pct,ISBE-RC,2026-09-30
+609738,grad_5yr,2022-23,93.6,value,pct,ISBE-RC,2026-09-30
+609738,grad_5yr,2023-24,90.4,value,pct,ISBE-RC,2026-09-30
+609738,grad_5yr,2024-25,88.6,value,pct,ISBE-RC,2026-09-30
 609738,ninth_on_track,2022-23,84.7,value,pct,ISBE-RC,2026-09-30
 609738,ninth_on_track,2023-24,86.5,value,pct,ISBE-RC,2026-09-30
 609738,ninth_on_track,2024-25,79.3,value,pct,ISBE-RC,2026-09-30
@@ -14944,6 +15230,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609739,grad_4yr,2022-23,86.4,value,pct,ISBE-RC,2026-09-30
 609739,grad_4yr,2023-24,85.3,value,pct,ISBE-RC,2026-09-30
 609739,grad_4yr,2024-25,88.1,value,pct,ISBE-RC,2026-09-30
+609739,grad_5yr,2022-23,89.8,value,pct,ISBE-RC,2026-09-30
+609739,grad_5yr,2023-24,86.6,value,pct,ISBE-RC,2026-09-30
+609739,grad_5yr,2024-25,87.3,value,pct,ISBE-RC,2026-09-30
 609739,ninth_on_track,2022-23,90.4,value,pct,ISBE-RC,2026-09-30
 609739,ninth_on_track,2023-24,86.5,value,pct,ISBE-RC,2026-09-30
 609739,ninth_on_track,2024-25,88.5,value,pct,ISBE-RC,2026-09-30
@@ -15053,6 +15342,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609740,grad_4yr,2022-23,67.9,value,pct,ISBE-RC,2026-09-30
 609740,grad_4yr,2023-24,73.7,value,pct,ISBE-RC,2026-09-30
 609740,grad_4yr,2024-25,62.5,value,pct,ISBE-RC,2026-09-30
+609740,grad_5yr,2022-23,79.0,value,pct,ISBE-RC,2026-09-30
+609740,grad_5yr,2023-24,70.9,value,pct,ISBE-RC,2026-09-30
+609740,grad_5yr,2024-25,77.1,value,pct,ISBE-RC,2026-09-30
 609740,ninth_on_track,2022-23,83.3,value,pct,ISBE-RC,2026-09-30
 609740,ninth_on_track,2023-24,64.8,value,pct,ISBE-RC,2026-09-30
 609740,ninth_on_track,2024-25,74.4,value,pct,ISBE-RC,2026-09-30
@@ -15162,6 +15454,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609741,grad_4yr,2022-23,80.9,value,pct,ISBE-RC,2026-09-30
 609741,grad_4yr,2023-24,78.3,value,pct,ISBE-RC,2026-09-30
 609741,grad_4yr,2024-25,81.6,value,pct,ISBE-RC,2026-09-30
+609741,grad_5yr,2022-23,87.3,value,pct,ISBE-RC,2026-09-30
+609741,grad_5yr,2023-24,84.5,value,pct,ISBE-RC,2026-09-30
+609741,grad_5yr,2024-25,83.9,value,pct,ISBE-RC,2026-09-30
 609741,ninth_on_track,2022-23,77.1,value,pct,ISBE-RC,2026-09-30
 609741,ninth_on_track,2023-24,74.2,value,pct,ISBE-RC,2026-09-30
 609741,ninth_on_track,2024-25,76.4,value,pct,ISBE-RC,2026-09-30
@@ -15374,6 +15669,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609746,grad_4yr,2022-23,91.7,value,pct,ISBE-RC,2026-09-30
 609746,grad_4yr,2023-24,89.9,value,pct,ISBE-RC,2026-09-30
 609746,grad_4yr,2024-25,91.1,value,pct,ISBE-RC,2026-09-30
+609746,grad_5yr,2022-23,94.7,value,pct,ISBE-RC,2026-09-30
+609746,grad_5yr,2023-24,92.6,value,pct,ISBE-RC,2026-09-30
+609746,grad_5yr,2024-25,91.6,value,pct,ISBE-RC,2026-09-30
 609746,ninth_on_track,2022-23,87.0,value,pct,ISBE-RC,2026-09-30
 609746,ninth_on_track,2023-24,87.3,value,pct,ISBE-RC,2026-09-30
 609746,ninth_on_track,2024-25,85.0,value,pct,ISBE-RC,2026-09-30
@@ -15553,6 +15851,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609749,grad_4yr,2022-23,97.4,value,pct,ISBE-RC,2026-09-30
 609749,grad_4yr,2023-24,96.9,value,pct,ISBE-RC,2026-09-30
 609749,grad_4yr,2024-25,96.3,value,pct,ISBE-RC,2026-09-30
+609749,grad_5yr,2022-23,99.2,value,pct,ISBE-RC,2026-09-30
+609749,grad_5yr,2023-24,97.4,value,pct,ISBE-RC,2026-09-30
+609749,grad_5yr,2024-25,98.0,value,pct,ISBE-RC,2026-09-30
 609749,ninth_on_track,2022-23,99.3,value,pct,ISBE-RC,2026-09-30
 609749,ninth_on_track,2023-24,98.8,value,pct,ISBE-RC,2026-09-30
 609749,ninth_on_track,2024-25,98.3,value,pct,ISBE-RC,2026-09-30
@@ -15714,6 +16015,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609751,grad_4yr,2022-23,89.9,value,pct,ISBE-RC,2026-09-30
 609751,grad_4yr,2023-24,87.6,value,pct,ISBE-RC,2026-09-30
 609751,grad_4yr,2024-25,95.9,value,pct,ISBE-RC,2026-09-30
+609751,grad_5yr,2022-23,95.2,value,pct,ISBE-RC,2026-09-30
+609751,grad_5yr,2023-24,89.0,value,pct,ISBE-RC,2026-09-30
+609751,grad_5yr,2024-25,88.6,value,pct,ISBE-RC,2026-09-30
 609751,ninth_on_track,2022-23,95.2,value,pct,ISBE-RC,2026-09-30
 609751,ninth_on_track,2023-24,93.6,value,pct,ISBE-RC,2026-09-30
 609751,ninth_on_track,2024-25,90.6,value,pct,ISBE-RC,2026-09-30
@@ -15823,6 +16127,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609753,grad_4yr,2022-23,86.7,value,pct,ISBE-RC,2026-09-30
 609753,grad_4yr,2023-24,82.8,value,pct,ISBE-RC,2026-09-30
 609753,grad_4yr,2024-25,90.7,value,pct,ISBE-RC,2026-09-30
+609753,grad_5yr,2022-23,87.4,value,pct,ISBE-RC,2026-09-30
+609753,grad_5yr,2023-24,86.1,value,pct,ISBE-RC,2026-09-30
+609753,grad_5yr,2024-25,86.9,value,pct,ISBE-RC,2026-09-30
 609753,ninth_on_track,2022-23,87.8,value,pct,ISBE-RC,2026-09-30
 609753,ninth_on_track,2023-24,90.8,value,pct,ISBE-RC,2026-09-30
 609753,ninth_on_track,2024-25,91.0,value,pct,ISBE-RC,2026-09-30
@@ -15932,6 +16239,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609754,grad_4yr,2022-23,90.6,value,pct,ISBE-RC,2026-09-30
 609754,grad_4yr,2023-24,68.4,value,pct,ISBE-RC,2026-09-30
 609754,grad_4yr,2024-25,84.6,value,pct,ISBE-RC,2026-09-30
+609754,grad_5yr,2022-23,91.2,value,pct,ISBE-RC,2026-09-30
+609754,grad_5yr,2023-24,94.2,value,pct,ISBE-RC,2026-09-30
+609754,grad_5yr,2024-25,82.1,value,pct,ISBE-RC,2026-09-30
 609754,ninth_on_track,2022-23,78.4,value,pct,ISBE-RC,2026-09-30
 609754,ninth_on_track,2023-24,88.5,value,pct,ISBE-RC,2026-09-30
 609754,ninth_on_track,2024-25,88.1,value,pct,ISBE-RC,2026-09-30
@@ -16041,6 +16351,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609755,grad_4yr,2022-23,94.8,value,pct,ISBE-RC,2026-09-30
 609755,grad_4yr,2023-24,94.0,value,pct,ISBE-RC,2026-09-30
 609755,grad_4yr,2024-25,98.2,value,pct,ISBE-RC,2026-09-30
+609755,grad_5yr,2022-23,97.9,value,pct,ISBE-RC,2026-09-30
+609755,grad_5yr,2023-24,94.5,value,pct,ISBE-RC,2026-09-30
+609755,grad_5yr,2024-25,94.8,value,pct,ISBE-RC,2026-09-30
 609755,ninth_on_track,2022-23,96.4,value,pct,ISBE-RC,2026-09-30
 609755,ninth_on_track,2023-24,98.3,value,pct,ISBE-RC,2026-09-30
 609755,ninth_on_track,2024-25,97.6,value,pct,ISBE-RC,2026-09-30
@@ -16164,6 +16477,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609756,grad_4yr,2022-23,78.1,value,pct,ISBE-RC,2026-09-30
 609756,grad_4yr,2023-24,76.4,value,pct,ISBE-RC,2026-09-30
 609756,grad_4yr,2024-25,77.6,value,pct,ISBE-RC,2026-09-30
+609756,grad_5yr,2022-23,79.8,value,pct,ISBE-RC,2026-09-30
+609756,grad_5yr,2023-24,80.5,value,pct,ISBE-RC,2026-09-30
+609756,grad_5yr,2024-25,83.2,value,pct,ISBE-RC,2026-09-30
 609756,ninth_on_track,2022-23,78.2,value,pct,ISBE-RC,2026-09-30
 609756,ninth_on_track,2023-24,69.4,value,pct,ISBE-RC,2026-09-30
 609756,ninth_on_track,2024-25,69.1,value,pct,ISBE-RC,2026-09-30
@@ -16273,6 +16589,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609759,grad_4yr,2022-23,75.6,value,pct,ISBE-RC,2026-09-30
 609759,grad_4yr,2023-24,64.1,value,pct,ISBE-RC,2026-09-30
 609759,grad_4yr,2024-25,67.7,value,pct,ISBE-RC,2026-09-30
+609759,grad_5yr,2022-23,81.3,value,pct,ISBE-RC,2026-09-30
+609759,grad_5yr,2023-24,74.2,value,pct,ISBE-RC,2026-09-30
+609759,grad_5yr,2024-25,74.5,value,pct,ISBE-RC,2026-09-30
 609759,ninth_on_track,2022-23,90.1,value,pct,ISBE-RC,2026-09-30
 609759,ninth_on_track,2023-24,87.2,value,pct,ISBE-RC,2026-09-30
 609759,ninth_on_track,2024-25,93.5,value,pct,ISBE-RC,2026-09-30
@@ -16379,6 +16698,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609760,grad_4yr,2022-23,93.8,value,pct,ISBE-RC,2026-09-30
 609760,grad_4yr,2023-24,81.9,value,pct,ISBE-RC,2026-09-30
 609760,grad_4yr,2024-25,91.1,value,pct,ISBE-RC,2026-09-30
+609760,grad_5yr,2022-23,94.3,value,pct,ISBE-RC,2026-09-30
+609760,grad_5yr,2023-24,93.8,value,pct,ISBE-RC,2026-09-30
+609760,grad_5yr,2024-25,86.6,value,pct,ISBE-RC,2026-09-30
 609760,ninth_on_track,2022-23,82.4,value,pct,ISBE-RC,2026-09-30
 609760,ninth_on_track,2023-24,89.0,value,pct,ISBE-RC,2026-09-30
 609760,ninth_on_track,2024-25,93.0,value,pct,ISBE-RC,2026-09-30
@@ -16488,6 +16810,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609761,grad_4yr,2022-23,78.4,value,pct,ISBE-RC,2026-09-30
 609761,grad_4yr,2023-24,74.4,value,pct,ISBE-RC,2026-09-30
 609761,grad_4yr,2024-25,77.1,value,pct,ISBE-RC,2026-09-30
+609761,grad_5yr,2022-23,78.6,value,pct,ISBE-RC,2026-09-30
+609761,grad_5yr,2023-24,77.5,value,pct,ISBE-RC,2026-09-30
+609761,grad_5yr,2024-25,73.6,value,pct,ISBE-RC,2026-09-30
 609761,ninth_on_track,2022-23,87.3,value,pct,ISBE-RC,2026-09-30
 609761,ninth_on_track,2023-24,69.4,value,pct,ISBE-RC,2026-09-30
 609761,ninth_on_track,2024-25,62.5,value,pct,ISBE-RC,2026-09-30
@@ -16597,6 +16922,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609762,grad_4yr,2022-23,62.7,value,pct,ISBE-RC,2026-09-30
 609762,grad_4yr,2023-24,77.1,value,pct,ISBE-RC,2026-09-30
 609762,grad_4yr,2024-25,81.8,value,pct,ISBE-RC,2026-09-30
+609762,grad_5yr,2022-23,78.3,value,pct,ISBE-RC,2026-09-30
+609762,grad_5yr,2023-24,66.0,value,pct,ISBE-RC,2026-09-30
+609762,grad_5yr,2024-25,78.7,value,pct,ISBE-RC,2026-09-30
 609762,ninth_on_track,2022-23,88.5,value,pct,ISBE-RC,2026-09-30
 609762,ninth_on_track,2023-24,90.4,value,pct,ISBE-RC,2026-09-30
 609762,ninth_on_track,2024-25,92.7,value,pct,ISBE-RC,2026-09-30
@@ -16703,6 +17031,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609764,grad_4yr,2022-23,87.2,value,pct,ISBE-RC,2026-09-30
 609764,grad_4yr,2023-24,82.1,value,pct,ISBE-RC,2026-09-30
 609764,grad_4yr,2024-25,86.8,value,pct,ISBE-RC,2026-09-30
+609764,grad_5yr,2022-23,88.0,value,pct,ISBE-RC,2026-09-30
+609764,grad_5yr,2023-24,89.0,value,pct,ISBE-RC,2026-09-30
+609764,grad_5yr,2024-25,85.8,value,pct,ISBE-RC,2026-09-30
 609764,ninth_on_track,2022-23,92.0,value,pct,ISBE-RC,2026-09-30
 609764,ninth_on_track,2023-24,92.4,value,pct,ISBE-RC,2026-09-30
 609764,ninth_on_track,2024-25,89.0,value,pct,ISBE-RC,2026-09-30
@@ -17421,6 +17752,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 609780,grad_4yr,2022-23,93.5,value,pct,ISBE-RC,2026-09-30
 609780,grad_4yr,2023-24,94.2,value,pct,ISBE-RC,2026-09-30
 609780,grad_4yr,2024-25,90.0,value,pct,ISBE-RC,2026-09-30
+609780,grad_5yr,2022-23,98.3,value,pct,ISBE-RC,2026-09-30
+609780,grad_5yr,2023-24,94.3,value,pct,ISBE-RC,2026-09-30
+609780,grad_5yr,2024-25,94.2,value,pct,ISBE-RC,2026-09-30
 609780,ninth_on_track,2022-23,93.2,value,pct,ISBE-RC,2026-09-30
 609780,ninth_on_track,2023-24,95.8,value,pct,ISBE-RC,2026-09-30
 609780,ninth_on_track,2024-25,90.1,value,pct,ISBE-RC,2026-09-30
@@ -51497,6 +51831,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610244,grad_4yr,2022-23,92.1,value,pct,ISBE-RC,2026-09-30
 610244,grad_4yr,2023-24,82.2,value,pct,ISBE-RC,2026-09-30
 610244,grad_4yr,2024-25,87.8,value,pct,ISBE-RC,2026-09-30
+610244,grad_5yr,2022-23,91.6,value,pct,ISBE-RC,2026-09-30
+610244,grad_5yr,2023-24,92.7,value,pct,ISBE-RC,2026-09-30
+610244,grad_5yr,2024-25,84.3,value,pct,ISBE-RC,2026-09-30
 610244,ninth_on_track,2022-23,89.4,value,pct,ISBE-RC,2026-09-30
 610244,ninth_on_track,2023-24,81.5,value,pct,ISBE-RC,2026-09-30
 610244,ninth_on_track,2024-25,73.2,value,pct,ISBE-RC,2026-09-30
@@ -51612,6 +51949,8 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610245,isbe_enrollment,2022-23,34,value,count,ISBE-RC,2026-09-30
 610245,isbe_enrollment,2023-24,35,value,count,ISBE-RC,2026-09-30
 610245,isbe_enrollment,2024-25,27,value,count,ISBE-RC,2026-09-30
+610245,grad_5yr,2023-24,72.2,value,pct,ISBE-RC,2026-09-30
+610245,grad_5yr,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
 610245,ninth_on_track,2023-24,,suppressed,pct,ISBE-RC,2026-09-30
 610245,ninth_on_track,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
 610245,sat_ela_prof,2023-24,0.0,value,pct,ISBE-RC,2026-09-30
@@ -54417,6 +54756,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610304,grad_4yr,2022-23,95.6,value,pct,ISBE-RC,2026-09-30
 610304,grad_4yr,2023-24,96.5,value,pct,ISBE-RC,2026-09-30
 610304,grad_4yr,2024-25,97.1,value,pct,ISBE-RC,2026-09-30
+610304,grad_5yr,2022-23,99.2,value,pct,ISBE-RC,2026-09-30
+610304,grad_5yr,2023-24,96.3,value,pct,ISBE-RC,2026-09-30
+610304,grad_5yr,2024-25,95.7,value,pct,ISBE-RC,2026-09-30
 610304,ninth_on_track,2022-23,97.6,value,pct,ISBE-RC,2026-09-30
 610304,ninth_on_track,2023-24,99.0,value,pct,ISBE-RC,2026-09-30
 610304,ninth_on_track,2024-25,97.9,value,pct,ISBE-RC,2026-09-30
@@ -55286,6 +55628,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610323,grad_4yr,2022-23,58.8,value,pct,ISBE-RC,2026-09-30
 610323,grad_4yr,2023-24,59.3,value,pct,ISBE-RC,2026-09-30
 610323,grad_4yr,2024-25,55.9,value,pct,ISBE-RC,2026-09-30
+610323,grad_5yr,2022-23,70.4,value,pct,ISBE-RC,2026-09-30
+610323,grad_5yr,2023-24,56.3,value,pct,ISBE-RC,2026-09-30
+610323,grad_5yr,2024-25,67.7,value,pct,ISBE-RC,2026-09-30
 610323,ninth_on_track,2022-23,64.1,value,pct,ISBE-RC,2026-09-30
 610323,ninth_on_track,2023-24,73.7,value,pct,ISBE-RC,2026-09-30
 610323,ninth_on_track,2024-25,61.7,value,pct,ISBE-RC,2026-09-30
@@ -55597,6 +55942,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610334,grad_4yr,2022-23,89.1,value,pct,ISBE-RC,2026-09-30
 610334,grad_4yr,2023-24,60.0,value,pct,ISBE-RC,2026-09-30
 610334,grad_4yr,2024-25,85.7,value,pct,ISBE-RC,2026-09-30
+610334,grad_5yr,2022-23,85.4,value,pct,ISBE-RC,2026-09-30
+610334,grad_5yr,2023-24,90.9,value,pct,ISBE-RC,2026-09-30
+610334,grad_5yr,2024-25,69.0,value,pct,ISBE-RC,2026-09-30
 610334,ninth_on_track,2022-23,100.0,value,pct,ISBE-RC,2026-09-30
 610334,ninth_on_track,2023-24,87.0,value,pct,ISBE-RC,2026-09-30
 610334,ninth_on_track,2024-25,100.0,value,pct,ISBE-RC,2026-09-30
@@ -55808,6 +56156,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610340,grad_4yr,2022-23,97.2,value,pct,ISBE-RC,2026-09-30
 610340,grad_4yr,2023-24,93.4,value,pct,ISBE-RC,2026-09-30
 610340,grad_4yr,2024-25,95.0,value,pct,ISBE-RC,2026-09-30
+610340,grad_5yr,2022-23,98.6,value,pct,ISBE-RC,2026-09-30
+610340,grad_5yr,2023-24,97.3,value,pct,ISBE-RC,2026-09-30
+610340,grad_5yr,2024-25,94.9,value,pct,ISBE-RC,2026-09-30
 610340,ninth_on_track,2022-23,98.6,value,pct,ISBE-RC,2026-09-30
 610340,ninth_on_track,2023-24,85.0,value,pct,ISBE-RC,2026-09-30
 610340,ninth_on_track,2024-25,91.4,value,pct,ISBE-RC,2026-09-30
@@ -56726,6 +57077,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610357,grad_4yr,2022-23,76.2,value,pct,ISBE-RC,2026-09-30
 610357,grad_4yr,2023-24,84.6,value,pct,ISBE-RC,2026-09-30
 610357,grad_4yr,2024-25,66.7,value,pct,ISBE-RC,2026-09-30
+610357,grad_5yr,2022-23,75.8,value,pct,ISBE-RC,2026-09-30
+610357,grad_5yr,2023-24,85.0,value,pct,ISBE-RC,2026-09-30
+610357,grad_5yr,2024-25,84.6,value,pct,ISBE-RC,2026-09-30
 610357,ninth_on_track,2022-23,70.6,value,pct,ISBE-RC,2026-09-30
 610357,ninth_on_track,2023-24,70.6,value,pct,ISBE-RC,2026-09-30
 610357,ninth_on_track,2024-25,52.4,value,pct,ISBE-RC,2026-09-30
@@ -57547,6 +57901,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610380,grad_4yr,2022-23,100.0,value,pct,ISBE-RC,2026-09-30
 610380,grad_4yr,2023-24,93.3,value,pct,ISBE-RC,2026-09-30
 610380,grad_4yr,2024-25,,suppressed,pct,ISBE-RC,2026-09-30
+610380,grad_5yr,2022-23,100.0,value,pct,ISBE-RC,2026-09-30
+610380,grad_5yr,2023-24,100.0,value,pct,ISBE-RC,2026-09-30
+610380,grad_5yr,2024-25,93.3,value,pct,ISBE-RC,2026-09-30
 610380,ninth_on_track,2022-23,93.1,value,pct,ISBE-RC,2026-09-30
 610380,ninth_on_track,2023-24,100.0,value,pct,ISBE-RC,2026-09-30
 610380,ninth_on_track,2024-25,100.0,value,pct,ISBE-RC,2026-09-30
@@ -57653,6 +58010,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610381,chronic_absent,2022-23,57.8,value,pct,ISBE-RC,2026-09-30
 610381,chronic_absent,2023-24,63.9,value,pct,ISBE-RC,2026-09-30
 610381,chronic_absent,2024-25,59.5,value,pct,ISBE-RC,2026-09-30
+610381,grad_5yr,2022-23,86.7,value,pct,ISBE-RC,2026-09-30
+610381,grad_5yr,2023-24,,suppressed,pct,ISBE-RC,2026-09-30
+610381,grad_5yr,2024-25,84.6,value,pct,ISBE-RC,2026-09-30
 610381,ninth_on_track,2022-23,74.1,value,pct,ISBE-RC,2026-09-30
 610381,ninth_on_track,2023-24,90.2,value,pct,ISBE-RC,2026-09-30
 610381,ninth_on_track,2024-25,92.6,value,pct,ISBE-RC,2026-09-30
@@ -57756,6 +58116,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610383,grad_4yr,2022-23,71.3,value,pct,ISBE-RC,2026-09-30
 610383,grad_4yr,2023-24,69.3,value,pct,ISBE-RC,2026-09-30
 610383,grad_4yr,2024-25,75.7,value,pct,ISBE-RC,2026-09-30
+610383,grad_5yr,2022-23,82.6,value,pct,ISBE-RC,2026-09-30
+610383,grad_5yr,2023-24,77.2,value,pct,ISBE-RC,2026-09-30
+610383,grad_5yr,2024-25,77.5,value,pct,ISBE-RC,2026-09-30
 610383,ninth_on_track,2022-23,84.2,value,pct,ISBE-RC,2026-09-30
 610383,ninth_on_track,2023-24,65.7,value,pct,ISBE-RC,2026-09-30
 610383,ninth_on_track,2024-25,83.0,value,pct,ISBE-RC,2026-09-30
@@ -57865,6 +58228,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610384,grad_4yr,2022-23,88.1,value,pct,ISBE-RC,2026-09-30
 610384,grad_4yr,2023-24,89.3,value,pct,ISBE-RC,2026-09-30
 610384,grad_4yr,2024-25,82.6,value,pct,ISBE-RC,2026-09-30
+610384,grad_5yr,2022-23,85.0,value,pct,ISBE-RC,2026-09-30
+610384,grad_5yr,2023-24,88.1,value,pct,ISBE-RC,2026-09-30
+610384,grad_5yr,2024-25,90.2,value,pct,ISBE-RC,2026-09-30
 610384,ninth_on_track,2022-23,91.2,value,pct,ISBE-RC,2026-09-30
 610384,ninth_on_track,2023-24,88.5,value,pct,ISBE-RC,2026-09-30
 610384,ninth_on_track,2024-25,80.7,value,pct,ISBE-RC,2026-09-30
@@ -57974,6 +58340,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610385,grad_4yr,2022-23,63.5,value,pct,ISBE-RC,2026-09-30
 610385,grad_4yr,2023-24,66.0,value,pct,ISBE-RC,2026-09-30
 610385,grad_4yr,2024-25,68.6,value,pct,ISBE-RC,2026-09-30
+610385,grad_5yr,2022-23,59.6,value,pct,ISBE-RC,2026-09-30
+610385,grad_5yr,2023-24,77.8,value,pct,ISBE-RC,2026-09-30
+610385,grad_5yr,2024-25,72.5,value,pct,ISBE-RC,2026-09-30
 610385,ninth_on_track,2022-23,80.4,value,pct,ISBE-RC,2026-09-30
 610385,ninth_on_track,2023-24,77.6,value,pct,ISBE-RC,2026-09-30
 610385,ninth_on_track,2024-25,68.4,value,pct,ISBE-RC,2026-09-30
@@ -58136,6 +58505,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610389,grad_4yr,2022-23,59.3,value,pct,ISBE-RC,2026-09-30
 610389,grad_4yr,2023-24,55.4,value,pct,ISBE-RC,2026-09-30
 610389,grad_4yr,2024-25,63.5,value,pct,ISBE-RC,2026-09-30
+610389,grad_5yr,2022-23,58.3,value,pct,ISBE-RC,2026-09-30
+610389,grad_5yr,2023-24,62.5,value,pct,ISBE-RC,2026-09-30
+610389,grad_5yr,2024-25,64.8,value,pct,ISBE-RC,2026-09-30
 610389,ninth_on_track,2022-23,86.0,value,pct,ISBE-RC,2026-09-30
 610389,ninth_on_track,2023-24,82.2,value,pct,ISBE-RC,2026-09-30
 610389,ninth_on_track,2024-25,75.4,value,pct,ISBE-RC,2026-09-30
@@ -58245,6 +58617,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610390,grad_4yr,2022-23,89.1,value,pct,ISBE-RC,2026-09-30
 610390,grad_4yr,2023-24,87.9,value,pct,ISBE-RC,2026-09-30
 610390,grad_4yr,2024-25,97.8,value,pct,ISBE-RC,2026-09-30
+610390,grad_5yr,2022-23,95.3,value,pct,ISBE-RC,2026-09-30
+610390,grad_5yr,2023-24,90.0,value,pct,ISBE-RC,2026-09-30
+610390,grad_5yr,2024-25,89.4,value,pct,ISBE-RC,2026-09-30
 610390,ninth_on_track,2022-23,97.6,value,pct,ISBE-RC,2026-09-30
 610390,ninth_on_track,2023-24,96.9,value,pct,ISBE-RC,2026-09-30
 610390,ninth_on_track,2024-25,97.4,value,pct,ISBE-RC,2026-09-30
@@ -58354,6 +58729,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610391,grad_4yr,2022-23,91.0,value,pct,ISBE-RC,2026-09-30
 610391,grad_4yr,2023-24,96.1,value,pct,ISBE-RC,2026-09-30
 610391,grad_4yr,2024-25,96.0,value,pct,ISBE-RC,2026-09-30
+610391,grad_5yr,2022-23,97.1,value,pct,ISBE-RC,2026-09-30
+610391,grad_5yr,2023-24,91.4,value,pct,ISBE-RC,2026-09-30
+610391,grad_5yr,2024-25,96.1,value,pct,ISBE-RC,2026-09-30
 610391,ninth_on_track,2022-23,99.6,value,pct,ISBE-RC,2026-09-30
 610391,ninth_on_track,2023-24,99.3,value,pct,ISBE-RC,2026-09-30
 610391,ninth_on_track,2024-25,99.0,value,pct,ISBE-RC,2026-09-30
@@ -58477,6 +58855,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610392,grad_4yr,2022-23,83.1,value,pct,ISBE-RC,2026-09-30
 610392,grad_4yr,2023-24,79.2,value,pct,ISBE-RC,2026-09-30
 610392,grad_4yr,2024-25,87.8,value,pct,ISBE-RC,2026-09-30
+610392,grad_5yr,2022-23,86.8,value,pct,ISBE-RC,2026-09-30
+610392,grad_5yr,2023-24,86.3,value,pct,ISBE-RC,2026-09-30
+610392,grad_5yr,2024-25,81.7,value,pct,ISBE-RC,2026-09-30
 610392,ninth_on_track,2022-23,69.8,value,pct,ISBE-RC,2026-09-30
 610392,ninth_on_track,2023-24,68.7,value,pct,ISBE-RC,2026-09-30
 610392,ninth_on_track,2024-25,67.0,value,pct,ISBE-RC,2026-09-30
@@ -58586,6 +58967,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610394,grad_4yr,2022-23,70.0,value,pct,ISBE-RC,2026-09-30
 610394,grad_4yr,2023-24,59.1,value,pct,ISBE-RC,2026-09-30
 610394,grad_4yr,2024-25,69.0,value,pct,ISBE-RC,2026-09-30
+610394,grad_5yr,2022-23,75.0,value,pct,ISBE-RC,2026-09-30
+610394,grad_5yr,2023-24,75.0,value,pct,ISBE-RC,2026-09-30
+610394,grad_5yr,2024-25,65.0,value,pct,ISBE-RC,2026-09-30
 610394,ninth_on_track,2022-23,58.3,value,pct,ISBE-RC,2026-09-30
 610394,ninth_on_track,2023-24,50.0,value,pct,ISBE-RC,2026-09-30
 610394,ninth_on_track,2024-25,56.6,value,pct,ISBE-RC,2026-09-30
@@ -58794,6 +59178,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610402,grad_4yr,2022-23,97.5,value,pct,ISBE-RC,2026-09-30
 610402,grad_4yr,2023-24,100.0,value,pct,ISBE-RC,2026-09-30
 610402,grad_4yr,2024-25,100.0,value,pct,ISBE-RC,2026-09-30
+610402,grad_5yr,2022-23,100.0,value,pct,ISBE-RC,2026-09-30
+610402,grad_5yr,2023-24,97.5,value,pct,ISBE-RC,2026-09-30
+610402,grad_5yr,2024-25,100.0,value,pct,ISBE-RC,2026-09-30
 610402,postsec_12mo,2022-23,78.9,value,pct,ISBE-RC,2026-09-30
 610402,postsec_12mo,2023-24,88.3,value,pct,ISBE-RC,2026-09-30
 610402,postsec_12mo,2024-25,87.2,value,pct,ISBE-RC,2026-09-30
@@ -58996,6 +59383,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610499,grad_4yr,2022-23,78.7,value,pct,ISBE-RC,2026-09-30
 610499,grad_4yr,2023-24,74.1,value,pct,ISBE-RC,2026-09-30
 610499,grad_4yr,2024-25,78.7,value,pct,ISBE-RC,2026-09-30
+610499,grad_5yr,2022-23,78.6,value,pct,ISBE-RC,2026-09-30
+610499,grad_5yr,2023-24,83.1,value,pct,ISBE-RC,2026-09-30
+610499,grad_5yr,2024-25,83.9,value,pct,ISBE-RC,2026-09-30
 610499,ninth_on_track,2022-23,87.0,value,pct,ISBE-RC,2026-09-30
 610499,ninth_on_track,2023-24,76.2,value,pct,ISBE-RC,2026-09-30
 610499,ninth_on_track,2024-25,84.6,value,pct,ISBE-RC,2026-09-30
@@ -59259,6 +59649,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610513,grad_4yr,2022-23,77.6,value,pct,ISBE-RC,2026-09-30
 610513,grad_4yr,2023-24,86.5,value,pct,ISBE-RC,2026-09-30
 610513,grad_4yr,2024-25,87.5,value,pct,ISBE-RC,2026-09-30
+610513,grad_5yr,2022-23,92.2,value,pct,ISBE-RC,2026-09-30
+610513,grad_5yr,2023-24,81.3,value,pct,ISBE-RC,2026-09-30
+610513,grad_5yr,2024-25,89.2,value,pct,ISBE-RC,2026-09-30
 610513,ninth_on_track,2022-23,76.7,value,pct,ISBE-RC,2026-09-30
 610513,ninth_on_track,2023-24,75.0,value,pct,ISBE-RC,2026-09-30
 610513,ninth_on_track,2024-25,82.9,value,pct,ISBE-RC,2026-09-30
@@ -59459,6 +59852,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610518,grad_4yr,2022-23,54.9,value,pct,ISBE-RC,2026-09-30
 610518,grad_4yr,2023-24,52.0,value,pct,ISBE-RC,2026-09-30
 610518,grad_4yr,2024-25,54.5,value,pct,ISBE-RC,2026-09-30
+610518,grad_5yr,2022-23,62.1,value,pct,ISBE-RC,2026-09-30
+610518,grad_5yr,2023-24,56.9,value,pct,ISBE-RC,2026-09-30
+610518,grad_5yr,2024-25,57.1,value,pct,ISBE-RC,2026-09-30
 610518,ninth_on_track,2022-23,62.0,value,pct,ISBE-RC,2026-09-30
 610518,ninth_on_track,2023-24,77.8,value,pct,ISBE-RC,2026-09-30
 610518,ninth_on_track,2024-25,70.8,value,pct,ISBE-RC,2026-09-30
@@ -59865,6 +60261,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610524,grad_4yr,2022-23,88.9,value,pct,ISBE-RC,2026-09-30
 610524,grad_4yr,2023-24,88.0,value,pct,ISBE-RC,2026-09-30
 610524,grad_4yr,2024-25,91.2,value,pct,ISBE-RC,2026-09-30
+610524,grad_5yr,2022-23,93.3,value,pct,ISBE-RC,2026-09-30
+610524,grad_5yr,2023-24,90.6,value,pct,ISBE-RC,2026-09-30
+610524,grad_5yr,2024-25,91.5,value,pct,ISBE-RC,2026-09-30
 610524,ninth_on_track,2022-23,75.8,value,pct,ISBE-RC,2026-09-30
 610524,ninth_on_track,2023-24,84.7,value,pct,ISBE-RC,2026-09-30
 610524,ninth_on_track,2024-25,87.6,value,pct,ISBE-RC,2026-09-30
@@ -59974,6 +60373,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610529,grad_4yr,2022-23,90.9,value,pct,ISBE-RC,2026-09-30
 610529,grad_4yr,2023-24,92.0,value,pct,ISBE-RC,2026-09-30
 610529,grad_4yr,2024-25,92.1,value,pct,ISBE-RC,2026-09-30
+610529,grad_5yr,2022-23,98.5,value,pct,ISBE-RC,2026-09-30
+610529,grad_5yr,2023-24,91.6,value,pct,ISBE-RC,2026-09-30
+610529,grad_5yr,2024-25,95.7,value,pct,ISBE-RC,2026-09-30
 610529,ninth_on_track,2022-23,99.0,value,pct,ISBE-RC,2026-09-30
 610529,ninth_on_track,2023-24,91.4,value,pct,ISBE-RC,2026-09-30
 610529,ninth_on_track,2024-25,97.1,value,pct,ISBE-RC,2026-09-30
@@ -60762,6 +61164,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610543,grad_4yr,2022-23,88.1,value,pct,ISBE-RC,2026-09-30
 610543,grad_4yr,2023-24,87.6,value,pct,ISBE-RC,2026-09-30
 610543,grad_4yr,2024-25,88.5,value,pct,ISBE-RC,2026-09-30
+610543,grad_5yr,2022-23,88.7,value,pct,ISBE-RC,2026-09-30
+610543,grad_5yr,2023-24,89.1,value,pct,ISBE-RC,2026-09-30
+610543,grad_5yr,2024-25,89.4,value,pct,ISBE-RC,2026-09-30
 610543,ninth_on_track,2022-23,88.3,value,pct,ISBE-RC,2026-09-30
 610543,ninth_on_track,2023-24,87.3,value,pct,ISBE-RC,2026-09-30
 610543,ninth_on_track,2024-25,87.0,value,pct,ISBE-RC,2026-09-30
@@ -60967,6 +61372,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610547,grad_4yr,2022-23,89.0,value,pct,ISBE-RC,2026-09-30
 610547,grad_4yr,2023-24,80.9,value,pct,ISBE-RC,2026-09-30
 610547,grad_4yr,2024-25,90.8,value,pct,ISBE-RC,2026-09-30
+610547,grad_5yr,2022-23,88.5,value,pct,ISBE-RC,2026-09-30
+610547,grad_5yr,2023-24,86.7,value,pct,ISBE-RC,2026-09-30
+610547,grad_5yr,2024-25,83.6,value,pct,ISBE-RC,2026-09-30
 610547,ninth_on_track,2022-23,92.5,value,pct,ISBE-RC,2026-09-30
 610547,ninth_on_track,2023-24,90.6,value,pct,ISBE-RC,2026-09-30
 610547,ninth_on_track,2024-25,91.4,value,pct,ISBE-RC,2026-09-30
@@ -61225,6 +61633,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610558,grad_4yr,2022-23,87.8,value,pct,ISBE-RC,2026-09-30
 610558,grad_4yr,2023-24,87.3,value,pct,ISBE-RC,2026-09-30
 610558,grad_4yr,2024-25,90.9,value,pct,ISBE-RC,2026-09-30
+610558,grad_5yr,2022-23,96.1,value,pct,ISBE-RC,2026-09-30
+610558,grad_5yr,2023-24,89.0,value,pct,ISBE-RC,2026-09-30
+610558,grad_5yr,2024-25,91.3,value,pct,ISBE-RC,2026-09-30
 610558,ninth_on_track,2022-23,82.8,value,pct,ISBE-RC,2026-09-30
 610558,ninth_on_track,2023-24,84.4,value,pct,ISBE-RC,2026-09-30
 610558,ninth_on_track,2024-25,64.5,value,pct,ISBE-RC,2026-09-30
@@ -61415,6 +61826,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610561,grad_4yr,2022-23,92.6,value,pct,ISBE-RC,2026-09-30
 610561,grad_4yr,2023-24,84.7,value,pct,ISBE-RC,2026-09-30
 610561,grad_4yr,2024-25,88.9,value,pct,ISBE-RC,2026-09-30
+610561,grad_5yr,2022-23,89.8,value,pct,ISBE-RC,2026-09-30
+610561,grad_5yr,2023-24,94.4,value,pct,ISBE-RC,2026-09-30
+610561,grad_5yr,2024-25,85.7,value,pct,ISBE-RC,2026-09-30
 610561,ninth_on_track,2022-23,83.3,value,pct,ISBE-RC,2026-09-30
 610561,ninth_on_track,2023-24,74.2,value,pct,ISBE-RC,2026-09-30
 610561,ninth_on_track,2024-25,85.0,value,pct,ISBE-RC,2026-09-30
@@ -61524,6 +61938,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610563,grad_4yr,2022-23,94.1,value,pct,ISBE-RC,2026-09-30
 610563,grad_4yr,2023-24,90.7,value,pct,ISBE-RC,2026-09-30
 610563,grad_4yr,2024-25,88.0,value,pct,ISBE-RC,2026-09-30
+610563,grad_5yr,2022-23,97.3,value,pct,ISBE-RC,2026-09-30
+610563,grad_5yr,2023-24,94.5,value,pct,ISBE-RC,2026-09-30
+610563,grad_5yr,2024-25,92.2,value,pct,ISBE-RC,2026-09-30
 610563,ninth_on_track,2022-23,94.9,value,pct,ISBE-RC,2026-09-30
 610563,ninth_on_track,2023-24,91.5,value,pct,ISBE-RC,2026-09-30
 610563,ninth_on_track,2024-25,92.2,value,pct,ISBE-RC,2026-09-30
@@ -61633,6 +62050,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610564,grad_4yr,2022-23,90.1,value,pct,ISBE-RC,2026-09-30
 610564,grad_4yr,2023-24,95.3,value,pct,ISBE-RC,2026-09-30
 610564,grad_4yr,2024-25,91.5,value,pct,ISBE-RC,2026-09-30
+610564,grad_5yr,2022-23,90.7,value,pct,ISBE-RC,2026-09-30
+610564,grad_5yr,2023-24,91.3,value,pct,ISBE-RC,2026-09-30
+610564,grad_5yr,2024-25,96.1,value,pct,ISBE-RC,2026-09-30
 610564,ninth_on_track,2022-23,95.7,value,pct,ISBE-RC,2026-09-30
 610564,ninth_on_track,2023-24,75.1,value,pct,ISBE-RC,2026-09-30
 610564,ninth_on_track,2024-25,96.1,value,pct,ISBE-RC,2026-09-30
@@ -62233,6 +62653,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610587,grad_4yr,2022-23,83.2,value,pct,ISBE-RC,2026-09-30
 610587,grad_4yr,2023-24,87.0,value,pct,ISBE-RC,2026-09-30
 610587,grad_4yr,2024-25,92.0,value,pct,ISBE-RC,2026-09-30
+610587,grad_5yr,2022-23,88.4,value,pct,ISBE-RC,2026-09-30
+610587,grad_5yr,2023-24,83.3,value,pct,ISBE-RC,2026-09-30
+610587,grad_5yr,2024-25,91.9,value,pct,ISBE-RC,2026-09-30
 610587,ninth_on_track,2022-23,53.7,value,pct,ISBE-RC,2026-09-30
 610587,ninth_on_track,2023-24,70.2,value,pct,ISBE-RC,2026-09-30
 610587,ninth_on_track,2024-25,77.9,value,pct,ISBE-RC,2026-09-30
@@ -62618,6 +63041,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610592,grad_4yr,2022-23,71.7,value,pct,ISBE-RC,2026-09-30
 610592,grad_4yr,2023-24,62.1,value,pct,ISBE-RC,2026-09-30
 610592,grad_4yr,2024-25,62.4,value,pct,ISBE-RC,2026-09-30
+610592,grad_5yr,2022-23,25.0,value,pct,ISBE-RC,2026-09-30
+610592,grad_5yr,2023-24,73.6,value,pct,ISBE-RC,2026-09-30
+610592,grad_5yr,2024-25,66.5,value,pct,ISBE-RC,2026-09-30
 610592,ninth_on_track,2022-23,79.8,value,pct,ISBE-RC,2026-09-30
 610592,ninth_on_track,2023-24,73.4,value,pct,ISBE-RC,2026-09-30
 610592,ninth_on_track,2024-25,69.9,value,pct,ISBE-RC,2026-09-30
@@ -63468,6 +63894,9 @@ school_id,metric,school_year,value,status,unit,source,retrieved
 610607,grad_4yr,2022-23,91.5,value,pct,ISBE-RC,2026-09-30
 610607,grad_4yr,2023-24,90.1,value,pct,ISBE-RC,2026-09-30
 610607,grad_4yr,2024-25,94.5,value,pct,ISBE-RC,2026-09-30
+610607,grad_5yr,2022-23,92.2,value,pct,ISBE-RC,2026-09-30
+610607,grad_5yr,2023-24,93.7,value,pct,ISBE-RC,2026-09-30
+610607,grad_5yr,2024-25,93.4,value,pct,ISBE-RC,2026-09-30
 610607,ninth_on_track,2022-23,93.3,value,pct,ISBE-RC,2026-09-30
 610607,ninth_on_track,2023-24,95.2,value,pct,ISBE-RC,2026-09-30
 610607,ninth_on_track,2024-25,86.0,value,pct,ISBE-RC,2026-09-30

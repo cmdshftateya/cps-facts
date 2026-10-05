@@ -1,0 +1,45 @@
+school_id,name,program,sentence,source_url
+400123,YCCS - SCHOLASTIC ACHIEVEMENT,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400124,YCCS - MCKINLEY,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400125,YCCS - ASPIRA PANTOJA,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400126,YCCS - ASSOCIATION HOUSE,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400128,YCCS - CCA ACADEMY,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400129,YCCS - PROGRESSIVE LEADERSHIP,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400130,YCCS - YOUTH DEVELOPMENT,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400131,YCCS - CAMPOS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400133,YCCS - INNOVATIONS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400135,YCCS - LATINO YOUTH,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400136,YCCS - OLIVE HARVEY,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400139,YCCS - SULLIVAN,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400141,YCCS - TRUMAN,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400143,YCCS - WEST TOWN,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400144,YCCS - WEST,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400145,YCCS - YOUTH CONNECTION,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400147,CHICAGO EXCEL HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400150,YCCS - CHATHAM,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400164,INSTITUTO - JUSTICE HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400173,PATHWAYS - BRIGHTON PARK HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400175,EXCEL SOUTH SHORE HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+400176,EXCEL SOUTHWEST HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+609744,NORTHSIDE LEARNING HS,sped_specialty,,https://www.chalkbeat.org/chicago/2023/9/25/23890046/chicago-public-schools-specialty-programs-students-with-disabilities-job-training/
+609745,SOUTHSIDE HS,sped_transition,,https://www.chalkbeat.org/chicago/2023/9/25/23890046/chicago-public-schools-specialty-programs-students-with-disabilities-job-training/
+609748,YORK HS,detention,"Serves students held at the Cook County Jail. Enrollment changes daily, so counts and rates are not comparable with other schools.",https://news.wttw.com/node/23007
+609750,SIMPSON HS,parenting,,https://simpsonacademy.cps.edu/about/
+609766,VAUGHN HS,sped_specialty,,https://www.chalkbeat.org/chicago/2023/9/25/23890046/chicago-public-schools-specialty-programs-students-with-disabilities-job-training/
+609769,GRAHAM HS,sped_transition,,https://www.chalkbeat.org/chicago/2023/9/25/23890046/chicago-public-schools-specialty-programs-students-with-disabilities-job-training/
+609783,JEFFERSON HS,detention,"Serves students held at the Cook County Juvenile Temporary Detention Center. Enrollment changes daily, so counts and rates are not comparable with other schools.",https://www.cps.edu/about/departments/juvenile-justice-re-entry-program/
+610083,BEARD,sped_specialty,,https://www.beard.cps.edu/overview.html
+610087,BLAIR,sped_specialty,,https://www.chalkbeat.org/chicago/2023/9/25/23890046/chicago-public-schools-specialty-programs-students-with-disabilities-job-training/
+610308,RUDOLPH,sped_specialty,,https://www.rudolph.cps.edu/about.html
+610386,PEACE AND EDUCATION HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610557,PATHWAYS - ASHBURN HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610565,EXCEL ENGLEWOOD HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610568,PATHWAYS - AVONDALE HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610569,OMBUDSMAN - NORTHWEST HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610570,OMBUDSMAN - SOUTH HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610571,OMBUDSMAN - WEST HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610572,SAFE ACHIEVE ES,behavioral_referral,,https://www.cps.edu/schools/profiles/school-overview/safe-achieve-hs
+610573,SAFE ACHIEVE HS,behavioral_referral,,https://www.cps.edu/schools/profiles/school-overview/safe-achieve-hs
+610593,OMBUDSMAN - ROSELAND HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610594,PATHWAYS - HUMBOLDT PARK HS,reengagement,,https://www.chicagoreporter.com/how-chicago-public-schools-joined-and-changed-the-business-of-dropout-recovery/
+610601,SAFE ACHIEVE WEST HS,behavioral_referral,,https://www.cps.edu/schools/profiles/school-overview/safe-achieve-hs

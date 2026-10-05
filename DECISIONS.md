@@ -420,3 +420,39 @@ Skim instead of reading the whole file: `python3 tools/logs.py decisions` (index
 **Decision:** **The header logo is a link to `/`: the city-flag mark (two blue bars, the red six-pointed star) wearing a mortarboard with a brass tassel, beside "CPS Facts" with "Facts" in red.** The bars are only slightly wider than the star and sit close to its center, so its top and bottom points stick out past them. The wordmark is Barlow Condensed Black (the share-image font, served from `site/fonts/`), chosen by the owner over the Helvetica Condensed in `chicago.css`. Hover tilts the star and swings the tassel; a click tosses the cap while the star spins, and the map flies back to the whole city over 0.6 s. The reset restores the landing state: map view (on phones too, where the landing default is the table), default metric, no filters, no search, no school open, filters panel closed. Reader preferences in Settings (comparison set, year policy, map mode, theme) are kept. Reduced-motion turns off all of the animation. Cmd/Ctrl/Shift-click still opens `/` normally. The favicon is unchanged.
 
 **Why:** The flag star ties it to Chicago and the existing favicon; the cap says "schools" without words. Settings are preferences stored across visits, so resetting them on a logo click would be a surprise; everything else is navigation state. The owner asked to reset "the map", so phones land on the map rather than their table default.
+
+## D-034 · Program context: labels first, comparison rules later
+
+- **Date:** 2026-10-02
+- **Status:** Active
+- **Who:** Delegated: owner said "Yes, start with steps 1 and 2" on the proposal for GitHub issue 4; agent chose the scope below.
+- **Tags:** data, display, ui
+- **Where:** `7232628c`, `program_overrides.csv`, `pipeline/program.py`
+
+**Decision:** **Each school may carry a `program` (special-education school, transition program, detention, parenting, short-term placement, dropout recovery, preschool only), with a neutral sentence on its panel, report card and table row.** The list is hand-kept in `program_overrides.csv` with a source URL per school; preschool-only centers come from the CPS "School Type" column. Nothing is removed or recolored yet: medians, color bins and ranks are unchanged (comparison set is a later step). No new marker outline, because D-030 keeps markers plain.
+
+**Why:** Readers were comparing detention and dropout-recovery schools against neighborhood schools with no explanation. Labels fix that without hiding anything (D-009). Groups that need the City Data Portal `classification_description` (selective, application, cluster hosts) wait until `raw/` can be re-fetched.
+
+## D-035 · Default comparison set leaves out special-program schools
+
+- **Date:** 2026-10-02
+- **Status:** Active
+- **Who:** Delegated: owner said "Sure" to Step 3 of the issue 4 proposal and "start"; agent set the rules below.
+- **Tags:** data, display, ui
+- **Where:** `7232628c`, `pipeline/program.py`, [D-034](DECISIONS.md)
+
+**Decision:** **Comparison set becomes "Comparable schools" (default), "All schools" or "District-run only".** Comparable leaves out every school with a `program` (D-034) from color groups, city medians, range bars and subdistrict averages; they stay on the map (dimmed), in the table and in downloads. Selective-exam, application/lottery and special-education-cluster schools stay in every comparison and get a quieter label. A "What the school does" filter selects one group. A comparison set saved in the browser before this change is ignored (`setv` stamp) so returning visitors get the new default. Admission and cluster context come from the Data Portal School Profile fields; unknown classification text raises a warning.
+
+**Why:** Ranking a detention or dropout-recovery school against neighborhood schools misleads readers; "All schools" is one click away, so D-009 (no suppression) holds. Selective and cluster schools are real peers of nearby schools, and dropping 140+ of them would distort comparisons the other way. Supersedes the default stated in REQUIREMENTS.md settings table.
+
+## D-036 · Re-engagement schools: add 5-year graduation, tag the rest not comparable
+
+- **Date:** 2026-10-02
+- **Status:** Active
+- **Who:** Delegated: owner said "Yeah, sure" to an Opus subagent's proposals; agent implemented them.
+- **Tags:** data, display
+- **Where:** `7232628c`, `pipeline/isbe.py`, `pipeline/program.py`
+
+**Decision:** **Every high school shows ISBE's 5-year graduation rate (`grad_5yr`, all three Report Card years) beside the 4-year rate. For `reengagement` schools, the 4-year rate, attendance and chronic absenteeism carry a "not comparable" tag; nothing is hidden.** Exam-classified schools that also have an attendance boundary (plus Carnegie by hand) get a "Selective and neighborhood programs" label. Goode HS is labeled "admission by application" by hand; it gets no program.
+
+**Why:** The 5-year rate is the fitting yardstick for students who arrive behind (YCCS Truman: 34.3% at 4 years, 53.2% at 5), and the tags follow D-009 (publish, label, never suppress). The 5-year cohort is an earlier class than the 4-year one in the same report year; the wording says so, but ISBE has not confirmed the definition in writing.

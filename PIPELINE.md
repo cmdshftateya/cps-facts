@@ -35,7 +35,8 @@ cd site && python3 -m http.server 8000  # then open http://localhost:8000
 Behavior worth knowing:
 - Values come from `m[metric][year]`. "Latest per metric" takes each school's newest year; "Aligned" shows only that year, otherwise "no data for SYxx" (no fallback).
 - Sparklines use only years after a metric's last comparability break (`meta.metrics[].breaks`), so IAR, grade 11 and the 2026-27 low-income/IEP relabel never show a trend across the break. Grade 11 SAT and ACT are merged into one series with a break at 2024-25.
-- Quantile bins, medians and subdistrict averages use the comparison set (all schools, or district-run only).
+- Quantile bins, medians, range bars and subdistrict averages use the comparison set: "Comparable schools" (the default; leaves out every school with a `program`), "All schools", or "District-run only" (also leaves out those). Left-out schools stay on the map dimmed and in the table. The setting is remembered in localStorage with a `setv` stamp, so a comparison set saved before the default changed is ignored.
+- School context (`pipeline/program.py`): `program` comes from the hand-kept `program_overrides.csv` (source URL per school; the build fails without one) plus preschool-only centers from the CPS School Type; `admission` (exam or application) and `sped_cluster` come from the Data Portal School Profile (`classification_description`, `significantlymodifiedmod`). A classification text the module does not know raises the warning `program_unknown_class` so a new CPS category is not silently unlabeled. `admission` is `mixed` when an exam-classified school also has an attendance boundary, plus hand overrides in `ADMISSION_OVERRIDES` (Carnegie mixed; Goode application). `grad_5yr` is read from the same ISBE General sheet as `grad_4yr`. Which programs leave the default comparison set is `comparable: false` in `meta.programs`.
 - Settings persist in the URL hash (`s_*`) and localStorage; the URL wins.
 - Table view: Map/Table toggle in the header (`#v=table` in the URL; on screens under 760px the table is the default). It shares the map's filters, lists the fixed facts plus the current color-by metric, sorts on any column (schools with no value sort last, never as zero), and a row click opens the same profile panel.
 - Grade 11 benchmark-estimate toggle, the enrollment-change diverging palette and the sequential ramp override (`site/sequential.css`; both from `node tools/diverging_palette.mjs`) are built (ACT "ELA" is the ACT ELA score, benchmark 20; ISBE has not confirmed in writing).
@@ -70,6 +71,12 @@ The pipeline itself never runs on Cloudflare or in CI (`raw/` is not in git). Wh
 - Wrangler needs Node 22 or newer. Install it with nvm (`nvm install 22`) and run `. ~/.nvm/nvm.sh && nvm use 22` in a new shell if `node -v` shows an older version.
 - `npx wrangler login` opens a browser to authorize Cloudflare; it must be approved by a person.
 - The first deploy attaches `schools.ateya.org` as a custom domain (DNS and the certificate can take a few minutes). Check status in the Cloudflare dashboard if the site does not load.
+
+**Previewing a branch before it reaches `main`**
+- Workers Builds builds every branch that is not `main` as a Preview (enabled in the Worker's Settings > Builds; the preview command is `npx wrangler preview`). `wrangler.jsonc` must contain a `previews` block (it can be empty); without it `wrangler preview` stops with "missing a `previews` block" and the branch gets no preview. `preview_urls: true` turns on the `workers.dev` preview addresses. Pushing a branch is then the whole step. A push to `main` is still the only thing that deploys production.
+- Each branch gets a stable URL of the form `<branch>-cps-facts.<subdomain>.workers.dev` (slashes in the branch name become dashes). Find it in the Worker's **Previews** section. These URLs carry `X-Robots-Tag: noindex`, so search engines skip them.
+- A custom preview hostname such as `<branch>.preview.schools.ateya.org` fails with `ERR_SSL_VERSION_OR_CIPHER_MISMATCH` until a certificate covers it: the free Universal SSL certificate covers only `ateya.org` and one level below. Use the `workers.dev` URL, or add Advanced Certificate Manager ($10/month) or an uploaded wildcard certificate.
+- A preview is not production: it shares no custom domain, and the data and share pages in it are whatever was committed to the branch.
 
 **What lives where**
 - In git: code, docs, the small curated CSVs (`budget_units.csv`, `budget_unit_funds.csv`, `crosswalk.csv`, `lineage.csv`), `data/` outputs and `site/`.

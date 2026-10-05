@@ -1,6 +1,6 @@
 # Validation report
 
-Generated 2026-10-01T15:11:02Z · roster 2026-27 · **639 schools** · **PASS**
+Generated 2026-10-02T21:53:07Z · roster 2026-27 · **639 schools** · **PASS**
 
 By type: charter 100, contract 16, district 519, options 4 · by grade band: ES 472, HS 144, combo 23
 With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
@@ -23,6 +23,8 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 | pass | Duplicate school IDs (`dup_ids`) |  |  |
 | pass | One RCDTS assigned to more than one school (`dup_rcdts`) |  |  |
 | pass | Schools missing name, type or governance (`missing_fields`) |  |  |
+| pass | Program overrides or program sentences incomplete (unknown school or program, no source URL, no sentence) (`program_context`) |  |  |
+| pass | City Data Portal school classifications this build does not recognize (no admission label shown) (`program_unknown_class`) |  |  |
 | pass | Roster enrollment sum differs from the CPS file's district total (`roster_total`) |  | Roster sum 304,687. |
 | pass | Schools without coordinates (`missing_coords`) |  |  |
 | pass | Schools not in exactly one Board subdistrict (`missing_subdistrict`) |  |  |
@@ -128,7 +130,7 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 - 610601 SAFE ACHIEVE WEST HS (26)
 
 **ISBE '*' values dropped to no-data on metrics a school cannot have** (`star_dropped`, 2)
-- 2083 high-school-only values at schools with no grade 9-12
+- 2150 high-school-only values at schools with no grade 9-12
 - 488 IAR values at schools with no grade 3-8
 
 ## Coverage by metric (schools with a value / suppressed / no data)
@@ -193,6 +195,9 @@ With coordinates 639 · subdistrict 639 · ISBE record 613 · FY27 budget 630
 | grad_4yr | 2022-23 | 142 | 0 | 497 |
 | grad_4yr | 2023-24 | 143 | 1 | 495 |
 | grad_4yr | 2024-25 | 142 | 2 | 495 |
+| grad_5yr | 2022-23 | 142 | 0 | 497 |
+| grad_5yr | 2023-24 | 142 | 1 | 496 |
+| grad_5yr | 2024-25 | 143 | 1 | 495 |
 | ninth_on_track | 2022-23 | 124 | 0 | 515 |
 | ninth_on_track | 2023-24 | 121 | 5 | 513 |
 | ninth_on_track | 2024-25 | 123 | 3 | 513 |

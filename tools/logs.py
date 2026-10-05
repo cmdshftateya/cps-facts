@@ -27,7 +27,7 @@ REPO = pathlib.Path(__file__).resolve().parent.parent
 DECISIONS, WORKLOG, OUTREACH = REPO / "DECISIONS.md", REPO / "WORKLOG.md", REPO / "emails.md"
 
 DEC_HEAD = re.compile(r"^## (D-\d{3}) · (.+)$")
-LOG_HEAD = re.compile(r"^## (.+?) · (.+) · `([0-9a-f]{8})`$")
+LOG_HEAD = re.compile(r"^## (.+?) · (.+) · `([0-9A-Za-z]{8})`$")
 FIELD = re.compile(r"^(?:- )?\*\*([A-Z][A-Za-z ]*):\*\* ?(.*)$")
 DEC_ID = re.compile(r"D-\d{3}")
 
