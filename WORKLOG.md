@@ -21,6 +21,14 @@ Carried forward until closed. Update this list in every entry that opens or clos
 - **Real-phone check of the map UI:** Settings sheet, school panel, report card, long-press on a marker. Only checked in emulated 360–375px viewports. Not checked: actual print output of the report card (print CSS written, preview not available in the browser pane).
 
 ---
+## 2026-10-05 12:00–12:40 · Branch previews on Cloudflare · `7232628c`
+
+**Asked:** "does cloudflare make it so that we can have a preview version? like preview.schools.ateya.org", then to push to the branch so it deploys, then "just go".
+**Done:** Branch previews work through Workers Builds: every non-`main` branch is built with `npx wrangler preview` and gets a `workers.dev` URL. `wrangler.jsonc` now has `"previews": {}` and `"preview_urls": true`; the first preview build failed with "missing a `previews` block" until it was added. PIPELINE.md has a "Previewing a branch" section. Log parser accepts mixed-case 8-character session ids, which fixes the `test_logs` failure that turned CI red on the Latinx entry (`01DZdSP2`).
+**Obstacles:** `<branch>.preview.schools.ateya.org` gave `ERR_SSL_VERSION_OR_CIPHER_MISMATCH`: Universal SSL covers only one subdomain level. Left on the `workers.dev` URL (free); custom-domain previews would need Advanced Certificate Manager ($10/month) or an uploaded wildcard certificate. Not confirmed from here: that the new preview build succeeded, or that the `previews` block is harmless on the production deploy; check the first `main` build log after merging.
+**Decisions:** none new.
+**Commits:** `8672479` Document branch previews · `a10124b` Add previews block · plus the log-parser fix and this entry below.
+
 ## 2026-10-02 21:00–21:45 · Re-engagement measures and context fixes · `7232628c`
 
 **Asked:** "propose solutions using an opus subagent but be brief", then "Yeah, sure" to its four proposals.
