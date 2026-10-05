@@ -62,6 +62,8 @@ Pushing to `main` does two things automatically:
 
 The pipeline itself never runs on Cloudflare or in CI (`raw/` is not in git). When a source or URL changes, edit `sources_catalog.py` as well, so the Data and sources page stays accurate. When the methodology changes, edit `METHODOLOGY.md` (it becomes the Methodology page) and, for the detail behind it, `NOTES.md`.
 
+**Preview a branch without deploying:** `npx wrangler versions upload --preview-alias <branch>` (Node 22) uploads a version that takes no production traffic and serves it at `https://<branch>-cps-facts.bodaateya.workers.dev`. schools.ateya.org changes only on `wrangler deploy` or a push to `main`. Cloudflare's automatic build of pushed non-`main` branches has been failing (logs not yet read), so make previews this way for now.
+
 **If the site does not update, or will not open**
 - Check the Builds tab. Confirm what is live with `npx wrangler versions list` (Node 22), or compare the live `index.html` with `site/index.html` (Cloudflare adds a small script, so sizes differ by about 1 KB). A manual deploy is always possible with `npx wrangler deploy`.
 - "Could not resolve host" for `schools.ateya.org` while `dig @1.1.1.1 schools.ateya.org` returns addresses means a local resolver (often the home router) cached the "no such domain" answer from before the custom domain was attached. The site is fine. Flush the Mac cache (`sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`), set DNS to 1.1.1.1 (`networksetup -setdnsservers Wi-Fi 1.1.1.1 8.8.8.8`; undo with `... empty`), restart the router, or wait. To test the live site regardless: `curl --resolve schools.ateya.org:443:104.21.24.51 https://schools.ateya.org/`.
