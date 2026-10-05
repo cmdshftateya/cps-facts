@@ -122,6 +122,8 @@
   .badge{font-size:10px;color:var(--muted);border:var(--bay) solid var(--rule-firm);padding:0 4px;margin-left:4px;vertical-align:middle;font-family:var(--font-mono);white-space:nowrap}
   .badge.w{color:var(--terra);border-color:var(--terra)}
   .spark{display:block;margin-top:4px}
+  #sparktip{position:fixed;pointer-events:none;background:var(--ink);color:var(--page);padding:5px 8px;font-size:12px;display:none;z-index:20;font-variant-numeric:tabular-nums;grid-template-columns:auto auto;gap:1px 12px}
+  #sparktip .r{text-align:right}#sparktip .now{font-weight:700}
   #panel h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0;padding:14px 14px 6px}
   .flags{margin:8px 0 0;padding:0;list-style:none;font-size:12px;color:var(--terra)}
   .flags li{margin-top:3px}
@@ -274,6 +276,7 @@
   </div>
   <div id="tablev"></div>
   <section id="panel" aria-live="polite"></section>
+  <div id="sparktip" aria-hidden="true"></div>
   <div class="rz" id="rz-a" role="separator" aria-orientation="vertical" aria-label="Resize filters column" tabindex="0"></div>
   <div class="rz" id="rz-p" role="separator" aria-orientation="vertical" aria-label="Resize school profile column" tabindex="0"></div>
 </main>
@@ -417,6 +420,7 @@ function wire(){
   document.addEventListener("click",()=>toggleMenu(false));
   $("card-print").onclick=()=>print();$("card-close").onclick=()=>showCard(false);
   $("cardv").onclick=e=>{if(e.target===$("cardv"))showCard(false)};
+  $("panel").addEventListener("mousemove",sparkTip);$("panel").addEventListener("mouseleave",()=>$("sparktip").style.display="none");$("panel").addEventListener("scroll",()=>$("sparktip").style.display="none");
   document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(st.card){showCard(false);return}if(!$("setmenu").hidden){toggleMenu(false);$("setbtn").focus()}else if(st.sel)select("");hideRes()}});
   addEventListener("hashchange",()=>{readHash();syncControls();render()});
 }
@@ -690,6 +694,17 @@ function showTip(text,ev){
   const x=ev.clientX||b.left,y=ev.clientY||b.top;
   t.style.left=Math.max(4,Math.min(x-r.left+12,r.width-t.offsetWidth-4))+"px";t.style.top=Math.max(4,y-r.top+12)+"px";
 }
+// sparkline hover: the years and values behind the line
+function sparkTip(ev){
+  const e=ev.target.closest&&ev.target.closest(".spark"),t=$("sparktip");
+  if(!e){t.style.display="none";return}
+  const rs=e.dataset.t.split(";");
+  t.innerHTML=rs.map((r,i)=>{const j=r.indexOf(" ");return `<span${i===rs.length-1?' class="now"':""}>${esc(r.slice(0,j))}</span><span class="r${i===rs.length-1?" now":""}">${esc(r.slice(j+1))}</span>`}).join("");
+  t.style.display="grid";
+  const w=t.offsetWidth,h=t.offsetHeight;
+  t.style.left=Math.max(4,Math.min(ev.clientX+12,innerWidth-w-4))+"px";
+  t.style.top=(ev.clientY+12+h>innerHeight?ev.clientY-h-8:ev.clientY+12)+"px";
+}
 function tip(s,ev){showTip(`${s.name} · ${cat()?TYPES[s.type]:cell(s,st.metric)}`,ev)}
 function subTip(id,ev){const v=subVals[id];showTip(`Subdistrict ${id} · ${v?fmt(st.metric,v.v)+` (${v.c} schools)`:"no data"}`,ev)}
 function cell(s,k){const g=get(s,k);if(!g)return "no data";if(g.v==="*")return "suppressed";return fmt(k,g.v)}
@@ -753,10 +768,11 @@ function trendOf(s,k){
   ys=ys.filter(y=>typeof ser[y]==="number");
   return ys.length>=2?ys.map(y=>[y,ser[y]]):null;
 }
-function spark(t,W=96,H=24){
+function spark(t,k,W=96,H=24){
   const vs=t.map(x=>x[1]),lo=Math.min(...vs),hi=Math.max(...vs);
   const pts=vs.map((v,i)=>[2+i*(W-4)/(vs.length-1),hi===lo?H/2:H-3-(v-lo)/(hi-lo)*(H-6)]);
-  return `<svg class="spark" width="${W}" height="${H}" role="img" aria-label="Trend ${sy(t[0][0])} to ${sy(t[t.length-1][0])}"><title>${t.map(x=>sy(x[0])+": "+x[1]).join(", ")}</title><polyline points="${pts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--blue)" stroke-width="1.5"/>${pts.map(q=>`<rect x="${q[0]-2}" y="${q[1]-2}" width="4" height="4" fill="var(--blue)"/>`).join("")}</svg>`;
+  const yv=t.map(x=>sy(x[0])+" "+fmt(k,x[1])).join(";");
+  return `<svg class="spark" width="${W}" height="${H}" role="img" aria-label="Trend: ${esc(t.map(x=>sy(x[0])+" "+fmt(k,x[1])).join(", "))}" data-t="${esc(yv)}"><polyline points="${pts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--blue)" stroke-width="1.5"/>${pts.map(q=>`<rect x="${q[0]-2}" y="${q[1]-2}" width="4" height="4" fill="var(--blue)"/>`).join("")}</svg>`;
 }
 // the measure the map is colored by, so a click answers "what was I looking at?"
 function focus(s){
@@ -798,11 +814,11 @@ function panel(){
       const {k,g}=it;if(g)g.k=k;
       const med=g&&typeof g.v==="number"?median(k):null;
       const grp=ROWGROUP[k];
-      if(grp){(rows[grp]??=[]).push(`<span>${esc(name(it))}${marks(it)}</span><b class="r">${val(g)}</b><span class="m">${med!==null?fmt(k,med):""}</span><span>${(t=>t?spark(t,40,14):"")(trend(k))}</span>`);continue}
+      if(grp){(rows[grp]??=[]).push(`<span>${esc(name(it))}${marks(it)}</span><b class="r">${val(g)}</b><span class="m">${med!==null?fmt(k,med):""}</span><span>${(t=>t?spark(t,k,40,14):"")(trend(k))}</span>`);continue}
       const tr=trend(k);
       cells.push(`<div class="tile"><div class="k">${esc(name(it))}${marks(it)}</div>
         <div class="v${g?"":" none"}">${val(g)}</div>
-        ${med!==null?`<div class="c">City median ${fmt(k,med)}${st.set==="district"?" (district-run)":""}</div>`:""}${tr?spark(tr):""}</div>`);
+        ${med!==null?`<div class="c">City median ${fmt(k,med)}${st.set==="district"?" (district-run)":""}</div>`:""}${tr?spark(tr,k):""}</div>`);
     }
     for(const [grp,rs] of Object.entries(rows))
       cells.push(`<div class="tile wide"><div class="k">${esc(grp)}</div><div class="rows"><span></span><span class="h r">School</span><span class="h r">Median</span><span></span>${rs.join("")}</div></div>`);
