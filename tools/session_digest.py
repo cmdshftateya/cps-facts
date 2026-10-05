@@ -85,7 +85,7 @@ def commits_for(subjects):
 def logged_ids():
     # only entry headings count ("## ... · `id`"); an id mentioned in prose or Open threads is not an entry
     heads = [l for l in WORKLOG.read_text().splitlines() if l.startswith("## ")] if WORKLOG.exists() else []
-    return {i for l in heads for i in re.findall(r"`([0-9a-f]{8})`", l)}
+    return {i for l in heads for i in re.findall(r"`([0-9A-Za-z]{8})`", l)}
 
 
 def row(s, logged):
